@@ -2,7 +2,7 @@ export type User = {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "marchant";
+  role: "admin" | "client" | "distributor" | "accountant";
   businessName?: string;
   address_Pickup_Location?: string;
   phone?: string;

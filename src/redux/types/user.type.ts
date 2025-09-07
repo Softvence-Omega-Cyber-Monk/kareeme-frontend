@@ -1,27 +1,8 @@
-// // src/redux/features/user/userTypes.ts
-// export interface UserProfileData {
-//   id: string;
-//   name: string;
-//   businessName?: string;
-//   address_Pickup_Location?: string;
-//   phone: string;
-//   email: string;
-//   role: string;
-//   createdAt: string;
-// }
-
-// export interface UserProfileResponse {
-//   success: boolean;
-//   message: string;
-//   data: UserProfileData;
-// }
-
-// src/redux/types/user.type.ts
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "marchant"; // Note: Your API has "marchant" (typo?)
+  role: "admin" | "client" | "distributor" | "accountant";
   status: "ACTIVE" | "BLOCKED";
   businessName?: string;
   address_Pickup_Location?: string;
@@ -50,7 +31,7 @@ export interface UserResponse {
 }
 
 export interface ChangeRolePayload {
-  role: "admin" | "marchant";
+  role: "admin" | "client" | "distributor" | "accountant";
 }
 
 export interface ChangeStatusPayload {

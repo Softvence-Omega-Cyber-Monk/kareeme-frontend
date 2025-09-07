@@ -9,7 +9,7 @@ interface DecodedToken {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "marchant";
+  role: "admin" | "client" | "distributor" | "accountant";
   exp: number;
   iat: number;
 }
