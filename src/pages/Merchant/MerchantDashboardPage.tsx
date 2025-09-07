@@ -1,4 +1,4 @@
-import Dashboard from "@/components/MerchantDashboard/Dashboard/Dashboard";
+import Dashboard from "@/components/ClientDashboard/Dashboard/Dashboard";
 
 const MerchantDashboardPage = () => {
   return (

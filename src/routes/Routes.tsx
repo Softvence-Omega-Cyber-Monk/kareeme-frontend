@@ -5,10 +5,10 @@ import Home from "../pages/Home";
 import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import MerchantLayout from "@/Layout/MerchantLayout";
 import MerchantDashboardPage from "@/pages/Merchant/MerchantDashboardPage";
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
+import ClientLayout from "@/Layout/ClientLayout";
 
 const routes = createBrowserRouter([
   {
@@ -32,8 +32,8 @@ const routes = createBrowserRouter([
   },
   /* Merchant Dashboard */
   {
-    path: "/merchant-dashboard",
-    element: <MerchantLayout />,
+    path: "/client-dashboard",
+    element: <ClientLayout />,
     children: [
       { index: true, element: <MerchantDashboardPage /> },
       { path: "dashboard", element: <MerchantDashboardPage /> },
