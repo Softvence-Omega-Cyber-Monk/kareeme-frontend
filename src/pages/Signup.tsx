@@ -89,6 +89,189 @@ const Signup = () => {
 
 export default Signup;
 
+// src/pages/Signup.tsx
+// import { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import { useRegisterMutation } from "@/redux/hooks/authApi";
+// import signupPhoto from "@/assets/photo/signup.png";
+
+// const Signup = () => {
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     businessName: "",
+//     address_Pickup_Location: "",
+//     phone: "",
+//     email: "",
+//     password: "",
+//     confirmPassword: "",
+//   });
+//   const [countryCode, setCountryCode] = useState("+1");
+//   const [register, { isLoading, error }] = useRegisterMutation();
+//   const navigate = useNavigate();
+
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+
+//     if (formData.password !== formData.confirmPassword) {
+//       alert("Passwords don't match");
+//       return;
+//     }
+
+//     try {
+//       const { confirmPassword, ...userData } = formData;
+//       await register({ ...userData, phone: `${countryCode}${userData.phone}` }).unwrap();
+//       navigate("/login");
+//     } catch (err) {
+//       console.error("Registration failed:", err);
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-black text-white">
+//       <div className="max-w-5xl w-full bg-gradient-to-r from-[#021B17] to-[#041C2C] rounded-xl shadow-lg flex overflow-hidden">
+//         {/* Left Side - Image */}
+//         <div className="hidden md:flex w-1/2 bg-[#0a0a0a] items-center justify-center">
+//           <img
+//             src={signupPhoto}
+//             className="h-full w-full object-cover rounded-l-xl"
+//             alt="Sign up"
+//           />
+//         </div>
+
+//         {/* Right Side - Form */}
+//         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
+//           <h2 className="text-2xl md:text-3xl font-bold mb-2">
+//             CREATE YOUR ARTIST ACCOUNT
+//           </h2>
+//           <p className="text-gray-400 mb-6 text-sm">
+//             Start your journey with us! Fill out the details below to get access
+//             to your dashboard, music distribution, and more.
+//           </p>
+
+//           {error && (
+//             <div className="mb-4 p-2 bg-red-900 text-red-100 rounded-md">
+//               {"data" in error ? error.data.message : "Registration failed"}
+//             </div>
+//           )}
+
+//           <form onSubmit={handleSubmit} className="space-y-4">
+//             {/* Full Name */}
+//             <input
+//               type="text"
+//               name="name"
+//               placeholder="Full Name"
+//               value={formData.name}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Business Name */}
+//             <input
+//               type="text"
+//               name="businessName"
+//               placeholder="Business Name"
+//               value={formData.businessName}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Address/Pickup Location */}
+//             <input
+//               type="text"
+//               name="address_Pickup_Location"
+//               placeholder="Address/Pickup Location"
+//               value={formData.address_Pickup_Location}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Phone */}
+//             <div className="flex items-center space-x-2">
+//               <select
+//                 value={countryCode}
+//                 onChange={(e) => setCountryCode(e.target.value)}
+//                 className="px-3 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//               >
+//                 <option value="+1">🇺🇸 +1</option>
+//                 <option value="+44">🇬🇧 +44</option>
+//                 <option value="+880">🇧🇩 +880</option>
+//               </select>
+//               <input
+//                 type="tel"
+//                 name="phone"
+//                 placeholder="Phone Number"
+//                 value={formData.phone}
+//                 onChange={handleChange}
+//                 required
+//                 className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//               />
+//             </div>
+
+//             {/* Email */}
+//             <input
+//               type="email"
+//               name="email"
+//               placeholder="Email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Password */}
+//             <input
+//               type="password"
+//               name="password"
+//               placeholder="Password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Re-type Password */}
+//             <input
+//               type="password"
+//               name="confirmPassword"
+//               placeholder="Re-type Password"
+//               value={formData.confirmPassword}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Register Button */}
+//             <button
+//               type="submit"
+//               disabled={isLoading}
+//               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition disabled:opacity-50"
+//             >
+//               {isLoading ? "Creating Account..." : "Register"}
+//             </button>
+//           </form>
+
+//           {/* Login Redirect */}
+//           <p className="text-sm text-gray-400 mt-4 text-center">
+//             Already have an account?{" "}
+//             <Link to="/login" className="text-blue-400 hover:underline">
+//               Log In
+//             </Link>
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Signup;
+
 // // src/pages/Signup.tsx
 // import { useForm } from "react-hook-form";
 // import { z } from "zod";

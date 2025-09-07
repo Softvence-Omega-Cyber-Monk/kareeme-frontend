@@ -64,6 +64,143 @@ const Login = () => {
 
 export default Login;
 
+// // src/pages/Login.tsx
+// import { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import { useLoginMutation } from "@/redux/hooks/authApi";
+// import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+// import { setCredentials } from "@/redux/features/auth/authSlice";
+// import loginPhoto from "@/assets/photo/signup.png";
+
+// const Login = () => {
+//   const [formData, setFormData] = useState({
+//     email: "",
+//     password: "",
+//   });
+//   const [login, { isLoading, error }] = useLoginMutation();
+//   const dispatch = useAppDispatch();
+//   const navigate = useNavigate();
+//   const { user } = useAppSelector((state) => state.auth);
+
+//   // Redirect if already logged in
+//   React.useEffect(() => {
+//     if (user) {
+//       redirectBasedOnRole(user.role);
+//     }
+//   }, [user]);
+
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     try {
+//       const result = await login(formData).unwrap();
+//       dispatch(setCredentials(result));
+//       redirectBasedOnRole(result.data.user.role);
+//     } catch (err) {
+//       console.error("Login failed:", err);
+//     }
+//   };
+
+//   const redirectBasedOnRole = (role: string) => {
+//     switch (role) {
+//       case "admin":
+//         navigate("/admin/dashboard");
+//         break;
+//       case "client":
+//         navigate("/client/dashboard");
+//         break;
+//       case "distributor":
+//         navigate("/distributor/dashboard");
+//         break;
+//       case "accountant":
+//         navigate("/accountant/dashboard");
+//         break;
+//       default:
+//         navigate("/");
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-black text-white">
+//       <div className="max-w-5xl w-full bg-gradient-to-r from-[#021B17] to-[#041C2C] rounded-xl shadow-lg flex overflow-hidden">
+//         {/* Left Side - Image */}
+//         <div className="hidden md:flex w-1/2 bg-[#0a0a0a] items-center justify-center">
+//           <img
+//             src={loginPhoto}
+//             alt="artist"
+//             className="h-full w-full object-cover rounded-l-xl"
+//           />
+//         </div>
+
+//         {/* Right Side - Form */}
+//         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
+//           <h2 className="text-2xl md:text-3xl font-bold mb-2">
+//             LOG IN YOUR ARTIST ACCOUNT
+//           </h2>
+//           <p className="text-gray-400 mb-6 text-sm">
+//             Start your journey with us! Fill out the details below to get access
+//             to your dashboard, music distribution, and more.
+//           </p>
+
+//           {error && (
+//             <div className="mb-4 p-2 bg-red-900 text-red-100 rounded-md">
+//               {"data" in error ? error.data.message : "Login failed"}
+//             </div>
+//           )}
+
+//           <form onSubmit={handleSubmit} className="space-y-4">
+//             {/* Email */}
+//             <input
+//               type="email"
+//               name="email"
+//               placeholder="Email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Password */}
+//             <input
+//               type="password"
+//               name="password"
+//               placeholder="Password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               required
+//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//             />
+
+//             {/* Login Button */}
+//             <button
+//               type="submit"
+//               disabled={isLoading}
+//               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition disabled:opacity-50"
+//             >
+//               {isLoading ? "Logging in..." : "Login"}
+//             </button>
+//           </form>
+
+//           <p className="text-sm text-[#01D449] mt-4 text-center">
+//             Forget Password
+//           </p>
+//           <p className="text-sm text-gray-400 mt-4 text-center ">
+//             I have no account?
+//             <Link to="/signup" className="text-blue-400 hover:text-sky-800 ml-1">
+//               Register
+//             </Link>
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
 // import { useForm } from "react-hook-form";
 // import { z } from "zod";
 // import { zodResolver } from "@hookform/resolvers/zod";
