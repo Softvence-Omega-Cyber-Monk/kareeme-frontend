@@ -5,10 +5,11 @@ import Home from "../pages/Home";
 import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import MerchantDashboardPage from "@/pages/Merchant/MerchantDashboardPage";
+
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
+import ClientDashboardPage from "@/pages/Client/ClientDashboardPage";
 
 const routes = createBrowserRouter([
   {
@@ -35,8 +36,8 @@ const routes = createBrowserRouter([
     path: "/client-dashboard",
     element: <ClientLayout />,
     children: [
-      { index: true, element: <MerchantDashboardPage /> },
-      { path: "dashboard", element: <MerchantDashboardPage /> },
+      { index: true, element: <ClientDashboardPage /> },
+      { path: "dashboard", element: <ClientDashboardPage /> },
     ],
   },
   /* Admin Dashboard */
