@@ -1,6 +1,6 @@
 import Dashboard from "@/components/ClientDashboard/Dashboard/Dashboard";
 
-const MerchantDashboardPage = () => {
+const ClientDashboardPage = () => {
   return (
     <div className="min-h-screen">
       <Dashboard />
@@ -8,4 +8,4 @@ const MerchantDashboardPage = () => {
   );
 };
 
-export default MerchantDashboardPage;
+export default ClientDashboardPage;

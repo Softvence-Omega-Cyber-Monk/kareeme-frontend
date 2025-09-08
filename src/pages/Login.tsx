@@ -1,11 +1,17 @@
-import loginphoto from "@/assets/photo/signup.png";
+import loginphoto from "@/assets/photo/signup.svg";
+import { useState } from "react";
+
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="max-w-5xl w-full bg-gradient-to-r from-[#021B17] to-[#041C2C] rounded-xl shadow-lg flex overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center  text-white">
+      <div className="max-w-5xl w-full  flex overflow-hidden">
         {/* Left Side - Image */}
-        <div className="hidden md:flex w-1/2 bg-[#0a0a0a] items-center justify-center">
+        <div className="hidden md:flex w-1/2  items-center justify-center">
           <img
             src={loginphoto}
             alt="artist"
@@ -15,7 +21,7 @@ const Login = () => {
 
         {/* Right Side - Form */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans mb-2">
             LOG IN YOUR ARTIST ACCOUNT
           </h2>
           <p className="text-gray-400 mb-6 text-sm">
@@ -25,23 +31,58 @@ const Login = () => {
 
           <form className="space-y-4">
             {/* Email */}
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-            />
+            <div className="flex flex-col mb-4">
+              <label htmlFor="email" className="text-white font-sans mb-2">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
 
             {/* Password */}
-            <input
+            {/* <input
               type="password"
               placeholder="Password"
-              className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-            />
+              className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+            /> */}
 
+            <div className="flex flex-col mb-4">
+              <label htmlFor="password" className="text-white font-sans mb-2">
+                Password
+              </label>
+
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 shadow-sm hover:shadow-md"
+              />
+
+              {/* Show eye only if password is not empty */}
+              {password && (
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible size={22} />
+                  ) : (
+                    <AiOutlineEye size={22} />
+                  )}
+                </button>
+              )}
+            </div>
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer"
             >
               Login
             </button>
@@ -51,8 +92,8 @@ const Login = () => {
             Forget Password
           </p>
           <p className="text-sm text-gray-400 mt-4 text-center ">
-            I have no account?
-            <a href="/signup" className="text-blue-400 hover:text-sky-800 ml-1">
+            Don’t have an account?
+            <a href="/signup" className="text-blue-400 hover:text-sky-300 ml-1">
               Register
             </a>
           </p>

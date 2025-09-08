@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "swiper/css";
 
@@ -8,7 +9,7 @@
   --color-website-color-green: #124e66;
   --color-website-color-lightGreen: #748d92;
 
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --color-primary-orange: #ef6820;
   --color-heading-blue: #194185;
   --color-paragraph-gray: #717680;

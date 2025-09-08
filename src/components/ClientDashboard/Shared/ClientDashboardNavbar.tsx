@@ -2,7 +2,6 @@ import { Menu, Bell, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { FiSearch } from "react-icons/fi";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -28,7 +27,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   console.log("isSidebarOpen", isSidebarOpen);
   return (
     <div
-      className={` bg-white border-b border-foundation-white  
+      className={` bg-white border-b border-foundation-white border-[#212D65]
       `}
     >
       <header
@@ -66,7 +65,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <div className="hidden sm:block w-full sm:w-[451px] mx-auto px-4">
+            {/* <div className="hidden sm:block w-full sm:w-[451px] mx-auto px-4">
               <div className="flex items-center w-full h-12 px-4 gap-3 border border-[#E5E5E5] rounded-full bg-white">
                 <input
                   type="text"
@@ -77,7 +76,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                   <FiSearch size={16} />
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Cart */}
             <Button
