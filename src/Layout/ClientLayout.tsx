@@ -11,32 +11,32 @@ const ClientLayout = () => {
   const { pathname } = useLocation();
 
   const shouldHideNavbar =
-    pathname === "/seller-dashboard/invoice-form" ||
-    pathname === "/seller-dashboard/create-promotion" ||
-    pathname === "/seller-dashboard/inquiries-details";
+    pathname === "/client-dashboard/invoice-form" ||
+    pathname === "/client-dashboard/create-promotion" ||
+    pathname === "/client-dashboard/inquiries-details";
 
   const shouldHideSidebar = () => {
     const hideExact = [
-      "/seller-dashboard/add-product",
-      "/seller-dashboard/all-products",
-      "/seller-dashboard/all-orders",
-      "/seller-dashboard/inquiries-details",
-      "/seller-dashboard/invoice-form",
-      "/seller-dashboard/create-promotion",
+      "/client-dashboard/add-product",
+      "/client-dashboard/all-products",
+      "/client-dashboard/all-orders",
+      "/client-dashboard/inquiries-details",
+      "/client-dashboard/invoice-form",
+      "/client-dashboard/create-promotion",
     ];
 
     const pathnameSegments = pathname.split("/");
 
     const isProductDetails =
-      pathname.startsWith("/seller-dashboard/all-products/") &&
+      pathname.startsWith("/client-dashboard/all-products/") &&
       pathnameSegments.length === 4;
 
     const isOrderDetails =
-      pathname.startsWith("/seller-dashboard/all-orders/") &&
+      pathname.startsWith("/client-dashboard/all-orders/") &&
       pathnameSegments.length === 4;
 
     const isBuyerProfile =
-      pathname.startsWith("/seller-dashboard/all-orders/") &&
+      pathname.startsWith("/client-dashboard/all-orders/") &&
       pathnameSegments.length === 5 &&
       pathname.endsWith("/buyer-profile");
 
@@ -52,19 +52,19 @@ const ClientLayout = () => {
     const pathnameSegments = pathname.split("/");
 
     const isDetailView =
-      (pathname.startsWith("/seller-dashboard/all-products/") &&
+      (pathname.startsWith("/client-dashboard/all-products/") &&
         pathnameSegments.length === 4) ||
-      (pathname.startsWith("/seller-dashboard/all-orders/") &&
+      (pathname.startsWith("/client-dashboard/all-orders/") &&
         pathnameSegments.length === 4) ||
-      (pathname.startsWith("/seller-dashboard/all-orders/") &&
+      (pathname.startsWith("/client-dashboard/all-orders/") &&
         pathnameSegments.length === 5 &&
         pathname.endsWith("/buyer-profile"));
 
-    const isAddProduct = pathname === "/seller-dashboard/add-product";
-    const isAllProduct = pathname === "/seller-dashboard/all-products";
-    const isAllOrder = pathname === "/seller-dashboard/all-orders";
-    const isInquiries = pathname === "/seller-dashboard/inquiries-details";
-    const isInvoice = pathname === "/seller-dashboard/invoice-form";
+    const isAddProduct = pathname === "/client-dashboard/add-product";
+    const isAllProduct = pathname === "/client-dashboard/all-products";
+    const isAllOrder = pathname === "/client-dashboard/all-orders";
+    const isInquiries = pathname === "/client-dashboard/inquiries-details";
+    const isInvoice = pathname === "/client-dashboard/invoice-form";
 
     setIsSidebarOpen(
       isDetailView ||
@@ -81,10 +81,10 @@ const ClientLayout = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-gradient-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
-        <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30 border-r border-gray-200 bg-white">
+        <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">
           <ClientSidebar />
         </div>
       )}
@@ -97,7 +97,7 @@ const ClientLayout = () => {
       >
         {/* Navbar */}
         {!shouldHideNavbar && (
-          <div className="fixed top-0 left-0 right-0 z-20 bg-white border-b border-gray-200">
+          <div className="fixed top-0 left-0 right-0 z-20 bg-white ">
             <ClientDashboardNavbar
               onMobileMenuToggle={handleMobileMenuToggle}
               notificationCount={3}
@@ -111,14 +111,14 @@ const ClientLayout = () => {
           <SheetTrigger asChild>
             <div className="hidden" />
           </SheetTrigger>
-          <SheetContent side="left" className="w-64 p-0">
+          <SheetContent side="left" className="w-64 p-0 bg-[#0E131A]">
             <ClientSidebar onItemClick={() => setIsMobileMenuOpen(false)} />
           </SheetContent>
         </Sheet>
 
         {/* Scrollable Page Content */}
         <main
-          className={`flex-1 overflow-y-auto mt-16 ${
+          className={`flex-1 overflow-y-auto mt-16 text-white ${
             isSidebarOpen ? "pt-4 md:pt-10" : "p-4 md:p-10"
           }`}
         >
