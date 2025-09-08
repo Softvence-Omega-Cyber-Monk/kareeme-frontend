@@ -1,6 +1,13 @@
 import signupphoto from "@/assets/photo/signup.svg";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Signup = () => {
+  const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
+
   return (
     <div className="min-h-screen flex items-center justify-center  text-white">
       <div className="max-w-5xl w-full   flex overflow-hidden">
@@ -80,11 +87,37 @@ const Signup = () => {
                 Password
               </label>
 
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-              />
+              <div className="relative w-full">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 
+                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none 
+                       transition-all duration-300 shadow-sm hover:shadow-md"
+                />
+
+                {/* Show eye only if password is not empty */}
+                {password && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 
+                         hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <AiOutlineEyeInvisible size={22} />
+                    ) : (
+                      <AiOutlineEye size={22} />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Re-type Password */}
@@ -95,11 +128,39 @@ const Signup = () => {
               >
                 Re-type Password
               </label>
-              <input
-                type="password"
-                placeholder="Re-type Password"
-                className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-              />
+              <div className="relative w-full">
+                <input
+                  id="retypePassword"
+                  type={showRetypePassword ? "text" : "password"}
+                  placeholder="Re-enter your password"
+                  value={retypePassword}
+                  onChange={(e) => setRetypePassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 
+                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none 
+                       transition-all duration-300 shadow-sm hover:shadow-md"
+                />
+
+                {/* Show eye only if retype password is not empty */}
+                {retypePassword && (
+                  <button
+                    type="button"
+                    onClick={() => setShowRetypePassword(!showRetypePassword)}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 
+                         hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+                    aria-label={
+                      showRetypePassword
+                        ? "Hide retype password"
+                        : "Show retype password"
+                    }
+                  >
+                    {showRetypePassword ? (
+                      <AiOutlineEyeInvisible size={22} />
+                    ) : (
+                      <AiOutlineEye size={22} />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
             {/* Register Button */}
             <button

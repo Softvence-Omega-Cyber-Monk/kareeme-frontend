@@ -1,7 +1,92 @@
-import { Menu, Bell, ShoppingCart } from "lucide-react";
+// import { Menu } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { Badge } from "@/components/ui/badge";
+
+// import dashboard from "@/assets/icons/dashboard.svg";
+// import notification from "@/assets/icons/notification.svg";
+// import user from "@/assets/icons/user.svg";
+// import logo from "@/assets/icons/logo.svg";
+
+// export interface NavbarProps {
+//   onMobileMenuToggle: () => void;
+//   notificationCount?: number;
+//   userName?: string;
+//   isSidebarOpen: boolean;
+// }
+
+// const ClientDashboardNavbar: React.FC<NavbarProps> = ({
+//   onMobileMenuToggle,
+//   notificationCount = 12,
+//   userName = "Gemini Chachi",
+//   isSidebarOpen,
+// }) => {
+//   return (
+//     <div className="bg-gradient-to-r from-[#0B1E24] via-[#0E1B27] to-[#0F131B] border-b border-[#1E2A3A]">
+//       <header
+//         className={`flex items-center justify-between h-16 px-4 md:px-8 ${
+//           isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
+//         }`}
+//       >
+//         {/* Left Section */}
+//         <div className="flex items-center space-x-4">
+//           {/* Mobile Menu */}
+//           <Button
+//             variant="ghost"
+//             size="icon"
+//             className="lg:hidden text-white"
+//             onClick={onMobileMenuToggle}
+//           >
+//             <Menu className="w-6 h-6" />
+//           </Button>
+
+//           {/* Logo + Dashboard text */}
+//           <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60">
+//             <div className="flex flex-col leading-tight">
+//               <span className="text-xs text-gray-400">Dashboard</span>
+//               <span className="text-sm md:text-base font-medium text-white">
+//                 HELLO, {userName}
+//               </span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Right Section */}
+//         <div className="flex items-center space-x-4">
+//           {/* Dashboard Icon */}
+//           <Button variant="ghost" size="icon" className="relative text-white">
+//             <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
+//           </Button>
+
+//           {/* Notifications */}
+//           <Button variant="ghost" size="icon" className="relative text-white">
+//             <img src={notification} alt="Notifications" className="w-6 h-6" />
+//             {notificationCount > 0 && (
+//               <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
+//                 {notificationCount > 99 ? "99+" : notificationCount}
+//               </Badge>
+//             )}
+//           </Button>
+
+//           {/* User */}
+//           <Button variant="ghost" size="icon" className="text-white">
+//             <img src={user} alt="User" className="w-6 h-6" />
+//           </Button>
+//         </div>
+//       </header>
+//     </div>
+//   );
+// };
+
+// export default ClientDashboardNavbar;
+
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+
+import dashboard from "@/assets/icons/dashboard.svg";
+import notification from "@/assets/icons/notification.svg";
+import user from "@/assets/icons/user.svg";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -17,7 +102,6 @@ export interface NavbarProps {
 const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 20,
-  cartItems = 5,
   userRole = "Seller",
   userName = "Savannah Nguyen",
   userAvatar = "/placeholder-avatar.jpg",
@@ -27,7 +111,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   console.log("isSidebarOpen", isSidebarOpen);
   return (
     <div
-      className={` bg-white border-b border-foundation-white border-[#212D65]
+      className={`bg-gradient-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]  border-b border-foundation-white border-[#212C64]
       `}
     >
       <header
@@ -84,15 +168,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               size="icon"
               className="relative cursor-pointer"
             >
-              <ShoppingCart className="w-6 h-6" />
-              {cartItems > 0 && (
-                <Badge
-                  // variant="destructive"
-                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs p-0"
-                >
-                  {cartItems}
-                </Badge>
-              )}
+              <img src={dashboard} className="text-black" alt="" />
             </Button>
 
             {/* Notifications */}
@@ -101,15 +177,22 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               size="icon"
               className="relative cursor-pointer"
             >
-              <Bell className="w-6 h-6" />
+              <img src={notification} className="w-6 h-6" alt="" />
               {notificationCount > 0 && (
                 <Badge
                   // variant="destructive"
-                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs p-0"
+                  className=" text-black bg-white absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-xs p-0"
                 >
                   {notificationCount > 99 ? "99+" : notificationCount}
                 </Badge>
               )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative cursor-pointer"
+            >
+              <img src={user} className="w-6 h-6" alt="" />
             </Button>
           </div>
         </div>
