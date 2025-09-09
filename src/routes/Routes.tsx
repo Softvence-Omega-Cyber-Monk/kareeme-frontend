@@ -10,6 +10,7 @@ import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
 import ClientDashboardPage from "@/pages/Client/ClientDashboardPage";
+import ClientAnalyticsPage from "@/pages/Client/ClientAnalyticsPage";
 
 const routes = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
+      { path: "analytics", element: <ClientAnalyticsPage /> },
     ],
   },
   /* Admin Dashboard */
