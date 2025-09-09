@@ -1,5 +1,4 @@
 import { FaYoutube } from "react-icons/fa6";
-import Tabs from "../Tabs";
 import {
   Select,
   SelectContent,
@@ -64,7 +63,7 @@ const Youtube = () => {
         </div>
       </div>
 
-      <Tabs />
+   
     </div>
   );
 };
