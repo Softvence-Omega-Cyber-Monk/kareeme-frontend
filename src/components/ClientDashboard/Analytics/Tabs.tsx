@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CommonPart from "../Dashboard/CommonPart";
+import YoutubeSection from "../Dashboard/YoutubeSection";
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -27,7 +27,7 @@ const Tabs = () => {
       <div className="pt-8">
         {activeTab === "Overview" && (
           <div>
-            <CommonPart />
+            <YoutubeSection />
           </div>
         )}
         {activeTab === "Assets" && <div>Assets Content Here</div>}
