@@ -1,6 +1,10 @@
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+import { IoMdSettings } from "react-icons/io";
+import { RiFileList3Fill, RiLogoutBoxRLine } from "react-icons/ri";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +15,7 @@ import {
 import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import user from "@/assets/icons/user.svg";
+import { MdPrivacyTip } from "react-icons/md";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -58,7 +63,11 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {/* Dashboard Icon */}
-          <Button variant="ghost" size="icon" className="relative text-white">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative text-white cursor-pointer"
+          >
             <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
           </Button>
 
@@ -73,20 +82,35 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
           </Button>
 
           {/* User Dropdown */}
+          {/* User Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white">
-                <img src={user} alt="User" className="w-6 h-6" />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white cursor-pointer"
+              >
+                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-[#0F131B] text-white w-48 shadow-lg"
+              className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
             >
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Terms & Conditions</DropdownMenuItem>
-              <DropdownMenuItem>Privacy Policy</DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500">
+              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
+                <IoMdSettings />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex- justify-between cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
+                <RiFileList3Fill />
+                Terms & Conditions
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
+                <MdPrivacyTip />
+                Privacy Policy
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  text-red-500 hover:bg-red-600 hover:text-white transition-colors">
+                <RiLogoutBoxRLine />
                 Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>

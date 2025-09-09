@@ -41,7 +41,7 @@ const renderCustomizedLabel = ({
 
   return (
     <g>
-      <circle cx={x} cy={y} r={16} fill="white" />
+      <circle cx={x} cy={y} r={16} fill="#262E40" opacity={0.9} />
       <text
         x={x}
         y={y}
@@ -49,7 +49,7 @@ const renderCustomizedLabel = ({
         dominantBaseline="middle"
         fontSize={12}
         fontWeight="bold"
-        fill="#333"
+        fill="#FFFFFF"
       >
         {percentText}
       </text>
@@ -72,7 +72,7 @@ export default function EarningsByType() {
           <div className="flex flex-col items-center">
             <div className="relative w-58 h-58">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white rounded-full"></div>
+                <div className="w-24 h-24 bg-[#0B2120] rounded-full"></div>
               </div>
 
               <ChartContainer

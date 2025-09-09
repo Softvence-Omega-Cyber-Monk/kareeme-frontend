@@ -11,6 +11,7 @@ import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
 import ClientDashboardPage from "@/pages/Client/ClientDashboardPage";
 import ClientAnalyticsPage from "@/pages/Client/ClientAnalyticsPage";
+import AnalyticsYoutubePage from "@/pages/Client/AnalyticsYoutubePage";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const routes = createBrowserRouter([
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
+      { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
     ],
   },
   /* Admin Dashboard */

@@ -1,14 +1,11 @@
 import Dashboard from "@/components/ClientDashboard/Dashboard/Dashboard";
+import SpotifySection from "@/components/ClientDashboard/Dashboard/SpotifySection";
 
 const ClientDashboardPage = () => {
   return (
-    <div className="min-h-screen space-y-6">
+    <div className="space-y-6">
       <Dashboard />
-      <Dashboard />
-      <Dashboard />
-      <Dashboard />
-      <Dashboard />
-      <Dashboard />
+      <SpotifySection />
     </div>
   );
 };

@@ -1,9 +1,9 @@
-
+import Tabs from "./Tabs";
 
 const Analytics = () => {
   return (
     <div>
-      <h2>Analytics</h2>
+      <Tabs />
     </div>
   );
 };
