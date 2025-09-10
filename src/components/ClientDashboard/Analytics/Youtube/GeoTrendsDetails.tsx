@@ -9,6 +9,14 @@ import {
 } from "@/components/ui/table";
 
 import camera from "@/assets/icons/flag.svg";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const productData = [
   {
@@ -166,11 +174,96 @@ const productData = [
 export function GeoTrendsDetails() {
   return (
     <div className="bg-[#0C2322] border border-[#313E41] rounded-2xl shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-lg md:text-2xl font-medium text-white">Assets</h1>
-        <button className="text-sm md:text-base text-[#3A5CFF] font-medium cursor-pointer hover:text-blue-500">
-          View All
-        </button>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        {/* Left side - Title */}
+        <h1 className="text-lg md:text-2xl font-medium text-white">
+          Geo Trends
+        </h1>
+
+        {/* Right side - Search + Filters */}
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+          {/* Payment Status Filter */}
+          {/* Payment Status Filter */}
+          <Select>
+            <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-[44px] md:h-[48px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue placeholder="All Assets" className="text-gray-300" />
+            </SelectTrigger>
+
+            <SelectContent className="border-none bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
+              <SelectGroup>
+                <SelectItem
+                  value="all"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  All Assets
+                </SelectItem>
+                <SelectItem
+                  value="PAID"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Paid Assets
+                </SelectItem>
+                <SelectItem
+                  value="PENDING"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Pending Assets
+                </SelectItem>
+                <SelectItem
+                  value="PROCESSING"
+                  className="hover:bg-[#17171A] cursor-pointer"
+                >
+                  Processing Assets
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          {/* Location Time */}
+          <Select>
+            <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-[44px] md:h-[48px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue
+                placeholder="Last 1 Year"
+                className="text-gray-300"
+              />
+            </SelectTrigger>
+
+            <SelectContent className="border-none bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
+              <SelectGroup>
+                <SelectItem
+                  value="last_7_days"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Last 7 Days
+                </SelectItem>
+                <SelectItem
+                  value="last_30_days"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Last 30 Days
+                </SelectItem>
+                <SelectItem
+                  value="last_6_months"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Last 6 Months
+                </SelectItem>
+                <SelectItem
+                  value="last_1_year"
+                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                >
+                  Last 1 Year
+                </SelectItem>
+                <SelectItem
+                  value="this_year"
+                  className="hover:bg-[#17171A] cursor-pointer"
+                >
+                  This Year
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
