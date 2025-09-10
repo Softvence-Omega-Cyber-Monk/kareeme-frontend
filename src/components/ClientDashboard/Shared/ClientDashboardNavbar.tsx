@@ -16,6 +16,7 @@ import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import user from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -97,10 +98,13 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               align="end"
               className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
             >
-              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
-                <IoMdSettings />
-                Settings
-              </DropdownMenuItem>
+              <Link to="/client-dashboard/catalog/settings">
+                <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
+                  <IoMdSettings />
+                  Settings
+                </DropdownMenuItem>
+              </Link>
+
               <DropdownMenuItem className="flex- justify-between cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
                 <RiFileList3Fill />
                 Terms & Conditions

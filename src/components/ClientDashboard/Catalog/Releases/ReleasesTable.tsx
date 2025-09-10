@@ -34,7 +34,7 @@ const ReleasesTable = () => {
           </div>
 
           {/* Filter Button */}
-          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition">
+          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
             <img
               src={fannel}
               alt="Filter Icon"
@@ -44,7 +44,7 @@ const ReleasesTable = () => {
           </button>
 
           {/* Sort Button */}
-          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition">
+          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
             <img
               src={short}
               alt="Sort Icon"
@@ -54,7 +54,7 @@ const ReleasesTable = () => {
           </button>
 
           {/* Export Button */}
-          <button className="bg-[#3A5CFF] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition">
+          <button className="bg-[#3A5CFF] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer">
             <RiDownloadLine className="w-5 h-5 md:w-6 md:h-6" />
             <span className="text-sm md:text-base font-sans">Export</span>
           </button>

@@ -1,8 +1,9 @@
+import SubmitMusic from "./SubmitMusic";
 
 const Submit = () => {
   return (
     <div>
-      <h2>Submit</h2>
+      <SubmitMusic />
     </div>
   );
 };

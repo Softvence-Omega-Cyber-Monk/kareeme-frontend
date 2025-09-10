@@ -1,7 +1,11 @@
+import AlbumGrid from "./AlbumGrid";
+import BackCatalogCard from "./BackCatalogCard";
+
 const BackCatalog = () => {
   return (
     <div>
-      <h2>BackCatalog</h2>
+      <BackCatalogCard />
+      <AlbumGrid />
     </div>
   );
 };
