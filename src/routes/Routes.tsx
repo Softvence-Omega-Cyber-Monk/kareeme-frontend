@@ -12,6 +12,8 @@ import ClientLayout from "@/Layout/ClientLayout";
 import ClientDashboardPage from "@/pages/Client/ClientDashboardPage";
 import ClientAnalyticsPage from "@/pages/Client/ClientAnalyticsPage";
 import AnalyticsYoutubePage from "@/pages/Client/AnalyticsYoutubePage";
+import StatementPage from "@/pages/Client/StatementPage";
+import ProfitLossPage from "@/pages/Client/ProfitLossPage";
 
 const routes = createBrowserRouter([
   {
@@ -41,7 +43,13 @@ const routes = createBrowserRouter([
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
+      /* Analytics*/
       { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
+      /* Accounting */
+      { path: "accounting/statement", element: <StatementPage /> },
+      { path: "accounting/profit-loss", element: <StatementPage /> },
+      /*  Catalog*/
+      { path: "catalog/releases", element: <ProfitLossPage /> },
     ],
   },
   /* Admin Dashboard */

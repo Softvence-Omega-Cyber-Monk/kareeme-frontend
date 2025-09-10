@@ -1,11 +1,9 @@
 import logo from "@/assets/icons/logo.svg"; // Adjust the path to your logo image
 import { Badge } from "@/components/ui/badge";
-import { FaTruck } from "react-icons/fa6";
-import {
-  MdGridView,
-  MdOutlineMessage,
-  MdOutlineRateReview,
-} from "react-icons/md";
+import { MdGridView } from "react-icons/md";
+import { TbChartBar, TbFileDollar } from "react-icons/tb";
+import { FaStream } from "react-icons/fa";
+
 import { RiShareBoxLine } from "react-icons/ri";
 import { ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -27,7 +25,7 @@ export interface SidebarProps {
 const defaultSidebarItems: SidebarItem[] = [
   { icon: MdGridView, label: "Dashboard", href: "/client-dashboard/dashboard" },
   {
-    icon: MdOutlineRateReview,
+    icon: TbChartBar,
     label: "Analytics",
     children: [
       { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
@@ -37,7 +35,7 @@ const defaultSidebarItems: SidebarItem[] = [
     ],
   },
   {
-    icon: FaTruck,
+    icon: TbFileDollar,
     label: "Accounting",
     children: [
       { label: "Statement", href: "/client-dashboard/accounting/statement" },
@@ -48,7 +46,7 @@ const defaultSidebarItems: SidebarItem[] = [
     ],
   },
   {
-    icon: MdOutlineMessage,
+    icon: FaStream,
     label: "Catalog",
     children: [
       { label: "Releases", href: "/client-dashboard/catalog/releases" },

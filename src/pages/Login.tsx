@@ -2,6 +2,7 @@ import loginphoto from "@/assets/photo/signup.svg";
 import { useState } from "react";
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -84,12 +85,14 @@ const Login = () => {
               </div>
             </div>
             {/* Login Button */}
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer"
-            >
-              Login
-            </button>
+            <Link to="/client-dashboard">
+              <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer"
+              >
+                Login
+              </button>
+            </Link>
           </form>
 
           <p className="text-sm text-[#01D449] mt-4 text-center">

@@ -1,5 +1,8 @@
 import { useState } from "react";
-import CommonPart from "../Dashboard/CommonPart";
+import { TopAssetsDetails } from "./Youtube/TopAssetsDetails";
+import { TopClaimsDetails } from "./Youtube/TopClaimsDetails";
+import { GeoTrendsDetails } from "./Youtube/GeoTrendsDetails";
+import OverView from "./OverView";
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -27,11 +30,24 @@ const Tabs = () => {
       <div className="pt-8">
         {activeTab === "Overview" && (
           <div>
-            <CommonPart />
+            <OverView />
           </div>
         )}
-        {activeTab === "Assets" && <div>Assets Content Here</div>}
-        {activeTab === "Claims" && <div>Claims Content Here</div>}
+        {activeTab === "Assets" && (
+          <div>
+            <TopAssetsDetails />
+          </div>
+        )}
+        {activeTab === "Claims" && (
+          <div>
+            <TopClaimsDetails />
+          </div>
+        )}
+        {activeTab === "Geo Trends" && (
+          <div>
+            <GeoTrendsDetails />
+          </div>
+        )}
       </div>
     </div>
   );

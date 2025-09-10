@@ -1,8 +1,9 @@
+import Tabs from "@/components/ClientDashboard/Analytics/Tabs";
 
 const ClientAnalyticsPage = () => {
   return (
     <div>
-      <h1>ClientAnalyticsPage</h1>
+      <Tabs />
     </div>
   );
 };
