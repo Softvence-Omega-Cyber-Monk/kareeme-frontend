@@ -1,8 +1,9 @@
+import ReleasesTable from "./ReleasesTable";
 
 const Releases = () => {
   return (
     <div>
-      <h2>Releases</h2>
+      <ReleasesTable />
     </div>
   );
 };

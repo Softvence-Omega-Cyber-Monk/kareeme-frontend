@@ -5,7 +5,12 @@ const Statement = () => {
   return (
     <div className="space-y-9">
       <MiniComponent />
-      <StatementTable />
+
+      <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
+        <div className="xl:col-span-4 w-full">
+          <StatementTable />
+        </div>
+      </div>
     </div>
   );
 };
