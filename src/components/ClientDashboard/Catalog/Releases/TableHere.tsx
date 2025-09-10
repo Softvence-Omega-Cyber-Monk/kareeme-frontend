@@ -108,8 +108,11 @@ const TableHere = () => {
   const navigate = useNavigate();
 
   const goToDetails = (id: string) => {
-    navigate(`/statement/${id}`);
+    navigate(`/client-dashboard/catalog/releases/${id}`);
   };
+  // const goToDetails = (id: string) => {
+  //   navigate(`/statement/${id}`);
+  // };
 
   return (
     <div className="overflow-x-auto">
