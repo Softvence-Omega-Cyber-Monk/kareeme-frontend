@@ -18,6 +18,7 @@ import ReleasesPage from "@/pages/Client/ReleasesPage";
 import SubmitPage from "@/pages/Client/SubmitPage";
 import BackCatalogPage from "@/pages/Client/BackCatalogPage";
 import ReleasesDetails from "@/components/ClientDashboard/Catalog/Releases/ReleasesDetails";
+import SettingsPage from "@/pages/Client/SettingsPage";
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,8 @@ const routes = createBrowserRouter([
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
       { path: "catalog/submit", element: <SubmitPage /> },
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
+      /* profile */
+      { path: "catalog/settings", element: <SettingsPage/> },
     ],
   },
   /* Admin Dashboard */

@@ -197,11 +197,14 @@ export function TopAssetsDetails() {
 
           {/* Payment Status Filter */}
           <Select>
-            <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-[44px] md:h-[48px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
-              <SelectValue placeholder="All Assets" className="text-gray-300" />
+            <SelectTrigger className="w-full  sm:w-[200px] md:w-[240px] md:h-[48px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue
+                placeholder="All Assets"
+                className="text-gray-300 "
+              />
             </SelectTrigger>
 
-            <SelectContent className="border-none bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
+            <SelectContent className="border-none   bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
               <SelectGroup>
                 <SelectItem
                   value="all"

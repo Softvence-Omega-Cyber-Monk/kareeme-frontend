@@ -3,7 +3,6 @@ import { Copy, ArrowLeft } from "lucide-react";
 import realesphoto from "@/assets/photo/realesphoto.png";
 
 export default function ReleasesDetails() {
-  
   const [copied, setCopied] = useState<"upc" | "isrc" | null>(null);
 
   const handleCopy = (text: string, type: "upc" | "isrc") => {
@@ -13,10 +12,10 @@ export default function ReleasesDetails() {
   };
 
   return (
-    <div className="min-h-screen  text-white flex flex-col items-center px-6 py-10">
+    <div className="text-white flex flex-col items-center px-6 py-10">
       {/* Back */}
-      <div className="w-full max-w-5xl">
-        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition">
+      <div className="w-full ">
+        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer">
           <ArrowLeft size={18} />
           <span>Back To Releases</span>
         </button>
