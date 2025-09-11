@@ -28,6 +28,7 @@ import DistributorLayout from "@/Layout/DistributorLayout";
 import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPage";
 import AccountantLayout from "@/Layout/AccountantLayout";
 import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
+import DistributorSubmissions from "@/pages/Distributor/DistributorSubmissions";
 
 const routes = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
+      { path: "submissions", element: <DistributorSubmissions /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
     ],
   },

@@ -23,7 +23,8 @@ export interface SidebarProps {
 }
 
 const defaultSidebarItems: SidebarItem[] = [
-  { icon: MdGridView, label: "Dashboard", href: "/client-dashboard/dashboard" },
+  { icon: MdGridView, label: "Dashboard", href: "/diostributor-dashboard/dashboard" },
+  { icon: MdGridView, label: "Submissions", href: "/diostributor-dashboard/submissions" },
   {
     icon: TbChartBar,
     label: "Analytics",
