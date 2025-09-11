@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
-import AdminRoute from "./AdminRoutes";
+// import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 
@@ -23,6 +23,11 @@ import SplitSheetsPage from "@/pages/Client/SplitSheetsPage";
 import SpotifyPage from "@/pages/Client/SpotifyPage";
 import AppleMusicPage from "@/pages/Client/AppleMusicPage";
 import SoundCloudPage from "@/pages/Client/SoundCloudPage";
+import StapeComponent from "@/components/ClientDashboard/Catalog/Submit/StapeComponent";
+import DistributorLayout from "@/Layout/DistributorLayout";
+import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPage";
+import AccountantLayout from "@/Layout/AccountantLayout";
+import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
 
 const routes = createBrowserRouter([
   {
@@ -44,7 +49,8 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  /* Merchant Dashboard */
+
+  /* Client Dashboard */
   {
     path: "/client-dashboard",
     element: <ClientLayout />,
@@ -64,51 +70,50 @@ const routes = createBrowserRouter([
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
       { path: "catalog/submit", element: <SubmitPage /> },
+      { path: "catalog/submit/form", element: <StapeComponent /> },
+
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
     ],
   },
+
+  /* Diostributor Dashboard */
+  {
+    path: "/diostributor-dashboard",
+    element: <DistributorLayout />,
+    children: [
+      { index: true, element: <DistributorDashboardPage /> },
+      { path: "dashboard", element: <DistributorDashboardPage /> },
+      { path: "analytics", element: <ClientAnalyticsPage /> },
+    ],
+  },
+
+  /* Accountant Dashboard */
+  {
+    path: "/accountant-dashboard",
+    element: <AccountantLayout />,
+    children: [
+      { index: true, element: <AccountantDashboardPage /> },
+      { path: "dashboard", element: <AccountantDashboardPage /> },
+    ],
+  },
+
   /* Admin Dashboard */
   {
     path: "/admin-dashboard",
     element: (
-      <AdminRoute>
-        <AdminLayout />
-      </AdminRoute>
+      // <AdminRoute>
+      <AdminLayout />
+      // </AdminRoute>
     ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
       { path: "dashboard", element: <AdminDashboardPage /> },
     ],
   },
-  /* Distributor Dashboard */
-  {
-    path: "/admin-dashboard",
-    element: (
-      <AdminRoute>
-        <AdminLayout />
-      </AdminRoute>
-    ),
-    children: [
-      { index: true, element: <AdminDashboardPage /> },
-      { path: "dashboard", element: <AdminDashboardPage /> },
-    ],
-  },
-  /* Accountant Dashboard */
-  {
-    path: "/admin-dashboard",
-    element: (
-      <AdminRoute>
-        <AdminLayout />
-      </AdminRoute>
-    ),
-    children: [
-      { index: true, element: <AdminDashboardPage /> },
-      { path: "dashboard", element: <AdminDashboardPage /> },
-    ],
-  },
+
   {
     path: "*",
     element: <NotFound />,

@@ -1,6 +1,7 @@
 import { Music } from "lucide-react";
 import music from "@/assets/photo/music.png";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function SubmitMusic() {
   return (
@@ -39,10 +40,11 @@ export default function SubmitMusic() {
               <span>Review and submit!</span>
             </li>
           </ul>
-
-          <button className="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center gap-2 shadow-lg transition cursor-pointer">
-            Submit Your Music <FaAngleDoubleRight size={18} />
-          </button>
+          <Link to="/client-dashboard/catalog/submit/form">
+            <button className="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center gap-2 shadow-lg transition cursor-pointer">
+              Submit Your Music <FaAngleDoubleRight size={18} />
+            </button>
+          </Link>
         </div>
 
         {/* Right Side - Image */}

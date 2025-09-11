@@ -25,7 +25,7 @@ export interface NavbarProps {
   isSidebarOpen: boolean;
 }
 
-const AdminDashboardNavBar: React.FC<NavbarProps> = ({
+const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
   userName = "Gemini Chachi",
@@ -125,4 +125,4 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
   );
 };
 
-export default AdminDashboardNavBar;
+export default DistributorDashboardNavbar;
