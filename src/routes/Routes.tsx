@@ -19,6 +19,10 @@ import SubmitPage from "@/pages/Client/SubmitPage";
 import BackCatalogPage from "@/pages/Client/BackCatalogPage";
 import ReleasesDetails from "@/components/ClientDashboard/Catalog/Releases/ReleasesDetails";
 import SettingsPage from "@/pages/Client/SettingsPage";
+import SplitSheetsPage from "@/pages/Client/SplitSheetsPage";
+import SpotifyPage from "@/pages/Client/SpotifyPage";
+import AppleMusicPage from "@/pages/Client/AppleMusicPage";
+import SoundCloudPage from "@/pages/Client/SoundCloudPage";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +54,9 @@ const routes = createBrowserRouter([
       { path: "analytics", element: <ClientAnalyticsPage /> },
       /* Analytics*/
       { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
+      { path: "analytics/spotify", element: <SpotifyPage /> },
+      { path: "analytics/apple-music", element: <AppleMusicPage /> },
+      { path: "analytics/soundcloud", element: <SoundCloudPage /> },
       /* Accounting */
       { path: "accounting/statement", element: <StatementPage /> },
       { path: "accounting/profit-loss", element: <ProfitLossPage /> },
@@ -58,8 +65,9 @@ const routes = createBrowserRouter([
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
       { path: "catalog/submit", element: <SubmitPage /> },
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
+      { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       /* profile */
-      { path: "catalog/settings", element: <SettingsPage/> },
+      { path: "catalog/settings", element: <SettingsPage /> },
     ],
   },
   /* Admin Dashboard */

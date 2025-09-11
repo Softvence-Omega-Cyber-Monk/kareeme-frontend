@@ -1,7 +1,9 @@
+import SplitSheetGrid from "./SplitSheetGrid";
+
 const SplitSheets = () => {
   return (
     <div>
-      <h2>SplitSheets</h2>
+      <SplitSheetGrid />
     </div>
   );
 };

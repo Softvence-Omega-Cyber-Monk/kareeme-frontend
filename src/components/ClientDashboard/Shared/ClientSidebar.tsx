@@ -104,7 +104,7 @@ const ClientSidebar: React.FC<SidebarProps> = ({
                   <Link
                     to={item.href}
                     onClick={onItemClick}
-                    className={`flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out ${
+                    className={`flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out  ${
                       isActive
                         ? "text-[#3A5CFF] bg-[#1C1D28] rounded-xl shadow-md"
                         : "text-white hover:text-[#3A5CFF] hover:bg-[#1C1D28]/80 hover:rounded-xl hover:shadow-md"

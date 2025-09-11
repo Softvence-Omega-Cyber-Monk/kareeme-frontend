@@ -12,7 +12,7 @@ export default function ReleasesDetails() {
   };
 
   return (
-    <div className="text-white flex flex-col items-center px-6 py-10">
+    <div className="text-white flex flex-col items-center  ">
       {/* Back */}
       <div className="w-full ">
         <button className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer">

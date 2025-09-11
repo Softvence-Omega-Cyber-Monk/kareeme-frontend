@@ -165,12 +165,9 @@ const productData = [
 
 export function TopClaimsDetails() {
   return (
-    <div className="bg-[#0C2322] border border-[#313E41] rounded-2xl shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
+    <div className=" p-4 md:p-6 space-y-4 md:space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-lg md:text-2xl font-medium text-white">Assets</h1>
-        <button className="text-sm md:text-base text-[#3A5CFF] font-medium cursor-pointer hover:text-blue-500">
-          View All
-        </button>
       </div>
 
       <div className="overflow-x-auto">

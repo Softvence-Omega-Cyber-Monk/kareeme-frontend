@@ -1,5 +1,6 @@
-import { Music, ArrowRight } from "lucide-react";
+import { Music } from "lucide-react";
 import music from "@/assets/photo/music.png";
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 export default function SubmitMusic() {
   return (
@@ -40,7 +41,7 @@ export default function SubmitMusic() {
           </ul>
 
           <button className="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center gap-2 shadow-lg transition cursor-pointer">
-            Submit Your Music <ArrowRight size={18} />
+            Submit Your Music <FaAngleDoubleRight size={18} />
           </button>
         </div>
 

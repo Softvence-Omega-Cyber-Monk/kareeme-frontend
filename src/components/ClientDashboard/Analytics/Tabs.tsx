@@ -34,8 +34,10 @@ const Tabs = () => {
           </div>
         )}
         {activeTab === "Assets" && (
-          <div>
-            <TopAssetsDetails />
+          <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
+            <div className="xl:col-span-4 w-full">
+              <TopAssetsDetails />
+            </div>
           </div>
         )}
         {activeTab === "Claims" && (
