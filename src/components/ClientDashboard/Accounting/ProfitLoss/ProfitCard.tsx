@@ -12,7 +12,7 @@ const ProfitCard = () => {
     { title: "Total Income", amount: "$1,061.16" },
     { title: "Total Expenses", amount: "$27,183.94" },
     { title: "Net Profit / Loss", amount: "$-26,122.78" },
-    { title: "Neat Earning", amount: "$643,250" },
+  
   ];
 
   const getAmountColor = (item: (typeof statusData)[0]) => {
@@ -46,28 +46,43 @@ const ProfitCard = () => {
 
         {/* Year Selector */}
         <Select>
-          <SelectTrigger className="w-[180px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer">
+          <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
             <SelectValue placeholder="2024" className="text-gray-300" />
           </SelectTrigger>
 
-          <SelectContent className="border-none bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
+          <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>
-              {["2025", "2026", "2027"].map((year) => (
-                <SelectItem
-                  key={year}
-                  value={year}
-                  className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
-                >
-                  {year}
-                </SelectItem>
-              ))}
+              <SelectItem
+                value="last_7_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
+              >
+                2025
+              </SelectItem>
+              <SelectItem
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
+              >
+                2026
+              </SelectItem>
+              <SelectItem
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
+              >
+                2027
+              </SelectItem>
+              <SelectItem
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
+              >
+                2028
+              </SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-5">
         {statusData.map((item) => (
           <div
             key={item.title}

@@ -66,7 +66,7 @@ const albumData = [
 
 const AlbumGrid = () => {
   return (
-    <div className="p-6  min-h-screen">
+    <div className="  min-h-screen">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {albumData.map((album, index) => (
           <AlbumCard key={index} {...album} />

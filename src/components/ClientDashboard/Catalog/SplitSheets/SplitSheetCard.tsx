@@ -11,7 +11,7 @@ type AlbumCardProps = {
   imageUrl: string;
 };
 
-const AlbumCard: React.FC<AlbumCardProps> = ({
+const SplitSheetCard: React.FC<AlbumCardProps> = ({
   title,
   artist,
   label,
@@ -40,11 +40,8 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
           </div>
         </div>
         <div className="mt-4 flex gap-2">
-          <button className="flex-1 py-2 bg-gray-700 text-white rounded-[15px] hover:bg-gray-600 transition cursor-pointer">
-            Edit
-          </button>
           <button className="flex-1 py-2 bg-blue-600 text-white rounded-[15px] hover:bg-blue-500 transition cursor-pointer">
-            View Details
+            View Split Sheet
           </button>
         </div>
       </div>
@@ -52,4 +49,4 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   );
 };
 
-export default AlbumCard;
+export default SplitSheetCard;

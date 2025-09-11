@@ -1,10 +1,10 @@
-import AdminDashboardNavBar from "@/components/AdminDashboard/Shared/AdminDashboardNavBar";
-import AdminSidebar from "@/components/AdminDashboard/Shared/AdminSidebar";
+import DiostributorSidebar from "@/components/DistributorDashboard/DiostributorSidebar";
+import DistributorDashboardNavbar from "@/components/DistributorDashboard/DistributorDashboardNavbar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-const AdminLayout = () => {
+const AccountantLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -85,7 +85,7 @@ const AdminLayout = () => {
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
         <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">
-          <AdminSidebar />
+          <DiostributorSidebar />
         </div>
       )}
 
@@ -98,7 +98,7 @@ const AdminLayout = () => {
         {/* Navbar */}
         {!shouldHideNavbar && (
           <div className="fixed top-0 left-0 right-0 z-20 bg-white ">
-            <AdminDashboardNavBar
+            <DistributorDashboardNavbar
               onMobileMenuToggle={handleMobileMenuToggle}
               notificationCount={3}
               isSidebarOpen={isSidebarOpen}
@@ -112,7 +112,9 @@ const AdminLayout = () => {
             <div className="hidden" />
           </SheetTrigger>
           <SheetContent side="left" className="w-64 p-0 bg-[#0E131A]">
-            <AdminSidebar onItemClick={() => setIsMobileMenuOpen(false)} />
+            <DiostributorSidebar
+              onItemClick={() => setIsMobileMenuOpen(false)}
+            />
           </SheetContent>
         </Sheet>
 
@@ -129,4 +131,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default AccountantLayout;

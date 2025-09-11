@@ -112,29 +112,35 @@ const IncomeExpensesChart = () => {
         </div>
 
         <Select>
-          <SelectTrigger className="text-white w-[180px] rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-gradient-to-l from-[#12121E] to-[#1A1A2B] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer">
+          <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
             <SelectValue placeholder="June 2024" className="text-gray-300" />
           </SelectTrigger>
 
-          <SelectContent className="border-none bg-[#1C1C29] text-white font-sans shadow-lg rounded-lg">
+          <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>
               <SelectItem
-                value="2025"
-                className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                value="last_7_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
               >
-                Jan 2025
+                July 2025
               </SelectItem>
               <SelectItem
-                value="2026"
-                className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
-                Feb 2026
+                Aug 2026
               </SelectItem>
               <SelectItem
-                value="2027"
-                className="hover:bg-[#17171A] cursor-pointer border-b border-[#2C2C3A]"
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
-                March 2027
+                Sep 2027
+              </SelectItem>
+              <SelectItem
+                value="last_30_days"
+                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
+              >
+                Oct 2028
               </SelectItem>
             </SelectGroup>
           </SelectContent>
