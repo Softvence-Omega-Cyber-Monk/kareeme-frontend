@@ -28,6 +28,8 @@ import DistributorLayout from "@/Layout/DistributorLayout";
 import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPage";
 import AccountantLayout from "@/Layout/AccountantLayout";
 import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
+import DistributorSubmissions from "@/pages/Distributor/DistributorSubmissions";
+import StatementDetailsPage from "@/pages/Client/StatementDetailsPage";
 
 const routes = createBrowserRouter([
   {
@@ -65,6 +67,7 @@ const routes = createBrowserRouter([
       { path: "analytics/soundcloud", element: <SoundCloudPage /> },
       /* Accounting */
       { path: "accounting/statement", element: <StatementPage /> },
+      { path: "accounting/statement/:id", element: <StatementDetailsPage /> },
       { path: "accounting/profit-loss", element: <ProfitLossPage /> },
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
@@ -86,6 +89,7 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
+      { path: "submissions", element: <DistributorSubmissions /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
     ],
   },
