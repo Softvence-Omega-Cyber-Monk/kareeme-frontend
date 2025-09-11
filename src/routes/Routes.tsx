@@ -29,6 +29,7 @@ import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPa
 import AccountantLayout from "@/Layout/AccountantLayout";
 import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
 import DistributorSubmissions from "@/pages/Distributor/DistributorSubmissions";
+import DistributorBackCatalog from "@/pages/Distributor/DistributorBackCatalog";
 
 const routes = createBrowserRouter([
   {
@@ -88,6 +89,7 @@ const routes = createBrowserRouter([
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
       { path: "submissions", element: <DistributorSubmissions /> },
+      { path: "back-catalog", element: <DistributorBackCatalog /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
     ],
   },
