@@ -194,13 +194,13 @@ export function DistributorSubmissionTable() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input
             placeholder="Search"
-            className="pl-10  bg-[#17171A] border-[#E2E8F04D] text-gray-300 placeholder-gray-500 focus:border-blue-500"
+            className="pl-10 h-12  bg-[#17171A] border-[#E2E8F04D] text-gray-300 placeholder-gray-500 focus:border-blue-500"
           />
         </div>
 
         <div className="flex items-center gap-4">
           <div className="relative">
-            <select className="appearance-none bg-[#17171A] border border-[#E2E8F04D] text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
+            <select className="appearance-none h-12 bg-[#17171A] border border-[#E2E8F04D] text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
               <option>All Status</option>
               <option>Pending</option>
               <option>Approved</option>
@@ -210,7 +210,7 @@ export function DistributorSubmissionTable() {
           </div>
 
           <div className="relative">
-            <select className="appearance-none bg-[#17171A] border-[#E2E8F04D] border text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
+            <select className="appearance-none h-12 bg-[#17171A] border-[#E2E8F04D] border text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
               <option>All Type</option>
               <option>Single</option>
               <option>EP</option>
@@ -220,7 +220,7 @@ export function DistributorSubmissionTable() {
           </div>
 
           <div className="relative">
-            <select className="appearance-none border bg-[#17171A] border-[#E2E8F04D]  text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
+            <select className="appearance-none border h-12 bg-[#17171A] border-[#E2E8F04D]  text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
               <option>Sort by Date</option>
               <option>Newest First</option>
               <option>Oldest First</option>
