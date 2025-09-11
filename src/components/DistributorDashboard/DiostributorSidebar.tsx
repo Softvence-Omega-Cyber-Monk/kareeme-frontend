@@ -1,8 +1,8 @@
 import logo from "@/assets/icons/logo.svg"; // Adjust the path to your logo image
 import { Badge } from "@/components/ui/badge";
 import { MdGridView } from "react-icons/md";
-import { TbChartBar, TbFileDollar } from "react-icons/tb";
-import { FaStream } from "react-icons/fa";
+// import { TbChartBar, TbFileDollar } from "react-icons/tb";
+// import { FaStream } from "react-icons/fa";
 
 import { RiShareBoxLine } from "react-icons/ri";
 import { ChevronDown } from "lucide-react";
@@ -25,37 +25,38 @@ export interface SidebarProps {
 const defaultSidebarItems: SidebarItem[] = [
   { icon: MdGridView, label: "Dashboard", href: "/diostributor-dashboard/dashboard" },
   { icon: MdGridView, label: "Submissions", href: "/diostributor-dashboard/submissions" },
-  {
-    icon: TbChartBar,
-    label: "Analytics",
-    children: [
-      { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
-      { label: "Spotify", href: "/client-dashboard/analytics/spotify" },
-      { label: "Apple Music", href: "/client-dashboard/analytics/apple-music" },
-      { label: "SoundCloud", href: "/client-dashboard/analytics/soundcloud" },
-    ],
-  },
-  {
-    icon: TbFileDollar,
-    label: "Accounting",
-    children: [
-      { label: "Statement", href: "/client-dashboard/accounting/statement" },
-      {
-        label: "Profit & Loss",
-        href: "/client-dashboard/accounting/profit-loss",
-      },
-    ],
-  },
-  {
-    icon: FaStream,
-    label: "Catalog",
-    children: [
-      { label: "Releases", href: "/client-dashboard/catalog/releases" },
-      { label: "Submit", href: "/client-dashboard/catalog/submit" },
-      { label: "Back Catalog", href: "/client-dashboard/catalog/back-catalog" },
-      { label: "Split Sheets", href: "/client-dashboard/catalog/split-sheets" },
-    ],
-  },
+  { icon: MdGridView, label: "Back Catalog ", href: "/diostributor-dashboard/back-catalog" },
+  // {
+  //   icon: TbChartBar,
+  //   label: "Analytics",
+  //   children: [
+  //     { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
+  //     { label: "Spotify", href: "/client-dashboard/analytics/spotify" },
+  //     { label: "Apple Music", href: "/client-dashboard/analytics/apple-music" },
+  //     { label: "SoundCloud", href: "/client-dashboard/analytics/soundcloud" },
+  //   ],
+  // },
+  // {
+  //   icon: TbFileDollar,
+  //   label: "Accounting",
+  //   children: [
+  //     { label: "Statement", href: "/client-dashboard/accounting/statement" },
+  //     {
+  //       label: "Profit & Loss",
+  //       href: "/client-dashboard/accounting/profit-loss",
+  //     },
+  //   ],
+  // },
+  // {
+  //   icon: FaStream,
+  //   label: "Catalog",
+  //   children: [
+  //     { label: "Releases", href: "/client-dashboard/catalog/releases" },
+  //     { label: "Submit", href: "/client-dashboard/catalog/submit" },
+  //     { label: "Back Catalog", href: "/client-dashboard/catalog/back-catalog" },
+  //     { label: "Split Sheets", href: "/client-dashboard/catalog/split-sheets" },
+  //   ],
+  // },
 ];
 
 const DiostributorSidebar: React.FC<SidebarProps> = ({
