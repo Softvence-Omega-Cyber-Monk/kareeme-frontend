@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { TopAssetsDetails } from "../../Analytics/Youtube/TopAssetsDetails";
-import { TopClaimsDetails } from "../../Analytics/Youtube/TopClaimsDetails";
-import { GeoTrendsDetails } from "../../Analytics/Youtube/GeoTrendsDetails";
+
 import DetailsRealise from "./DetailsRealise";
 
 const DetailsTab = () => {
-  const [activeTab, setActiveTab] = useState("Overview");
+  const [activeTab, setActiveTab] = useState("Releases");
 
   return (
     <div className="w-full  mx-auto">
@@ -33,21 +31,24 @@ const DetailsTab = () => {
             <DetailsRealise />
           </div>
         )}
+        {activeTab === "Tracks" && (
+          <div>
+            <DetailsRealise />
+          </div>
+        )}
         {activeTab === "Assets" && (
-          <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
-            <div className="xl:col-span-4 w-full">
-              <TopAssetsDetails />
-            </div>
+          <div>
+            <DetailsRealise />
           </div>
         )}
-        {activeTab === "Claims" && (
+        {activeTab === "DSPs" && (
           <div>
-            <TopClaimsDetails />
+            <DetailsRealise />
           </div>
         )}
-        {activeTab === "Geo Trends" && (
+        {activeTab === "Territories" && (
           <div>
-            <GeoTrendsDetails />
+            <DetailsRealise />
           </div>
         )}
       </div>

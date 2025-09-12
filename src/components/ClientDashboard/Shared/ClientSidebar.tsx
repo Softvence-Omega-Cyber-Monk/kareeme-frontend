@@ -31,7 +31,14 @@ const defaultSidebarItems: SidebarItem[] = [
       { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
       { label: "Spotify", href: "/client-dashboard/analytics/spotify" },
       { label: "Apple Music", href: "/client-dashboard/analytics/apple-music" },
-      { label: "SoundCloud", href: "/client-dashboard/analytics/soundcloud" },
+      { label: "SoundCloud", href: "/client-dashboard/analytics/sound-cloud" },
+      { label: "Audiomack", href: "/client-dashboard/analytics/audiomack" },
+      { label: "Deezer", href: "/client-dashboard/analytics/deezer" },
+      { label: "TIDAL", href: "/client-dashboard/analytics/tidal" },
+      {
+        label: "iHeart Radio",
+        href: "/client-dashboard/analytics/iheart-radio",
+      },
     ],
   },
   {

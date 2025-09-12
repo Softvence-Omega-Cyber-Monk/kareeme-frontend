@@ -1,7 +1,9 @@
+import Spotify from "@/components/ClientDashboard/Analytics/Spotify/Spotify";
+
 const SpotifyPage = () => {
   return (
     <div>
-      <h1>SpotifyPage</h1>
+      <Spotify />
     </div>
   );
 };

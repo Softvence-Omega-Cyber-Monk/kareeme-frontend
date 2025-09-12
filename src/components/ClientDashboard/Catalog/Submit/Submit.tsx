@@ -1,12 +1,12 @@
 
-import StepFour from "./StepFour";
+// import StepFour from "./StepFour";
 import SubmitMusic from "./SubmitMusic";
 
 const Submit = () => {
   return (
     <div>
       <SubmitMusic />
-      <StepFour handleChange={() => {}} prevStep={() => {}} />
+      {/* <StepFour handleChange={() => {}} prevStep={() => {}} /> */}
     </div>
   );
 };
