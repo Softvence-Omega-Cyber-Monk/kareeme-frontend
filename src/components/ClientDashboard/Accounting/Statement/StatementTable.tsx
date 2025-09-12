@@ -104,9 +104,12 @@ const getStatusClasses = (status: string) => {
 const StatementTable = () => {
   const navigate = useNavigate();
 
-  const goToDetails = (id: string) => {
-    navigate(`/statement/${id}`); // Navigate to details page
+  const goToDetails = (_id: string) => {
+    navigate(`:id`); // Navigate to details page
   };
+  // const goToDetails = (id: string) => {
+  //   navigate(`/statement/${id}`); // Navigate to details page
+  // };
 
   return (
     <div className="overflow-x-auto">

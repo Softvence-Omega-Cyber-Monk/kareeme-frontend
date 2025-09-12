@@ -1,7 +1,9 @@
+import AppleMusic from "@/components/ClientDashboard/Analytics/AppleMusic/AppleMusic";
+
 const AppleMusicPage = () => {
   return (
     <div>
-      <h1>AppleMusicPage</h1>
+      <AppleMusic />
     </div>
   );
 };

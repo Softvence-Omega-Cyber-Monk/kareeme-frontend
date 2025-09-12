@@ -4,6 +4,7 @@ const AnalyticsYoutubePage = () => {
   return (
     <div>
       <Analytics />
+      
     </div>
   );
 };

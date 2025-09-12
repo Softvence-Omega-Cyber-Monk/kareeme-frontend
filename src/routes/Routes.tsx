@@ -29,7 +29,11 @@ import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPa
 import AccountantLayout from "@/Layout/AccountantLayout";
 import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
 import DistributorSubmissions from "@/pages/Distributor/DistributorSubmissions";
+import StatementDetailsPage from "@/pages/Client/StatementDetailsPage";
 import DistributorBackCatalog from "@/pages/Distributor/DistributorBackCatalog";
+import TIDALPage from "@/pages/Client/TIDALPage";
+import AudiomackPage from "@/pages/Client/AudiomackPage";
+import DeezerPage from "@/pages/Client/DeezerPage";
 
 const routes = createBrowserRouter([
   {
@@ -64,9 +68,14 @@ const routes = createBrowserRouter([
       { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
       { path: "analytics/spotify", element: <SpotifyPage /> },
       { path: "analytics/apple-music", element: <AppleMusicPage /> },
-      { path: "analytics/soundcloud", element: <SoundCloudPage /> },
+      { path: "analytics/sound-cloud", element: <SoundCloudPage /> },
+      { path: "analytics/audiomack", element: <AudiomackPage /> },
+      { path: "analytics/deezer", element: <DeezerPage /> },
+      { path: "analytics/tidal", element: <TIDALPage /> },
+      { path: "analytics/iheart-radio", element: <TIDALPage /> },
       /* Accounting */
       { path: "accounting/statement", element: <StatementPage /> },
+      { path: "accounting/statement/:id", element: <StatementDetailsPage /> },
       { path: "accounting/profit-loss", element: <ProfitLossPage /> },
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },

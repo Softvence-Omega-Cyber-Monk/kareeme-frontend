@@ -1,8 +1,9 @@
+import SoundCloud from "@/components/ClientDashboard/Analytics/SoundCloud/SoundCloud";
 
 const SoundCloudPage = () => {
   return (
     <div>
-      <h1>SoundCloudPage</h1>
+      <SoundCloud />
     </div>
   );
 };
