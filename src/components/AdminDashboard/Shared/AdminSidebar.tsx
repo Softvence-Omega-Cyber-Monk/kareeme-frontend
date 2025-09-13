@@ -1,7 +1,7 @@
 import logo from "@/assets/icons/logo.svg"; // Adjust the path to your logo image
 import { Badge } from "@/components/ui/badge";
 import { MdGridView } from "react-icons/md";
-import { TbChartBar, TbFileDollar } from "react-icons/tb";
+import { TbFileDollar } from "react-icons/tb";
 import { FaStream } from "react-icons/fa";
 
 import { RiShareBoxLine } from "react-icons/ri";
@@ -23,25 +23,16 @@ export interface SidebarProps {
 }
 
 const defaultSidebarItems: SidebarItem[] = [
-  { icon: MdGridView, label: "Dashboard", href: "/client-dashboard/dashboard" },
-  {
-    icon: TbChartBar,
-    label: "Analytics",
-    children: [
-      { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
-      { label: "Spotify", href: "/client-dashboard/analytics/spotify" },
-      { label: "Apple Music", href: "/client-dashboard/analytics/apple-music" },
-      { label: "SoundCloud", href: "/client-dashboard/analytics/soundcloud" },
-    ],
-  },
+  { icon: MdGridView, label: "Dashboard", href: "/admin-dashboard/dashboard" },
+
   {
     icon: TbFileDollar,
     label: "Accounting",
     children: [
-      { label: "Statement", href: "/client-dashboard/accounting/statement" },
+      { label: "Statement", href: "/admin-dashboard/statement" },
       {
         label: "Profit & Loss",
-        href: "/client-dashboard/accounting/profit-loss",
+        href: "/admin-dashboard/profit-loss",
       },
     ],
   },
