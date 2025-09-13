@@ -1,5 +1,7 @@
 // AlbumCard.tsx
+import { Button } from "@/components/ui/button";
 import React from "react";
+import { Link } from "react-router-dom";
 
 type AlbumCardProps = {
   title: string;
@@ -40,12 +42,16 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
           </div>
         </div>
         <div className="mt-4 flex gap-2">
-          <button className="flex-1 py-2 bg-gray-700 text-white rounded-[15px] hover:bg-gray-600 transition cursor-pointer">
-            Edit
-          </button>
-          <button className="flex-1 py-2 bg-blue-600 text-white rounded-[15px] hover:bg-blue-500 transition cursor-pointer">
-            View Details
-          </button>
+          <Link to="/client-dashboard/catalog/back-catalog/edit">
+            <Button className="flex-1 py-2 bg-gray-700 text-white rounded-[15px] hover:bg-gray-600 transition cursor-pointer">
+              Edit
+            </Button>
+          </Link>
+          <Link to="/client-dashboard/catalog/back-catalog/view">
+            <Button className="flex-1 py-2 bg-blue-600 text-white rounded-[15px] hover:bg-blue-500 transition cursor-pointer">
+              View Details
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

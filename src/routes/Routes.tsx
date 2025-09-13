@@ -34,6 +34,10 @@ import DistributorBackCatalog from "@/pages/Distributor/DistributorBackCatalog";
 import TIDALPage from "@/pages/Client/TIDALPage";
 import AudiomackPage from "@/pages/Client/AudiomackPage";
 import DeezerPage from "@/pages/Client/DeezerPage";
+import AdminStatementPage from "@/pages/Admin/AdminStatementPage";
+import AdminProfitLossPage from "@/pages/Admin/AdminProfitLossPage";
+import DataEntryForm from "@/components/ClientDashboard/Catalog/BackCatalog/DataEntryForm";
+import CatalogDetailsData from "@/components/ClientDashboard/Catalog/BackCatalog/CatalogDetailsData";
 
 const routes = createBrowserRouter([
   {
@@ -84,6 +88,8 @@ const routes = createBrowserRouter([
       { path: "catalog/submit/form", element: <StapeComponent /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
+      { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
@@ -124,6 +130,9 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <AdminDashboardPage /> },
       { path: "dashboard", element: <AdminDashboardPage /> },
+      { path: "statement", element: <AdminStatementPage /> },
+      { path: "profit-loss", element: <AdminProfitLossPage /> },
+      { path: "settings", element: <SettingsPage /> },
     ],
   },
 
