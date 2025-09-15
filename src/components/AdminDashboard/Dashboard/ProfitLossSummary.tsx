@@ -7,8 +7,6 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Legend,
-  LabelList,
 } from "recharts";
 import {
   Select,
@@ -18,6 +16,9 @@ import {
   SelectGroup,
   SelectItem,
 } from "@/components/ui/select";
+
+import incomicon from "@/assets/icons/income1.svg";
+import expressicon from "@/assets/icons/express1.svg";
 
 // Sample data
 const data = [
@@ -34,20 +35,32 @@ const formatYAxis = (tick: number) => `${tick / 1000}k`;
 
 const ProfitLossSummary = () => {
   const [_selectedFilter, setSelectedFilter] = useState("Last 6 Months");
+  const [hoveredBar, setHoveredBar] = useState<string | null>(null);
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
-      {/* Header with title and filter */}
+      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h1 className="text-[24px] leading-[130%] text-white">
           Profit & Loss Summary
         </h1>
 
+        <div className="flex gap-6 text-white text-base">
+          <div className="flex items-center gap-2">
+            <img src={incomicon} className="w-6 h-6" alt="Profit" />
+            <p className="text-[#3A5CFF] font-medium">Profit</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <img src={expressicon} className="w-6 h-6" alt="Loss" />
+            <p className="text-[#D31301] font-medium">Loss</p>
+          </div>
+        </div>
+
         {/* Filter Dropdown */}
         <div className="w-full sm:w-[250px] md:w-[221px]">
           <Select
             onValueChange={(value) => setSelectedFilter(value)}
-            defaultValue="Last 6 Months"
+            defaultValue="last_6_months"
           >
             <SelectTrigger className="w-full h-10 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base text-white">
               <SelectValue />
@@ -74,12 +87,6 @@ const ProfitLossSummary = () => {
                   Last 6 Months
                 </SelectItem>
                 <SelectItem
-                  value="Last 6 Months"
-                  className="hover:bg-[#131320] p-2 cursor-pointer border-b border-[#2C2C3A]"
-                >
-                  Last 6 Months
-                </SelectItem>
-                <SelectItem
                   value="this_year"
                   className="hover:bg-[#131320] p-2 cursor-pointer"
                 >
@@ -91,23 +98,28 @@ const ProfitLossSummary = () => {
         </div>
       </div>
 
-      {/* Combined Profit & Loss Chart */}
+      {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
         <BarChart data={data} barGap={20}>
-          {/* Profit Bar */}
-          <Bar dataKey="profit" fill="#3A5CFF" barSize={30}>
-            <LabelList dataKey="profit" position="top" fill="#fff" />
-          </Bar>
-
-          {/* Loss Bar */}
-          <Bar dataKey="loss" fill="#D31301" barSize={30}>
-            <LabelList dataKey="loss" position="top" fill="#fff" />
-          </Bar>
-
+          <Bar
+            dataKey="profit"
+            barSize={30}
+            fill={hoveredBar === "profit" ? "#5A8CFF" : "#3A5CFF"}
+            onMouseEnter={() => setHoveredBar("profit")}
+            onMouseLeave={() => setHoveredBar(null)}
+          />
+          <Bar
+            dataKey="loss"
+            barSize={30}
+            fill={hoveredBar === "loss" ? "#FF4D4D" : "#D31301"}
+            onMouseEnter={() => setHoveredBar("loss")}
+            onMouseLeave={() => setHoveredBar(null)}
+          />
           <CartesianGrid stroke="#2C3E50" strokeDasharray="5 5" />
           <XAxis dataKey="name" stroke="#969696" />
           <YAxis tickFormatter={formatYAxis} stroke="#969696" />
           <Tooltip
+            cursor={{ fill: "rgba(255, 255, 255, 0.1)" }}
             contentStyle={{
               backgroundColor: "#1E293B",
               borderRadius: "8px",
@@ -116,7 +128,7 @@ const ProfitLossSummary = () => {
             labelStyle={{ color: "#fff" }}
             itemStyle={{ color: "#fff" }}
           />
-          <Legend />
+          {/* Legend with only icons, no text */}
         </BarChart>
       </ResponsiveContainer>
     </div>

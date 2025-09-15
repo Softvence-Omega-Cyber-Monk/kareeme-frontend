@@ -19,7 +19,7 @@ const productData = [
     assetsName: "Stand on Dat",
     name: "K Shiday",
     upc: "UPC: 723277809397",
-    type: "Single EP Album",
+    type: "Single",
     releaseDate: "01/01/23",
     amount: "$350.00 USD",
     status: "Live",
@@ -30,7 +30,7 @@ const productData = [
     assetsName: "Handle Me",
     name: "K Shiday",
     upc: "UPC: 823377819398",
-    type: "Single EP Album",
+    type: "Single",
     releaseDate: "02/15/23",
     amount: "$350.00 USD",
     status: "Live",
@@ -41,7 +41,7 @@ const productData = [
     assetsName: "Cater 2 You",
     name: "Auntie House",
     upc: "UPC: 923477829399",
-    type: "Single EP Album",
+    type: "Single",
     releaseDate: "03/12/23",
     amount: "$350.00 USD",
     status: "Live",
@@ -52,7 +52,7 @@ const productData = [
     assetsName: "No Music",
     name: "K Shiday",
     upc: "UPC: 673277809111",
-    type: "Single EP Album",
+    type: "Single",
     releaseDate: "04/20/23",
     amount: "$350.00 USD",
     status: "Live",
@@ -63,7 +63,7 @@ const productData = [
     assetsName: "OOH YEA",
     name: "K Shiday",
     upc: "UPC: 573277809222",
-    type: "Single EP Album",
+    type: "Single",
     releaseDate: "05/09/23",
     amount: "$350.00 USD",
     status: "Live",
@@ -71,7 +71,7 @@ const productData = [
   },
 ];
 
-// UPC Cell Component with Copy Feature
+// UPC Cell Component with Border & Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
   const [copied, setCopied] = useState(false);
 
@@ -86,33 +86,30 @@ const UpcCell = ({ upc }: { upc: string }) => {
   };
 
   return (
-    <div className="flex items-center justify-start gap-2 cursor-pointer">
-      <span className="text-sm md:text-base text-gray-400">{upc}</span>
+    <div className="flex items-center justify-between border border-gray-700 rounded-md px-3 py-1 w-max cursor-pointer">
+      <span className="text-sm md:text-base text-gray-300">{upc}</span>
       <button
         onClick={handleCopy}
-        className="p-1 rounded-md hover:bg-gray-100 transition cursor-pointer"
+        className="p-1 rounded-md hover:bg-gray-800 transition"
         title="Copy UPC"
       >
         {copied ? (
           <FiCheck className="text-green-500 w-4 h-4" />
         ) : (
-          <FiCopy className="text-gray-500 w-4 h-4" />
+          <FiCopy className="text-gray-400 w-4 h-4" />
         )}
       </button>
     </div>
   );
 };
 
-// Main Table
+// Main Table Component
 const TableHere = () => {
   const navigate = useNavigate();
 
   const goToDetails = (id: string) => {
     navigate(`/client-dashboard/catalog/releases/${id}`);
   };
-  // const goToDetails = (id: string) => {
-  //   navigate(`/statement/${id}`);
-  // };
 
   return (
     <div className="overflow-x-auto">
@@ -120,29 +117,27 @@ const TableHere = () => {
         {/* Table Header */}
         <TableHeader>
           <TableRow className="text-[#BDBDBD] text-sm md:text-base">
-            <TableHead className="w-[200px] px-2 md:px-4 py-2">Title</TableHead>
-            <TableHead className="px-2 md:px-4 py-2">UPC</TableHead>
-            <TableHead className="px-2 md:px-4 py-2">Type</TableHead>
-            <TableHead className="px-2 md:px-4 py-2">Release Date</TableHead>
+            <TableHead className="w-[200px] px-4 py-2">Title</TableHead>
+            <TableHead className="px-30 py-2">UPC</TableHead>
+            <TableHead className="px-4 py-2">Type</TableHead>
+            <TableHead className="px-4 py-2">Release Date</TableHead>
             <TableHead className="text-right pr-4 md:pr-8 py-2">
               Payment Amount (USD)
             </TableHead>
-            <TableHead className="text-right pr-4 md:pr-8 py-2">
-              Status
-            </TableHead>
+            <TableHead className="text-right px-4 py-2">Status</TableHead>
           </TableRow>
         </TableHeader>
 
         {/* Table Body */}
         <TableBody className="text-white">
           {productData.map((product) => (
-            <TableRow key={product.id}>
+            <TableRow key={product.id} className="border-b border-gray-800">
               {/* Title & Artist */}
-              <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
+              <TableCell className="px-4 py-3 flex items-center gap-3">
                 <img
                   src={product.image}
                   alt=""
-                  className="h-5 w-5 md:h-7 md:w-7 rounded"
+                  className="h-6 w-6 md:h-8 md:w-8 rounded"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm md:text-base font-medium">
@@ -154,29 +149,26 @@ const TableHere = () => {
                 </div>
               </TableCell>
 
-              {/* UPC with Copy Button */}
-              <TableCell>
+              {/* UPC with Border */}
+              <TableCell className="px-30 py-3">
                 <UpcCell upc={product.upc} />
               </TableCell>
 
               {/* Type */}
-              <TableCell className="text-sm md:text-base text-gray-400">
+              <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
                 {product.type}
               </TableCell>
 
               {/* Release Date */}
-              <TableCell className="text-sm md:text-base text-gray-400">
+              <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
                 {product.releaseDate}
               </TableCell>
-
-              {/* Payment Amount */}
               <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium">
                 {product.amount}
               </TableCell>
-
               {/* Status + Arrow */}
               <TableCell
-                className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium flex items-center justify-end gap-2 cursor-pointer hover:text-blue-500"
+                className="px-4 py-3 text-right text-sm md:text-base font-medium flex items-center justify-end gap-2 cursor-pointer hover:text-blue-500"
                 onClick={() => goToDetails(product.id)}
               >
                 <span className="bg-[#0E261F] text-[#01D449] px-4 py-2 rounded-full text-xs md:text-sm font-medium">
