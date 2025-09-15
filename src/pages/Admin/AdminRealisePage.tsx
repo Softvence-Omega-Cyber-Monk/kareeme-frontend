@@ -2,8 +2,9 @@ import AdminRealise from "@/components/AdminDashboard/Catalog/AdminRealise";
 
 const AdminRealisePage = () => {
   return (
-    <div>
+    <div className=" space-y-8 ">
       <AdminRealise />
+      
     </div>
   );
 };

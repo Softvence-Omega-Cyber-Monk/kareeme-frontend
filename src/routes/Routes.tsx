@@ -39,6 +39,10 @@ import AdminProfitLossPage from "@/pages/Admin/AdminProfitLossPage";
 import DataEntryForm from "@/components/ClientDashboard/Catalog/BackCatalog/DataEntryForm";
 import CatalogDetailsData from "@/components/ClientDashboard/Catalog/BackCatalog/CatalogDetailsData";
 import AdminRealisePage from "@/pages/Admin/AdminRealisePage";
+import AdminBackCatalogPage from "@/pages/Admin/AdminBackCatalogPage";
+import AdminSubmitPage from "@/pages/Admin/AdminSubmitPage";
+import AdminTeamPage from "@/pages/Admin/AdminTeamPage";
+import SubmitDetails from "@/components/AdminDashboard/AdminCatalog/Submit/SubmitDetails";
 
 const routes = createBrowserRouter([
   {
@@ -135,6 +139,11 @@ const routes = createBrowserRouter([
       { path: "profit-loss", element: <AdminProfitLossPage /> },
       /* Catalog */
       { path: "releases", element: <AdminRealisePage /> },
+      { path: "back-catalog", element: <AdminBackCatalogPage /> },
+      { path: "submit", element: <AdminSubmitPage /> },
+      { path: "submit/view", element: <SubmitDetails /> },
+      /* team */
+      { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
     ],
   },
