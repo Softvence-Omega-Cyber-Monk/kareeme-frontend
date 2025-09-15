@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { MdGridView } from "react-icons/md";
 import { TbFileDollar } from "react-icons/tb";
 import { FaStream } from "react-icons/fa";
+import { HiMiniUserGroup } from "react-icons/hi2";
 
 import { RiShareBoxLine } from "react-icons/ri";
 import { ChevronDown } from "lucide-react";
@@ -43,9 +44,9 @@ const defaultSidebarItems: SidebarItem[] = [
       { label: "Releases", href: "/admin-dashboard/releases" },
       { label: "Submit", href: "/admin-dashboard/submit" },
       { label: "Back Catalog", href: "/admin-dashboard/back-catalog" },
-      { label: "Split Sheets", href: "/admin-dashboard/split-sheets" },
     ],
   },
+  { icon: HiMiniUserGroup, label: "Team", href: "/admin-dashboard/team" },
 ];
 
 const AdminSidebar: React.FC<SidebarProps> = ({

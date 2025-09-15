@@ -1,4 +1,4 @@
-import ArtistCard from "./ArtistCard";
+import ArtistCard from "./BackCatalogCard";
 
 const artists = [
   {
@@ -93,7 +93,7 @@ const artists = [
   },
 ];
 
-const ArtistGrid = () => {
+const BackCatalogGrid = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {artists.map((artist, index) => (
@@ -103,4 +103,4 @@ const ArtistGrid = () => {
   );
 };
 
-export default ArtistGrid;
+export default BackCatalogGrid;

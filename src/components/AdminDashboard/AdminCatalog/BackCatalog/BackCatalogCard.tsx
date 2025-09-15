@@ -11,7 +11,7 @@ interface ArtistCardProps {
   dateRange: string;
 }
 
-const ArtistCard = ({
+const BackCatalogCard = ({
   name,
   genre,
   totalRelease,
@@ -61,4 +61,4 @@ const ArtistCard = ({
   </div>
 );
 
-export default ArtistCard;
+export default BackCatalogCard;
