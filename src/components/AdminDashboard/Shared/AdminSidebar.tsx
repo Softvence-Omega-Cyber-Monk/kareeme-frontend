@@ -40,10 +40,10 @@ const defaultSidebarItems: SidebarItem[] = [
     icon: FaStream,
     label: "Catalog",
     children: [
-      { label: "Releases", href: "/client-dashboard/catalog/releases" },
-      { label: "Submit", href: "/client-dashboard/catalog/submit" },
-      { label: "Back Catalog", href: "/client-dashboard/catalog/back-catalog" },
-      { label: "Split Sheets", href: "/client-dashboard/catalog/split-sheets" },
+      { label: "Releases", href: "/admin-dashboard/releases" },
+      { label: "Submit", href: "/admin-dashboard/submit" },
+      { label: "Back Catalog", href: "/admin-dashboard/back-catalog" },
+      { label: "Split Sheets", href: "/admin-dashboard/split-sheets" },
     ],
   },
 ];
@@ -65,7 +65,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
       style={{ boxShadow: "3px 4px 42.3px 0px #0000001A" }}
     >
       {/* Logo */}
-      <Link to="/client-dashboard/dashboard">
+      <Link to="/admin-dashboard/dashboard">
         <div className="flex items-center justify-center p-2 sm:p-3 border-b border-[#212C64] mt-1">
           <img
             src={logo}

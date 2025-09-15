@@ -38,6 +38,7 @@ import AdminStatementPage from "@/pages/Admin/AdminStatementPage";
 import AdminProfitLossPage from "@/pages/Admin/AdminProfitLossPage";
 import DataEntryForm from "@/components/ClientDashboard/Catalog/BackCatalog/DataEntryForm";
 import CatalogDetailsData from "@/components/ClientDashboard/Catalog/BackCatalog/CatalogDetailsData";
+import AdminRealisePage from "@/pages/Admin/AdminRealisePage";
 
 const routes = createBrowserRouter([
   {
@@ -132,6 +133,8 @@ const routes = createBrowserRouter([
       { path: "dashboard", element: <AdminDashboardPage /> },
       { path: "statement", element: <AdminStatementPage /> },
       { path: "profit-loss", element: <AdminProfitLossPage /> },
+      /* Catalog */
+      { path: "releases", element: <AdminRealisePage /> },
       { path: "settings", element: <SettingsPage /> },
     ],
   },
