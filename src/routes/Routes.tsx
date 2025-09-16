@@ -43,6 +43,8 @@ import AdminBackCatalogPage from "@/pages/Admin/AdminBackCatalogPage";
 import AdminSubmitPage from "@/pages/Admin/AdminSubmitPage";
 import AdminTeamPage from "@/pages/Admin/AdminTeamPage";
 import SubmitDetails from "@/components/AdminDashboard/AdminCatalog/Submit/SubmitDetails";
+import ClientsManagementPage from "@/pages/Distributor/ClientsManagementPage";
+import CreateNewClient from "@/components/DistributorDashboard/Client/CreateNewClient";
 
 const routes = createBrowserRouter([
   {
@@ -110,7 +112,8 @@ const routes = createBrowserRouter([
       { path: "dashboard", element: <DistributorDashboardPage /> },
       { path: "submissions", element: <DistributorSubmissions /> },
       { path: "back-catalog", element: <DistributorBackCatalog /> },
-      { path: "analytics", element: <ClientAnalyticsPage /> },
+      { path: "client", element: <ClientsManagementPage /> },
+      { path: "client/create", element: <CreateNewClient /> },
     ],
   },
 
