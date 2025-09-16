@@ -1,7 +1,18 @@
-import { Search, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { IoSearch } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
 
 const submissions = [
   {
@@ -166,67 +177,133 @@ const submissions = [
     status: "Approved",
     avatar: "/placeholder.svg?height=32&width=32",
   },
-]
+];
 
 function StatusBadge({ status }: { status: string }) {
   const getStatusStyles = (status: string) => {
     switch (status) {
       case "Pending":
-        return "bg-orange-500/20 text-orange-400 border-orange-500/30"
+        return "bg-orange-500/20 text-orange-400 border-orange-500/30";
       case "Approved":
-        return "bg-green-500/20 text-green-400 border-green-500/30"
+        return "bg-green-500/20 text-green-400 border-green-500/30";
       case "Declined":
-        return "bg-red-500/20 text-red-400 border-red-500/30"
+        return "bg-red-500/20 text-red-400 border-red-500/30";
       default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30"
+        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
-  }
+  };
 
-  return <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getStatusStyles(status)}`}>{status}</span>
+  return (
+    <span
+      className={`px-2 py-1 rounded-md text-xs font-medium border ${getStatusStyles(
+        status
+      )}`}
+    >
+      {status}
+    </span>
+  );
 }
 
 export function DistributorSubmissionTable() {
   return (
     <div className="w-full mt-[48px]">
-      {/* Header with search and filters */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="relative  w-full  pr-4">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4 w-full mb-6">
+        {/* Search Input */}
+        <div className="w-full lg:flex-1 relative">
           <Input
+            className="w-full min-w-[200px] h-12 px-4 pr-12 rounded-[15px] border border-[#696B6F] bg-[#17171A] text-sm md:text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             placeholder="Search"
-            className="pl-10 h-12  bg-[#17171A] border-[#E2E8F04D] text-gray-300 placeholder-gray-500 focus:border-blue-500"
           />
+          <span className="absolute inset-y-0 right-4 flex items-center text-gray-400 cursor-pointer">
+            <IoSearch className="w-5 h-5 md:w-6 md:h-6" />
+          </span>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <select className="appearance-none h-12 bg-[#17171A] border border-[#E2E8F04D] text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
-              <option>All Status</option>
-              <option>Pending</option>
-              <option>Approved</option>
-              <option>Declined</option>
-            </select>
-            <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 pointer-events-none" />
-          </div>
+        {/* Filters */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+          {/* Status */}
+          <Select>
+            <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue placeholder="All Status" className="text-gray-300" />
+            </SelectTrigger>
+            <SelectContent className="border-none bg-[#17171A] text-white rounded-lg shadow-lg">
+              <SelectGroup>
+                <SelectItem
+                  value="pending"
+                  className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                >
+                  Pending
+                </SelectItem>
+                <SelectItem
+                  value="approved"
+                  className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                >
+                  Approved
+                </SelectItem>
+                <SelectItem
+                  value="declined"
+                  className="hover:bg-[#131320] p-3 cursor-pointer"
+                >
+                  Declined
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          <div className="relative">
-            <select className="appearance-none h-12 bg-[#17171A] border-[#E2E8F04D] border text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
-              <option>All Type</option>
-              <option>Single</option>
-              <option>EP</option>
-              <option>Album</option>
-            </select>
-            <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 pointer-events-none" />
-          </div>
+          {/* Type */}
+          <Select>
+            <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue placeholder="All Type" className="text-gray-300" />
+            </SelectTrigger>
+            <SelectContent className="border-none bg-[#17171A] text-white rounded-lg shadow-lg">
+              <SelectGroup>
+                <SelectItem
+                  value="single"
+                  className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                >
+                  Single
+                </SelectItem>
+                <SelectItem
+                  value="ep"
+                  className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                >
+                  EP
+                </SelectItem>
+                <SelectItem
+                  value="album"
+                  className="hover:bg-[#131320] p-3 cursor-pointer"
+                >
+                  Album
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          <div className="relative">
-            <select className="appearance-none border h-12 bg-[#17171A] border-[#E2E8F04D]  text-gray-300 px-4 py-2 pr-8 rounded-md focus:border-blue-500 focus:outline-none">
-              <option>Sort by Date</option>
-              <option>Newest First</option>
-              <option>Oldest First</option>
-            </select>
-            <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 pointer-events-none" />
-          </div>
+          {/* Sort by Date */}
+          <Select>
+            <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+              <SelectValue
+                placeholder="Sort by Date"
+                className="text-gray-300"
+              />
+            </SelectTrigger>
+            <SelectContent className="border-none bg-[#17171A] text-white rounded-lg shadow-lg">
+              <SelectGroup>
+                <SelectItem
+                  value="newest"
+                  className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                >
+                  Newest First
+                </SelectItem>
+                <SelectItem
+                  value="oldest"
+                  className="hover:bg-[#131320] p-3 cursor-pointer"
+                >
+                  Oldest First
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -235,21 +312,39 @@ export function DistributorSubmissionTable() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#3a4553]">
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Artist</th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Release</th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Submission Date</th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Type</th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Status</th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">Action</th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Artist
+              </th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Release
+              </th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Submission Date
+              </th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Type
+              </th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Status
+              </th>
+              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {submissions.map((submission) => (
-              <tr key={submission.id} className="border-b border-[#3a4553] hover:bg-[#2a3441]/50 transition-colors">
+              <tr
+                key={submission.id}
+                className="border-b border-[#3a4553] hover:bg-[#2a3441]/50 transition-colors"
+              >
                 <td className="py-4 px-6">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={submission.avatar || "/placeholder.svg"} alt={submission.artist} />
+                      <AvatarImage
+                        src={submission.avatar || "/placeholder.svg"}
+                        alt={submission.artist}
+                      />
                       <AvatarFallback className="bg-[#3a4553] text-gray-300 text-xs">
                         {submission.artist
                           .split(" ")
@@ -257,19 +352,27 @@ export function DistributorSubmissionTable() {
                           .join("")}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-gray-300 font-medium">{submission.artist}</span>
+                    <span className="text-gray-300 font-medium">
+                      {submission.artist}
+                    </span>
                   </div>
                 </td>
-                <td className="py-4 px-6 text-gray-300">{submission.release}</td>
-                <td className="py-4 px-6 text-gray-400">{submission.submissionDate}</td>
+                <td className="py-4 px-6 text-gray-300">
+                  {submission.release}
+                </td>
+                <td className="py-4 px-6 text-gray-400">
+                  {submission.submissionDate}
+                </td>
                 <td className="py-4 px-6 text-gray-300">{submission.type}</td>
                 <td className="py-4 px-6">
                   <StatusBadge status={submission.status} />
                 </td>
                 <td className="py-4 px-6">
-                  <Button variant="link" className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal">
-                    Details →
-                  </Button>
+                  <Link to="/diostributor-dashboard/submissions/details">
+                    <Button className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal cursor-pointer">
+                      Details <FaChevronRight />
+                    </Button>
+                  </Link>{" "}
                 </td>
               </tr>
             ))}
@@ -278,11 +381,14 @@ export function DistributorSubmissionTable() {
 
         {/* Load More */}
         <div className="p-6 text-center border-t border-[#3a4553]">
-          <Button variant="link" className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal">
+          <Button
+            variant="link"
+            className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal"
+          >
             Load More →
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }
