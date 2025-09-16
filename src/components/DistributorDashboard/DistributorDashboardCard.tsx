@@ -6,6 +6,7 @@ import calender from "../../assets/icons/calender.png";
 import light from "../../assets/icons/Frame 1321317601 2.png";
 import people from "../../assets/icons/people.png";
 import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const DistributorDashboardCard = () => {
   const metrics = [
@@ -44,9 +45,14 @@ const DistributorDashboardCard = () => {
               Overview of all distribution activities
             </p>
           </div>
-          <Button className="bg-[#3a5cff] hover:bg-[#2649fc] text-base font-sans h-12 text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
-            Add New Client <FaPlus />
-          </Button>
+          <Link
+            to="/diostributor-dashboard/client/create"
+            className="w-full sm:w-auto"
+          >
+            <Button className="bg-[#3a5cff] hover:bg-[#2649fc] text-base font-sans h-12 text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
+              Add New Client <FaPlus />
+            </Button>
+          </Link>
         </div>
 
         {/* Metrics Grid */}

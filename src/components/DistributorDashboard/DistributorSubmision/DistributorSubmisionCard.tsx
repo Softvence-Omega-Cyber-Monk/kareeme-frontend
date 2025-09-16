@@ -1,12 +1,9 @@
-
 import { Card } from "@/components/ui/card";
 
-
-import total from '../../../assets/icons/total.png'
-import pending from '../../../assets/icons/pending.png'
-import approved from '../../../assets/icons/approved.png'
-import decline from '../../../assets/icons/deline.png'
-
+import total from "../../../assets/icons/total.png";
+import pending from "../../../assets/icons/pending.png";
+import approved from "../../../assets/icons/approved.png";
+import decline from "../../../assets/icons/deline.png";
 
 const DistributorSubmisionCard = () => {
   const metrics = [
@@ -45,19 +42,22 @@ const DistributorSubmisionCard = () => {
               Overview of all distribution activities
             </p>
           </div>
-        
         </div>
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
           {metrics.map((metric, index) => (
             <Card
               key={index}
-              className="border border-[#c6c6c630] p-4 sm:p-6 rounded-lg"
+              className="border border-[#c6c6c630] p-4 sm:p-6 rounded-lg bg-[#0D2223]"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-gray-700 rounded-lg flex-shrink-0">
-                  <img src={metric.icon} alt={metric.label} className="w-7 h-7" />
+                  <img
+                    src={metric.icon}
+                    alt={metric.label}
+                    className="w-7 h-7"
+                  />
                 </div>
                 <span className="text-gray-300 text-sm font-medium">
                   {metric.label}
@@ -74,7 +74,4 @@ const DistributorSubmisionCard = () => {
   );
 };
 
-
-
-
-export default DistributorSubmisionCard
+export default DistributorSubmisionCard;
