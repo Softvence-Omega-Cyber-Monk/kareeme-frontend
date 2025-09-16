@@ -42,7 +42,7 @@ const BackCatalog = () => {
         {/* Search Input */}
         <div className="w-full lg:flex-1 relative">
           <Input
-            className="w-full h-12 px-4 pr-12 rounded-[15px] border border-[#696B6F] bg-[#171719] text-sm md:text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+            className="w-full min-w-[200px] h-12 px-4 pr-12 rounded-[15px] border border-[#696B6F] bg-[#171719] text-sm md:text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             placeholder="Search"
           />
           <span className="absolute inset-y-0 right-4 flex items-center text-gray-400 cursor-pointer">

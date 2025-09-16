@@ -89,7 +89,7 @@ const ClientsManagementTable = () => {
           {productData.map((product) => (
             <TableRow
               key={product.id}
-              className="border-b border-gray-800 hover:bg-gray-900"
+              className="border-b border-gray-800 hover:bg-[#0E141B]"
             >
               {/* Title & Image */}
               <TableCell className="px-4 py-3 flex items-center gap-3">

@@ -40,7 +40,7 @@ const defaultSidebarItems: SidebarItem[] = [
   },
   {
     icon: MdGridView,
-    label: "client",
+    label: "Client",
     href: "/diostributor-dashboard/client",
   },
   // {
