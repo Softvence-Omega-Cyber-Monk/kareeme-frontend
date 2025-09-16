@@ -6,7 +6,7 @@ type SectionTitleProps = {
 export const MiniTitle = ({ title, subTitle }: SectionTitleProps) => {
   return (
     <div>
-      <h1 className="text-white font-sans font-semibold text-[24px] leading-[38.4px]">
+      <h1 className="text-white font-sans font-semibold text-[24px] ">
         {title}
       </h1>
 
