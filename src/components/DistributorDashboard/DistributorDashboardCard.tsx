@@ -5,6 +5,7 @@ import search from "../../assets/icons/search.png";
 import calender from "../../assets/icons/calender.png";
 import light from "../../assets/icons/Frame 1321317601 2.png";
 import people from "../../assets/icons/people.png";
+import { FaPlus } from "react-icons/fa";
 
 const DistributorDashboardCard = () => {
   const metrics = [
@@ -43,27 +44,31 @@ const DistributorDashboardCard = () => {
               Overview of all distribution activities
             </p>
           </div>
-          <Button className="bg-[#3a5cff] text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center">
-            Add New Client <span className="text-lg">+</span>
+          <Button className="bg-[#3a5cff] hover:bg-[#2649fc] text-base font-sans h-12 text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
+            Add New Client <FaPlus />
           </Button>
         </div>
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
           {metrics.map((metric, index) => (
             <Card
               key={index}
-              className="border border-[#c6c6c630] p-4 sm:p-6 rounded-lg"
+              className="bg-[#0D2223] border border-[#304240] p-4 sm:p-6 rounded-2xl"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-gray-700 rounded-lg flex-shrink-0">
-                  <img src={metric.icon} alt={metric.label} className="w-7 h-7" />
+                  <img
+                    src={metric.icon}
+                    alt={metric.label}
+                    className="w-7 h-7"
+                  />
                 </div>
-                <span className="text-gray-300 text-sm font-medium">
+                <span className="text-gray-300 text-base font-sans">
                   {metric.label}
                 </span>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold text-white">
+              <div className="text-5xl font-sans  font-bold text-white">
                 {metric.value}
               </div>
             </Card>

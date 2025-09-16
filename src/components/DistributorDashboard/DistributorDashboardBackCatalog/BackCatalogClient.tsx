@@ -1,9 +1,15 @@
-import { Search,  } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const artists = [
   {
@@ -105,13 +111,11 @@ const artists = [
     totalTrack: "25",
     dateRange: "2018-2025",
   },
-]
+];
 
 export function BackCatalogClient() {
   return (
     <div className="mt-[40px]">
-   
-
       {/* Search and Filters */}
       <div className="">
         <div className="">
@@ -156,8 +160,6 @@ export function BackCatalogClient() {
                 <SelectItem value="2023">2023</SelectItem>
               </SelectContent>
             </Select>
-
-            
           </div>
         </div>
       </div>
@@ -172,7 +174,10 @@ export function BackCatalogClient() {
                   {/* Artist Header */}
                   <div className="flex items-center gap-3 mb-6">
                     <Avatar className="h-10 w-10">
-                      <AvatarImage src={artist.avatar || "/placeholder.svg"} alt={artist.name} />
+                      <AvatarImage
+                        src={artist.avatar || "/placeholder.svg"}
+                        alt={artist.name}
+                      />
                       <AvatarFallback className="bg-slate-700 text-white">
                         {artist.name
                           .split(" ")
@@ -181,7 +186,9 @@ export function BackCatalogClient() {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="text-white font-medium text-sm">{artist.name}</h3>
+                      <h3 className="text-white font-medium text-sm">
+                        {artist.name}
+                      </h3>
                       <p className="text-slate-400 text-xs">{artist.role}</p>
                     </div>
                   </div>
@@ -189,18 +196,30 @@ export function BackCatalogClient() {
                   {/* Artist Details */}
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 text-xs">Total Release</span>
-                      <span className="text-white text-xs font-medium">{artist.totalRelease}</span>
+                      <span className="text-slate-400 text-xs">
+                        Total Release
+                      </span>
+                      <span className="text-white text-xs font-medium">
+                        {artist.totalRelease}
+                      </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 text-xs">Release Type</span>
-                      <span className="text-white text-xs">{artist.releaseType}</span>
+                      <span className="text-slate-400 text-xs">
+                        Release Type
+                      </span>
+                      <span className="text-white text-xs">
+                        {artist.releaseType}
+                      </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 text-xs">Distributor</span>
-                      <span className="text-white text-xs">{artist.distributor}</span>
+                      <span className="text-slate-400 text-xs">
+                        Distributor
+                      </span>
+                      <span className="text-white text-xs">
+                        {artist.distributor}
+                      </span>
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -209,18 +228,26 @@ export function BackCatalogClient() {
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 text-xs">Total Track</span>
-                      <span className="text-white text-xs font-medium">{artist.totalTrack}</span>
+                      <span className="text-slate-400 text-xs">
+                        Total Track
+                      </span>
+                      <span className="text-white text-xs font-medium">
+                        {artist.totalTrack}
+                      </span>
                     </div>
 
                     <div className="flex justify-between items-center">
                       <span className="text-slate-400 text-xs">Date Range</span>
-                      <span className="text-white text-xs">{artist.dateRange}</span>
+                      <span className="text-white text-xs">
+                        {artist.dateRange}
+                      </span>
                     </div>
                   </div>
 
                   {/* View Details Button */}
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm">View Details</Button>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm">
+                    View Details
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -231,12 +258,14 @@ export function BackCatalogClient() {
       {/* Load More */}
       <div className="px-6 pb-8">
         <div className="max-w-7xl mx-auto text-center">
-          <Button variant="link" className="text-blue-400 hover:text-blue-300 text-sm">
+          <Button
+            variant="link"
+            className="text-blue-400 hover:text-blue-300 text-sm"
+          >
             Load More →
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

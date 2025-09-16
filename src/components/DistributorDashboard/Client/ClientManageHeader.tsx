@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const Team = () => {
+const ClientManageHeader = () => {
   const [email, setEmail] = useState("");
 
   const handleSendEmail = () => {
@@ -162,4 +162,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default ClientManageHeader;
