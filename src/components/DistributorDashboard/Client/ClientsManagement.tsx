@@ -1,9 +1,11 @@
 import ClientManageHeader from "./ClientManageHeader";
+import ClientsManagementTable from "./ClientsManagementTable";
 
 const ClientsManagement = () => {
   return (
-    <div>
+    <div className=" space-y-10">
       <ClientManageHeader />
+      <ClientsManagementTable />
     </div>
   );
 };
