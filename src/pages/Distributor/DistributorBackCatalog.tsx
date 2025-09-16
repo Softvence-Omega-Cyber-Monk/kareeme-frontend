@@ -1,15 +1,19 @@
-import { BackCatalogClient } from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalogClient"
-import BackCatalogHeader from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalogHeader"
+// import { BackCatalogClient } from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalogClient"
+// import BackCatalogHeader from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalogHeader"
 
+import BackCatalog from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalog";
+import DistributorBackCatalogGrid from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/DistributorBackCatalogGrid";
 
 const DistributorBackCatalog = () => {
   return (
-    <div>
-        
-        <BackCatalogHeader></BackCatalogHeader>
-        <BackCatalogClient></BackCatalogClient>
-    </div>
-  )
-}
+    <div className="space-y-10">
+      <BackCatalog />
+      <DistributorBackCatalogGrid />
 
-export default DistributorBackCatalog
+      {/* <BackCatalogHeader></BackCatalogHeader>
+        <BackCatalogClient></BackCatalogClient> */}
+    </div>
+  );
+};
+
+export default DistributorBackCatalog;

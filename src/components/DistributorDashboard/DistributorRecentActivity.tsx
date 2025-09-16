@@ -8,6 +8,7 @@ import audio from "../../assets/icons/audio.png";
 import deser from "../../assets/icons/deezer.png";
 import tidal from "../../assets/icons/tidal.png";
 import heart from "../../assets/icons/heart2.png";
+import Line from "../../assets/photo/Line.png";
 
 interface ActivityItem {
   title: string;
@@ -131,7 +132,7 @@ export function DistributorRecentActivity() {
       {/* Recent Activity + Distribution Status */}
       <div className="mt-[40px] w-full flex flex-col lg:flex-row gap-8">
         {/* Recent Activity Section */}
-        <Card className="flex-1 border border-[#c6c6c630]">
+        <Card className="flex-1 border border-[#c6c6c630] bg-[#0D2223]">
           <div className="p-6">
             <h2 className="text-xl font-semibold text-white mb-6">
               Recent Activity
@@ -157,7 +158,7 @@ export function DistributorRecentActivity() {
         </Card>
 
         {/* Distribution Status Section */}
-        <Card className="w-full lg:w-[370px] border border-[#c6c6c630]">
+        <Card className="w-full lg:w-[370px] border border-[#c6c6c630] bg-[#0D2223]">
           <div className="p-6">
             <h2 className="text-xl font-semibold text-white mb-6">
               Distribution Status
@@ -194,19 +195,20 @@ export function DistributorRecentActivity() {
       </div>
 
       {/* Platform Performance Section */}
-      <div className="mt-[40px]">
+      <div className="mt-[40px] bg-[#0D2223]">
         <Card className="border border-[#c6c6c630]">
-          <div className="p-6">
+          <div className="p-6 space-y-8">
             <h2 className="text-xl font-semibold text-white mb-6">
               Platform Performance
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            <img src={Line} alt="" className="w-full" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 ">
               {platformPerformance.map((platform, index) => (
                 <div key={index} className="text-center">
                   <div
                     className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
                   >
-                  <img src={platform.icon} alt="" />
+                    <img src={platform.icon} alt="" />
                   </div>
                   <h3 className="text-white font-medium text-sm mb-1">
                     {platform.name}
