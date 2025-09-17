@@ -2,9 +2,76 @@ import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import audioframe1 from "@/assets/photo/audioframe1.svg";
 import audioframe2 from "@/assets/photo/audioframe2.svg";
 import tenancy from "@/assets/icons/tenancy.svg";
-import PlatformPerformance from "../Dashboard/PlatformPerformance";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
+
+import Youtube from "@/assets/icons/youtube.png";
+import sportify from "@/assets/icons/sportity.png";
+import apple from "@/assets/icons/apple.png";
+import soundClud from "@/assets/icons/soundCloud.png";
+import audio from "@/assets/icons/audio.png";
+import deser from "@/assets/icons/deezer.png";
+import tidal from "@/assets/icons/tidal.png";
+import heart from "@/assets/icons/heart2.png";
+import { Card } from "@/components/ui/card";
+
+interface PlatformItem {
+  name: string;
+  streams: string;
+  icon: string;
+  iconColor: string;
+}
+
+const platformPerformance: PlatformItem[] = [
+  {
+    name: "YouTube",
+    streams: "2.3M Streams",
+    icon: Youtube,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "Spotify",
+    streams: "1.8M Streams",
+    icon: sportify,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "Apple Music",
+    streams: "1.6M Streams",
+    icon: apple,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "SoundCloud",
+    streams: "1.3M Streams",
+    icon: soundClud,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "Audiomack",
+    streams: "900K Streams",
+    icon: audio,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "Deezer",
+    streams: "830K Streams",
+    icon: deser,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "TIDAL",
+    streams: "500K Streams",
+    icon: tidal,
+    iconColor: "#F2F2F21A",
+  },
+  {
+    name: "iHeartRadio",
+    streams: "200K Streams",
+    icon: heart,
+    iconColor: "#F2F2F21A",
+  },
+];
 
 const ConfirmDistribution = () => {
   return (
@@ -112,13 +179,9 @@ const ConfirmDistribution = () => {
                 <p className="text-[#E5E5E5]">TikTok Start Time: </p>
                 <p className="font-medium">0:15</p>
               </div>
-              <div className=" flex gap-2  cursor-pointer">
-                {/* <p>
-                  <FaRegCirclePlay className="h-6 w-6 text-blue-700" />
-                </p>
-                <p className="font-medium">Audio File</p> */}
-                <img src={audioframe1} alt="" />
-                <img src={audioframe2} alt="" />
+              <div className="flex flex-col sm:flex-row gap-2 cursor-pointer">
+                <img src={audioframe1} alt="" className="w-full sm:w-auto" />
+                <img src={audioframe2} alt="" className="w-full sm:w-auto" />
               </div>
             </div>
 
@@ -261,30 +324,61 @@ const ConfirmDistribution = () => {
             </div>
           </div>
         </div>
+
+        {/* Part-4 Distribution Platforms: */}
         <div>
-          <PlatformPerformance />
+          {/* Platform Performance Section */}
+          <div className="mt-[40px] bg-[#0D2223]">
+            <Card className="border border-[#c6c6c630]">
+              <div className="p-6 space-y-8">
+                <h2 className="text-xl font-semibold text-white mb-6">
+                  Distribution Platforms:
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 ">
+                  {platformPerformance.map((platform, index) => (
+                    <div key={index} className="text-center">
+                      <div
+                        className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
+                      >
+                        <img src={platform.icon} alt="" />
+                      </div>
+                      <h3 className="text-white font-medium text-sm mb-1">
+                        {platform.name}
+                      </h3>
+                      <p className="text-slate-400 text-xs">
+                        {platform.streams}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
-        <div className=" w-2/3 flex justify-start gap-2 p-5 rounded-2xl shadow-2xl bg-[#0F2435]">
-          <span>
+
+        {/* Last */}
+        <div className="w-full sm:w-2/3 flex flex-col sm:flex-row items-start sm:items-center gap-3 p-5 rounded-2xl shadow-2xl bg-[#0F2435] text-white">
+          <span className="text-2xl">
             <FaCircleExclamation />
           </span>
-          <p>
+          <p className="text-sm sm:text-base">
             Once you confirm, the release will be sent to all selected
             platforms. Make sure all metadata is correct. Distribution typically
             takes 24-48 hours to complete.
           </p>
         </div>
-        <div className="flex justify-end gap-3">
+
+        <div className="flex flex-col sm:flex-row justify-end gap-3">
           {/* Cancel Button */}
-          <button className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2">
+          <button className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
             <RxCross2 />
             Cancel
           </button>
 
           {/* Distribution Button */}
-          <button className="bg-[#3A5CFF] text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer flex justify-center items-center gap-2">
+          <button className="bg-[#3A5CFF] text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
             <img src={tenancy} alt="" className="h-5 w-5" />
-            Distribution
+            Confirm Distribution
           </button>
         </div>
       </div>

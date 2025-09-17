@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 
+import cancel from "@/assets/icons/cancel.svg";
 import Youtube from "@/assets/icons/youtube.png";
 import sportify from "@/assets/icons/sportity.png";
 import apple from "@/assets/icons/apple.png";
@@ -179,15 +180,17 @@ const MusicDistribution: React.FC = () => {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-4">
-            <button className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
-              Distribute Now
-            </button>
             <button
               onClick={() => setOpenDetails(true)}
-              className="w-full sm:w-auto bg-gray-700 px-5 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer"
+              className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
             >
-              View Details
+              Distribute Now
             </button>
+            <Link to="/diostributor-dashboard/distribution/details">
+              <button className="w-full sm:w-auto bg-gray-700 px-5 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer">
+                View Details
+              </button>
+            </Link>
           </div>
         </div>
         {/*  Summer Vibes EP*/}
@@ -588,12 +591,18 @@ const MusicDistribution: React.FC = () => {
       {openDetails && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px] bg-opacity-50 flex justify-center items-start overflow-auto py-10">
           <div className="bg-[#0B1D21] rounded-2xl w-full max-w-6xl p-6 relative">
-            <button
+            {/* <button
               onClick={() => setOpenDetails(false)}
               className="absolute top-4 right-4 text-white text-xl font-bold cursor-pointer"
             >
               ✕
-            </button>
+            </button> */}
+            <img
+              src={cancel}
+              alt=""
+              onClick={() => setOpenDetails(false)}
+              className="absolute top-4 right-4 text-white text-xl font-bold cursor-pointer"
+            />
             <ConfirmDistribution />
           </div>
         </div>
