@@ -194,13 +194,13 @@ function StatusBadge({ status }: { status: string }) {
   };
 
   return (
-    <span
-      className={`px-2 py-1 rounded-md text-xs font-medium border ${getStatusStyles(
+    <div
+      className={`flex h-10 px-[10px] justify-center items-center gap-[10px] rounded-md border text-sm font-medium ${getStatusStyles(
         status
       )}`}
     >
       {status}
-    </span>
+    </div>
   );
 }
 
@@ -312,22 +312,22 @@ export function DistributorSubmissionTable() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#3a4553]">
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Artist
               </th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Release
               </th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Submission Date
               </th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Type
               </th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Status
               </th>
-              <th className="text-left py-4 px-6 text-gray-400 font-medium text-sm">
+              <th className="text-left py-4 px-6 text-[#979797] font-medium text-sm">
                 Action
               </th>
             </tr>
@@ -338,7 +338,7 @@ export function DistributorSubmissionTable() {
                 key={submission.id}
                 className="border-b border-[#3a4553] hover:bg-[#2a3441]/50 transition-colors"
               >
-                <td className="py-4 px-6">
+                <td className="text-base py-4 px-6">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
@@ -357,19 +357,21 @@ export function DistributorSubmissionTable() {
                     </span>
                   </div>
                 </td>
-                <td className="py-4 px-6 text-gray-300">
+                <td className="text-base py-4 px-6 text-gray-300">
                   {submission.release}
                 </td>
-                <td className="py-4 px-6 text-gray-400">
+                <td className="text-base py-4 px-6 text-gray-400">
                   {submission.submissionDate}
                 </td>
-                <td className="py-4 px-6 text-gray-300">{submission.type}</td>
-                <td className="py-4 px-6">
+                <td className="text-base py-4 px-6 text-gray-300">
+                  {submission.type}
+                </td>
+                <td className="text-base py-4 px-6">
                   <StatusBadge status={submission.status} />
                 </td>
-                <td className="py-4 px-6">
+                <td className="text-base py-4 px-6">
                   <Link to="/diostributor-dashboard/submissions/details">
-                    <Button className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal cursor-pointer">
+                    <Button className="text-base text-blue-400 hover:text-blue-300 p-0 h-auto font-normal cursor-pointer">
                       Details <FaChevronRight />
                     </Button>
                   </Link>{" "}
@@ -381,10 +383,7 @@ export function DistributorSubmissionTable() {
 
         {/* Load More */}
         <div className="p-6 text-center border-t border-[#3a4553]">
-          <Button
-            variant="link"
-            className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal"
-          >
+          <Button className=" text-base text-blue-400 hover:text-blue-300  p-0 h-auto font-normal cursor-pointer">
             Load More →
           </Button>
         </div>

@@ -1,3 +1,4 @@
+// import { DashboardActivity } from "@/components/DistributorDashboard/Dashboard/DashboardActivity";
 import DistributorDashboardCard from "@/components/DistributorDashboard/DistributorDashboardCard";
 import { DistributorRecentActivity } from "@/components/DistributorDashboard/DistributorRecentActivity";
 
@@ -6,6 +7,7 @@ const DistributorDashboardPage = () => {
     <div>
       <DistributorDashboardCard />
       <DistributorRecentActivity />
+      {/* <DashboardActivity /> */}
     </div>
   );
 };

@@ -11,8 +11,16 @@ import {
 } from "@/components/ui/select";
 import { RiDownloadLine } from "react-icons/ri";
 import { TbBrandDatabricks } from "react-icons/tb";
+// import { useNavigate } from "react-router-dom";
 
 const DistributionHeader = () => {
+  // const navigate = useNavigate();
+
+  // const handleBulkDistribution = () => {
+  //   navigate("/diostributor-dashboard/distribution/confirm-distribution");
+  //   window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top
+  // };
+
   return (
     <div className="space-y-8 md:space-y-10">
       {/* Title */}
@@ -115,10 +123,18 @@ const DistributionHeader = () => {
         {/* Right: Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center xl:items-end gap-4 w-full lg:w-auto">
           {/* Distribution Button */}
-          <button className="bg-[#3A5CFF] flex w-full sm:w-auto h-12 px-4 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer">
+          <button
+            // onClick={() =>
+            //   navigate(
+            //     "/diostributor-dashboard/distribution/confirm-distribution"
+            //   )
+            // }
+            // onClick={handleBulkDistribution}
+            className="bg-[#3A5CFF] flex w-full sm:w-auto h-12 px-4 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer"
+          >
             <TbBrandDatabricks className="w-5 h-5 md:w-6 md:h-6" />
             <span className="text-sm md:text-base font-sans font-medium">
-              Distribution
+              Bulk Distribution
             </span>
           </button>
 

@@ -1,5 +1,5 @@
-import DiostributorSidebar from "@/components/DistributorDashboard/DiostributorSidebar";
-import DistributorDashboardNavbar from "@/components/DistributorDashboard/DistributorDashboardNavbar";
+import AccountantDashboardNavbar from "@/components/Accountant/Shared/AccountantDashboardNavbar";
+import AccountantSidebar from "@/components/Accountant/Shared/AccountantSidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -85,7 +85,7 @@ const AccountantLayout = () => {
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
         <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">
-          <DiostributorSidebar />
+          <AccountantSidebar />
         </div>
       )}
 
@@ -98,7 +98,7 @@ const AccountantLayout = () => {
         {/* Navbar */}
         {!shouldHideNavbar && (
           <div className="fixed top-0 left-0 right-0 z-20 bg-white ">
-            <DistributorDashboardNavbar
+            <AccountantDashboardNavbar
               onMobileMenuToggle={handleMobileMenuToggle}
               notificationCount={3}
               isSidebarOpen={isSidebarOpen}
@@ -112,9 +112,7 @@ const AccountantLayout = () => {
             <div className="hidden" />
           </SheetTrigger>
           <SheetContent side="left" className="w-64 p-0 bg-[#0E131A]">
-            <DiostributorSidebar
-              onItemClick={() => setIsMobileMenuOpen(false)}
-            />
+            <AccountantSidebar onItemClick={() => setIsMobileMenuOpen(false)} />
           </SheetContent>
         </Sheet>
 
