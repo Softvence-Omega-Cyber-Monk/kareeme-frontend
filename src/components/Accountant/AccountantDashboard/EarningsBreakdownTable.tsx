@@ -16,6 +16,7 @@ import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
+
 import { Button } from "@/components/ui/button";
 
 const productData = [

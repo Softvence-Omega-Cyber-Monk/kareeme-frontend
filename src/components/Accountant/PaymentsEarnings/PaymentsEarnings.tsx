@@ -1,9 +1,11 @@
-import React from 'react'
+import EarningsOverview from "./EarningsOverview";
 
 const PaymentsEarnings = () => {
   return (
-    <div>PaymentsEarnings</div>
-  )
-}
+    <div>
+      <EarningsOverview />
+    </div>
+  );
+};
 
-export default PaymentsEarnings
+export default PaymentsEarnings;
