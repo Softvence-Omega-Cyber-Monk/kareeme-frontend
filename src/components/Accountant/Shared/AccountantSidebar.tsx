@@ -31,22 +31,22 @@ const defaultSidebarItems: SidebarItem[] = [
   {
     icon: MdGridView,
     label: "Payment & Earn",
-    href: "/accountant-dashboard/submissions",
+    href: "/accountant-dashboard/payments-earnings",
   },
   {
     icon: MdGridView,
     label: "Statements",
-    href: "/accountant-dashboard/back-catalog",
+    href: "/accountant-dashboard/statements",
   },
   {
     icon: MdGridView,
     label: "Profit & Loss",
-    href: "/accountant-dashboard/distribution",
+    href: "/accountant-dashboard/profit-loss",
   },
   {
     icon: MdGridView,
     label: "Client Manage",
-    href: "/accountant-dashboard/client",
+    href: "/accountant-dashboard/client-manage",
   },
 ];
 
