@@ -43,7 +43,7 @@ const yearlyData: RevenueData[] = [
   { month: "Dec", income: 16000, expenses: 18000 },
 ];
 
-const IncomeExpensesChart: React.FC = () => {
+const IcomeExpenssMonth: React.FC = () => {
   const [timeRange, setTimeRange] = useState<"Jan-Jun" | "Jul-Dec" | "Year">(
     "Year"
   );
@@ -191,4 +191,4 @@ const IncomeExpensesChart: React.FC = () => {
   );
 };
 
-export default IncomeExpensesChart;
+export default IcomeExpenssMonth;
