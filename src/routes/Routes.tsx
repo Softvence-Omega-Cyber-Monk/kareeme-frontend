@@ -49,6 +49,10 @@ import SubmissionDetails from "@/components/DistributorDashboard/DistributorSubm
 import DistributionPage from "@/pages/Distributor/DistributionPage";
 import DistributationDetails from "@/components/DistributorDashboard/Distribution/DistributationDetails";
 import ConfirmDistribution from "@/components/DistributorDashboard/Distribution/ConfirmDistribution";
+import PaymentsEarningsPage from "@/pages/Accountant/PaymentsEarningsPage";
+import ProfitLossPages from "@/pages/Accountant/ProfitLossPages";
+import StatementsPage from "@/pages/Accountant/StatementsPage";
+import ClientManagementPage from "@/pages/Accountant/ClientManagementPage";
 
 const routes = createBrowserRouter([
   {
@@ -137,6 +141,10 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <AccountantDashboardPage /> },
       { path: "dashboard", element: <AccountantDashboardPage /> },
+      { path: "payments-earnings", element: <PaymentsEarningsPage /> },
+      { path: "statements", element: <StatementsPage /> },
+      { path: "profit-loss", element: <ProfitLossPages /> },
+      { path: "client-manage", element: <ClientManagementPage /> },
     ],
   },
 

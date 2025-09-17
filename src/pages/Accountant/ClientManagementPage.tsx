@@ -1,12 +1,11 @@
-import ClientManagement from '@/components/Accountant/ClientManagement/ClientManagement'
-
+import ClientManagement from "@/components/Accountant/ClientManagement/ClientManagement";
 
 const ClientManagementPage = () => {
   return (
     <div>
-        <ClientManagement/>
+      <ClientManagement />
     </div>
-  )
-}
+  );
+};
 
-export default ClientManagementPage
+export default ClientManagementPage;
