@@ -30,7 +30,7 @@ const DistributorSubmisionCard = () => {
   ];
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-0 text-white">
+    <div className="w-full text-white">
       <div>
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 sm:gap-0">
@@ -49,7 +49,7 @@ const DistributorSubmisionCard = () => {
           {metrics.map((metric, index) => (
             <Card
               key={index}
-              className="border border-[#c6c6c630] p-4 sm:p-6 rounded-lg bg-[#0D2223]"
+              className="border border-[#c6c6c630] p-4 sm:p-6 rounded-[15px] bg-[#0D2223]"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-gray-700 rounded-lg flex-shrink-0">

@@ -1,14 +1,14 @@
 import { Card } from "@/components/ui/card";
 
-import Youtube from "../../assets/icons/youtube.png";
-import sportify from "../../assets/icons/sportity.png";
-import apple from "../../assets/icons/apple.png";
-import soundClud from "../../assets/icons/soundCloud.png";
-import audio from "../../assets/icons/audio.png";
-import deser from "../../assets/icons/deezer.png";
-import tidal from "../../assets/icons/tidal.png";
-import heart from "../../assets/icons/heart2.png";
-import Line from "../../assets/photo/Line.png";
+import Youtube from "@/assets/icons/youtube.png";
+import sportify from "@/assets/icons/sportity.png";
+import apple from "@/assets/icons/apple.png";
+import soundClud from "@/assets/icons/soundCloud.png";
+import audio from "@/assets/icons/audio.png";
+import deser from "@/assets/icons/deezer.png";
+import tidal from "@/assets/icons/tidal.png";
+import heart from "@/assets/icons/heart2.png";
+import Line from "@/assets/photo/Line.png";
 
 interface PlatformItem {
   name: string;

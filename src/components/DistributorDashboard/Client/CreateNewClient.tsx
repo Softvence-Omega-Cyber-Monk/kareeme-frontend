@@ -30,7 +30,7 @@ const CreateNewClient = () => {
             </Label>
             <Input
               id="firstName"
-              className="border h-12 border-[#B3B3B3] rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
+              className="border-none h-12  rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
             />
           </div>
 
@@ -42,7 +42,7 @@ const CreateNewClient = () => {
             <Input
               id="email"
               type="email"
-              className="border h-12 border-[#B3B3B3] rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
+              className="border-none h-12  rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
             />
           </div>
 
@@ -53,7 +53,7 @@ const CreateNewClient = () => {
             </Label>
             <Input
               id="phone"
-              className="border h-12 border-[#B3B3B3] rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
+              className="border-none h-12  rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
             />
           </div>
 
@@ -105,7 +105,7 @@ const CreateNewClient = () => {
           <Input
             id="currentPassword"
             type="password"
-            className="border h-12 border-[#B3B3B3] rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
+            className="border-none h-12  rounded-xl px-6 py-4 w-full bg-[#213430] text-white"
           />
         </div>
 
