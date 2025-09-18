@@ -54,6 +54,8 @@ import ProfitLossPages from "@/pages/Accountant/ProfitLossPages";
 import StatementsPage from "@/pages/Accountant/StatementsPage";
 import ClientManagementPage from "@/pages/Accountant/ClientManagementPage";
 import IHeartRadioPage from "@/pages/Client/IHeartRadioPage";
+import AccountanSettingsPage from "@/pages/Accountant/AccountanSettingsPage";
+import DistributorSettingPage from "@/pages/Distributor/DistributorSettingPage";
 
 const routes = createBrowserRouter([
   {
@@ -132,6 +134,10 @@ const routes = createBrowserRouter([
 
       { path: "client", element: <ClientsManagementPage /> },
       { path: "client/create", element: <CreateNewClient /> },
+
+      { path: "settings", element: <DistributorSettingPage /> },
+
+
     ],
   },
 
@@ -146,6 +152,8 @@ const routes = createBrowserRouter([
       { path: "statements", element: <StatementsPage /> },
       { path: "profit-loss", element: <ProfitLossPages /> },
       { path: "client-manage", element: <ClientManagementPage /> },
+
+      { path: "settings", element: <AccountanSettingsPage /> },
     ],
   },
 

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import AppleMusiceOverView from "./AppleMUsiceOverView";
 import { TopAssetsDetails } from "../Youtube/TopAssetsDetails";
 import { TopClaimsDetails } from "../Youtube/TopClaimsDetails";
 import { GeoTrendsDetails } from "../Youtube/GeoTrendsDetails";
+import AppleMusiceOverView from "./AppleMusiceOverView";
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("Overview");
