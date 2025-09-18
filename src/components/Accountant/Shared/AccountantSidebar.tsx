@@ -1,16 +1,18 @@
 import logo from "@/assets/icons/logo.svg"; // Adjust the path to your logo image
 import { Badge } from "@/components/ui/badge";
-import { MdGridView } from "react-icons/md";
-// import { TbChartBar, TbFileDollar } from "react-icons/tb";
-// import { FaStream } from "react-icons/fa";
 
 import { RiShareBoxLine } from "react-icons/ri";
 import { ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
+import Client from "@/assets/sidebar/Client.svg";
+import Distribution from "@/assets/sidebar/Distribution.svg";
+import Submissions from "@/assets/sidebar/Submissions.svg";
+import analitics from "@/assets/sidebar/analitics.svg";
+
 export interface SidebarItem {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: string;
   label: string;
   href?: string;
   badge?: string;
@@ -24,27 +26,27 @@ export interface SidebarProps {
 
 const defaultSidebarItems: SidebarItem[] = [
   {
-    icon: MdGridView,
+    icon: Client,
     label: "Dashboard",
     href: "/accountant-dashboard/dashboard",
   },
   {
-    icon: MdGridView,
+    icon: Distribution,
     label: "Payment & Earn",
     href: "/accountant-dashboard/payments-earnings",
   },
   {
-    icon: MdGridView,
+    icon: Submissions,
     label: "Statements",
     href: "/accountant-dashboard/statements",
   },
   {
-    icon: MdGridView,
+    icon: analitics,
     label: "Profit & Loss",
     href: "/accountant-dashboard/profit-loss",
   },
   {
-    icon: MdGridView,
+    icon: Client,
     label: "Client Manage",
     href: "/accountant-dashboard/client-manage",
   },
@@ -93,7 +95,7 @@ const AccountantSidebar: React.FC<SidebarProps> = ({
               <div key={item.label}>
                 {/* Parent Item */}
                 {item.href && !item.children ? (
-                  // Direct route (Dashboard)
+                  // Direct route (Dashboard, etc.)
                   <Link
                     to={item.href}
                     onClick={onItemClick}
@@ -104,16 +106,16 @@ const AccountantSidebar: React.FC<SidebarProps> = ({
                     }`}
                   >
                     <div className="flex items-center space-x-2 md:text-lg 2xl:text-base">
-                      <item.icon
-                        className={`w-5 h-5 transition-colors duration-300 ${
-                          isActive ? "text-[#3A5CFF]" : "text-white"
-                        }`}
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="w-5 h-5"
                       />
                       <span>{item.label}</span>
                     </div>
                   </Link>
                 ) : (
-                  // Expandable menu (Analytics, Accounting, Catalog)
+                  // Expandable menu
                   <button
                     onClick={() => toggleMenu(item.label)}
                     className={`flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out cursor-pointer ${
@@ -123,10 +125,10 @@ const AccountantSidebar: React.FC<SidebarProps> = ({
                     }`}
                   >
                     <div className="flex items-center space-x-2 md:text-lg">
-                      <item.icon
-                        className={`w-5 h-5 transition-colors duration-300 ${
-                          isActive ? "text-[#3A5CFF]" : "text-white"
-                        }`}
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="w-5 h-5"
                       />
                       <span>{item.label}</span>
                     </div>

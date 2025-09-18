@@ -28,7 +28,7 @@ export interface NavbarProps {
 const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Gemini Chachi",
+  userName = "Hello, Distributor",
   isSidebarOpen,
 }) => {
   return (
@@ -55,7 +55,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-gray-400">Dashboard</span>
               <span className="text-sm md:text-base font-medium text-white">
-                HELLO, {userName}
+                {userName}
               </span>
             </div>
           </div>
