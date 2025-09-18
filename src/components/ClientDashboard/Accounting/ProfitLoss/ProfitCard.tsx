@@ -12,7 +12,6 @@ const ProfitCard = () => {
     { title: "Total Income", amount: "$1,061.16" },
     { title: "Total Expenses", amount: "$27,183.94" },
     { title: "Net Profit / Loss", amount: "$-26,122.78" },
-  
   ];
 
   const getAmountColor = (item: (typeof statusData)[0]) => {
@@ -34,7 +33,7 @@ const ProfitCard = () => {
   return (
     <div className="space-y-9">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="space-y-2">
           <h1 className="text-base font-sans text-gray-300">Accounting</h1>
           <div className="flex items-center">
@@ -53,25 +52,25 @@ const ProfitCard = () => {
           <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>
               <SelectItem
-                value="last_7_days"
+                value="2025"
                 className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
               >
                 2025
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="2026"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 2026
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="2027"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 2027
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="2028"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 2028

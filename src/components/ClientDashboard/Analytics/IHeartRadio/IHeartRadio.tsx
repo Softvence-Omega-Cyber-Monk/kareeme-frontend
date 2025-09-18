@@ -1,10 +1,10 @@
 import Tabs from "../Tabs";
-import Youtube from "../Youtube/Youtube";
+import IHeartRadioHeader from "./IHeartRadioHeader";
 
 const IHeartRadio = () => {
   return (
     <div className="space-y-9">
-      <Youtube />
+      <IHeartRadioHeader />
       <Tabs />
     </div>
   );

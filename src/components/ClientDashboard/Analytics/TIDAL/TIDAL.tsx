@@ -1,10 +1,10 @@
-import Tabs from "../Tabs";
-import Youtube from "../Youtube/Youtube";
+import Tabs from "./Tabs";
+import TIDALHeader from "./TIDALHeader";
 
 const TIDAL = () => {
   return (
     <div className="space-y-9">
-      <Youtube />
+      <TIDALHeader />
       <Tabs />
     </div>
   );

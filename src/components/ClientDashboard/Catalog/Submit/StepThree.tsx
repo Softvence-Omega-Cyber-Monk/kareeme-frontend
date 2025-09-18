@@ -1,15 +1,22 @@
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FormDataType } from "./MultiStepForm";
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 type StepThreeProps = {
-  formData: FormDataType ;
+  formData: FormDataType;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  nextStep: () => void;
   prevStep: () => void;
 };
 
-const StepThree = ({ formData, handleChange, prevStep }: StepThreeProps) => {
+const StepThree = ({
+  formData,
+  handleChange,
+  prevStep,
+  nextStep,
+}: StepThreeProps) => {
   return (
     <div className="space-y-9">
       <div>
@@ -201,11 +208,20 @@ const StepThree = ({ formData, handleChange, prevStep }: StepThreeProps) => {
             Previous
           </button>
           <button
+            type="button"
+            onClick={nextStep}
+            className="flex items-center gap-2 px-6 py-2 text-white font-medium bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 cursor-pointer"
+          >
+            Next
+            <FaAngleDoubleRight className="text-lg" />
+          </button>
+
+          {/* <button
             type="submit"
             className="px-6 py-2 bg-green-600 rounded-xl hover:bg-green-700 cursor-pointer"
           >
             Submit
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

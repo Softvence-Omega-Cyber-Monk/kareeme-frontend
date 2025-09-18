@@ -183,22 +183,25 @@ export default function DataEntryForm() {
         </div>
 
         {/* Artwork Upload */}
-        <div className="bg-[#0D1F21] rounded-2xl p-6 flex items-center justify-center text-center border-2 border-dashed border-gray-600">
+        <label className="cursor-pointer  border-gray-500 rounded-lg p-6 text-center hover:border-blue-400 hover:bg-gray-800 bg-[#0D1F21] flex items-center justify-center border-2 border-dashed ">
           <div>
-            <div className="text-green-400 text-3xl">⬆️</div>
-            <p className="mt-2 text-gray-300">
-              Drop artwork file here or{" "}
-              <span className="text-blue-400 cursor-pointer">browse</span>
-            </p>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="hidden"
-              accept=".jpg,.jpeg,.png"
-            />
-            <p className="text-xs text-gray-500">JPEG or PNG, max 10MB</p>
+            <div className="cursor-pointer  border-gray-500 rounded-lg p-6 text-center hover:border-blue-400 hover:bg-gray-800">
+              <div className="text-green-400 text-3xl">⬆️</div>
+              <div className="mt-2 text-gray-300">
+                Drop artwork file here or browse
+              </div>
+              <input
+                type="file"
+                className="hidden"
+                accept=".jpg,.jpeg,.png"
+                onChange={handleFileChange}
+              />
+              <p className="text-xs text-gray-500 mt-2">
+                JPEG or PNG, max 10MB
+              </p>
+            </div>
           </div>
-        </div>
+        </label>
       </div>
 
       {/* Track Information */}
@@ -210,7 +213,7 @@ export default function DataEntryForm() {
             </h2>
             <button
               onClick={addTrack}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition cursor-pointer"
             >
               <FaPlus /> Add Track
             </button>
@@ -325,7 +328,7 @@ export default function DataEntryForm() {
             </div>
           ))}
         </div>
-        <div className="max-w-sm bg-[#0D1F21] rounded-2xl p-6 flex items-center justify-center text-center border-2 border-dashed border-gray-600">
+        {/* <div className="max-w-sm bg-[#0D1F21] rounded-2xl p-6 flex items-center justify-center text-center border-2 border-dashed border-gray-600">
           <div>
             <div className="text-[#3A5CFF] text-3xl">
               <RiFileMusicFill />
@@ -334,7 +337,29 @@ export default function DataEntryForm() {
               Upload audio file (.wav preferred)
             </p>
           </div>
-        </div>
+        </div> */}
+        <label className="cursor-pointer border-gray-600 rounded-2xl p-6 text-center hover:border-blue-400 hover:bg-gray-800 bg-[#0D1F21] flex items-center justify-center border-2 border-dashed max-w-sm">
+  <div>
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-[#3A5CFF] text-3xl">
+        <RiFileMusicFill />
+      </div>
+      <p className="mt-2 text-gray-300">
+        Upload audio file (.wav preferred)
+      </p>
+      <input
+        type="file"
+        className="hidden"
+        accept=".wav,.mp3,.ogg"
+        // onChange={handleAudioChange} // your handler
+      />
+      <p className="text-xs text-gray-500 mt-2">
+        WAV, MP3, or OGG, max 20MB
+      </p>
+    </div>
+  </div>
+</label>
+
       </div>
 
       {/* Artist Metadata (Per Track) */}
@@ -405,10 +430,10 @@ export default function DataEntryForm() {
       </div>
 
       <div className="flex justify-end mt-6 space-x-4">
-        <button className="px-6 py-2 bg-gray-600 rounded-lg text-white">
+        <button className="px-6 py-2 bg-gray-600 rounded-lg text-white cursor-pointer hover:bg-gray-700 transition">
           Save As Draft
         </button>
-        <button className="px-6 py-2 bg-blue-600 rounded-lg text-white">
+        <button className="px-6 py-2 bg-blue-600 rounded-lg text-white cursor-pointer hover:bg-blue-700 transition">
           Submit Back Catalog Data
         </button>
       </div>

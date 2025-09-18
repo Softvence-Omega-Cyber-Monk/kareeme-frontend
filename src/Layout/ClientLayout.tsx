@@ -11,13 +11,13 @@ const ClientLayout = () => {
   const { pathname } = useLocation();
 
   const shouldHideNavbar =
-    pathname === "/client-dashboard/invoice-form" ||
+    pathname === "/client-dashboard/catalog/submit/form" ||
     pathname === "/client-dashboard/create-promotion" ||
     pathname === "/client-dashboard/inquiries-details";
 
   const shouldHideSidebar = () => {
     const hideExact = [
-      "/client-dashboard/add-product",
+      "/client-dashboard/catalog/submit/form",
       "/client-dashboard/all-products",
       "/client-dashboard/all-orders",
       "/client-dashboard/inquiries-details",

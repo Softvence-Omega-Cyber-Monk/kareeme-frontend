@@ -1,4 +1,3 @@
-import ArtistGrid from "@/components/AdminDashboard/AdminCatalog/BackCatalog/BackCatalogGrid";
 import AppleMusicSection from "@/components/ClientDashboard/Dashboard/AppleMusicSection";
 import AudiomackSection from "@/components/ClientDashboard/Dashboard/AudiomackSection";
 import Dashboard from "@/components/ClientDashboard/Dashboard/Dashboard";
@@ -19,7 +18,6 @@ const ClientDashboardPage = () => {
       <DeezerSection />
       <TIDALSection />
       <IHeartRadioSection />
-      <ArtistGrid />
     </div>
   );
 };

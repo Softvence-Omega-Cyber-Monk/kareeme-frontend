@@ -1,10 +1,10 @@
-import Tabs from "../Tabs";
-import Youtube from "../Youtube/Youtube";
+import AppleMusiceHeader from "./AppleMusiceHeader";
+import Tabs from "./Tasb";
 
 const AppleMusic = () => {
   return (
     <div className="space-y-9">
-      <Youtube />
+      <AppleMusiceHeader />
       <Tabs />
     </div>
   );

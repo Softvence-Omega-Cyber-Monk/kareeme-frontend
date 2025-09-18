@@ -2,6 +2,7 @@ import { useState } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
+import StepFour from "./StepFour";
 // import StepFour from "./StepFour";
 
 export type FormDataType = {
@@ -126,6 +127,13 @@ const MultiStepForm = () => {
               : "bg-gray-600"
           }`}
         />
+        <div
+          className={`h-2 flex-1 rounded-full ${
+            step >= 4
+              ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
+              : "bg-gray-600"
+          }`}
+        />
         {/* <div
       className={`h-2 flex-1 rounded-full ${
         step >= 4 ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]" : "bg-gray-600"
@@ -154,16 +162,17 @@ const MultiStepForm = () => {
           <StepThree
             formData={formData}
             handleChange={handleChange}
+            nextStep={nextStep}
             prevStep={prevStep}
           />
         )}
-        {/* {step === 4 && (
-      <StepFour
-        formData={formData}
-        handleChange={handleChange}
-        prevStep={prevStep}
-      />
-    )} */}
+        {step === 4 && (
+          <StepFour
+            formData={formData}
+            handleChange={handleChange}
+            prevStep={prevStep}
+          />
+        )}
       </form>
     </div>
   );

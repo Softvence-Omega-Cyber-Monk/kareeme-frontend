@@ -1,10 +1,10 @@
-import Tabs from "../Tabs";
-import Youtube from "../Youtube/Youtube";
+import Tabs from "./Tabs";
+import SoundCloudHeader from "./SoundCloudHeader";
 
 const SoundCloud = () => {
   return (
     <div className="space-y-9">
-      <Youtube />
+      <SoundCloudHeader />
       <Tabs />
     </div>
   );

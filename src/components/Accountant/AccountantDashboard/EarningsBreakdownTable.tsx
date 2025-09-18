@@ -104,7 +104,7 @@ const productData = [
 
 export function EarningsBreakdownTable() {
   return (
-    <div className="p-4 sm:p-5 md:p-6 space-y-4 md:space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left side - Title */}
