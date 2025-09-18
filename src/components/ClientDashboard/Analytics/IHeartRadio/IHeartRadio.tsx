@@ -1,5 +1,5 @@
-import Tabs from "../Tabs";
 import IHeartRadioHeader from "./IHeartRadioHeader";
+import Tabs from "./Tabs";
 
 const IHeartRadio = () => {
   return (

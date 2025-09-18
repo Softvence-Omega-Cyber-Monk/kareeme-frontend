@@ -9,7 +9,6 @@ import Audio from "@/assets/icons/audio.png";
 import Deezer from "@/assets/icons/deezer.png";
 import Tidal from "@/assets/icons/tidal.png";
 import Heart from "@/assets/icons/heart2.png";
-import Line from "@/assets/photo/Line.png";
 
 export function DistributionPreferences() {
   const [platforms, setPlatforms] = useState({
@@ -33,14 +32,44 @@ export function DistributionPreferences() {
   };
 
   const platformList = [
-    { id: "youtube", label: "YouTube", img: Youtube, checked: platforms.youtube },
-    { id: "spotify", label: "Spotify", img: Spotify, checked: platforms.spotify },
-    { id: "appleMusic", label: "Apple Music", img: Apple, checked: platforms.appleMusic },
-    { id: "soundcloud", label: "SoundCloud", img: SoundCloud, checked: platforms.soundcloud },
+    {
+      id: "youtube",
+      label: "YouTube",
+      img: Youtube,
+      checked: platforms.youtube,
+    },
+    {
+      id: "spotify",
+      label: "Spotify",
+      img: Spotify,
+      checked: platforms.spotify,
+    },
+    {
+      id: "appleMusic",
+      label: "Apple Music",
+      img: Apple,
+      checked: platforms.appleMusic,
+    },
+    {
+      id: "soundcloud",
+      label: "SoundCloud",
+      img: SoundCloud,
+      checked: platforms.soundcloud,
+    },
     { id: "tiktok", label: "TikTok", img: Tidal, checked: platforms.tiktok },
-    { id: "audiomack", label: "Audiomack", img: Audio, checked: platforms.audiomack },
+    {
+      id: "audiomack",
+      label: "Audiomack",
+      img: Audio,
+      checked: platforms.audiomack,
+    },
     { id: "deezer", label: "Deezer", img: Deezer, checked: platforms.deezer },
-    { id: "hearthis", label: "HearThis", img: Heart, checked: platforms.hearthis },
+    {
+      id: "hearthis",
+      label: "HearThis",
+      img: Heart,
+      checked: platforms.hearthis,
+    },
   ];
 
   return (

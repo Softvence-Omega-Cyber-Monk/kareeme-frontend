@@ -1,16 +1,18 @@
 import logo from "@/assets/icons/logo.svg"; // Adjust the path to your logo image
 import { Badge } from "@/components/ui/badge";
-import { MdGridView } from "react-icons/md";
-// import { TbChartBar, TbFileDollar } from "react-icons/tb";
-// import { FaStream } from "react-icons/fa";
-
 import { RiShareBoxLine } from "react-icons/ri";
 import { ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
+import Dashboard from "@/assets/sidebar/Dashboard.svg";
+import Client from "@/assets/sidebar/Client.svg";
+import Distribution from "@/assets/sidebar/Distribution.svg";
+import Submissions from "@/assets/sidebar/Submissions.svg";
+import Backcatalog from "@/assets/sidebar/backcatalog.svg";
+
 export interface SidebarItem {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: string; // image path (not React component)
   label: string;
   href?: string;
   badge?: string;
@@ -24,61 +26,30 @@ export interface SidebarProps {
 
 const defaultSidebarItems: SidebarItem[] = [
   {
-    icon: MdGridView,
+    icon: Dashboard,
     label: "Dashboard",
     href: "/diostributor-dashboard/dashboard",
   },
   {
-    icon: MdGridView,
+    icon: Submissions,
     label: "Submissions",
     href: "/diostributor-dashboard/submissions",
   },
   {
-    icon: MdGridView,
-    label: "Back Catalog ",
+    icon: Backcatalog,
+    label: "Back Catalog",
     href: "/diostributor-dashboard/back-catalog",
   },
   {
-    icon: MdGridView,
+    icon: Distribution,
     label: "Distribution",
     href: "/diostributor-dashboard/distribution",
   },
   {
-    icon: MdGridView,
+    icon: Client,
     label: "Client",
     href: "/diostributor-dashboard/client",
   },
-  // {
-  //   icon: TbChartBar,
-  //   label: "Analytics",
-  //   children: [
-  //     { label: "YouTube", href: "/client-dashboard/analytics/youtube" },
-  //     { label: "Spotify", href: "/client-dashboard/analytics/spotify" },
-  //     { label: "Apple Music", href: "/client-dashboard/analytics/apple-music" },
-  //     { label: "SoundCloud", href: "/client-dashboard/analytics/soundcloud" },
-  //   ],
-  // },
-  // {
-  //   icon: TbFileDollar,
-  //   label: "Accounting",
-  //   children: [
-  //     { label: "Statement", href: "/client-dashboard/accounting/statement" },
-  //     {
-  //       label: "Profit & Loss",
-  //       href: "/client-dashboard/accounting/profit-loss",
-  //     },
-  //   ],
-  // },
-  // {
-  //   icon: FaStream,
-  //   label: "Catalog",
-  //   children: [
-  //     { label: "Releases", href: "/client-dashboard/catalog/releases" },
-  //     { label: "Submit", href: "/client-dashboard/catalog/submit" },
-  //     { label: "Back Catalog", href: "/client-dashboard/catalog/back-catalog" },
-  //     { label: "Split Sheets", href: "/client-dashboard/catalog/split-sheets" },
-  //   ],
-  // },
 ];
 
 const DiostributorSidebar: React.FC<SidebarProps> = ({
@@ -124,7 +95,6 @@ const DiostributorSidebar: React.FC<SidebarProps> = ({
               <div key={item.label}>
                 {/* Parent Item */}
                 {item.href && !item.children ? (
-                  // Direct route (Dashboard)
                   <Link
                     to={item.href}
                     onClick={onItemClick}
@@ -135,16 +105,15 @@ const DiostributorSidebar: React.FC<SidebarProps> = ({
                     }`}
                   >
                     <div className="flex items-center space-x-2 md:text-lg">
-                      <item.icon
-                        className={`w-5 h-5 transition-colors duration-300 ${
-                          isActive ? "text-[#3A5CFF]" : "text-white"
-                        }`}
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="w-5 h-5"
                       />
                       <span>{item.label}</span>
                     </div>
                   </Link>
                 ) : (
-                  // Expandable menu (Analytics, Accounting, Catalog)
                   <button
                     onClick={() => toggleMenu(item.label)}
                     className={`flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out cursor-pointer ${
@@ -154,10 +123,10 @@ const DiostributorSidebar: React.FC<SidebarProps> = ({
                     }`}
                   >
                     <div className="flex items-center space-x-2 md:text-lg">
-                      <item.icon
-                        className={`w-5 h-5 transition-colors duration-300 ${
-                          isActive ? "text-[#3A5CFF]" : "text-white"
-                        }`}
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="w-5 h-5"
                       />
                       <span>{item.label}</span>
                     </div>

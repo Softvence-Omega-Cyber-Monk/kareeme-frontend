@@ -3,7 +3,7 @@ import { EarningsBreakdownTable } from "./EarningsBreakdownTable";
 
 const AccountantDashboard = () => {
   return (
-    <div>
+    <div className="space-y-8">
       <DashboardCard />
       <EarningsBreakdownTable />
     </div>
