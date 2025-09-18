@@ -1,13 +1,11 @@
 import AlbumGrid from "./AlbumGrid";
-import BackCatalogCard from "./BackCatalogCard";
-
+// import BackCatalogCard from "./BackCatalogCard";
 
 const BackCatalog = () => {
   return (
     <div>
-      <BackCatalogCard />
+      {/* <BackCatalogCard /> */}
       <AlbumGrid />
-      
     </div>
   );
 };

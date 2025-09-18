@@ -119,25 +119,25 @@ const IncomeExpensesChart = () => {
           <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>
               <SelectItem
-                value="last_7_days"
+                value="July"
                 className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
               >
                 July 2025
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="Aug"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 Aug 2026
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="Sep"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 Sep 2027
               </SelectItem>
               <SelectItem
-                value="last_30_days"
+                value="Oct"
                 className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
               >
                 Oct 2028

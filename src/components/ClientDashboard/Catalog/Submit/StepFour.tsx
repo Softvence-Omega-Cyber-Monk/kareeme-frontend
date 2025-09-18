@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaMusic } from "react-icons/fa";
+import { FormDataType } from "./MultiStepForm";
 
 // Define the type for the contributor object
 interface Contributor {
@@ -13,6 +14,7 @@ interface Contributor {
 }
 
 type StepFourProps = {
+  formData: FormDataType;  // <-- add this line
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;

@@ -1,5 +1,3 @@
-// AlbumCard.tsx
-import { Button } from "@/components/ui/button";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -30,27 +28,44 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
         className="w-full h-48 object-cover rounded-lg"
       />
       <div className="p-4 flex-1 flex flex-col justify-between">
-        <div className="space-y-1">
-          <h2 className="text-white font-semibold text-lg">{title}</h2>
-          <p className="text-blue-500 text-sm">{artist}</p>
-          <p className="text-gray-400 text-sm">{label}</p>
+        <div className="space-y-3">
+          <h2 className="text-white font-sans text-2xl">{title}</h2>
+          <p className="text-[#3A5CFF] text-xl">{artist}</p>
+          <p className="text-[#BDBDBD] text-base">{label}</p>
           <hr className="text-[#2C2C2C]" />
-          <div className="text-gray-400 text-xs mt-2">
-            <p>UPC: {upc}</p>
-            <p>Release Date: {releaseDate}</p>
-            <p>Type: {type}</p>
+          <div className="text-[#BDBDBD] text-sm mt-2 space-y-3">
+            <div className=" flex justify-between items-center">
+              <p>
+                UPC: <span className="text-white">{upc}</span>
+              </p>
+              <p>
+                Type: <span className="text-white">{type}</span>{" "}
+              </p>
+            </div>
+            <p>
+              Release Date: <span className="text-white">{releaseDate}</span>{" "}
+            </p>
           </div>
         </div>
-        <div className="mt-4 flex gap-2">
-          <Link to="/client-dashboard/catalog/back-catalog/edit">
-            <Button className="flex-1 py-2 bg-gray-700 text-white rounded-[15px] hover:bg-gray-600 transition cursor-pointer">
+        <div className="mt-4 flex gap-4">
+          {/* Edit Button */}
+          <Link
+            to="/client-dashboard/catalog/back-catalog/edit"
+            className="flex-1"
+          >
+            <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-gray-700 bg-white/10 text-white hover:bg-white/20 transition-all duration-300 font-medium cursor-pointer">
               Edit
-            </Button>
+            </button>
           </Link>
-          <Link to="/client-dashboard/catalog/back-catalog/view">
-            <Button className="flex-1 py-2 bg-blue-600 text-white rounded-[15px] hover:bg-blue-500 transition cursor-pointer">
+
+          {/* View Details Button */}
+          <Link
+            to="/client-dashboard/catalog/back-catalog/view"
+            className="flex-1"
+          >
+            <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-[#3A5CFF] bg-[#3A5CFF] text-white hover:bg-[#3350d1] transition-all duration-300 font-medium cursor-pointer">
               View Details
-            </Button>
+            </button>
           </Link>
         </div>
       </div>

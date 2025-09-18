@@ -1,11 +1,9 @@
-import StatemenmtTable from "./StatemenmtTable";
-import StatementHeader from "./StatementHeader";
+import StatementComponent from "./StatementComponent";
 
 const Statements = () => {
   return (
     <div className="space-y-6">
-      <StatementHeader />
-      <StatemenmtTable />
+      <StatementComponent />
     </div>
   );
 };

@@ -53,6 +53,7 @@ import PaymentsEarningsPage from "@/pages/Accountant/PaymentsEarningsPage";
 import ProfitLossPages from "@/pages/Accountant/ProfitLossPages";
 import StatementsPage from "@/pages/Accountant/StatementsPage";
 import ClientManagementPage from "@/pages/Accountant/ClientManagementPage";
+import IHeartRadioPage from "@/pages/Client/IHeartRadioPage";
 import AccountanSettingsPage from "@/pages/Accountant/AccountanSettingsPage";
 import DistributorSettingPage from "@/pages/Distributor/DistributorSettingPage";
 
@@ -93,7 +94,7 @@ const routes = createBrowserRouter([
       { path: "analytics/audiomack", element: <AudiomackPage /> },
       { path: "analytics/deezer", element: <DeezerPage /> },
       { path: "analytics/tidal", element: <TIDALPage /> },
-      { path: "analytics/iheart-radio", element: <TIDALPage /> },
+      { path: "analytics/iheart-radio", element: <IHeartRadioPage /> },
       /* Accounting */
       { path: "accounting/statement", element: <StatementPage /> },
       { path: "accounting/statement/:id", element: <StatementDetailsPage /> },

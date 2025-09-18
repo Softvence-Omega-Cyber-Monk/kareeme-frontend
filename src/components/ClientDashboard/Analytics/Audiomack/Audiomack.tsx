@@ -1,10 +1,10 @@
-import Tabs from "../Tabs";
-import Youtube from "../Youtube/Youtube";
+import AudiomackHeader from "./AudiomackHeader";
+import Tabs from "./Tabs";
 
 const Audiomack = () => {
   return (
     <div className="space-y-9">
-      <Youtube />
+      <AudiomackHeader />
       <Tabs />
     </div>
   );
