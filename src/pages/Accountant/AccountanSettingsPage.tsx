@@ -1,7 +1,6 @@
 import AccountSettings from "@/components/AdminDashboard/Settings/AccountSettings";
 
-
-const SettingsPage = () => {
+const AccountanSettingsPage = () => {
   return (
     <div>
       <AccountSettings />
@@ -9,4 +8,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default AccountanSettingsPage;

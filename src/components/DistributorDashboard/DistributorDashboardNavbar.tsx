@@ -98,7 +98,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               align="end"
               className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
             >
-              <Link to="/client-dashboard/catalog/settings">
+              <Link to="/diostributor-dashboard/settings">
                 <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
                   <IoMdSettings />
                   Settings
