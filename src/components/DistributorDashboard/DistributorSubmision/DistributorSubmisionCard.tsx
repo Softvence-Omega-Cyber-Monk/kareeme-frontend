@@ -52,14 +52,14 @@ const DistributorSubmisionCard = () => {
               className="border border-[#c6c6c630] p-4 sm:p-6 rounded-[15px] bg-[#0D2223]"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-gray-700 rounded-lg flex-shrink-0">
+                <div className=" flex-shrink-0">
                   <img
                     src={metric.icon}
                     alt={metric.label}
-                    className="w-7 h-7"
+                    className="w-9 h-9"
                   />
                 </div>
-                <span className="text-gray-300 text-sm font-medium">
+                <span className="text-gray-300 text-base font-medium">
                   {metric.label}
                 </span>
               </div>
