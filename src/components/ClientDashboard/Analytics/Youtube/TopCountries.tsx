@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/table";
 
 import flag from "@/assets/icons/flag.svg";
+// import { useState } from "react";
+// import Tabs from "../Spotify/Tabs";
 
 const productData = [
   {
@@ -49,6 +51,8 @@ const productData = [
 ];
 
 export function TopCountries() {
+  // const [activeTab, setActiveTab] = useState("Overview");
+
   return (
     <div className="bg-[#0C2322] border border-[#313E41] rounded-2xl shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
       <div className="flex justify-between items-center">
@@ -58,10 +62,14 @@ export function TopCountries() {
           </h1>
         </div>
         <div>
-          <button className="text-sm md:text-base text-[#3A5CFF] hover:text-[#052fff] font-medium cursor-pointer hover:underline">
+          <button
+            //  onClick={() => setActiveTab("Geo Trends")}
+            className="text-sm md:text-base text-[#3A5CFF] hover:text-[#052fff] font-medium cursor-pointer hover:underline"
+          >
             Geo Trends
           </button>
         </div>
+        {/* <Tabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
       </div>
 
       <div className="overflow-x-auto">

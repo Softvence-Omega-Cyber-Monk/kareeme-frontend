@@ -63,11 +63,11 @@ const DistributorDashboardCard = () => {
               className="bg-[#0D2223] border border-[#304240] p-4 sm:p-6 rounded-2xl"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-gray-700 rounded-lg flex-shrink-0">
+                <div className="flex-shrink-0">
                   <img
                     src={metric.icon}
                     alt={metric.label}
-                    className="w-7 h-7"
+                    className="w-9 h-9"
                   />
                 </div>
                 <span className="text-gray-300 text-base font-sans">
