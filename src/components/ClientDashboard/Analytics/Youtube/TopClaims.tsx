@@ -59,7 +59,7 @@ export function TopClaims() {
           </h1>
         </div>
         <div>
-          <button className="underline text-sm md:text-base text-[#3A5CFF] font-medium">
+          <button className="text-sm md:text-base text-[#3A5CFF] hover:text-[#052fff] font-medium cursor-pointer hover:underline">
             Claims
           </button>
         </div>

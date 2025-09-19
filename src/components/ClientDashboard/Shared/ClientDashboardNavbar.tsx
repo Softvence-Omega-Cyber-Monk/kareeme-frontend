@@ -17,6 +17,9 @@ import notification from "@/assets/icons/notification.svg";
 import user from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -31,6 +34,8 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   userName = "Gemini Chachi",
   isSidebarOpen,
 }) => {
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
   return (
     <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
@@ -73,18 +78,46 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
           </Button>
 
           {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative text-white">
+          {/* <Button variant="ghost" size="icon" className="relative text-white">
             <img src={notification} alt="Notifications" className="w-6 h-6" />
             {notificationCount > 0 && (
               <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
                 {notificationCount > 99 ? "99+" : notificationCount}
               </Badge>
             )}
-          </Button>
+          </Button> */}
+
+          <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
+            <DialogTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative text-white cursor-pointer"
+                onClick={() => setNotificationOpen(true)}
+              >
+                <img
+                  src={notification}
+                  alt="Notifications"
+                  className="w-6 h-6"
+                />
+                {notificationCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
+                    {notificationCount > 99 ? "99+" : notificationCount}
+                  </Badge>
+                )}
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="p-0 bg-transparent border-none fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <NotificationReuseable
+                onClose={() => setNotificationOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
 
           {/* User Dropdown */}
           {/* User Dropdown */}
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
@@ -116,6 +149,44 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  text-red-500 hover:bg-red-600 hover:text-white transition-colors">
                 <RiLogoutBoxRLine />
                 Sign Out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu> */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white cursor-pointer"
+              >
+                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent
+              align="end"
+              className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
+            >
+              <Link to="/client-dashboard/catalog/settings">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <IoMdSettings className="text-white" />
+                  <span className="font-medium">Settings</span>
+                </DropdownMenuItem>
+              </Link>
+
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <RiFileList3Fill className="text-white" />
+                <span className="font-medium">Terms & Conditions</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <MdPrivacyTip className="text-white" />
+                <span className="font-medium">Privacy Policy</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer">
+                <RiLogoutBoxRLine className="text-red-500" />
+                <span className="font-medium">Sign Out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
