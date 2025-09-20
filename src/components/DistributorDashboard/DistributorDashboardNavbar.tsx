@@ -131,7 +131,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               align="end"
               className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
             >
-              <Link to="/diostributor-dashboard/settings">
+              <Link to="/distributor-dashboard/settings">
                 <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
                   <IoMdSettings />
                   Settings
@@ -167,7 +167,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               align="end"
               className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
-              <Link to="/diostributor-dashboard/settings">
+              <Link to="/distributor-dashboard/settings">
                 <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                   <IoMdSettings className="text-white" />
                   <span className="font-medium">Settings</span>

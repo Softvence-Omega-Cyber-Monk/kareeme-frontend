@@ -115,7 +115,7 @@ const Team = () => {
             </DialogTrigger>
 
             {/* Custom Overlay */}
-            <DialogOverlay className="fixed inset-0 bg-black/50 backdrop-blur-[0.2px] bg-opacity-50 transition-all duration-300" />
+            <DialogOverlay className="fixed inset-0 bg-black/50 backdrop-blur-[0.8px] bg-opacity-50 transition-all duration-300" />
 
             {/* Dialog Box */}
             <DialogContent className="backdrop-blur-md bg-[#121E21]/90 border border-gray-700 text-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in fade-in-50 slide-in-from-top-10">

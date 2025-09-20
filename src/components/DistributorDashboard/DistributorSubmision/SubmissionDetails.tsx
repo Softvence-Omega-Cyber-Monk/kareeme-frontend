@@ -9,7 +9,7 @@ import { RxCrossCircled } from "react-icons/rx";
 const SubmissionDetails = () => {
   return (
     <div className="space-y-4">
-      <Link to="/diostributor-dashboard/submissions">
+      <Link to="/distributor-dashboard/submissions">
         <p className="text-sm font-sans cursor-pointer hover:text-[#E5E5E5] flex items-center gap-1">
           <FaAngleLeft />
           Back To Submissions

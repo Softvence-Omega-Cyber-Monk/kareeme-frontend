@@ -370,7 +370,7 @@ export function DistributorSubmissionTable() {
                   <StatusBadge status={submission.status} />
                 </td>
                 <td className="text-base py-4 px-6">
-                  <Link to="/diostributor-dashboard/submissions/details">
+                  <Link to="/distributor-dashboard/submissions/details">
                     <Button className="text-base text-blue-400 hover:text-blue-300 p-0 h-auto font-normal cursor-pointer">
                       Details <FaChevronRight />
                     </Button>
