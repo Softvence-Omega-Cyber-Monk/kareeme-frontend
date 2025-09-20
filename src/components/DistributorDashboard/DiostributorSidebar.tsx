@@ -28,27 +28,27 @@ const defaultSidebarItems: SidebarItem[] = [
   {
     icon: Dashboard,
     label: "Dashboard",
-    href: "/diostributor-dashboard/dashboard",
+    href: "/distributor-dashboard/dashboard",
   },
   {
     icon: Submissions,
     label: "Submissions",
-    href: "/diostributor-dashboard/submissions",
+    href: "/distributor-dashboard/submissions",
   },
   {
     icon: Backcatalog,
     label: "Back Catalog",
-    href: "/diostributor-dashboard/back-catalog",
+    href: "/distributor-dashboard/back-catalog",
   },
   {
     icon: Distribution,
     label: "Distribution",
-    href: "/diostributor-dashboard/distribution",
+    href: "/distributor-dashboard/distribution",
   },
   {
     icon: Client,
     label: "Client",
-    href: "/diostributor-dashboard/client",
+    href: "/distributor-dashboard/client",
   },
 ];
 

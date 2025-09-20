@@ -1,28 +1,28 @@
-// import RealiseTable from "./Shared/RealiseTable";
-import { ReleasesDetailsTable } from "./Shared/ReleasesDetailsTable";
-import ReleasesStatementCard from "./Shared/ReleasesStatementCard";
-import ReleasesTable from "./Shared/ReleasesTable";
+import { AssetsDetailsTable } from "./Shared/AssetsDetailsTable";
+import AssetsStatementCard from "./Shared/AssetsStatementCard";
+import AssetsTable from "./Shared/AssetsTable";
 
-const DetailsRealise = () => {
+const DetailsAsserts = () => {
   return (
-    <div className="space-y-6">
+    <div>
       <div className=" space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4  gap-5">
           <div className="xl:col-span-3 w-full">
-            <ReleasesTable />
+            <AssetsTable />
           </div>
           <div className="w-full xl:col-span-1 space-y-6">
-            <ReleasesStatementCard />
+            <AssetsStatementCard />
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-4 w-full">
-          <ReleasesDetailsTable />
+          <AssetsDetailsTable />
         </div>
       </div>
     </div>
   );
 };
 
-export default DetailsRealise;
+export default DetailsAsserts;

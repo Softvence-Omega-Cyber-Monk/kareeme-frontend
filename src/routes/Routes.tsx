@@ -116,7 +116,7 @@ const routes = createBrowserRouter([
 
   /* Diostributor Dashboard */
   {
-    path: "/diostributor-dashboard",
+    path: "/distributor-dashboard",
     element: <DistributorLayout />,
     children: [
       { index: true, element: <DistributorDashboardPage /> },
@@ -136,8 +136,6 @@ const routes = createBrowserRouter([
       { path: "client/create", element: <CreateNewClient /> },
 
       { path: "settings", element: <DistributorSettingPage /> },
-
-
     ],
   },
 

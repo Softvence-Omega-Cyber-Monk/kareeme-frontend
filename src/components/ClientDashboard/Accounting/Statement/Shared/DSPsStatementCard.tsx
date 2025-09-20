@@ -1,7 +1,7 @@
-const StatementCard = () => {
+const DSPsStatementCard = () => {
   return (
     <div className=" w-full  mx-auto bg-dark-blue p-6 rounded-lg shadow-lg text-white bg-[#0F1F23] space-y-4">
-      <h2 className="text-xl font-semibold mb-2">July 2025 Statement</h2>
+      <h2 className="text-xl font-semibold mb-2">DSPs July 2025 Statement</h2>
       <p className="text-sm text-gray-400">Issued On: Jul 24, 2025</p>
       <p className="text-sm text-gray-400 mb-4">Paid On: Aug 11, 2025</p>
 
@@ -38,4 +38,4 @@ const StatementCard = () => {
   );
 };
 
-export default StatementCard;
+export default DSPsStatementCard;

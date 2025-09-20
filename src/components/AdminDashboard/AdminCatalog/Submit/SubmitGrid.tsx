@@ -1,122 +1,102 @@
 import SubmitCard, { ReviewStatus } from "./SubmitCard";
 
-interface Artist {
+export interface Artist {
   name: string;
-  genre: string;
-  totalRelease: number;
+  type: string;
   releaseType: string;
-  distributor: string;
-  label: string;
   totalTracks: number;
-  dateRange: string;
+  releaseDate: string;
+  submitDate: string;
   reviewStatus: ReviewStatus;
 }
 
 const artists: Artist[] = [
   {
     name: "Darlene Robertson",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
+    type: "Single",
     releaseType: "3 Albums, 2 Singles",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
     totalTracks: 25,
-    dateRange: "2018-2025",
+    releaseDate: "2023-11-05",
+    submitDate: "2023-12-01",
     reviewStatus: "In Review",
   },
   {
     name: "Kristin Watson",
-    genre: "Pop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Singles",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
+    type: "Single",
+    releaseType: "2 Albums, 3 Singles",
+    totalTracks: 20,
+    releaseDate: "2023-08-15",
+    submitDate: "2023-09-10",
     reviewStatus: "Approved",
   },
   {
     name: "Ronald Richards",
-    genre: "Rock Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Singles",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
+    type: "Single",
+    releaseType: "4 Albums, 1 Single",
+    totalTracks: 30,
+    releaseDate: "2022-05-22",
+    submitDate: "2022-06-01",
     reviewStatus: "Declined",
   },
   {
     name: "Devon Lane",
-    genre: "Hip Hop Artist",
-    totalRelease: 4,
+    type: "Single",
     releaseType: "2 Albums, 2 Singles",
-    distributor: "ABC Distribution",
-    label: "XYZ Records",
-    totalTracks: 20,
-    dateRange: "2019-2024",
+    totalTracks: 18,
+    releaseDate: "2021-09-10",
+    submitDate: "2021-09-20",
     reviewStatus: "Approved",
   },
   {
     name: "Marvin McKinney",
-    genre: "Pop Artist",
-    totalRelease: 6,
-    releaseType: "4 Albums, 2 Singles",
-    distributor: "Global Distribution",
-    label: "MNO Records",
-    totalTracks: 30,
-    dateRange: "2017-2025",
+    type: "Single",
+    releaseType: "3 Albums, 2 Singles",
+    totalTracks: 22,
+    releaseDate: "2023-01-05",
+    submitDate: "2023-02-01",
     reviewStatus: "In Review",
   },
   {
     name: "Kathryn Murphy",
-    genre: "Rock Artist",
-    totalRelease: 3,
+    type: "Single",
     releaseType: "3 Albums",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
     totalTracks: 18,
-    dateRange: "2020-2025",
+    releaseDate: "2022-03-18",
+    submitDate: "2022-04-05",
     reviewStatus: "Declined",
   },
   {
     name: "Savannah Nguyen",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
+    type: "Single",
     releaseType: "2 Albums, 3 Singles",
-    distributor: "ABC Distribution",
-    label: "DEF Records",
     totalTracks: 27,
-    dateRange: "2018-2025",
+    releaseDate: "2023-06-12",
+    submitDate: "2023-07-01",
     reviewStatus: "Approved",
   },
   {
     name: "Eleanor Pena",
-    genre: "Pop Artist",
-    totalRelease: 4,
+    type: "Single",
     releaseType: "4 Singles",
-    distributor: "Global Distribution",
-    label: "GHI Records",
     totalTracks: 16,
-    dateRange: "2019-2025",
+    releaseDate: "2022-11-22",
+    submitDate: "2022-12-05",
     reviewStatus: "In Review",
   },
   {
     name: "Guy Hawkins",
-    genre: "Rock Artist",
-    totalRelease: 6,
+    type: "Single",
     releaseType: "5 Albums, 1 Single",
-    distributor: "XYZ Distribution",
-    label: "JKL Records",
     totalTracks: 32,
-    dateRange: "2016-2025",
+    releaseDate: "2021-07-19",
+    submitDate: "2021-08-01",
     reviewStatus: "Approved",
   },
 ];
 
 const SubmitGrid = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
       {artists.map((artist, index) => (
         <SubmitCard key={index} {...artist} />
       ))}
@@ -125,3 +105,4 @@ const SubmitGrid = () => {
 };
 
 export default SubmitGrid;
+

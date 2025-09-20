@@ -80,7 +80,7 @@ const ClientManageHeader = () => {
 
           {/* Add Button */}
           <Link
-            to="/diostributor-dashboard/client/create"
+            to="/distributor-dashboard/client/create"
             className="w-full sm:w-auto"
           >
             <Button className="bg-[#3a5cff] hover:bg-[#2649fc] text-base font-sans h-12 text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
@@ -173,7 +173,7 @@ export default ClientManageHeader;
 //           </Select>
 
 //           {/* Add Button */}
-//           <Link to="/diostributor-dashboard/client/create">
+//           <Link to="/distributor-dashboard/client/create">
 //             <Button className="bg-[#3a5cff] hover:bg-[#2649fc] text-base font-sans h-12 text-white px-4 py-2 rounded-[15px] flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
 //               Add New Client <FaPlus className="text-sm" />
 //             </Button>

@@ -186,7 +186,7 @@ const MusicDistribution: React.FC = () => {
             >
               Distribute Now
             </button>
-            <Link to="/diostributor-dashboard/distribution/details">
+            <Link to="/distributor-dashboard/distribution/details">
               <button className="w-full sm:w-auto bg-gray-700 px-5 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer">
                 View Details
               </button>
@@ -376,7 +376,7 @@ const MusicDistribution: React.FC = () => {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-4">
-            <Link to="/diostributor-dashboard/distribution/details">
+            <Link to="/distributor-dashboard/distribution/details">
               <button className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
                 View Analytics
               </button>

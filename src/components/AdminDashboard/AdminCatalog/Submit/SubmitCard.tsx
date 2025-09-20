@@ -4,67 +4,68 @@ export type ReviewStatus = "In Review" | "Declined" | "Approved";
 
 interface ArtistCardProps {
   name: string;
-  genre: string;
-  totalRelease: number;
+  type: string;
   releaseType: string;
-  distributor: string;
-  label: string;
   totalTracks: number;
-  dateRange: string;
+  releaseDate: string;
+  submitDate: string;
   reviewStatus: ReviewStatus;
 }
 
 const SubmitCard = ({
   name,
-  totalRelease,
+  type,
   releaseType,
-  distributor,
-  label,
   totalTracks,
-  dateRange,
+  releaseDate,
+  submitDate,
   reviewStatus,
 }: ArtistCardProps) => {
-  const statusColor =
-    reviewStatus === "Approved"
-      ? "text-green-500"
-      : reviewStatus === "Declined"
-      ? "text-red-500"
-      : "text-yellow-400";
-
   return (
-    <div className="bg-[#0D1F22] p-5 rounded-lg shadow-md text-white">
+    <div className="bg-[#0D1F22] p-5 rounded-xl shadow-md text-white border-t-2 border-r border-l border-[#303B40]">
+      {/* Header */}
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">{name}</h3>
-        <p className={`font-semibold ${statusColor}`}>{reviewStatus}</p>
+        <div>
+          <h3 className="text-2xl font-semibold">{name}</h3>
+        </div>
+        <p
+          className={`font-semibold px-3 py-1 rounded-[15px] text-sm ${
+            reviewStatus === "Approved"
+              ? "bg-[#0D3226] text-green-600"
+              : reviewStatus === "Declined"
+              ? "bg-[#21201F] text-red-600"
+              : "bg-[#25301F] text-yellow-600"
+          }`}
+        >
+          {reviewStatus}
+        </p>
       </div>
 
-      <div className="mt-4 space-y-2">
+      {/* Details */}
+      <div className="mt-4 space-y-3 text-sm">
         <div className="flex justify-between">
-          <p>Total Release:</p>
-          <p>{totalRelease}</p>
+          <p className="text-base text-[#BDBDBD]">Artist:</p>
+          <p className="text-base">{releaseType}</p>
         </div>
         <div className="flex justify-between">
-          <p>Release Type:</p>
-          <p>{releaseType}</p>
+          <p className="text-base text-[#BDBDBD]">Type:</p>
+          <p className="text-base">{type}</p>
         </div>
         <div className="flex justify-between">
-          <p>Distributor:</p>
-          <p>{distributor}</p>
+          <p className="text-base text-[#BDBDBD]">Tracks:</p>
+          <p className="text-base">{totalTracks}</p>
         </div>
         <div className="flex justify-between">
-          <p>Label:</p>
-          <p>{label}</p>
+          <p className="text-base text-[#BDBDBD]">Release Date:</p>
+          <p className="text-base">{releaseDate}</p>
         </div>
         <div className="flex justify-between">
-          <p>Total Track:</p>
-          <p>{totalTracks}</p>
-        </div>
-        <div className="flex justify-between">
-          <p>Date Range:</p>
-          <p>{dateRange}</p>
+          <p className="text-base text-[#BDBDBD]">Submit Date:</p>
+          <p className="text-base">{submitDate}</p>
         </div>
       </div>
 
+      {/* Button */}
       <Link to="/admin-dashboard/submit/view">
         <button className="w-full mt-4 px-6 py-2 bg-blue-500 rounded-lg hover:bg-blue-400 transition cursor-pointer">
           View Details

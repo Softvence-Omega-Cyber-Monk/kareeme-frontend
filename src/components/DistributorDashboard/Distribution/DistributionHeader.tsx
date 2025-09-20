@@ -17,7 +17,7 @@ const DistributionHeader = () => {
   // const navigate = useNavigate();
 
   // const handleBulkDistribution = () => {
-  //   navigate("/diostributor-dashboard/distribution/confirm-distribution");
+  //   navigate("/distributor-dashboard/distribution/confirm-distribution");
   //   window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top
   // };
 
@@ -126,7 +126,7 @@ const DistributionHeader = () => {
           <button
             // onClick={() =>
             //   navigate(
-            //     "/diostributor-dashboard/distribution/confirm-distribution"
+            //     "/distributor-dashboard/distribution/confirm-distribution"
             //   )
             // }
             // onClick={handleBulkDistribution}

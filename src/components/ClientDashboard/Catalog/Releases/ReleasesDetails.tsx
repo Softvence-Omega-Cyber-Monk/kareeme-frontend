@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Copy, ArrowLeft } from "lucide-react";
 import realesphoto from "@/assets/photo/realesphoto.png";
+import { Link } from "react-router-dom";
 
 export default function ReleasesDetails() {
   const [copied, setCopied] = useState<"upc" | "isrc" | null>(null);
@@ -14,11 +15,14 @@ export default function ReleasesDetails() {
   return (
     <div className="text-white flex flex-col items-center  ">
       {/* Back */}
+
       <div className="w-full ">
-        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer">
-          <ArrowLeft size={18} />
-          <span>Back To Releases</span>
-        </button>
+        <Link to="/client-dashboard/catalog/releases">
+          <button className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer">
+            <ArrowLeft size={18} />
+            <span>Back To Releases</span>
+          </button>
+        </Link>
       </div>
 
       {/* Album Section */}
@@ -32,45 +36,45 @@ export default function ReleasesDetails() {
           />
         </div>
 
-        {/* Title */}
-        <h1 className="mt-6 text-2xl font-bold">MIDNIGHT REFLECTIONS</h1>
+        <div className=" flex justify-start items-center gap-3 mt-6">
+          {/* Title */}
+          <h1 className=" text-[32px] font-sans">MIDNIGHT REFLECTIONS</h1>
 
-        {/* Status */}
-        <span className="bg-green-600 text-white text-xs px-3 py-1 rounded-full mt-2">
-          Live
-        </span>
+          {/* Status */}
+          <span className="bg-[#0B2A1E] text-[#01D449] text-base px-4 py-1 rounded-full ">
+            Live
+          </span>
+        </div>
 
         {/* Artist */}
-        <p className="text-gray-400 mt-3">
-          By <span className="text-white font-medium">Gemini Chachi</span>
-        </p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-400 mt-3 text-xl">By Gemini Chachi</p>
+        <p className="text-gray-400 text-xl">
           Single • Released on March 24, 2025
         </p>
 
         {/* Codes */}
         <div className="flex gap-6 mt-6">
           {/* UPC */}
-          <div className="bg-gray-800 px-4 py-2 rounded-lg flex items-center gap-2">
+          <div className="bg-gray-800 px-4 py-4 rounded-lg flex items-center gap-2 border-t-2 border-r border-l border-[#303B40]">
             <span className="text-gray-400 text-sm">UPC</span>
             <button
               onClick={() => handleCopy("723277809397", "upc")}
-              className="flex items-center gap-2 text-blue-400 hover:text-blue-300"
+              className="flex items-center gap-2 text-blue-400 hover:text-blue-300 cursor-pointer"
             >
               723277809397
               <Copy size={16} />
             </button>
             {copied === "upc" && (
-              <span className="text-green-400 text-xs ml-2">Copied!</span>
+              <span className="text-green-400 text-xs ml-2 ">Copied!</span>
             )}
           </div>
 
           {/* ISRC */}
-          <div className="bg-gray-800 px-4 py-2 rounded-lg flex items-center gap-2">
+          <div className="bg-gray-800 px-4 py-2 rounded-lg flex items-center gap-2 border-t-2 border-r border-l border-[#303B40]">
             <span className="text-gray-400 text-sm">ISRC</span>
             <button
               onClick={() => handleCopy("USRC17607839", "isrc")}
-              className="flex items-center gap-2 text-blue-400 hover:text-blue-300"
+              className="flex items-center gap-2 text-blue-400 hover:text-blue-300 cursor-pointer"
             >
               USRC17607839
               <Copy size={16} />

@@ -1,6 +1,10 @@
 import { useState } from "react";
 
 import DetailsRealise from "./DetailsRealise";
+import DetailsTracks from "./DetailsTracks";
+import DetailsAsserts from "./DetailsAsserts";
+import DetailsDSPs from "./DetailsDSPs";
+import DetailsTerritories from "./DetailsTerritories";
 
 const DetailsTab = () => {
   const [activeTab, setActiveTab] = useState("Releases");
@@ -33,22 +37,22 @@ const DetailsTab = () => {
         )}
         {activeTab === "Tracks" && (
           <div>
-            <DetailsRealise />
+            <DetailsTracks />
           </div>
         )}
         {activeTab === "Assets" && (
           <div>
-            <DetailsRealise />
+            <DetailsAsserts />
           </div>
         )}
         {activeTab === "DSPs" && (
           <div>
-            <DetailsRealise />
+            <DetailsDSPs />
           </div>
         )}
         {activeTab === "Territories" && (
           <div>
-            <DetailsRealise />
+            <DetailsTerritories />
           </div>
         )}
       </div>

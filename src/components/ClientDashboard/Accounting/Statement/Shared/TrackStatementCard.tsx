@@ -1,4 +1,4 @@
-const StatementCard = () => {
+const TrackStatementCard = () => {
   return (
     <div className=" w-full  mx-auto bg-dark-blue p-6 rounded-lg shadow-lg text-white bg-[#0F1F23] space-y-4">
       <h2 className="text-xl font-semibold mb-2">July 2025 Statement</h2>
@@ -38,4 +38,4 @@ const StatementCard = () => {
   );
 };
 
-export default StatementCard;
+export default TrackStatementCard;
