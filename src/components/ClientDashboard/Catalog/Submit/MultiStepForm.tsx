@@ -121,7 +121,7 @@ const MultiStepForm = () => {
           }`}
         />
         <div
-          className={`h-2 flex-1 rounded-full ${
+          className={`h-2 flex-1 rounded-full mr-2 ${
             step >= 3
               ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
               : "bg-gray-600"

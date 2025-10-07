@@ -36,6 +36,7 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
   isSidebarOpen,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpendashboard, setIsOpendashboard] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   return (
@@ -59,20 +60,11 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
 
           {/* Logo + Dashboard text */}
           <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60 mt-2">
-            {/* <div className="flex flex-col leading-tight border border-[#8086D7] rounded-4xl  px-[14px] py-[12px]">
-              <span className="text-sm md:text-base font-medium text-white">
-                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#161625] border border-[#3A5CFF] text-white font-medium text-sm">
-                  GC
-                </span>{" "}
-                {userName}
-              </span>
-            </div> */}
-
             <div className="relative">
               {/* Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[14px] py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
               >
                 <span className="flex items-center gap-3">
                   {/* Profile Circle */}
@@ -125,28 +117,43 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
-          {/* Dashboard Icon */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative text-white cursor-pointer"
-          >
-            <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
-          </Button>
+          <div className="relative">
+            {/* Dashboard Icon */}
+            <Button
+              onClick={() => setIsOpendashboard(!isOpendashboard)}
+              variant="ghost"
+              size="icon"
+              className="relative text-white cursor-pointer hover:bg-amber-400"
+            >
+              <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
+            </Button>
+
+            {/* Dropdown */}
+            {isOpendashboard && (
+              <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
+                <ul className="py-2 text-sm text-white">
+                  {[
+                    { initial: "A", name: "Md Arfin Mia" },
+                    { initial: "S", name: "Md Saqzzad " },
+                    { initial: "Q", name: "Md Abdul Quadir" },
+                  ].map((user, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                     transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
+                    >
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        {user.initial}
+                      </span>
+                      <span className="font-medium">{user.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
 
           {/* Notifications */}
-          {/* <Button
-            variant="ghost"
-            size="icon"
-            className="relative text-white cursor-pointer"
-          >
-            <img src={notification} alt="Notifications" className="w-6 h-6" />
-            {notificationCount > 0 && (
-              <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
-                {notificationCount > 99 ? "99+" : notificationCount}
-              </Badge>
-            )}
-          </Button> */}
 
           <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
             <DialogTrigger asChild>
@@ -168,7 +175,9 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                 )}
               </Button>
             </DialogTrigger>
-
+            {notificationOpen && (
+              <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
+            )}
             <DialogContent className="p-0 bg-transparent border-none fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <NotificationReuseable
                 onClose={() => setNotificationOpen(false)}
@@ -176,43 +185,6 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
             </DialogContent>
           </Dialog>
 
-          {/* User Dropdown */}
-          {/* User Dropdown */}
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white cursor-pointer"
-              >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
-            >
-              <Link to="/admin-dashboard/settings">
-                <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
-                  <IoMdSettings />
-                  Settings
-                </DropdownMenuItem>
-              </Link>
-
-              <DropdownMenuItem className="flex- justify-between cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
-                <RiFileList3Fill />
-                Terms & Conditions
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  hover:bg-[#1C1D28] transition-colors">
-                <MdPrivacyTip />
-                Privacy Policy
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2  text-red-500 hover:bg-red-600 hover:text-white transition-colors">
-                <RiLogoutBoxRLine />
-                Sign Out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
           {/* User Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -259,199 +231,3 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
 };
 
 export default AdminDashboardNavBar;
-
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import { Menu, ChevronDown, X } from "lucide-react";
-// import { IoMdSettings } from "react-icons/io";
-// import { RiFileList3Fill, RiLogoutBoxRLine } from "react-icons/ri";
-// import { MdPrivacyTip } from "react-icons/md";
-
-// import { Button } from "@/components/ui/button";
-// import { Badge } from "@/components/ui/badge";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-// import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
-// import dashboardIcon from "@/assets/icons/dashboard.svg";
-// import notificationIcon from "@/assets/icons/notification.svg";
-// import userIcon from "@/assets/icons/user.svg";
-// import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
-
-// export interface NavbarProps {
-//   onMobileMenuToggle: () => void;
-//   notificationCount?: number;
-//   userName?: string;
-//   isSidebarOpen: boolean;
-// }
-
-// const AdminDashboardNavBar: React.FC<NavbarProps> = ({
-//   onMobileMenuToggle,
-//   notificationCount = 12,
-//   userName = "Gemini Chachi",
-//   isSidebarOpen,
-// }) => {
-//   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-//   const [notificationOpen, setNotificationOpen] = useState(false);
-
-//   return (
-//     <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
-//       <header
-//         className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${
-//           isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
-//         }`}
-//       >
-//         {/* Left Section */}
-//         <div className="flex items-center space-x-4">
-//           {/* Mobile Menu */}
-//           <Button
-//             variant="ghost"
-//             size="icon"
-//             className="lg:hidden text-white cursor-pointer"
-//             onClick={onMobileMenuToggle}
-//           >
-//             <Menu className="w-6 h-6" />
-//           </Button>
-
-//           {/* Logo + User Info */}
-//           <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60 mt-2 relative">
-//             <button
-//               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-//               className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[14px] py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
-//             >
-//               <span className="flex items-center gap-3">
-//                 <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
-//                   GC
-//                 </span>
-//                 <span className="text-sm md:text-base font-medium tracking-wide">
-//                   {userName}
-//                 </span>
-//               </span>
-
-//               <ChevronDown
-//                 size={18}
-//                 className={`ml-2 transform transition-transform duration-300 ${
-//                   userDropdownOpen ? "rotate-180" : ""
-//                 }`}
-//               />
-//             </button>
-
-//             {/* User Dropdown */}
-//             {userDropdownOpen && (
-//               <div className="absolute left-0 mt-2 w-full bg-[#10151C] border border-[#3A5CFF]/40 rounded-3xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
-//                 <ul className="py-2 text-sm text-white space-y-1">
-//                   <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl border-b border-[#20396C]">
-//                     <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
-//                       A
-//                     </span>
-//                     <span className="font-medium">Md Arfin Mia</span>
-//                   </li>
-//                   <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl border-b border-[#20396C]">
-//                     <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
-//                       S
-//                     </span>
-//                     <span className="font-medium">Md Saqzzad Hossain</span>
-//                   </li>
-//                   <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl border-b border-[#20396C]">
-//                     <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
-//                       Q
-//                     </span>
-//                     <span className="font-medium">Md Abdul Quadir</span>
-//                   </li>
-//                 </ul>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-
-//         {/* Right Section */}
-//         <div className="flex items-center space-x-4">
-//           {/* Dashboard Icon */}
-//           <Button
-//             variant="ghost"
-//             size="icon"
-//             className="relative text-white cursor-pointer"
-//           >
-//             <img src={dashboardIcon} alt="Dashboard" className="w-5 h-5" />
-//           </Button>
-
-//           {/* Notifications */}
-//           <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
-//             <DialogTrigger asChild>
-//               <Button
-//                 variant="ghost"
-//                 size="icon"
-//                 className="relative text-white cursor-pointer"
-//                 onClick={() => setNotificationOpen(true)}
-//               >
-//                 <img
-//                   src={notificationIcon}
-//                   alt="Notifications"
-//                   className="w-6 h-6"
-//                 />
-//                 {notificationCount > 0 && (
-//                   <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
-//                     {notificationCount > 99 ? "99+" : notificationCount}
-//                   </Badge>
-//                 )}
-//               </Button>
-//             </DialogTrigger>
-
-//             <DialogContent className="p-0 bg-transparent border-none fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-//               <NotificationReuseable
-//                 onClose={() => setNotificationOpen(false)}
-//               />
-//             </DialogContent>
-//           </Dialog>
-
-//           {/* User Settings Dropdown */}
-//           <DropdownMenu>
-//             <DropdownMenuTrigger asChild>
-//               <Button
-//                 variant="ghost"
-//                 size="icon"
-//                 className="text-white cursor-pointer"
-//               >
-//                 <img
-//                   src={userIcon}
-//                   alt="User"
-//                   className="w-6 h-6 rounded-full"
-//                 />
-//               </Button>
-//             </DropdownMenuTrigger>
-//             <DropdownMenuContent
-//               align="end"
-//               className="bg-[#132221] text-white w-48 shadow-lg rounded-2xl border-none"
-//             >
-//               <Link to="/admin-dashboard/settings">
-//                 <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2 hover:bg-[#1C1D28] transition-colors">
-//                   <IoMdSettings />
-//                   Settings
-//                 </DropdownMenuItem>
-//               </Link>
-
-//               <DropdownMenuItem className="flex justify-between cursor-pointer border-b border-[#364241] px-4 py-2 hover:bg-[#1C1D28] transition-colors">
-//                 <RiFileList3Fill />
-//                 Terms & Conditions
-//               </DropdownMenuItem>
-//               <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2 hover:bg-[#1C1D28] transition-colors">
-//                 <MdPrivacyTip />
-//                 Privacy Policy
-//               </DropdownMenuItem>
-//               <DropdownMenuItem className="cursor-pointer border-b border-[#364241] px-4 py-2 text-red-500 hover:bg-red-600 hover:text-white transition-colors">
-//                 <RiLogoutBoxRLine />
-//                 Sign Out
-//               </DropdownMenuItem>
-//             </DropdownMenuContent>
-//           </DropdownMenu>
-//         </div>
-//       </header>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboardNavBar;

@@ -89,7 +89,7 @@ export default function DataEntryForm() {
   };
 
   return (
-    <div className=" text-white p-8 space-y-8">
+    <div className=" text-white  space-y-8">
       {/* General Release Information */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 bg-[#0D1F21] rounded-2xl p-6 shadow-lg space-y-6">
@@ -339,27 +339,26 @@ export default function DataEntryForm() {
           </div>
         </div> */}
         <label className="cursor-pointer border-gray-600 rounded-2xl p-6 text-center hover:border-blue-400 hover:bg-gray-800 bg-[#0D1F21] flex items-center justify-center border-2 border-dashed max-w-sm">
-  <div>
-    <div className="flex flex-col items-center justify-center">
-      <div className="text-[#3A5CFF] text-3xl">
-        <RiFileMusicFill />
-      </div>
-      <p className="mt-2 text-gray-300">
-        Upload audio file (.wav preferred)
-      </p>
-      <input
-        type="file"
-        className="hidden"
-        accept=".wav,.mp3,.ogg"
-        // onChange={handleAudioChange} // your handler
-      />
-      <p className="text-xs text-gray-500 mt-2">
-        WAV, MP3, or OGG, max 20MB
-      </p>
-    </div>
-  </div>
-</label>
-
+          <div>
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-[#3A5CFF] text-3xl">
+                <RiFileMusicFill />
+              </div>
+              <p className="mt-2 text-gray-300">
+                Upload audio file (.wav preferred)
+              </p>
+              <input
+                type="file"
+                className="hidden"
+                accept=".wav,.mp3,.ogg"
+                // onChange={handleAudioChange} // your handler
+              />
+              <p className="text-xs text-gray-500 mt-2">
+                WAV, MP3, or OGG, max 20MB
+              </p>
+            </div>
+          </div>
+        </label>
       </div>
 
       {/* Artist Metadata (Per Track) */}

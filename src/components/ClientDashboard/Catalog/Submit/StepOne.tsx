@@ -234,7 +234,7 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                   type="file"
                   name="tiktokClip"
                   onChange={handleChange}
-                  className="p-3 rounded-xl bg-[#20362F] w-full"
+                  className="p-3 rounded-xl bg-[#20362F] w-full cursor-pointer"
                 />
               </div>
             </div>

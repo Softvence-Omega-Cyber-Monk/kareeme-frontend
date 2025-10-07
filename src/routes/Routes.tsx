@@ -56,6 +56,7 @@ import ClientManagementPage from "@/pages/Accountant/ClientManagementPage";
 import IHeartRadioPage from "@/pages/Client/IHeartRadioPage";
 import AccountanSettingsPage from "@/pages/Accountant/AccountanSettingsPage";
 import DistributorSettingPage from "@/pages/Distributor/DistributorSettingPage";
+import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/SplitSheetDetail";
 
 const routes = createBrowserRouter([
   {
@@ -109,6 +110,7 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
+      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
     ],

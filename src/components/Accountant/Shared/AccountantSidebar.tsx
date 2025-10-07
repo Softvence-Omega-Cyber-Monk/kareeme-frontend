@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import Client from "@/assets/sidebar/Client.svg";
 import Distribution from "@/assets/sidebar/Distribution.svg";
-import Submissions from "@/assets/sidebar/Submissions.svg";
+import Statement from "@/assets/sidebar/statement.png";
 import analitics from "@/assets/sidebar/analitics.svg";
 
 export interface SidebarItem {
@@ -36,7 +36,7 @@ const defaultSidebarItems: SidebarItem[] = [
     href: "/accountant-dashboard/payments-earnings",
   },
   {
-    icon: Submissions,
+    icon: Statement,
     label: "Statements",
     href: "/accountant-dashboard/statements",
   },
