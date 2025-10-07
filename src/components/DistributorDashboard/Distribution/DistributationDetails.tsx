@@ -222,12 +222,11 @@ const DistributationDetails = () => {
 
             {/* Input */}
             <textarea
-              placeholder=""
-              className="flex h-[194px] p-[24px_1340px_144px_24px] items-center self-stretch 
-             rounded-[15px] border border-[rgba(226,232,240,0.54)] 
-             bg-[rgba(24,39,107,0.30)] w-full text-sm mb-3 
-             focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={3}
+              placeholder="Write your message..."
+              className="w-full h-[194px] px-4 py-3 rounded-[15px] border border-[rgba(226,232,240,0.54)] 
+  bg-[rgba(24,39,107,0.30)] text-white placeholder-gray-300 
+  text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500 
+  resize-none shadow-sm backdrop-blur-sm transition-all duration-200"
             />
 
             <div className="flex justify-end">
@@ -239,11 +238,11 @@ const DistributationDetails = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-4 mt-8">
-            <button className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition flex items-center justify-start gap-2">
+            <button className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition flex items-center justify-start gap-2 cursor-pointer">
               <RxCrossCircled />
               Decline
             </button>
-            <button className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition">
+            <button className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer">
               Accept
             </button>
           </div>

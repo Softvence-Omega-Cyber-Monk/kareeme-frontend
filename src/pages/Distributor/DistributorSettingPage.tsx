@@ -4,7 +4,7 @@ import DistributorSetting from "@/components/DistributorDashboard/DistributorSet
 const DistributorSettingPage = () => {
   return (
     <div>
-     <DistributorSetting></DistributorSetting>
+     <DistributorSetting/>
     </div>
   );
 };

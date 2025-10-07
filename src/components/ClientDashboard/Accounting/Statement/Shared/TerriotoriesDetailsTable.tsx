@@ -164,7 +164,7 @@ const productData = [
 
 export function TerriotoriesDetailsTable() {
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="space-y-4 md:space-y-6 mt-4">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left side - Title */}

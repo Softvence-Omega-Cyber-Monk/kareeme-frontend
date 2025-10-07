@@ -17,36 +17,56 @@ export function LanguageRegionPreferences() {
       <div className="space-y-6">
         {/* Language */}
         <div className="space-y-2">
-          <label htmlFor="language" className="text-sm text-gray-400">
-            Language
-          </label>
+          <div>
+            <label htmlFor="language" className="text-sm text-gray-400 ">
+              Language
+            </label>
+          </div>
           <select
             id="language"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438] focus:ring-2 focus:ring-emerald-500"
+            className=" cursor-pointer w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438] focus:ring-2 focus:ring-emerald-500"
           >
-            <option value="english">English</option>
-            <option value="spanish">Spanish</option>
-            <option value="french">French</option>
-            <option value="german">German</option>
-            <option value="italian">Italian</option>
-            <option value="portuguese">Portuguese</option>
-            <option value="chinese">Chinese</option>
-            <option value="japanese">Japanese</option>
+            <option className="cursor-pointer" value="english">
+              English
+            </option>
+            <option className="cursor-pointer" value="spanish">
+              Spanish
+            </option>
+            <option className="cursor-pointer" value="french">
+              French
+            </option>
+            <option className="cursor-pointer" value="german">
+              German
+            </option>
+            <option className="cursor-pointer" value="italian">
+              Italian
+            </option>
+            <option className="cursor-pointer" value="portuguese">
+              Portuguese
+            </option>
+            <option className="cursor-pointer" value="chinese">
+              Chinese
+            </option>
+            <option className="cursor-pointer" value="japanese">
+              Japanese
+            </option>
           </select>
         </div>
 
         {/* Time Zone */}
         <div className="space-y-2">
-          <label htmlFor="timezone" className="text-sm text-gray-400">
-            Time Zone
-          </label>
+          <div>
+            <label htmlFor="timezone" className="text-sm text-gray-400">
+              Time Zone
+            </label>
+          </div>
           <select
             id="timezone"
             value={timeZone}
             onChange={(e) => setTimeZone(e.target.value)}
-            className="w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438]  focus:ring-2 focus:ring-emerald-500"
+            className="cursor-pointer  w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438]  focus:ring-2 focus:ring-emerald-500"
           >
             <option value="utc">UTC</option>
             <option value="est">EST (Eastern Standard Time)</option>
@@ -61,14 +81,16 @@ export function LanguageRegionPreferences() {
 
         {/* Region */}
         <div className="space-y-2">
-          <label htmlFor="region" className="text-sm text-gray-400">
-            Region
-          </label>
+          <div>
+            <label htmlFor="region" className="text-sm text-gray-400">
+              Region
+            </label>
+          </div>
           <select
             id="region"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            className="w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438]  focus:ring-2 focus:ring-emerald-500"
+            className="cursor-pointer w-full p-3 border-[#B3B3B3] rounded-xl  bg-[#253438]  focus:ring-2 focus:ring-emerald-500"
           >
             <option value="usa">USA</option>
             <option value="canada">Canada</option>

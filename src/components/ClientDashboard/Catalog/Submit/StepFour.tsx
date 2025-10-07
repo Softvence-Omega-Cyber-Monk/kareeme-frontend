@@ -14,7 +14,7 @@ interface Contributor {
 }
 
 type StepFourProps = {
-  formData: FormDataType;  // <-- add this line
+  formData: FormDataType; // <-- add this line
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
@@ -309,24 +309,29 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
             </div>
           </div>
 
-          <div className="bg-[#0D2022] p-4 rounded-xl border border-[#324143] mt-6 flex justify-between items-center">
-            <div>
-              <h2 className="font-semibold text-lg">
-                Total Split: <span className="text-[#01D449]">
-                  {contributors.reduce((sum, contributor) => sum + contributor.split, 0)}%
+          <div className="bg-[#0D2022] p-4 sm:p-6 rounded-xl border border-[#324143] mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
+            <div className="w-full sm:w-auto">
+              <h2 className="font-semibold text-lg sm:text-xl">
+                Total Split:{" "}
+                <span className="text-[#01D449]">
+                  {contributors.reduce(
+                    (sum, contributor) => sum + contributor.split,
+                    0
+                  )}
+                  %
                 </span>
               </h2>
             </div>
 
             {/* Generate Button */}
-            <div>
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+            <div className="w-full sm:w-auto flex justify-start sm:justify-end">
+              <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200 w-full sm:w-auto cursor-pointer">
                 Generate Split Sheet & Send For Signature
               </button>
             </div>
           </div>
         </div>
-        
+
         <div className="flex justify-between mt-6">
           <button
             type="button"
@@ -352,7 +357,6 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
 }
 
 export default StepFour;
-
 
 // import { useState } from "react";
 // import { FaMusic } from "react-icons/fa";

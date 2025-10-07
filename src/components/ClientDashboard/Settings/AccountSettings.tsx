@@ -19,9 +19,8 @@ const AccountSettings = () => {
   };
 
   return (
-    <div className="= text-white p-6 ">
+    <div className="= text-white ">
       <div className="max-w-8xl mx-auto flex">
-        
         <div className="w-1/4 space-y-4 border border-[#38383A] rounded-lg shadow-md bg-[#17171A] p-3 ">
           <button
             className={`w-full text-xl py-3 rounded-xl cursor-pointer ${

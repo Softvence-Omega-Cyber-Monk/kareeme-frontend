@@ -122,7 +122,7 @@ const PasswordManagement = () => {
             </div>
           </div>
         </div>
-        <button className="w-full py-2 mt-4 bg-blue-600 rounded-md text-white hover:bg-blue-500">
+        <button className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 flex-shrink-0">
           Update Password
         </button>
       </div>

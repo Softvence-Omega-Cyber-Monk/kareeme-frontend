@@ -35,7 +35,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
-
+  const [isOpendashboard, setIsOpendashboard] = useState(false);
   return (
     <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
@@ -69,13 +69,49 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {/* Dashboard Icon */}
-          <Button
+          <div className="relative">
+            {/* Dashboard Icon */}
+            <Button
+              onClick={() => setIsOpendashboard(!isOpendashboard)}
+              variant="ghost"
+              size="icon"
+              className="relative text-white cursor-pointer hover:bg-amber-400"
+            >
+              <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
+            </Button>
+
+            {/* Dropdown */}
+            {isOpendashboard && (
+              <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
+                <ul className="py-2 text-sm text-white">
+                  {[
+                    { initial: "A", name: "Md Arfin Mia" },
+                    { initial: "S", name: "Md Saqzzad " },
+                    { initial: "Q", name: "Md Abdul Quadir" },
+                  ].map((user, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                     transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
+                    >
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        {user.initial}
+                      </span>
+                      <span className="font-medium">{user.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* <Button
             variant="ghost"
             size="icon"
             className="relative text-white cursor-pointer"
           >
             <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
-          </Button>
+          </Button> */}
 
           {/* Notifications */}
           {/* <Button variant="ghost" size="icon" className="relative text-white">
@@ -107,7 +143,9 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 )}
               </Button>
             </DialogTrigger>
-
+            {notificationOpen && (
+              <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
+            )}
             <DialogContent className="p-0 bg-transparent border-none fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <NotificationReuseable
                 onClose={() => setNotificationOpen(false)}

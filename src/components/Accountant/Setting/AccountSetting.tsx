@@ -22,7 +22,7 @@ const AccountSetting = () => {
   };
 
   return (
-    <div className="= text-white p-6 ">
+    <div className="= text-white ">
       <div className="max-w-8xl mx-auto flex">
         <div className="w-1/4 space-y-4 border border-[#38383A] rounded-lg shadow-md bg-[#17171A] p-3 ">
           <button
@@ -78,32 +78,7 @@ const AccountSetting = () => {
               Security Settings
             </span>
           </button>
-          {/* <button
-            className={`w-full text-xl py-3 rounded-xl  cursor-pointer ${
-              activeSection === "distribution"
-                ? "bg-[#1E1E21] text-[#3A5CFF] border border-[#3A3A3A]"
-                : "bg-[#1E1E21]"
-            } hover:bg-gray-400`}
-            onClick={() => handleButtonClick("distribution")}
-          >
-            <span className="flex items-center gap-2 justify-start pl-4">
-              <MdCircleNotifications className="text-white" />
-              Distribution
-            </span>
-          </button>
-          <button
-            className={`w-full text-xl py-3 rounded-xl  cursor-pointer ${
-              activeSection === "privacy"
-                ? "bg-[#1E1E21] text-[#3A5CFF] border border-[#3A3A3A]"
-                : "bg-[#1E1E21]"
-            } hover:bg-gray-400`}
-            onClick={() => handleButtonClick("privacy")}
-          >
-            <span className="flex items-center gap-2 justify-start pl-4">
-              <MdCircleNotifications className="text-white" />
-              Privacy
-            </span>
-          </button> */}
+
           <button
             className={`w-full text-xl py-3 rounded-xl  cursor-pointer ${
               activeSection === "support"
@@ -140,22 +115,12 @@ const AccountSetting = () => {
             <div>
               <SecuritySettings />
             </div>
-          )} 
-          {/* {activeSection === "distribution" && (
-            <div>
-              <Distribution />
-            </div>
           )}
-          {activeSection === "privacy" && (
-            <div>
-              <Privacy />
-            </div>
-          )} */}
           {activeSection === "support" && (
             <div>
-              <Support/>
+              <Support />
             </div>
-          )} 
+          )}
         </div>
       </div>
     </div>

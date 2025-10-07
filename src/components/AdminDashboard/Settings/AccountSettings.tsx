@@ -3,7 +3,6 @@ import { useState } from "react";
 import ProfileInformation from "./ProfileInformation";
 import { FaRegUserCircle } from "react-icons/fa";
 import { SiSpringsecurity } from "react-icons/si";
-import { MdCircleNotifications } from "react-icons/md";
 import PasswordManagement from "./SecuritySetting";
 import BillingInformation from "./Billing";
 import { TwoFactorSecuritySettings } from "./TwoFactorSecuritySettings";
@@ -11,7 +10,12 @@ import PlatformSettings from "./Platform";
 import { ContentManagement } from "./ContentManagement";
 import { Privacy } from "./Privacy";
 import { NotificationPreferences } from "./Notification";
-
+import Billing from "@/assets/settingIcon/payment.svg";
+import Platform from "@/assets/settingIcon/privacy.svg";
+import TwoFactor from "@/assets/settingIcon/security1.svg";
+import Content from "@/assets/settingIcon/Destributor.svg";
+import PrivacyIcon from "@/assets/settingIcon/privacy.svg";
+import NotificationIcon from "@/assets/settingIcon/notifications.svg";
 const AccountSettings = () => {
   const [activeSection, setActiveSection] = useState("profile");
 
@@ -20,7 +24,7 @@ const AccountSettings = () => {
   };
 
   return (
-    <div className="text-white p-4 md:p-6">
+    <div className="text-white">
       <div className="max-w-8xl mx-auto flex flex-col md:flex-row gap-6">
         {/* Sidebar */}
         <div className="w-full md:w-1/4 space-y-4 rounded-lg shadow-md bg-[#17171A] p-3">
@@ -61,7 +65,7 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("billing")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
+              <img src={Billing} alt="Billing" />
               Billing
             </span>
           </button>
@@ -75,7 +79,7 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("platform")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
+              <img src={Platform} alt="Platform" />
               Platform Settings
             </span>
           </button>
@@ -89,7 +93,7 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("two-factor")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
+              <img src={TwoFactor} alt="Two Factor" />
               Two Factor Security
             </span>
           </button>
@@ -103,8 +107,8 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("content")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
-              Content Management
+              <img src={Content} alt="Content" />
+              Content Manage
             </span>
           </button>
 
@@ -117,7 +121,7 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("privacy")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
+              <img src={PrivacyIcon} alt="Privacy" />
               Privacy
             </span>
           </button>
@@ -131,7 +135,7 @@ const AccountSettings = () => {
             onClick={() => handleButtonClick("notifications")}
           >
             <span className="flex items-center gap-2 justify-start pl-2 md:pl-4">
-              <MdCircleNotifications />
+              <img src={NotificationIcon} alt="Notifications" />
               Notifications
             </span>
           </button>
