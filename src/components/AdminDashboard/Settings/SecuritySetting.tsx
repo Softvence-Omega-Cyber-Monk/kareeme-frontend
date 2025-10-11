@@ -28,8 +28,9 @@ const PasswordManagement = () => {
           Security Settings
         </h2>
 
-
-        <h3 className="text-lg font-semibold mb-4 text-white">Change Password</h3>
+        <h3 className="text-lg font-semibold mb-4 text-white">
+          Change Password
+        </h3>
         <div className="space-y-4">
           {/* Current Password */}
           <div className="space-y-2">
@@ -125,7 +126,7 @@ const PasswordManagement = () => {
             </div>
           </div>
         </div>
-        <button className="px-4 py-3 mt-6 bg-blue-600 rounded-md text-white hover:bg-blue-500">
+        <button className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 flex-shrink-0">
           Update Password
         </button>
       </div>

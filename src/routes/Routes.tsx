@@ -57,6 +57,9 @@ import IHeartRadioPage from "@/pages/Client/IHeartRadioPage";
 import AccountanSettingsPage from "@/pages/Accountant/AccountanSettingsPage";
 import DistributorSettingPage from "@/pages/Distributor/DistributorSettingPage";
 import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/SplitSheetDetail";
+import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
+import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
+import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
 
 const routes = createBrowserRouter([
   {
@@ -111,6 +114,18 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+      
+      /* Editorial Support */
+      { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
+      { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
+/*  */
+
+      {
+        path: "catalog/editorial-submit/form",
+        element: <EditorialStapeComponent />,
+      },
+
+
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
     ],

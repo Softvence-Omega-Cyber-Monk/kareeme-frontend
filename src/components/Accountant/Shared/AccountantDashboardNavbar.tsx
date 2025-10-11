@@ -75,7 +75,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-white"
+            className="lg:hidden text-white cursor-pointer"
             onClick={onMobileMenuToggle}
           >
             <Menu className="w-6 h-6" />
