@@ -115,7 +115,7 @@ const MerchantDashboardNavbar = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground hover:text-primary"
+                className="text-muted-foreground hover:text-primary cursor-pointer"
                 onClick={() => {
                   setShowSearch(false);
                   setSearchQuery("");
