@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-import Home from "../pages/Home";
+
 // import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
@@ -60,6 +60,7 @@ import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/S
 import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
+import Home from "@/components/Home/Home";
 
 const routes = createBrowserRouter([
   {

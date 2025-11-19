@@ -1,0 +1,126 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const FeaturesSection: React.FC = () => {
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  const textBlockVariants = {
+    hidden: { x: -50, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  return (
+    <section className="bg-dark-background text-text-light py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-16 relative">
+      {/* Outer Border */}
+      <div className="absolute inset-0 border-custom-orange pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto">
+        {/* --- Top Row --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
+          {/* ARTIST-CENTRIC PHILOSOPHY */}
+          <motion.div
+            variants={textBlockVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg w-full md:w-[792px] h-auto md:h-[294px]"
+          >
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-text-gray-heading tracking-wide">
+              ARTIST-CENTRIC PHILOSOPHY
+            </h2>
+            <p className="text-sm sm:text-base md:text-base leading-relaxed sm:leading-relaxed md:leading-relaxed text-gray-300">
+              At OneisOneEnt, our philosophy centers around an Artist-Centric approach. We offer
+              bespoke services designed to cultivate an environment that supports you and your team,
+              all while ensuring that you retain full ownership of your content. We focus on optimizing
+              revenue opportunities across various platforms, granting you access to exclusive
+              technology that enables real-time tracking of your earnings. Additionally, we provide top-
+              tier label services, all while preserving your ownership and creative freedom.
+            </p>
+          </motion.div>
+
+          {/* Revenue Overview Chart */}
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex flex-col w-full md:w-[344px] mx-auto"
+          >
+            <div className="flex justify-between items-center mb-2 sm:mb-3 md:mb-4 w-full">
+              <div className="flex items-center text-sm sm:text-sm md:text-base text-gray-400">
+                <span>Years</span>
+              </div>
+            </div>
+            <div className="relative bg-gray-800 rounded-lg flex items-center justify-center h-40 sm:h-48 md:h-52">
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-green-700 to-green-900 opacity-20"></div>
+              <span className="absolute text-gray-500 text-sm sm:text-base md:text-lg font-semibold">
+                Chart Placeholder
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* --- Bottom Row --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {/* LABEL BRIDGE */}
+          <motion.div
+            variants={textBlockVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg w-full"
+          >
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-text-gray-heading tracking-wide">
+              LABEL BRIDGE
+            </h2>
+            <p className="text-sm sm:text-base md:text-base leading-relaxed sm:leading-relaxed md:leading-relaxed text-gray-300">
+              Label Bridge is a dynamic music technology ecosystem created by
+              OneisOneEnt aimed at empowering independent artists and labels
+              to distribute, monetize, and manage their music more efficiently.
+              Specifically crafted for independent musicians, producers, and
+              small labels, Label Bridge offers a straightforward solution for
+              getting music onto streaming platforms. It also provides essential
+              tools for maximizing revenue and tracking royalties. With all the
+              resources you need to build and manage your career like a major
+              label, you can easily access everything from your mobile device or
+              computer.
+            </p>
+          </motion.div>
+
+          {/* SONGWRITERS & PRODUCER'S */}
+          <motion.div
+            variants={textBlockVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg w-full"
+          >
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-text-gray-heading tracking-wide">
+              SONGWRITERS & PRODUCER'S
+            </h2>
+            <p className="text-sm sm:text-base md:text-base leading-relaxed sm:leading-relaxed md:leading-relaxed text-gray-300">
+              OneisOneEnt is dedicated to providing transformative
+              opportunities for songwriters and producers at every stage of their
+              career journey. In the music realm, the term "placement" signifies
+              the successful licensing or sale of a songwriter's or producer's work
+              to various platforms, including artists, films, television shows, and
+              other media. For songwriters, this typically means having their
+              original compositions recorded and made available by an artist. For
+              producers, it could entail having their beats or production featured
+              in songs, commercials, or other creative projects. Achieving
+              placements can represent a significant milestone, unlocking
+              pathways to royalties, increased visibility, and additional
+              opportunities. We collaborate closely with our clients to help them
+              realize this ambition.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturesSection;
