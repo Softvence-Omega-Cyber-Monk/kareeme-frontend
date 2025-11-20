@@ -8,12 +8,16 @@ const Layout: React.FC = () => {
 
       <main className="bg-gradient-to-r from-[#0F131B] via-[#0A1C19] to-[#052318]">
         <div>
-          <Navbar />
-           <Outlet />
-           <Footer></Footer>
+          <div className="sticky top-1 z-50  ">
+            <Navbar />
+          </div>
+          <Outlet />
+         
+            <Footer></Footer>
+          
         </div>
-       
-        
+
+
       </main>
 
     </div>

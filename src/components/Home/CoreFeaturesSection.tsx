@@ -1,83 +1,67 @@
+import React from "react";
+import { motion, Variants } from "framer-motion";
 
-import { motion } from 'framer-motion';
-import img1 from "@/assets/Frame 1321317645.svg";
-import img2 from "@/assets/Frame 1321317646.svg";
-import img3 from "@/assets/layer1.svg";
-export  const CoreFeaturesSection: React.FC = () => {
+import Icon1 from "@/assets/photo/editorialpitchsong6.jpg";
+import Icon2 from "@/assets/photo/editorialpitchsong2.jpg";
+import Icon3 from "@/assets/photo/editorialpitchsong3.jpg";
+import Icon4 from "@/assets/photo/editorialpitchsong3.jpg";
+
+// ✅ Properly typed fadeUp variant
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const MarketingProcess: React.FC = () => {
+  const items = [
+    { icon: Icon1, title: "Strategic Planning", mt: "mt-60" },
+    { icon: Icon2, title: "Compelling Content", mt: "mt-10" },
+    { icon: Icon3, title: "Effective Promotion", mt: "mt-50" },
+    { icon: Icon4, title: "Strong Audience Engagement", mt: "" },
+  ];
+
   return (
-    <section className="bg-dark-background py-16 md:py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 relative">
-        {/* Grid layout matching the image positioning */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
-          {/* Strategic Planning - Top Left */}
-          <motion.div
-            variants={{
-              hidden: { y: 50, opacity: 0 },
-              visible: { y: 0, opacity: 1, transition: { duration: 0.6 } }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col items-center text-center pt-8  "
-          >
-            <div className="w-16 h-16 md:w-20 md:h-20 mb-4">
-              <img src={img1} alt="Strategic Planning" className="w-full h-full object-contain" />
-            </div>
-            <p className="text-white text-sm md:text-base font-semibold">Strategic Planning</p>
-          </motion.div>
+    <div className="flex justify-center items-center w-full py-10">
+      <div className="max-w-7xl w-full px-4 flex justify-center relative" style={{ height: "772px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full relative items-center">
+          {items.map((item, index) => (
+            <motion.div
+              key={index}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"      // Scroll-triggered animation
+              viewport={{ once: true, amount: 0.5 }} // Trigger when 50% visible
+              transition={{ delay: index * 0.2 }}    // Stagger for smoother effect
+              className="relative flex flex-col items-center gap-4 h-full"
+            >
+              <img src={item.icon} className={`w-20 h-20 object-contain ${item.mt}`} />
+              <h3 className="text-white text-xl font-medium">{item.title}</h3>
 
-          {/* Compelling Content - Top Center */}
-          <motion.div
-            variants={{
-              hidden: { y: 50, opacity: 0 },
-              visible: { y: 0, opacity: 1, transition: { duration: 0.6, delay: 0.15 } }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col items-center text-center col-span-2 md:col-span-1"
-          >
-            <div className="w-16 h-16 md:w-20 md:h-20 mb-4 border-2 border-dashed border-blue-400/40 rounded-lg p-3">
-              <img src={img2} alt="Compelling Content" className="w-full h-full object-contain" />
-            </div>
-            <p className="text-white text-sm md:text-base font-semibold">Compelling Content</p>
-          </motion.div>
-
-          {/* Strong Audience Engagement - Top Right */}
-          <motion.div
-            variants={{
-              hidden: { y: 50, opacity: 0 },
-              visible: { y: 0, opacity: 1, transition: { duration: 0.6, delay: 0.3 } }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col items-center text-center hidden md:flex"
-          >
-            <div className="w-16 h-16 md:w-20 md:h-20 mb-4">
-              <img src={img3} alt="Strong Audience" className="w-full h-full object-contain" />
-            </div>
-            <p className="text-white text-sm md:text-base font-semibold">Strong Audience<br/>Engagement</p>
-          </motion.div>
-
-          {/* Effective Promotion - Bottom Center */}
-          <motion.div
-            variants={{
-              hidden: { y: 50, opacity: 0 },
-              visible: { y: 0, opacity: 1, transition: { duration: 0.6, delay: 0.45 } }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col items-center text-center col-span-2 md:col-start-2 pt-8 md:pt-12"
-          >
-            <div className="w-16 h-16 md:w-20 md:h-20 mb-4">
-              <img src={img1} alt="Effective Promotion" className="w-full h-full object-contain" />
-            </div>
-            <p className="text-white text-sm md:text-base font-semibold">Effective Promotion</p>
-          </motion.div>
+              {/* Divider for first 3 items */}
+              {index < 3 && (
+                <div
+                  className="
+                    hidden lg:block
+                    absolute top-0 right-0 
+                    w-[2px]
+                    bg-gradient-to-b 
+                    from-gray-400/40 
+                    via-gray-600/20 
+                    to-transparent
+                  "
+                  style={{ height: "772px" }}
+                ></div>
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
+
+export default MarketingProcess;

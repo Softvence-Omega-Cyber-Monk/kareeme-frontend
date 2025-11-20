@@ -5,11 +5,14 @@ import WhatWeDoSection from "./WhatWeDoSection";
 import FeaturesSection from "./FeaturesSection";
 import HeroBanner from "./HeroBanner";
 import ReleasesStrategy from "./ReleaseStrategy";
-import {CoreFeaturesSection}  from "./CoreFeaturesSection";
+import MarketingProcess from "./CoreFeaturesSection";
 import FeaturedArticlesSection from "./FeaturedArticlesSection";
 import DevelopmentArtist from "./DevelopmentArtist";
 import DistributionSection from "./DistributionSection";
 
+import CollageImage from "@/components/Home/CollageImage";
+import WorkWithUsSection from "./WorkWithUsSection";
+import Footer from "@/components/Home/Footer";
 
 
 
@@ -114,18 +117,25 @@ export default function Home() {
       <div className="relative z-10 min-h-screen">
         <div className="animated-background fixed top-0 left-0 w-screen h-screen -z-10"></div>
 
-        {/* 5. Hero Items Component */}
+
         <HeroItems />
+
+        {/* 5. Hero Items Component */}
+
         <MusicPlatforms></MusicPlatforms>
         <WhatWeDoSection></WhatWeDoSection>
         <FeaturesSection></FeaturesSection>
         <HeroBanner></HeroBanner>
         <ReleasesStrategy></ReleasesStrategy>
-       <CoreFeaturesSection></CoreFeaturesSection>
-       <FeaturedArticlesSection></FeaturedArticlesSection>
-       <DevelopmentArtist></DevelopmentArtist>
-      <DistributionSection></DistributionSection>
+        <MarketingProcess></MarketingProcess>
+        <FeaturedArticlesSection></FeaturedArticlesSection>
+        <DevelopmentArtist></DevelopmentArtist>
+        <DistributionSection></DistributionSection>
+        <CollageImage></CollageImage>
+        <WorkWithUsSection></WorkWithUsSection>
 
+
+        <Footer></Footer>
       </div>
     </>
   );
