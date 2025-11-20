@@ -61,6 +61,7 @@ import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
 import Home from "@/components/Home/Home";
+import LabelBridge  from "@/components/LabelBridge/LabelBridge";
 
 const routes = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+       {
+        path: "/labelbridge",
+        element: <LabelBridge />,
       },
 
       {
