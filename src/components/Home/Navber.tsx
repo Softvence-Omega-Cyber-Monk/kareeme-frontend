@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import logoImage from "@/assets/logo 1.png";
 import { ShoppingCart } from 'lucide-react'; 
-
+// import HeroBackgroundBlobs from "@/components/Home/HeroBackgroundBlobs";
 export const Navbar = () => {
   const location = useLocation();
 
@@ -84,7 +84,7 @@ export const Navbar = () => {
           {menuOpen ? "✕" : "☰"}
         </button>
       </div>
-
+{/* <HeroBackgroundBlobs /> */}
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="absolute top-[90px] left-0 w-full bg-black/90 backdrop-blur-md 
