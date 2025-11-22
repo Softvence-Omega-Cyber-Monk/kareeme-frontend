@@ -3,7 +3,7 @@ import gifIcon from '@/assets/gif.gif';
 
 const MissionSection = () => {
   return (
-    <div className="bg-black py-20 px-4 relative overflow-hidden">
+    <div className="bg-black/50 py-20 px-4 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-[400px] h-[400px] bg-green-500/20 rounded-full blur-[120px] animate-pulse top-[20%] left-[10%]"></div>

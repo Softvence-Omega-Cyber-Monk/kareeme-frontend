@@ -184,7 +184,7 @@ const NewsArticles: React.FC = () => {
         }
       `}</style>
 
-      <div className="min-h-screen bg-black relative overflow-hidden">
+      <div className="min-h-screen bg-black/50 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Gradient Orbs with Pulse Animation */}

@@ -111,7 +111,7 @@ const CTASection = () => {
   }, []);
 
   return (
-    <div className="bg-black py-20 px-4 relative overflow-hidden">
+    <div className="bg-black/50 py-20 px-4 relative overflow-hidden">
       {/* Canvas animated background */}
       <canvas
         ref={canvasRef}

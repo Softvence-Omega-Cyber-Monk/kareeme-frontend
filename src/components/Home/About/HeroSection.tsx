@@ -5,7 +5,7 @@ const HeroSection = () => {
   const title2 = "STAGE".split("");
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col items-center justify-center overflow-hidden py-20 px-4">
+    <div className="relative min-h-screen bg-black/50 flex flex-col items-center justify-center overflow-hidden py-20 px-4">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Green animated blobs */}

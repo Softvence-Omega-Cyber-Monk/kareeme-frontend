@@ -16,7 +16,7 @@ const VisionSection = () => {
   ];
 
   return (
-    <div className="bg-gray-900 py-12 sm:py-16 md:py-20 px-4">
+    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-left">
           <span className="text-white">A VISION FOR CHANGE</span>
@@ -30,7 +30,7 @@ const VisionSection = () => {
           {visionItems.map((item, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-7 sm:p-8 rounded-2xl hover:scale-105 transition-transform duration-300 border border-gray-700 hover:border-green-500 cursor-pointer"
+              className="bg-gradient-to-br from-bla-800 to-gray-900 p-7 sm:p-8 rounded-2xl hover:scale-105 transition-transform duration-300 border border-gray-700 hover:border-green-500 cursor-pointer"
             >
               <div className="mb-4 w-12 h-12 sm:w-14 sm:h-14">
                 <img 

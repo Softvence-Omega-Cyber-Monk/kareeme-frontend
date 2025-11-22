@@ -10,7 +10,7 @@ const SupportSection = () => {
   ];
 
   return (
-    <div className="bg-gray-900 py-12 sm:py-16 md:py-20 px-4">
+    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-center">
           <span className="text-white">COMPREHENSIVE ARTIST SUPPORT</span>

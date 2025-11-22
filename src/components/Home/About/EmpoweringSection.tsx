@@ -60,7 +60,7 @@ const EmpoweringSection = () => {
   }, []);
 
   return (
-    <div className="bg-black py-20 px-4" ref={sectionRef}>
+    <div className="bg-black/50 py-20 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-[40px] md:text-5xl lg:text-6xl font-semibold text-[#E5E5E5] mb-8 text-left uppercase leading-[120%]">
           EMPOWERING ARTISTS

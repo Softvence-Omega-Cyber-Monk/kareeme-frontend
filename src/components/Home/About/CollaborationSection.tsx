@@ -4,7 +4,7 @@ import pach from '../../../assets/pach.png';
 
 const CollaborationSection = () => {
   return (
-    <div className="bg-black py-20 px-4">
+    <div className="bg-black/50 py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
