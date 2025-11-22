@@ -71,7 +71,7 @@ export const Navbar = () => {
 
       {/* Sign In Button */}
       <button
-        className="bg-[#3a4790] text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-xl text-sm sm:text-base
+        className="bg-[#3a4790] text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-3xl text-sm sm:text-base
                    cursor-pointer transition-all duration-300 shadow-lg shadow-[#3a4790]/50 hover:bg-[#4b58a1]">
         Sign In
       </button>
