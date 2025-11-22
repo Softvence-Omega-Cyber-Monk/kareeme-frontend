@@ -1,16 +1,52 @@
+import { useEffect, useRef, useState } from 'react';
 import brand from '../../../assets/brand.png';
 import education from '../../../assets/education.png';
 import marketing from '../../../assets/marketing.png';
 
 const SupportSection = () => {
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const supportFeatures = [
     { icon: brand, title: 'Brand Development' },
     { icon: education, title: 'Educational Workshops' },
     { icon: marketing, title: 'Marketing & PR Assistance' }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            supportFeatures.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleCards((prev) => {
+                  const newState = [...prev];
+                  newState[index] = true;
+                  return newState;
+                });
+              }, index * 200); // 200ms delay between each card
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4">
+    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-center">
           <span className="text-white">COMPREHENSIVE ARTIST SUPPORT</span>
@@ -24,7 +60,11 @@ const SupportSection = () => {
           {supportFeatures.map((feature, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl hover:scale-105 transition-transform duration-300 border border-gray-700 hover:border-green-500 cursor-pointer w-full max-w-[320px]"
+              className={`bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 cursor-pointer w-full max-w-[320px] transition-all duration-700 ease-out ${
+                visibleCards[index]
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 -translate-x-20'
+              } hover:scale-105`}
             >
               <div className="flex items-center gap-3">
                 <img 
