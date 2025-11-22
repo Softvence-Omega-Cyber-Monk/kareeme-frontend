@@ -14,7 +14,7 @@ const independentArtistsContent = {
 
 const ClientsAndArtistsSection: React.FC = () => {
   return (
-    <div className="relative bg-gray-900 min-h-screen flex flex-col items-center py-16 px-4 sm:px-8 lg:px-16 overflow-hidden">
+    <div className="relative bg-gray-900/40 min-h-screen flex flex-col items-center py-16 px-4 sm:px-8 lg:px-16 overflow-hidden">
 
       {/* Label Clients Text */}
       <div className="max-w-3xl w-full mb-12 md:mb-12 md:mr-64 text-left md:text-left px-4 md:px-0 order-1 md:order-1">
