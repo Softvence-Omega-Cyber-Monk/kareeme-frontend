@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState } from 'react';
 import usa from '../../../assets/usa.png';
 import austrilia from '../../../assets/austrilia.png';
-import canada from '../../../assets/canada.png'; // Changed back to 'canada'
+import canada from '../../../assets/canada.png';
 import newZealand from '../../../assets/new.png';
 import germany from '../../../assets/germany.png';
 import fu from '../../../assets/fu.png';
@@ -13,8 +15,90 @@ import bro4 from '../../../assets/bro4.png';
 import bro5 from '../../../assets/bro5.png';
 
 const TechnologySection = () => {
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false, false]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            [0, 1, 2, 3].forEach((index) => {
+              setTimeout(() => {
+                setVisibleCards((prev) => {
+                  const newState = [...prev];
+                  newState[index] = true;
+                  return newState;
+                });
+              }, index * 200);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  const cardData = [
+    {
+      title: 'Top Countries',
+      badge: 'Geo Trends',
+      items: [
+        { country: 'United States', flag: usa, amount: '$8.18 USD' },
+        { country: 'Australia', flag: austrilia, amount: '$0.12 USD' },
+        { country: 'Canada', flag: canada, amount: '$0.05 USD' },
+        { country: 'New Zealand', flag: newZealand, amount: '$0.03 USD' },
+        { country: 'Germany', flag: germany, amount: '$0.03 USD' }
+      ]
+    },
+    {
+      title: 'Top US Regions',
+      badge: 'Geo Trends',
+      items: [
+        { region: 'Ohio', views: '250', icon: fu },
+        { region: 'Michigan', views: '300', icon: fu },
+        { region: 'California', views: '450', icon: fu },
+        { region: 'Maryland', views: '600', icon: fu },
+        { region: 'New York', views: '700', icon: fu }
+      ]
+    },
+    {
+      title: 'Top Assets',
+      badge: 'Assets',
+      items: [
+        { name: 'Sisters in Harmony 2023 (Official Music Video)', amount: '$8.00 USD', icon: echoes },
+        { name: 'Vibrant Beats', amount: '$0.09 USD', icon: vibrant },
+        { name: 'Echoes of the Night (Live Show)', amount: '$0.08 USD', icon: echoes },
+        { name: 'Chasing Shadows (Official Rooftop Session)', amount: '$0.06 USD', icon: echoes },
+        { name: 'YEAH YEAH!', amount: '$0.03 USD', icon: echoes }
+      ]
+    },
+    {
+      title: 'Top Claims',
+      badge: 'Claims',
+      items: [
+        { name: 'Brothers in Harmony 2023 (Official Cypher)', amount: '$8.00 USD', icon: bro },
+        { name: 'Lunar Echo - Vibe Check 5v5 Beat crafted by DJ', amount: '$0.09 USD', icon: bro2 },
+        { name: 'Lunar Lila - Heart Ablaze (Live Showcase)', amount: '$0.08 USD', icon: bro3 },
+        { name: 'Celestial Lunar- Discovered My Rhythm | Official', amount: '$0.06 USD', icon: bro4 },
+        { name: "Celestail Chachi Let's Jam!", amount: '$0.03 USD', icon: bro5 }
+      ]
+    }
+  ];
+
   return (
-    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4">
+    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-center">
           <span className="text-white">HARNESSING TECHNOLOGY FOR YOU</span>
@@ -25,105 +109,38 @@ const TechnologySection = () => {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          {/* Top Countries */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-300">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg sm:text-xl font-bold text-white">Top Countries</h3>
-              <span className="text-green-400 text-xs sm:text-sm">Geo Trends</span>
+          {cardData.map((card, cardIndex) => (
+            <div
+              key={cardIndex}
+              className={`bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-700 ease-out ${
+                visibleCards[cardIndex]
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 -translate-x-20'
+              }`}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg sm:text-xl font-bold text-white">{card.title}</h3>
+                <span className="text-green-400 text-xs sm:text-sm">{card.badge}</span>
+              </div>
+              <div className="space-y-3 sm:space-y-4">
+                {card.items.map((item: any, index) => (
+                  <div key={index} className="flex justify-between items-center py-2 sm:py-3 hover:bg-gray-700/50 px-3 sm:px-4 rounded-lg transition-colors cursor-pointer">
+                    <span className="text-gray-300 flex items-center gap-2 sm:gap-3 flex-1 min-w-0 text-sm sm:text-base">
+                      <img 
+                        src={item.flag || item.icon} 
+                        alt={item.country || item.region || item.name} 
+                        className="w-5 h-5 sm:w-6 sm:h-6 object-contain flex-shrink-0" 
+                      />
+                      <span className="truncate">{item.country || item.region || item.name}</span>
+                    </span>
+                    <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap ml-2">
+                      {item.amount || item.views}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-3 sm:space-y-4">
-              {[
-                { country: 'United States', flag: usa, amount: '$8.18 USD' },
-                { country: 'Australia', flag: austrilia, amount: '$0.12 USD' },
-                { country: 'Canada', flag: canada, amount: '$0.05 USD' },
-                { country: 'New Zealand', flag: newZealand, amount: '$0.03 USD' },
-                { country: 'Germany', flag: germany, amount: '$0.03 USD' }
-              ].map((item, index) => (
-                <div key={index} className="flex justify-between items-center py-2 sm:py-3 hover:bg-gray-700/50 px-3 sm:px-4 rounded-lg transition-colors cursor-pointer">
-                  <span className="text-gray-300 flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <img src={item.flag} alt={item.country} className="w-5 h-5 sm:w-6 sm:h-6 object-contain" />
-                    <span className="truncate">{item.country}</span>
-                  </span>
-                  <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap ml-2">{item.amount}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Top US Regions */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-300">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg sm:text-xl font-bold text-white">Top US Regions</h3>
-              <span className="text-green-400 text-xs sm:text-sm">Geo Trends</span>
-            </div>
-            <div className="space-y-3 sm:space-y-4">
-              {[
-                { region: 'Ohio', views: '250' },
-                { region: 'Michigan', views: '300' },
-                { region: 'California', views: '450' },
-                { region: 'Maryland', views: '600' },
-                { region: 'New York', views: '700' }
-              ].map((item, index) => (
-                <div key={index} className="flex justify-between items-center py-2 sm:py-3 hover:bg-gray-700/50 px-3 sm:px-4 rounded-lg transition-colors cursor-pointer">
-                  <span className="text-gray-300 flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <img src={fu} alt="Region" className="w-5 h-5 sm:w-6 sm:h-6 object-contain" />
-                    <span className="truncate">{item.region}</span>
-                  </span>
-                  <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap ml-2">{item.views}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Top Assets */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-300">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg sm:text-xl font-bold text-white">Top Assets</h3>
-              <span className="text-green-400 text-xs sm:text-sm">Assets</span>
-            </div>
-            <div className="space-y-3 sm:space-y-4">
-              {[
-                { name: 'Sisters in Harmony 2023 (Official Music Video)', amount: '$8.00 USD', icon: echoes },
-                { name: 'Vibrant Beats', amount: '$0.09 USD', icon: vibrant },
-                { name: 'Echoes of the Night (Live Show)', amount: '$0.08 USD', icon: echoes },
-                { name: 'Chasing Shadows (Official Rooftop Session)', amount: '$0.06 USD', icon: echoes },
-                { name: 'YEAH YEAH!', amount: '$0.03 USD', icon: echoes }
-              ].map((item, index) => (
-                <div key={index} className="flex justify-between items-center py-2 sm:py-3 hover:bg-gray-700/50 px-3 sm:px-4 rounded-lg transition-colors gap-3 sm:gap-4 cursor-pointer">
-                  <span className="text-gray-300 flex items-center gap-2 sm:gap-3 flex-1 min-w-0 text-sm sm:text-base">
-                    <img src={item.icon} alt={item.name} className="w-5 h-5 sm:w-6 sm:h-6 object-contain flex-shrink-0" />
-                    <span className="truncate">{item.name}</span>
-                  </span>
-                  <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap">{item.amount}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Top Claims */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-300">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg sm:text-xl font-bold text-white">Top Claims</h3>
-              <span className="text-green-400 text-xs sm:text-sm">Claims</span>
-            </div>
-            <div className="space-y-3 sm:space-y-4">
-              {[
-                { name: 'Brothers in Harmony 2023 (Official Cypher)', amount: '$8.00 USD', icon: bro },
-                { name: 'Lunar Echo - Vibe Check 5v5 Beat crafted by DJ', amount: '$0.09 USD', icon: bro2 },
-                { name: 'Lunar Lila - Heart Ablaze (Live Showcase)', amount: '$0.08 USD', icon: bro3 },
-                { name: 'Celestial Lunar- Discovered My Rhythm | Official', amount: '$0.06 USD', icon: bro4 },
-                { name: "Celestail Chachi Let's Jam!", amount: '$0.03 USD', icon: bro5 }
-              ].map((item, index) => (
-                <div key={index} className="flex justify-between items-center py-2 sm:py-3 hover:bg-gray-700/50 px-3 sm:px-4 rounded-lg transition-colors gap-3 sm:gap-4 cursor-pointer">
-                  <span className="text-gray-300 flex items-center gap-2 sm:gap-3 flex-1 min-w-0 text-sm sm:text-base">
-                    <img src={item.icon} alt={item.name} className="w-5 h-5 sm:w-6 sm:h-6 object-contain flex-shrink-0" />
-                    <span className="truncate">{item.name}</span>
-                  </span>
-                  <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap">{item.amount}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
