@@ -22,7 +22,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
         transition={{ duration: 0.8 }}
         className="flex items-center justify-center gap-1.5 sm:gap-3 mb-3 sm:mb-4 md:mb-6 lg:mb-8 
                 text-base sm:text-lg md:text-xl lg:text-base 
-                bg-[#3A5CFF0D] rounded-2xl 
+                bg-[#112A28] rounded-3xl 
                 w-[220px] sm:w-[260px] md:w-[320px] lg:w-[396px] 
                 h-[40px] sm:h-[44px] md:h-[48px] lg:h-[52px] 
                 mx-auto px-3"
@@ -32,7 +32,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
           alt="Small Logo"
           className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-5 lg:w-5 object-contain logo-spin"
         />
-        <p className="text-xs sm:text-sm md:text-base lg:text-sm text-gray-400 font-light tracking-widest uppercase">
+        <p className="text-xs sm:text-sm md:text-base lg:text-sm text-white font-light tracking-widest uppercase">
           DISTRIBUTION | BRANDING | STRATEGY
         </p>
       </motion.div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import img1 from "@/assets/photo/image2.png";
+import img3 from "@/assets/photo/New folder/Frame 1321317706.png";
+import img4 from "@/assets/cart11.png";
+
 
 
 // --- Data Definitions ---
@@ -61,7 +63,7 @@ const Accounting: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src={img1} 
+              src={img3} 
               alt={splitSheetContent.imageAlt} 
               className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg shadow-xl" 
             />
@@ -79,7 +81,7 @@ const Accounting: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src={img1} 
+              src={img4} 
               alt={digitalDistributionContent.imageAlt} 
               className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg shadow-xl" 
             />

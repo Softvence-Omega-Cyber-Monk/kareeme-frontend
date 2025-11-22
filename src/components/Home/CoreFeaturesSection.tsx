@@ -1,10 +1,10 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 
-import Icon1 from "@/assets/photo/editorialpitchsong6.jpg";
-import Icon2 from "@/assets/photo/editorialpitchsong2.jpg";
-import Icon3 from "@/assets/photo/editorialpitchsong3.jpg";
-import Icon4 from "@/assets/photo/editorialpitchsong3.jpg";
+import Icon1 from "@/assets/layer1.svg";
+import Icon2 from "@/assets/Frame 1321317645.svg";
+import Icon3 from "@/assets/Frame 1321317646.svg";
+import Icon4 from "@/assets/photo/Frame 1321317647.png";
 
 // ✅ Properly typed fadeUp variant
 const fadeUp: Variants = {
