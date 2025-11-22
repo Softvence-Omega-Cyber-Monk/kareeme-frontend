@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-import Home from "../pages/Home";
+
 // import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
@@ -60,6 +60,8 @@ import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/S
 import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
+import Home from "@/components/Home/Home";
+import LabelBridge from "@/components/LabelBridge/LabelBridge";
 
 const routes = createBrowserRouter([
   {
@@ -69,6 +71,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/labelbridge",
+        element: <LabelBridge />,
       },
 
       {
@@ -114,17 +120,16 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       { path: "split-sheet/:title", element: <SplitSheetDetail /> },
-      
+
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
       { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
-/*  */
+      /*  */
 
       {
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
       },
-
 
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
