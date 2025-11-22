@@ -46,9 +46,9 @@ const Layout: React.FC = () => {
         <source src={video} type="video/mp4" />
       </video>
 
-      <main className="bg-gradient-to-r from-black/90 via-[#1E6039]/90 to-black/90 min-h-screen relative z-10">
+      <main className="bg-gradient-to-r from-black/90 via-[#1E6039]/90 to-black min-h-screen relative z-10">
         <div>
-          <div className="sticky top-0 z-50">
+          <div className="sticky top-1 z-50">
             <Navbar />
           </div>
 
