@@ -3,13 +3,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import sampleVideo from "@/assets/video/1st video.mp4";
 import sampleVideo1 from "@/assets/video/secound video.mp4";
-// 👉 Replace with your actual video path
 
 const DistributionSection: React.FC = () => {
   return (
     <div>
-      {/* --- Distribution Section --- */}
-      <div className="bg-dark-background py-12 sm:py-16 md:py-20 relative overflow-hidden">
+
+      {/* ===================== DISTRIBUTION SECTION ===================== */}
+      <div className="bg-dark-background py-12 sm:py-16 md:py-20 relative overflow-hidden mb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center">
 
@@ -39,26 +39,26 @@ const DistributionSection: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="px-2 sm:px-4 md:px-6"
             >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white uppercase leading-tight mb-4 sm:mb-5 md:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white uppercase leading-tight sm:mb-5 md:mb-6">
                 DISTRIBUTION
               </h2>
+
               <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300">
-                Music distribution involves making music accessible across multiple platforms. 
-                Music distribution involves the process of making music accessible across multiple platforms,
-                 particularly streaming services and digital stores, for both listening and purchasing.
-                  OneIsOneEnt serves as an intermediary, linking artists and labels with these platforms.
-                   We manage the technical details of uploading, formatting, 
-             
+                Music distribution involves making music accessible across multiple platforms.
+                It includes delivering music to streaming services and digital stores for listening,
+                purchasing, and royalty collection. OneIsOneEnt manages the technical process of
+                uploading, formatting, and delivering music to all major platforms.
               </p>
             </motion.div>
 
           </div>
         </div>
-      </div>
 
-      {/* --- Publishing Section --- */}
-      <div className="bg-dark-background py-8 sm:py-12 md:py-16 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* ===================== GAP ADDED HERE ===================== */}
+        <div className="mt-12"></div>
+
+        {/* ===================== PUBLISHING SECTION ===================== */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center">
 
             {/* Right Column - Text */}
@@ -72,12 +72,11 @@ const DistributionSection: React.FC = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white uppercase leading-tight mb-4 sm:mb-5 md:mb-6">
                 PUBLISHING
               </h2>
+
               <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300">
-              Music distribution involves the process of making music accessible across multiple platforms,
-               particularly streaming services and digital stores, for both listening and purchasing.
-                OneIsOneEnt serves as an intermediary, linking artists and labels with these platforms.
-               We manage the technical details of uploading, formatting,
-                and delivering music, along with the collection and distribution of royalties.
+                Music publishing involves the protection and management of songwriting copyrights.
+                OneIsOneEnt ensures your compositions are properly registered, monetized, and
+                distributed across platforms while collecting all publishing royalties.
               </p>
             </motion.div>
 
@@ -101,7 +100,9 @@ const DistributionSection: React.FC = () => {
 
           </div>
         </div>
+
       </div>
+
     </div>
   );
 };

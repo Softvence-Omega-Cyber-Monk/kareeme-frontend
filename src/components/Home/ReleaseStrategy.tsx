@@ -74,7 +74,7 @@ const ReleasesStrategy: React.FC = () => {
           variants={containerVariants}
           className="py-16 sm:py-20 px-4 sm:px-8 md:px-16 w-full"
         >
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+          <div className="max-[1450px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
 
             {/* Left Title */}
             <motion.h1

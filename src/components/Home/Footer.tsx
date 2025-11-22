@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Send, Instagram, Youtube, FacebookIcon } from 'lucide-react';
+import { Send, Instagram, Youtube, Facebook } from 'lucide-react';
 import logo from "@/assets/icons/logo.svg";
 import { motion } from 'framer-motion';
 
@@ -23,7 +23,7 @@ const Footer = () => {
   const fullText = "ONEIONE";
   const characters = fullText.split('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (email) {
       console.log('Email submitted:', email);
@@ -49,7 +49,7 @@ const Footer = () => {
                 <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
               </motion.div>
 
-              {/* Dripping Text with Motion */}
+              {/* Dripping Text */}
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wider [text-shadow:_0_0_5px_#fff,_0_0_15px_#10b981,_0_0_20px_#10b981] drop-shadow-lg text-center md:text-left flex flex-wrap justify-center md:justify-start">
                 {characters.map((char, index) => {
                   const isEmerald = char === 'I' || index >= 4;
@@ -73,7 +73,7 @@ const Footer = () => {
               {[
                 { icon: <Youtube className="w-5 h-5" />, bg: 'bg-red-600', hover: 'hover:bg-red-700', label: 'YouTube' },
                 { icon: <Instagram className="w-5 h-5" />, bg: 'bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500', hover: '', label: 'Instagram' },
-                { icon: <FacebookIcon className="w-5 h-5" />, bg: 'bg-blue-600', hover: 'hover:bg-blue-700', label: 'Facebook' },
+                { icon: <Facebook className="w-5 h-5" />, bg: 'bg-blue-600', hover: 'hover:bg-blue-700', label: 'Facebook' },
               ].map((item, i) => (
                 <motion.a
                   key={i}
@@ -138,8 +138,6 @@ const Footer = () => {
           </div>
 
         </div>
-
-        {/* <div className="h-1 bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500"></div> */}
       </footer>
     </>
   );
