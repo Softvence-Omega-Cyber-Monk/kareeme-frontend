@@ -1,15 +1,17 @@
 import logo from "@/assets/logo 1.png";
 import img from "@/assets/photo/ss.png"
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import call from "@/assets/icons/call_made.svg"
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // নেভিগেশন আইকন
+
 // =================================================================
 // 1. DATA AND INTERFACES (Simulated Imports/Definitions)
 // =================================================================
 
-const articleScreenshot1 = '/path/to/article-screenshot-1.png'; 
-const articleScreenshot2 = '/path/to/article-screenshot-2.png'; 
-const hipHopLogo = '/path/to/24hiphop.svg'; 
+// এখানে আপনার আপলোড করা ইমেজগুলির জন্য ডামি পাথ ব্যবহার করা হলো
+const hipHopLogo = logo; // লোগো হিসেবে logo ব্যবহার করা হলো
+const articleImage = img; // আর্টিকেলের ছবি হিসেবে img ব্যবহার করা হলো
+
 
 interface Article {
   id: string;
@@ -23,19 +25,35 @@ interface Article {
 const featuredArticles: Article[] = [
   {
     id: '1',
-    image: articleScreenshot1,
-    title: 'OnelsOne Entertainment: Redefining the Rhythm of Tomorrow\'s Hits',
+    image: articleImage,
+    title: 'OnelsOne Entertainment: Redefining the Rhythm of Tomorrow\'s Hits (Card 1)',
     link: '#', 
     sourceLogo: hipHopLogo,
     sourceName: '24 Hip-Hop',
   },
   {
     id: '2',
-    image: articleScreenshot2,
-    title: 'OnelsOne Entertainment: Redefining the Rhythm of Tomorrow\'s Hits',
+    image: articleImage,
+    title: 'Future Sounds: The Evolution of Electronic Dance Music (Card 2)',
     link: '#', 
     sourceLogo: hipHopLogo,
-    sourceName: '24 Hip-Hop',
+    sourceName: 'The Beat Reporter',
+  },
+  {
+    id: '3',
+    image: articleImage,
+    title: 'The Silent Revolution: Lo-Fi\'s Impact on Modern Music (Card 3)',
+    link: '#', 
+    sourceLogo: hipHopLogo,
+    sourceName: 'Indie Vibes Magazine',
+  },
+  {
+    id: '4',
+    image: articleImage,
+    title: 'Mastering the Mix: Insights from a Veteran Producer (Card 4)',
+    link: '#', 
+    sourceLogo: hipHopLogo,
+    sourceName: 'Studio Secrets',
   },
 ];
 
@@ -49,19 +67,18 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
-    // Card Container: Dark background, rounded, shadow, flexible width
-    <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-none w-full sm:max-w-md lg:max-w-none">
+    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full">
       <div className="flex flex-col md:flex-row h-full">
         
         {/* Left Half - Article Screenshot */}
         <div className="w-full md:w-1/2 bg-gray-900 overflow-hidden relative min-h-[150px] md:min-h-0">
           <img 
-            src={img} 
+            src={article.image} 
             alt={article.title} 
             className="w-full h-full object-cover" 
           />
           {/* Green gradient overlay on the left side of the image (as seen in the design) */}
-          <div className="absolute inset-0 "></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 to-transparent"></div>
         </div>
 
         {/* Right Half - Text Content */}
@@ -72,17 +89,18 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
             </h3>
             <a 
               href={article.link} 
-              className="inline-flex items-center text-green-400 hover:text-green-300 font-semibold transition-colors duration-200 text-sm"
+              className="inline-flex items-center text-green-400 hover:text-green-300 font-semibold transition-colors duration-200 text-sm gap-1"
             >
               View Full Article 
-            <img src={call} alt="" />
+              {/* call made icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
             </a>
           </div>
 
           {/* Source Logo and Name */}
           <div className="mt-6 flex items-center justify-end">
             <span className="text-gray-500 text-sm mr-2">{article.sourceName}</span>
-            <img src={logo} alt={article.sourceName} className="h-8" />
+            <img src={article.sourceLogo} alt={article.sourceName} className="h-8" />
           </div>
         </div>
       </div>
@@ -91,55 +109,93 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
 };
 
 // =================================================================
-// 3. MAIN SECTION COMPONENT
+// 3. MAIN SECTION COMPONENT (CAROUSEL)
 // =================================================================
 
 const FeaturedArticlesSection: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalArticles = featuredArticles.length;
+
+
+  const getCardsPerView = () => {
+    // lg: 2 cards per view (Desktop)
+    if (window.innerWidth >= 1024) return 2;
+  
+    return 1;
+  };
+
+
+  const nextSlide = () => {
+    const cardsPerView = getCardsPerView();
+    const maxIndex = totalArticles - cardsPerView;
+    setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
+  };
+
+  const prevSlide = () => {
+    const cardsPerView = getCardsPerView();
+    const maxIndex = totalArticles - cardsPerView;
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? maxIndex : prevIndex - 1));
+  };
+  
+
+  const translateXValue = currentIndex * (100 / getCardsPerView());
+
   return (
-    <section className="relative  py-16 md:py-24 overflow-hidden ">
+    <section className="relative py-16 md:py-24 overflow-hidden ">
       
-      {/* Background Gradients (Matches the dark green overlay) */}
-      <div className="absolute inset-y-0 left-0 w-[282px] h-[396px]  z-0"></div>
-      <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#173323]/50 to-transparent z-0"></div>
+      {/* Background Gradients (Matches the dark green overlay) - Simplified for dark theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-800/40 to-gray-900 z-0 opacity-50"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 z-10">
         
-        {/* Articles Container - Uses a flexbox to align cards horizontally */}
-        <div className="flex justify-center space-x-0 lg:space-x-8">
-          
-          {/* First Article Card - Always visible */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8 }}
-            className="w-full max-w-2xl lg:w-1/2 flex-shrink-0"
+        {/* Articles Wrapper - Carousel Track */}
+        <div className="relative overflow-hidden">
+          <div 
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+           
+              width: `${(totalArticles / getCardsPerView()) * 100}%`,
+              transform: `translateX(-${translateXValue}%)`,
+            }}
           >
-            <ArticleCard article={featuredArticles[0]} />
-          </motion.div>
-
-          {/* Second Article Card - Only visible on large screens (`lg:block`) */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block w-full lg:w-1/2 flex-shrink-0"
-          >
-            <ArticleCard article={featuredArticles[1]} />
-          </motion.div>
+            {featuredArticles.map((article, index) => (
+              <motion.div
+                key={article.id}
+                className="px-4 py-2 flex-shrink-0"
+                style={{
+                  // কার্ডের নির্দিষ্ট উইডথ সেট করা
+                  width: `${100 / totalArticles}%`,
+                }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ArticleCard article={article} />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Navigation Arrow (Right) - Positioned to the far right, next to the cards */}
-        <div className="absolute right-4 md:right-8 lg:right-4 top-1/2 transform -translate-y-1/2 mt-10 lg:mt-0">
-          <button 
-            aria-label="Next Article"
-            className="bg-gray-800 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>
+        {/* Navigation Arrows */}
+        <div className="absolute inset-y-0 flex items-center justify-between w-full pointer-events-none px-4 md:px-8">
+            {/* Left Arrow */}
+            <button 
+              onClick={prevSlide}
+              aria-label="Previous Article"
+              className="pointer-events-auto bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -ml-4"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            
+            {/* Right Arrow */}
+            <button 
+              onClick={nextSlide}
+              aria-label="Next Article"
+              className="pointer-events-auto bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -mr-4"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
         </div>
 
       </div>

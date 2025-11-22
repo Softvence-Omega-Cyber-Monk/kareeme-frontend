@@ -1,8 +1,8 @@
 import { motion, Variants } from "framer-motion";
-import Image1 from "@/assets/photo/editorialpitchsong6.jpg"; 
-import Image2 from "@/assets/photo/editorialpitchsong2.jpg"; 
-import Image3 from "@/assets/photo/editorialpitchsong3.jpg"; 
-import Image4 from "@/assets/photo/editorialpitchsong3.jpg"; 
+import Image1 from "@/assets/icons/Rectangle 7197.png"; 
+import Image2 from "@/assets/Rectangle 7197.png"; 
+import Image3 from "@/assets/photo/Rectangle 7197.png"; 
+import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
 
 // Scroll animation for individual images
 const fadeUp: Variants = {

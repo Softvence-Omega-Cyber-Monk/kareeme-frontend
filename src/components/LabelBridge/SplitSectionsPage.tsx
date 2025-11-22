@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import img1 from "@/assets/photo/music.png";
+import img2 from "@/assets/photo/Frame 1321317706.png";
+import img1 from "@/assets/Frame 1321317706.png";
+
+
 
 // --- Data Definitions ---
 const splitSheetContent = {
@@ -73,7 +76,7 @@ const SplitSectionsPage: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src={img1} 
+              src={img2} 
               alt={digitalDistributionContent.imageAlt} 
               className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg shadow-xl" 
             />

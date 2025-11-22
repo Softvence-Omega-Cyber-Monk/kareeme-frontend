@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const demo2 = () => {
   return (
