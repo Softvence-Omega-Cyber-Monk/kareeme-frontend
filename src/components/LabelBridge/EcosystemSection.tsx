@@ -44,7 +44,7 @@ const EcosystemSection: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#0B1114] min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
+    <div className="bg-[#0B1114]/40 min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
 
       {/* Title */}
       <motion.h2
