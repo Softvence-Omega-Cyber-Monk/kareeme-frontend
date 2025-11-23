@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import logoImage from "@/assets/logo 1.png";
 import { ShoppingCart } from 'lucide-react'; 
 // import HeroBackgroundBlobs from "@/components/Home/HeroBackgroundBlobs";
+// import angle3 from "@/assets/angle3.png";
 export const Navbar = () => {
   const location = useLocation();
 
@@ -32,7 +33,7 @@ export const Navbar = () => {
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
       />
-
+{/* <img src={angle3} alt="" /> */}
       {/* Desktop Links */}
       <div className="hidden md:flex gap-4 lg:gap-6">
         {links.map((link) => {
@@ -72,7 +73,7 @@ export const Navbar = () => {
       {/* Sign In Button */}
       <button
         className="bg-[#3a4790] text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-3xl text-sm sm:text-base
-                   cursor-pointer transition-all duration-300 shadow-lg shadow-[#3a4790]/50 hover:bg-[#4b58a1]">
+cursor-pointer transition-all duration-300 shadow-lg shadow-[#3a4790]/50 hover:bg-[#4b58a1]">
         Sign In
       </button>
 
