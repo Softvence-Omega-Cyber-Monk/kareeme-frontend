@@ -28,6 +28,8 @@
 
 import video from "@/assets/video/animation-Video.mp4"
 import Footer from "@/components/Home/Footer";
+
+
 import { Navbar } from "@/components/Home/Navber";
 import { Outlet } from "react-router-dom";
 
