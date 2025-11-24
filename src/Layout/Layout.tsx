@@ -54,8 +54,9 @@ const Layout: React.FC = () => {
 
           <Outlet />
 
-          <Footer />
+       
         </div>
+           <Footer />
       </main>
 
     </div>
