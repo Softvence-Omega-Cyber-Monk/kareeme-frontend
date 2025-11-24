@@ -2,15 +2,14 @@ import logo from "@/assets/logo 1.png";
 import img from "@/assets/photo/ss.png"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // নেভিগেশন আইকন
+import { ChevronLeft, ChevronRight } from 'lucide-react'; 
 
 // =================================================================
 // 1. DATA AND INTERFACES (Simulated Imports/Definitions)
 // =================================================================
 
-// এখানে আপনার আপলোড করা ইমেজগুলির জন্য ডামি পাথ ব্যবহার করা হলো
-const hipHopLogo = logo; // লোগো হিসেবে logo ব্যবহার করা হলো
-const articleImage = img; // আর্টিকেলের ছবি হিসেবে img ব্যবহার করা হলো
+const hipHopLogo = logo; 
+const articleImage = img; 
 
 
 interface Article {
@@ -67,7 +66,7 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
-    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full">
+    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full sm:mt-24">
       <div className="flex flex-col md:flex-row h-full">
         
         {/* Left Half - Article Screenshot */}
