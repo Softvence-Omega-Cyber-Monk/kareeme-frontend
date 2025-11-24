@@ -91,11 +91,11 @@ const routes = createBrowserRouter([
         path: "/shop",
         element: <Shop></Shop>,
       },
-        {
+      {
         path: "/privacy",
         element: <PrivacyPolicy></PrivacyPolicy>,
       },
-        {
+      {
         path: "/term",
         element: <TermsConditions></TermsConditions>,
       },
@@ -161,7 +161,6 @@ const routes = createBrowserRouter([
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
       },
-
 
       /* profile */
       { path: "catalog/settings", element: <SettingsPage /> },
