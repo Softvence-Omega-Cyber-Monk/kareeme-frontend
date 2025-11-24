@@ -17,7 +17,7 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
       <div className="flex flex-col md:flex-col lg:flex-row ">
         {/* LEFT SECTION */}
         <section
-          // padding রেসপনসিভ করা হয়েছে
+          // padding 
           className={`text-white text-center py-12 sm:py-16 md:py-20 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 lg:w-1/2 ${className}`} 
         >
           <h1 className="font-extrabold leading-snug sm:leading-tight md:leading-tight tracking-wide mb-6 sm:mb-8 md:mb-8">

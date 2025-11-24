@@ -29,7 +29,7 @@ const digitalDistributionContent = {
 // --- React Component ---
 const Accounting: React.FC = () => {
   return (
-    <div className="relative bg-gray-900 w-full mx-auto p-4 sm:p-8 md:p-12 lg:p-16 text-white overflow-hidden">
+    <div className="relative bg-gray-900/40 w-full mx-auto p-4 sm:p-8 md:p-12 lg:p-16 text-white overflow-hidden">
 
       {/* Wrapper for content - responsive max width */}
       <div className='w-full max-w-[1440px] mx-auto relative'>

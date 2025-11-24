@@ -5,7 +5,7 @@ const HeroSection = () => {
   const title2 = "STAGE".split("");
 
   return (
-    <div className="relative min-h-screen bg-black/50 flex flex-col items-center justify-center overflow-hidden py-20 px-4">
+    <div className="relative min-h-screen bg-black/nn flex flex-col items-center justify-center overflow-hidden py-20 px-4">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Green animated blobs */}
@@ -49,10 +49,10 @@ const HeroSection = () => {
       </div>
 
       {/* Video Section */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 w-full max-w-7xl mx-full">
         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
           <video
-            className="w-full h-[60vh] object-cover"
+            className="w-full h-[90vh] object-cover"
             autoPlay
             loop
             muted

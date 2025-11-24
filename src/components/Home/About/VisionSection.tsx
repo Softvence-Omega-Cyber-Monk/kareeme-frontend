@@ -1,7 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react';
 import char from '../../../assets/char.png';
 import pach from '../../../assets/pach.png';
 
 const VisionSection = () => {
+  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const visionItems = [
     {
       icon: char,
@@ -15,8 +20,40 @@ const VisionSection = () => {
     }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visionItems.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleBoxes((prev) => {
+                  const newState = [...prev];
+                  newState[index] = true;
+                  return newState;
+                });
+              }, index * 200);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4">
+    <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-left">
           <span className="text-white">A VISION FOR CHANGE</span>
@@ -30,7 +67,11 @@ const VisionSection = () => {
           {visionItems.map((item, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-bla-800 to-gray-900 p-7 sm:p-8 rounded-2xl hover:scale-105 transition-transform duration-300 border border-gray-700 hover:border-green-500 cursor-pointer"
+              className={`bg-gradient-to-br from-gray-800 to-gray-900 p-7 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 cursor-pointer transition-all duration-700 ease-out ${
+                visibleBoxes[index]
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 -translate-x-20'
+              } hover:scale-105`}
             >
               <div className="mb-4 w-12 h-12 sm:w-14 sm:h-14">
                 <img 

@@ -14,7 +14,7 @@ const catalogueContent = {
 const CatalogueArrangementSoloSection: React.FC = () => {
   return (
  
-    <div className="bg-gray-900 min-h-max py-16 px-4 sm:px-8 lg:px-16 text-white overflow-hidden">
+    <div className="bg-gray-900/40 min-h-max py-16 px-4 sm:px-8 lg:px-16 text-white overflow-hidden">
    
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-7xl mx-auto items-center">
         

@@ -236,6 +236,7 @@ const routes = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
+  
 ]);
 
 export default routes;
