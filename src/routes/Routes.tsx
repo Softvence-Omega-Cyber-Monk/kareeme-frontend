@@ -62,6 +62,12 @@ import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSuppo
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
 import Home from "@/components/Home/Home";
 import LabelBridge from "@/components/LabelBridge/LabelBridge";
+import NewsArticlesPage from "@/pages/Home/NewsArticlesPage";
+import AboutPage from "@/pages/Home/AboutPage";
+import Shop from "@/components/Home/Shop/Shop";
+import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
+import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
+import TermsConditions from "@/PrivacyPolicy/TermsConditions";
 
 const routes = createBrowserRouter([
   {
@@ -75,6 +81,31 @@ const routes = createBrowserRouter([
       {
         path: "/labelbridge",
         element: <LabelBridge />,
+      },
+
+      {
+        path: "/news-articles",
+        element: <NewsArticlesPage />,
+      },
+      {
+        path: "/shop",
+        element: <Shop></Shop>,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPolicy></PrivacyPolicy>,
+      },
+      {
+        path: "/term",
+        element: <TermsConditions></TermsConditions>,
+      },
+      {
+        path: "/cart",
+        element: <ProductDetailPage></ProductDetailPage>,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
 
       {

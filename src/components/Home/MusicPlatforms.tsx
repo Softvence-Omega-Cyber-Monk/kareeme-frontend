@@ -28,8 +28,8 @@ const MusicPlatforms: React.FC = () => {
 
   return (
    
-      <div className="flex items-center justify-center p-4 relative">
-        <div className="w-full max-w-[1400px] relative overflow-hidden">
+      <div className="flex items-center justify-center p-2 relative">
+        <div className=" max-w-[1300px] relative overflow-hidden">
           {/* Framer Motion scrolling container */}
           <motion.div
             className="flex gap-10"

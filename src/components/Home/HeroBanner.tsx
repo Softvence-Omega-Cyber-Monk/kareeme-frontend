@@ -16,7 +16,7 @@ const HeroBanner: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full h-screen flex flex-col justify-center items-center bg-hero-dark overflow-hidden">
+    <section className="relative w-full h-screen flex flex-col justify-center items-center bg-[#0E1B20] overflow-hidden">
       <div className="absolute inset-0 border-hero-blue pointer-events-none"></div>
 
       <div className="text-center p-4 max-w-5xl mx-auto">
