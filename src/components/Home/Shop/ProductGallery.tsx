@@ -131,7 +131,7 @@
 //         className="px-4 md:px-8 py-3 w-full"
 //         variants={rowVariants}
 //         initial="hidden"
-//         whileInView="visible"
+//         whileInView="visible"car
 //         viewport={{ once: true, amount: 0.2 }}
 //       >
 //         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
