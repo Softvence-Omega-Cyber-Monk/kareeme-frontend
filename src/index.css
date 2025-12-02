@@ -1,18 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "swiper/css";
 
 @theme {
-  --color-website-color-black: #212a31;
-  --color-website-color-darkGray: #2e3944;
-  --color-website-color-lightGray: #d3d9d4;
-  --color-website-color-green: #124e66;
-  --color-website-color-lightGreen: #748d92;
+  /* 🌑 Website Base Colors */
+  --color-website-black: #212a31;
+  --color-website-darkGray: #2e3944;
+  --color-website-lightGray: #d3d9d4;
+  --color-website-green: #124e66;
+  --color-website-lightGreen: #748d92;
 
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  /* 🖋 Typography */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  /* 🎨 Brand & UI Colors */
   --color-primary-orange: #ef6820;
   --color-heading-blue: #194185;
-  --color-paragraph-gray: #717680;
+  --color-paragraph-gray: #717688;
   --color-primary-border: #b2ddff;
+
+  /* 🪄 Card Background Gradient */
+  --color-card-background: linear-gradient(...), rgba(12, 16, 34, 0.6);
 }
 
 @layer base {
@@ -21,15 +29,11 @@
   }
 }
 
-/* body {
-  width: 1440px;
-  margin: 0 auto;
-} */
-
+/* 🟠 Swiper Pagination Customization */
 .custom-pagination .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
-  background-color: #f97316; /* orange-500 */
+  background-color: var(--color-primary-orange);
   opacity: 0.3;
   border-radius: 9999px;
   transition: all 0.3s ease;
@@ -39,8 +43,6 @@
   width: 10px;
   height: 10px;
 }
-
-/* Global styles for all number inputs (hide spinners) */
 
 input[type="number"] {
   appearance: textfield; /* ✅ Standard property */

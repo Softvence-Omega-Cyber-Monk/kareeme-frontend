@@ -1,243 +1,231 @@
-import { useState, useEffect, useRef } from "react";
-import { Bell, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import logo from "@/assets/icons/logo.svg";
-import searchIcon from "@/assets/icons/search.svg";
-import messageIcon from "@/assets/icons/message.svg";
-import togglebarIcon from "@/assets/icons/togglebar.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { logOut } from "@/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/redux/hooks/redux-hook";
-import Cookies from "js-cookie";
-import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
-interface MerchantDashboardNavbarProps {
+import { IoMdSettings } from "react-icons/io";
+import { RiFileList3Fill, RiLogoutBoxRLine } from "react-icons/ri";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import dashboard from "@/assets/icons/dashboard.svg";
+import notification from "@/assets/icons/notification.svg";
+import user from "@/assets/icons/user.svg";
+import { MdPrivacyTip } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
+
+export interface NavbarProps {
   onMobileMenuToggle: () => void;
+  notificationCount?: number;
+  userName?: string;
+  isSidebarOpen: boolean;
 }
 
-const navLinks = [
-  { label: "Dashboard", href: "/admin-dashboard" },
-  { label: "Order & Delivery", href: "/admin-dashboard/orders-delivery" },
-  { label: "Rider management", href: "/admin-dashboard/rider-management" },
-];
-
-const AdminDashboardNavBar = ({
+const AdminDashboardNavBar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
-}: MerchantDashboardNavbarProps) => {
-  const location = useLocation();
-  const [openSheet, setOpenSheet] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  notificationCount = 12,
+  userName = "Gemini Chachi",
+  isSidebarOpen,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpendashboard, setIsOpendashboard] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    // Clear both cookies and localStorage
-    Cookies.remove("token");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user"); // if applicable
-    localStorage.removeItem("refreshToken"); // if applicable
-
-    dispatch(logOut());
-    toast.success("Admin logged out successfully!");
-    navigate("/");
-  };
-
-  useEffect(() => {
-    if (showSearch && searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, [showSearch]);
-
-  const getActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="w-full max-w-[1560px] mx-auto px-4 md:px-8 py-3 bg-white shadow-lg rounded-2xl">
-      <div className="flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex-shrink-0">
-          <Link to="/">
-            <img src={logo} alt="Logo" className="w-28 h-auto drop-shadow-md" />
-          </Link>
+    <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
+      <header
+        className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${
+          isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
+        }`}
+      >
+        {/* Left Section */}
+        <div className="flex items-center space-x-4">
+          {/* Mobile Menu */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden text-white cursor-pointer"
+            onClick={onMobileMenuToggle}
+          >
+            <Menu className="w-6 h-6" />
+          </Button>
+
+          {/* Logo + Dashboard text */}
+          <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60 mt-2">
+            <div className="relative">
+              {/* Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
+              >
+                <span className="flex items-center gap-3">
+                  {/* Profile Circle */}
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
+                    GC
+                  </span>
+                  <span className="text-sm md:text-base font-medium tracking-wide">
+                    {userName}
+                  </span>
+                </span>
+
+                {/* Arrow */}
+                <span
+                  className={`ml-2 transform transition-transform duration-300 ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  <ChevronDown size={18} />
+                </span>
+              </button>
+
+              {/* Dropdown */}
+              {isOpen && (
+                <div className="absolute left-0 mt-2 w-full bg-[#10151C] border border-[#3A5CFF]/40 rounded-3xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
+                  <ul className="py-2 text-sm text-white space-y-1">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        A
+                      </span>
+                      <span className="font-medium">Md Arfin Mia</span>
+                    </li>
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        S
+                      </span>
+                      <span className="font-medium">Md Saqzzad Hossain</span>
+                    </li>
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        Q
+                      </span>
+                      <span className="font-medium">Md Abdul Quadir</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Desktop Center Nav (only 3 links) */}
-        <nav className="hidden md:flex items-center space-x-8 justify-center flex-1">
-          {navLinks.slice(0, 3).map((link) => {
-            const isActive = getActive(link.href);
-            return (
-              <Link
-                key={link.label}
-                to={link.href}
-                className={`relative group pb-1 transition-all duration-300 ${
-                  isActive
-                    ? "text-[#414651] font-bold font-sans text-xl"
-                    : "text-[#414651] hover:text-black font-sans text-xl"
-                }`}
-              >
-                {link.label}
-                <span
-                  className={`absolute left-0 -bottom-0.5 h-[3px] w-full rounded-full transition-all duration-300 ${
-                    isActive
-                      ? "bg-black scale-x-100"
-                      : "bg-transparent scale-x-0 group-hover:bg-black group-hover:scale-x-100"
-                  } origin-left`}
-                />
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Right Section */}
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            {/* Dashboard Icon */}
+            <Button
+              onClick={() => setIsOpendashboard(!isOpendashboard)}
+              variant="ghost"
+              size="icon"
+              className="relative text-white cursor-pointer hover:bg-amber-400"
+            >
+              <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
+            </Button>
 
-        {/* Right Icons */}
-        <div className="flex items-center space-x-4 cursor-pointer">
-          {/* Search - Hidden on mobile */}
-          {showSearch ? (
-            <div className="hidden md:flex items-center bg-white rounded-lg shadow-sm border border-gray-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary w-64">
-              <Input
-                ref={searchInputRef}
-                placeholder="Search orders, riders..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="border-0 focus-visible:ring-0 shadow-none"
-              />
+            {/* Dropdown */}
+            {isOpendashboard && (
+              <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
+                <ul className="py-2 text-sm text-white">
+                  {[
+                    { initial: "A", name: "Md Arfin Mia" },
+                    { initial: "S", name: "Md Saqzzad " },
+                    { initial: "Q", name: "Md Abdul Quadir" },
+                  ].map((user, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                     transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
+                    >
+                      <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
+                        {user.initial}
+                      </span>
+                      <span className="font-medium">{user.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Notifications */}
+
+          <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
+            <DialogTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground hover:text-primary"
-                onClick={() => {
-                  setShowSearch(false);
-                  setSearchQuery("");
-                }}
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-          ) : (
-            <>
-              <div
-                onClick={() => setShowSearch(true)}
-                className="hidden md:flex text-gray-600 hover:text-black hover:bg-gray-100 p-1 rounded"
-              >
-                <img src={searchIcon} alt="Search" className="w-5 h-5" />
-              </div>
-              <div className="text-gray-600 hover:text-black hover:bg-gray-100 p-1 rounded">
-                <Link to="/admin-dashboard/message">
-                  <img src={messageIcon} alt="Messages" className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-                </Link>
-              </div>
-
-              <Dialog
-                open={notificationOpen}
-                onOpenChange={setNotificationOpen}
-              >
-                <DialogTrigger asChild>
-                  <div
-                    className="relative text-gray-600 hover:text-black hover:bg-gray-100 p-1 rounded cursor-pointer"
-                    onClick={() => setNotificationOpen(true)}
-                  >
-                    <Bell className="h-5 w-5" />
-                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-                  </div>
-                </DialogTrigger>
-
-                <DialogContent
-                  className="p-0 bg-transparent border-none 
-               fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                ></DialogContent>
-              </Dialog>
-            </>
-          )}
-
-          {/* Toggle Menu for ALL devices */}
-          <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-gray-600 hover:text-black hover:bg-gray-100 p-1 rounded"
-                onClick={() => {
-                  setOpenSheet(true);
-                  onMobileMenuToggle();
-                }}
+                className="relative text-white cursor-pointer"
+                onClick={() => setNotificationOpen(true)}
               >
                 <img
-                  src={togglebarIcon}
-                  alt="Toggle menu"
+                  src={notification}
+                  alt="Notifications"
                   className="w-6 h-6"
                 />
+                {notificationCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center text-[10px] rounded-full bg-white text-black">
+                    {notificationCount > 99 ? "99+" : notificationCount}
+                  </Badge>
+                )}
               </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-72 bg-white shadow-lg border-l border-gray-200"
+            </DialogTrigger>
+            {notificationOpen && (
+              <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
+            )}
+            <DialogContent className="p-0 bg-transparent border-none fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <NotificationReuseable
+                onClose={() => setNotificationOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
+
+          {/* User Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white cursor-pointer"
+              >
+                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent
+              align="end"
+              className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
-              <div className="flex flex-col h-full">
-                <div className="py-4 border-b border-gray-100">
-                  <img
-                    src={logo}
-                    alt="Logo"
-                    className="w-32 h-auto object-contain mx-auto"
-                  />
-                </div>
-                <div className="px-4 py-3">
-                  <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
-                    <Input
-                      placeholder="Search..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="border-0 focus-visible:ring-0 shadow-none"
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-muted-foreground hover:text-primary"
-                      onClick={() => setSearchQuery("")}
-                    >
-                      <X className="w-5 h-5" />
-                    </Button>
-                  </div>
-                </div>
+              <Link to="/admin-dashboard/settings">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <IoMdSettings className="text-white" />
+                  <span className="font-medium">Settings</span>
+                </DropdownMenuItem>
+              </Link>
 
-                {/* Mobile + Desktop Sheet Nav */}
-                <nav className="flex-1 flex flex-col mt-2 space-y-2 px-4">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.label}
-                      to={link.href}
-                      onClick={() => setOpenSheet(false)}
-                      className={`px-4 py-3 rounded-lg transition-colors ${
-                        getActive(link.href)
-                          ? "bg-black text-white font-medium"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <RiFileList3Fill className="text-white" />
+                <span className="font-medium">Terms & Conditions</span>
+              </DropdownMenuItem>
 
-                <div className="pt-4 px-4">
-                  <Button
-                    className="w-full text-red-600 border-none hover:bg-gray-200 hover:text-red-700 cursor-pointer mb-2"
-                    onClick={() => {
-                      handleLogout();
-                    }}
-                  >
-                    LogOut
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <MdPrivacyTip className="text-white" />
+                <span className="font-medium">Privacy Policy</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer">
+                <RiLogoutBoxRLine className="text-red-500" />
+                <span className="font-medium">Sign Out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-      </div>
+      </header>
     </div>
   );
 };
