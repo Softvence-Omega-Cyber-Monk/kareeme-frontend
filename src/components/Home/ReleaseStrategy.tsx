@@ -29,7 +29,7 @@ const ReleasesStrategy: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={containerVariants}
-          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-2xl w-[260px] md:w-[396px] h-[52px] mx-auto"
+          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[260px] md:w-[396px] h-[52px] mx-auto border-t border-[#075D2F]"
         >
           <img
             src={smallLogoIcon}

@@ -2,15 +2,14 @@ import logo from "@/assets/logo 1.png";
 import img from "@/assets/photo/ss.png"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // নেভিগেশন আইকন
+import { ChevronLeft, ChevronRight } from 'lucide-react'; 
 
 // =================================================================
 // 1. DATA AND INTERFACES (Simulated Imports/Definitions)
 // =================================================================
 
-// এখানে আপনার আপলোড করা ইমেজগুলির জন্য ডামি পাথ ব্যবহার করা হলো
-const hipHopLogo = logo; // লোগো হিসেবে logo ব্যবহার করা হলো
-const articleImage = img; // আর্টিকেলের ছবি হিসেবে img ব্যবহার করা হলো
+const hipHopLogo = logo; 
+const articleImage = img; 
 
 
 interface Article {
@@ -55,6 +54,7 @@ const featuredArticles: Article[] = [
     sourceLogo: hipHopLogo,
     sourceName: 'Studio Secrets',
   },
+  
 ];
 
 // =================================================================
@@ -67,22 +67,22 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
-    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full">
+    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full sm:mt-24">
       <div className="flex flex-col md:flex-row h-full">
         
         {/* Left Half - Article Screenshot */}
-        <div className="w-full md:w-1/2 bg-gray-900 overflow-hidden relative min-h-[150px] md:min-h-0">
+        <div className="w-full md:w-1/2 bg-gray-900 overflow-hidden relative min-h-[150px] md:min-h-0 cursor-pointer">
           <img 
             src={article.image} 
             alt={article.title} 
-            className="w-full h-full object-cover" 
+            className="w-full h-full object-cover cursor-pointer" 
           />
           {/* Green gradient overlay on the left side of the image (as seen in the design) */}
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 to-transparent"></div>
         </div>
 
         {/* Right Half - Text Content */}
-        <div className="w-full md:w-1/2 p-6 flex flex-col justify-between">
+        <div className="w-full md:w-1/2 p-6 flex flex-col justify-between cursor-pointer">
           <div>
             <h3 className="text-white text-xl md:text-2xl font-bold leading-tight mb-4">
               {article.title}
@@ -183,7 +183,7 @@ const FeaturedArticlesSection: React.FC = () => {
             <button 
               onClick={prevSlide}
               aria-label="Previous Article"
-              className="pointer-events-auto bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -ml-4"
+              className="pointer-events-auto cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -ml-4"
             >
               <ChevronLeft className="w-6 h-6 text-white" />
             </button>
@@ -192,7 +192,7 @@ const FeaturedArticlesSection: React.FC = () => {
             <button 
               onClick={nextSlide}
               aria-label="Next Article"
-              className="pointer-events-auto bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -mr-4"
+              className="pointer-events-auto  cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -mr-4"
             >
               <ChevronRight className="w-6 h-6 text-white" />
             </button>

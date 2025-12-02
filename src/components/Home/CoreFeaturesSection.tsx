@@ -21,46 +21,58 @@ const MarketingProcess: React.FC = () => {
     { icon: Icon1, title: "Strategic Planning", mt: "mt-60" },
     { icon: Icon2, title: "Compelling Content", mt: "mt-10" },
     { icon: Icon3, title: "Effective Promotion", mt: "mt-50" },
-    { icon: Icon4, title: "Strong Audience Engagement", mt: "" },
+    { icon: Icon4, title: "Strong Audience Engagement", mt:  "mt-50" },
   ];
 
   return (
-    <div className="flex justify-center items-center w-full py-10">
-      <div className="max-w-7xl w-full px-4 flex justify-center relative" style={{ height: "772px" }}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full relative items-center">
-          {items.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"      // Scroll-triggered animation
-              viewport={{ once: true, amount: 0.5 }} // Trigger when 50% visible
-              transition={{ delay: index * 0.2 }}    // Stagger for smoother effect
-              className="relative flex flex-col items-center gap-4 h-full"
-            >
-              <img src={item.icon} className={`w-20 h-20 object-contain ${item.mt}`} />
-              <h3 className="text-white text-xl font-medium">{item.title}</h3>
+   <div className="flex justify-center items-center w-full py-10">
+  <div className="max-w-7xl w-full px-4 flex justify-center relative">
+    
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 w-full relative items-start">
+      {items.map((item, index) => (
+        <motion.div
+          key={index}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ delay: index * 0.2 }}
+          className="
+            relative flex flex-col items-center gap-4 
+            min-h-[320px] sm:min-h-[380px] md:min-h-[450px] lg:min-h-[550px] xl:min-h-[650px]
+          "
+        >
+          <img
+            src={item.icon}
+            className={`w-16 h-16 sm:w-20 sm:h-20 object-contain ${item.mt}`}
+          />
 
-              {/* Divider for first 3 items */}
-              {index < 3 && (
-                <div
-                  className="
-                    hidden lg:block
-                    absolute top-0 right-0 
-                    w-[2px]
-                    bg-gradient-to-b 
-                    from-gray-400/40 
-                    via-gray-600/20 
-                    to-transparent
-                  "
-                  style={{ height: "772px" }}
-                ></div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
+          <h3 className="text-white text-lg sm:text-xl font-medium text-center">
+            {item.title}
+          </h3>
+
+          {/* Divider only between items on large screens */}
+          {index < 3 && (
+            <div
+              className="
+                hidden lg:block
+                absolute top-0 right-0 
+                w-[2px]
+                bg-gradient-to-b 
+                from-gray-400/40 
+                via-gray-600/20 
+                to-transparent
+              "
+              style={{ height: "100%" }}
+            ></div>
+          )}
+        </motion.div>
+      ))}
     </div>
+
+  </div>
+</div>
+
   );
 };
 

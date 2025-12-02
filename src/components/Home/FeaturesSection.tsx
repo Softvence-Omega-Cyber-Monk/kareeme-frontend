@@ -36,7 +36,7 @@ const FeaturesSection: React.FC = () => {
       </svg>
       
       {/* Outer Border */}
-      <div className="absolute -top-96 left-0 w-full h-full bg-black opacity-20 pointer-events-none"></div>
+      <div className="absolute -top-96 left-0 w-full h-full opacity-20 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto">
         {/* --- Top Row --- */}
@@ -47,7 +47,7 @@ const FeaturesSection: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg w-full md:w-[792px] h-auto md:h-[294px] relative"
+            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 border-l-[#2C3E95] border-b-[#2C3E95] shadow-lg w-full md:w-[792px] h-auto md:h-[294px] relative"
           >
             <img src={Blueangle} alt="" className="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10" />
             <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-200 tracking-wide">
@@ -92,7 +92,7 @@ const FeaturesSection: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg w-full"
+            className="flex flex-col p-4 sm:p-6 md:p-6 bg-gray-900/40 rounded-lg border border-gray-700/50 shadow-lg border-t-[#2C3E95] w-full"
           >
             <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-200 tracking-wide">
               LABEL BRIDGE
