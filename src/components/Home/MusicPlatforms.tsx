@@ -8,7 +8,7 @@ import Spotify from "@/assets/icons/sportity.png";
 import SoundCloud from "@/assets/icons/SoundCloud.svg";
 import Audiomack from "@/assets/icons/Audiomack.svg";
 import Deezer from "@/assets/icons/Deezer.svg";
-import TIDAL from "@/assets/icons/TIDAL.svg";
+import TIDAL from "@/assets/icons/Deezer.svg";
 import iHeartRadio from "@/assets/icons/apple.png";
 
 const MusicPlatforms: React.FC = () => {
@@ -38,7 +38,7 @@ const MusicPlatforms: React.FC = () => {
               x: {
                 repeat: Infinity,
                 repeatType: 'loop',
-                duration: 40,
+                duration: 10,
                 ease: 'linear',
               },
             }}
@@ -47,20 +47,45 @@ const MusicPlatforms: React.FC = () => {
             {duplicatedPlatforms.map((platform, index) => (
               <div key={index} className="flex-shrink-0 relative group">
                 {/* Platform Card */}
-                <div className="flex flex-col items-center gap-2 ">
-                  {/* Icon Container */}
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center shadow-lg relative bg-gray-800 overflow-hidden">
+                {/* <div className="flex flex-col items-center gap-2 bg-[#061212] border-2  border-[#1A1A1A] p-4 rounded-2xl ">
+               
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center shadow-lg relative  overflow-hidden ">
                     <img
                       src={platform.icon}
                       alt={platform.name}
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  {/* Platform Name */}
+                
                   <span className="text-white text-xs md:text-sm font-medium text-center whitespace-nowrap">
                     {platform.name}
                   </span>
-                </div>
+                </div> */}
+                <div
+  className="
+    flex flex-col items-center gap-2 
+    p-4 rounded-xl
+    border border-[#1A1A1A]
+    bg-[#071312]
+    backdrop-blur-[5.55px]
+  "
+>
+  {/* Icon Container */}
+  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center shadow-lg relative overflow-hidden">
+    <img
+      src={platform.icon}
+      alt={platform.name}
+      className="w-full h-full object-contain"
+    />
+  </div>
+
+  {/* Platform Name */}
+  <span className="text-white text-xs md:text-sm font-medium text-center whitespace-nowrap">
+    {platform.name}
+  </span>
+</div>
+
+
               </div>
             ))}
           </motion.div>

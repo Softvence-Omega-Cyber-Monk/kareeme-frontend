@@ -424,7 +424,6 @@ export const Navbar = () => {
 // // import angle3 from "@/assets/angle3.png";
 // export const Navbar = () => {
 //   const location = useLocation();
-
 //   const links = [
 //     { name: "Home", path: "/" },
 //     { name: "Label Bridge", path: "/labelbridge" },
@@ -437,7 +436,7 @@ export const Navbar = () => {
 //   const [menuOpen, setMenuOpen] = useState(false);
 
 //   return (
-//     <nav className="w-full max-w-[1350px] mx-auto p-2 md:p-6 h-[86px]   bg-[#FFFFFF1A]/40 backdrop-blur-md rounded-[40px] flex justify-between items-center relative z-20">
+//     <nav className="w-full max-w-[1350px] mx-auto p-2 md:p-6 h-[86px]  bg-[#FFFFFF1A]/40 backdrop-blur-md rounded-[40px] flex justify-between items-center relative z-20">
 //       {/* Logo */}
 //       <motion.img
 //         src={logoImage}

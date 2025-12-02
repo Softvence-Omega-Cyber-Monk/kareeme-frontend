@@ -112,7 +112,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
       px-4 sm:px-6 md:px-8 lg:px-12 z-10 ${className}`}
     >
       {/* ===========================
-          ★ Angle Background Image ★ 
+           Angle Background Image  
           =========================== */}
       <div className="absolute  top-0 left-1/2 -translate-x-1/2 -mt-64 w-full flex justify-center z-0 pointer-events-none">
         <img
@@ -122,7 +122,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
         />
       </div>
       {/* ===========================
-          ★ SMALL TOP TAG ★
+           SMALL TOP TAG 
           =========================== */}
       {/* Top Tag */}{" "}
       <motion.div
@@ -130,7 +130,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="flex items-center justify-center gap-1.5 sm:gap-3 mb-3 sm:mb-4 md:mb-6 lg:mb-8 text-base sm:text-lg md:text-xl lg:text-base bg-[#112A28] rounded-3xl w-[220px]
-   sm:w-[260px] md:w-[320px] lg:w-[396px] h-[40px] sm:h-[44px] md:h-[48px] lg:h-[52px] mx-auto px-3"
+   sm:w-[260px] md:w-[320px] lg:w-[396px] h-[40px] sm:h-[44px] md:h-[48px] lg:h-[52px] mx-auto px-3 border-t border-[#105C38]"
       >
         {" "}
         <img
