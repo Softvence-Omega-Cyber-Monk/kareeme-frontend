@@ -131,7 +131,7 @@
 //         className="px-4 md:px-8 py-3 w-full"
 //         variants={rowVariants}
 //         initial="hidden"
-//         whileInView="visible"
+//         whileInView="visible"car
 //         viewport={{ once: true, amount: 0.2 }}
 //       >
 //         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
@@ -266,7 +266,7 @@
 //           >
 //             <X size={32} />
 //           </button>
-          
+
 //           <button
 //             onClick={() => navigateImage('prev')}
 //             className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors z-40"
