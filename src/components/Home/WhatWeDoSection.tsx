@@ -12,7 +12,7 @@ const WhatWeDoSection = () => {
 
     return (
         <CommonWrapper>
-            <div className="text-center">
+            <div className="text-center title">
 
                 {/* Top Tag */}
                 <motion.div
@@ -21,7 +21,7 @@ const WhatWeDoSection = () => {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.8 }}
                     className="flex items-center justify-center gap-2 mb-4 sm:mb-6 md:mb-8 
-                                bg-[#3A5CFF0D] rounded-2xl 
+                                bg-[#3A5CFF0D] rounded-3xl border-t border-[#075A2F]
                                 w-[220px] sm:w-[260px] md:w-[320px] lg:w-[396px] 
                                 h-[44px] sm:h-[48px] md:h-[52px] mx-auto"
                 >
