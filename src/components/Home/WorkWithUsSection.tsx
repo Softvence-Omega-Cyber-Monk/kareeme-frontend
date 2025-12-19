@@ -1,7 +1,7 @@
 import { RocketIcon } from "lucide-react";
 import BrandLogo from "@/assets/logo 1.png";
 import { motion, Variants } from "framer-motion";
-import CommonWrapper from "@/common/CommonWrapper";
+// import CommonWrapper from "@/common/CommonWrapper";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },

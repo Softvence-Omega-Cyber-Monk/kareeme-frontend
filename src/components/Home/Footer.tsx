@@ -10,7 +10,7 @@ import instagram from "@/assets/kareme/icon/instagram.svg";
 import facebook from "@/assets/kareme/icon/facebook.svg";
 import twitter from "@/assets/kareme/icon/twitter.svg";
 import sendmail from "@/assets/kareme/icon/sendmail.svg";
-import { Send } from "lucide-react";
+// import { Send } from "lucide-react";
 
 const DRIPPING_CSS = `
 @keyframes drip {
