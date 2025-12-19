@@ -7,12 +7,10 @@ import sampleVideo1 from "@/assets/video/secound video.mp4";
 const DistributionSection: React.FC = () => {
   return (
     <div>
-
       {/* ===================== DISTRIBUTION SECTION ===================== */}
       <div className="bg-dark-background py-12 sm:py-16 md:py-20 relative overflow-hidden mb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center">
-
+        <div className="w-full mx-auto px-2 sm:px-4 md:px-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center rounded-2xl">
             {/* Left Column - VIDEO */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -27,7 +25,7 @@ const DistributionSection: React.FC = () => {
                 loop
                 muted
                 playsInline
-                className="w-full h-auto max-w-full md:max-w-lg rounded-xl"
+                className="w-full h-auto rounded-xl"
               />
             </motion.div>
 
@@ -44,13 +42,14 @@ const DistributionSection: React.FC = () => {
               </h2>
 
               <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300">
-                Music distribution involves making music accessible across multiple platforms.
-                It includes delivering music to streaming services and digital stores for listening,
-                purchasing, and royalty collection. OneIsOneEnt manages the technical process of
-                uploading, formatting, and delivering music to all major platforms.
+                Music distribution involves making music accessible across
+                multiple platforms. It includes delivering music to streaming
+                services and digital stores for listening, purchasing, and
+                royalty collection. OneIsOneEnt manages the technical process of
+                uploading, formatting, and delivering music to all major
+                platforms.
               </p>
             </motion.div>
-
           </div>
         </div>
 
@@ -58,9 +57,8 @@ const DistributionSection: React.FC = () => {
         <div className="mt-12"></div>
 
         {/* ===================== PUBLISHING SECTION ===================== */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center">
-
+        <div className="w-full mx-auto px-2 sm:px-6 md:px-0 mb-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 rounded-2xl md:gap-16 shadow-lg border border-gray-800 bg-[#081E19] justify-center items-center">
             {/* Right Column - Text */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
@@ -74,9 +72,10 @@ const DistributionSection: React.FC = () => {
               </h2>
 
               <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300">
-                Music publishing involves the protection and management of songwriting copyrights.
-                OneIsOneEnt ensures your compositions are properly registered, monetized, and
-                distributed across platforms while collecting all publishing royalties.
+                Music publishing involves the protection and management of
+                songwriting copyrights. OneIsOneEnt ensures your compositions
+                are properly registered, monetized, and distributed across
+                platforms while collecting all publishing royalties.
               </p>
             </motion.div>
 
@@ -94,15 +93,12 @@ const DistributionSection: React.FC = () => {
                 loop
                 muted
                 playsInline
-                className="w-full h-auto max-w-full md:max-w-lg rounded-xl"
+                className="w-full h-auto  rounded-xl"
               />
             </motion.div>
-
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };

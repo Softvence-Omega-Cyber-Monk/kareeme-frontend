@@ -1,33 +1,36 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import giter from '@/assets/photo/New folder/giter.jpg';
+import React from "react";
+import { motion } from "framer-motion";
+import giter from "@/assets/photo/New folder/giter.jpg";
 
 interface InstrumentItem {
   id: number;
   text: string;
-  side: 'left' | 'right';
+  side: "left" | "right";
 }
 
 const instruments: InstrumentItem[] = [
-  { id: 1, text: 'Digital Distribution', side: 'left' },
-  { id: 2, text: 'Accounting', side: 'right' },
-  { id: 3, text: 'Analytics & Data', side: 'left' },
-  { id: 4, text: 'Catalogue Arrangement', side: 'right' },
-  { id: 5, text: 'Release Management', side: 'left' },
-  { id: 6, text: 'Split Sheet Administration', side: 'right' },
+  { id: 1, text: "Digital Distribution", side: "left" },
+  { id: 2, text: "Accounting", side: "right" },
+  { id: 3, text: "Analytics & Data", side: "left" },
+  { id: 4, text: "Catalogue Arrangement", side: "right" },
+  { id: 5, text: "Release Management", side: "left" },
+  { id: 6, text: "Split Sheet Administration", side: "right" },
 ];
 
 const EcosystemSection: React.FC = () => {
-  const leftInstruments = instruments.filter(item => item.side === 'left');
-  const rightInstruments = instruments.filter(item => item.side === 'right');
+  const leftInstruments = instruments.filter((item) => item.side === "left");
+  const rightInstruments = instruments.filter((item) => item.side === "right");
 
   const InstrumentCard: React.FC<{ item: InstrumentItem }> = ({ item }) => {
-    const textAlignClass = item.side === 'left' ? 'text-right md:text-right text-center' : 'text-left md:text-left text-center';
+    const textAlignClass =
+      item.side === "left"
+        ? "text-right md:text-right text-center"
+        : "text-left md:text-left text-center";
 
     return (
       <motion.div
         className={`p-4 space-y-16 ${textAlignClass}`}
-        initial={{ opacity: 0, x: item.side === 'left' ? -60 : 60 }}
+        initial={{ opacity: 0, x: item.side === "left" ? -60 : 60 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
@@ -44,8 +47,7 @@ const EcosystemSection: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#0B1114]/40 min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
-
+    <div className=" min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
       {/* Title */}
       <motion.h2
         className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-10 sm:mb-12 uppercase tracking-wider text-center px-4"
@@ -57,7 +59,8 @@ const EcosystemSection: React.FC = () => {
         WHAT INSTRUMENTS SHAPE OUR ECOSYSTEM?
       </motion.h2>
 
-      <div className="
+      <div
+        className="
         grid 
         grid-cols-1 
         md:grid-cols-3 
@@ -65,11 +68,11 @@ const EcosystemSection: React.FC = () => {
         max-w-6xl 
         w-full 
         items-center
-      ">
-
+      "
+      >
         {/* LEFT ITEMS */}
         <div className="flex flex-col justify-center md:justify-around order-2 md:order-1">
-          {leftInstruments.map(item => (
+          {leftInstruments.map((item) => (
             <InstrumentCard key={item.id} item={item} />
           ))}
         </div>
@@ -97,13 +100,11 @@ const EcosystemSection: React.FC = () => {
 
         {/* RIGHT ITEMS */}
         <div className="flex flex-col justify-center md:justify-around order-3">
-          {rightInstruments.map(item => (
+          {rightInstruments.map((item) => (
             <InstrumentCard key={item.id} item={item} />
           ))}
         </div>
-
       </div>
-
     </div>
   );
 };

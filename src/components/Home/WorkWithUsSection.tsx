@@ -1,6 +1,7 @@
 import { RocketIcon } from "lucide-react";
-import BrandLogo from "@/assets/icons/logo.svg";
+import BrandLogo from "@/assets/logo 1.png";
 import { motion, Variants } from "framer-motion";
+import CommonWrapper from "@/common/CommonWrapper";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -13,63 +14,161 @@ const fadeUp: Variants = {
 
 export default function WorkWithUsSection() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen bg-[#03170F] text-white p-8 overflow-hidden">
-      {/* Subtle green glow effect at the bottom */}
+    <div className=" w-full flex items-center justify-center min-h-[80vh]  text-white px-4 overflow-hidden">
+      {/* Bottom green glow */}
       <div
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1/2 rounded-full filter blur-3xl opacity-30"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-3/4 h-1/2 rounded-full blur-3xl opacity-30"
         style={{
           background:
             "radial-gradient(circle, rgba(0,255,0,0.3) 0%, rgba(0,0,0,0) 70%)",
         }}
-      ></div>
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
+      {/* Main Card */}
+      <div className="relative z-10 w-full max-w-6xl border border-[#3E4744] rounded-2xl px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-10 sm:py-14 md:py-16 lg:py-20 flex flex-col items-center text-center space-y-8 after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:h-[2px] after:w-[70%] after:bg-[linear-gradient(90deg,transparent_0%,#01A037_50%,transparent_100%)] after:rounded-full">
         {/* Top Tag */}
         <motion.div
           custom={0}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true }}
           variants={fadeUp}
-          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[260px] md:w-[396px] h-[52px] mx-auto  border-t border-[#0A5235]"
+          className="flex items-center gap-2 sm:gap-3 bg-[#3A5CFF0D] rounded-3xl px-4 sm:px-6 h-12 sm:h-14 border-t border-[#075D2F]"
         >
           <img
             src={BrandLogo}
-            alt="Small Logo"
-            className="h-4 w-4 md:h-5 md:w-5 object-contain logo-spin"
+            alt="Brand Logo"
+            className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
           />
-
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
+          <p className="text-xs sm:text-sm md:text-base text-gray-300 font-light tracking-[0.25em] uppercase">
             Work with us
           </p>
         </motion.div>
 
-        {/* Main Heading */}
+        {/* Heading */}
         <motion.h1
           custom={1}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true }}
           variants={fadeUp}
-          className="text-2xl md:text-4xl font-extrabold leading-tight tracking-tight px-4"
+          className="
+            font-extrabold tracking-tight leading-tight
+            text-xl sm:text-2xl md:text-4xl lg:text-5xl
+            max-w-4xl
+          "
         >
-          ONEISONEENT CONNECTS CLIENTS WORLDWIDE, EMPOWERING INDEPENDENT ARTISTS
-          AND BRANDS.
+          ONEISONEENT CONNECTS CLIENTS <br className="hidden sm:block" />
+          WORLDWIDE, EMPOWERING INDEPENDENT <br className="hidden md:block" />
+          ARTISTS AND BRANDS.
         </motion.h1>
 
-        {/* "Launch Your Music" Button */}
-        <motion.button
-          custom={2}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
-          className="flex items-center cursor-pointer space-x-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-semibold text-lg rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
-        >
-          <span>Launch Your Music</span>
-          <RocketIcon className="h-6 w-6" />
-        </motion.button>
+        {/* Button */}
+        <div className="p-2 bg-[#1E3B2C] rounded-full">
+          <motion.button
+            custom={2}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="
+              flex items-center gap-3
+              px-6 sm:px-10 md:px-14
+              py-3
+              text-sm sm:text-base md:text-lg
+              font-semibold
+              rounded-full
+              shadow-[0_0_180px_rgba(12,160,62,0.6)]
+              bg-[radial-gradient(50%_50%_at_50%_50%,#16C55F_0%,#0CA03E_100%)]
+              transition-transform duration-300 hover:scale-105
+              whitespace-nowrap
+            "
+          >
+            <span>Launch Your Music</span>
+            <RocketIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+          </motion.button>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
+
+// import { RocketIcon } from "lucide-react";
+// import BrandLogo from "@/assets/logo 1.png";
+// import { motion, Variants } from "framer-motion";
+// import CommonWrapper from "@/common/CommonWrapper";
+
+// const fadeUp: Variants = {
+//   hidden: { opacity: 0, y: 40 },
+//   visible: (custom: number) => ({
+//     opacity: 1,
+//     y: 0,
+//     transition: { delay: custom * 0.2, duration: 0.8, ease: "easeOut" },
+//   }),
+// };
+
+// export default function WorkWithUsSection() {
+//   return (
+//     <CommonWrapper className="relative  rounded-2xl flex flex-col items-center justify-center min-h-screen  text-white p-4 overflow-hidden">
+//       {/* Subtle green glow effect at the bottom */}
+//       <div
+//         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1/2 rounded-full filter blur-3xl opacity-30"
+//         style={{
+//           background:
+//             "radial-gradient(circle, rgba(0,255,0,0.3) 0%, rgba(0,0,0,0) 70%)",
+//         }}
+//       ></div>
+
+//       <div className="relative border border-[#3E4744] px-[220px] py-[80px] rounded-2xl z-10 flex flex-col items-center text-center mx-auto space-y-8 after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:h-[2px] after:w-[60%] after:bg-[linear-gradient(90deg,transparent_0%,#01A037_50%,transparent_100%)] after:rounded-full">
+//         {/* Top Tag */}
+//         <motion.div
+//           custom={0}
+//           initial="hidden"
+//           whileInView="visible"
+//           viewport={{ once: true, amount: 0.3 }}
+//           variants={fadeUp}
+//           className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[240px] md:w-[270px] h-[52px] mx-auto border-t border-[#075D2F]"
+//         >
+//           <img
+//             src={BrandLogo}
+//             alt="Small Logo"
+//             className="h-8 w-8 object-contain logo-spin"
+//           />
+
+//           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
+//             Work with us
+//           </p>
+//         </motion.div>
+
+//         {/* Main Heading */}
+//         <motion.h1
+//           custom={1}
+//           initial="hidden"
+//           whileInView="visible"
+//           viewport={{ once: true, amount: 0.3 }}
+//           variants={fadeUp}
+//           className="text-2xl md:text-4xl font-extrabold leading-tight tracking-tight px-4"
+//         >
+//           ONEISONEENT CONNECTS CLIENTS <br /> WORLDWIDE, EMPOWERING INDEPENDENT{" "}
+//           <br />
+//           ARTISTS AND BRANDS.
+//         </motion.h1>
+
+//         {/* "Launch Your Music" Button */}
+//         <div className="p-2 bg-[#1E3B2C] w-fit mx-auto rounded-full">
+//           <motion.button
+//             custom={2}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true, amount: 0.3 }}
+//             variants={fadeUp}
+//             className="text-white font-semibold px-[54px] py-[13px] rounded-[29.455px] flex items-center justify-center gap-[10px] transition duration-300 ease-in-out shadow-[0_0_180px_rgba(12,160,62,0.6)] bg-[radial-gradient(50%_50%_at_50%_50%,#16C55F_0%,#0CA03E_100%)] whitespace-nowrap cursor-pointer"
+//           >
+//             <span>Launch Your Music</span>
+//             <RocketIcon className="h-6 w-6" />
+//           </motion.button>
+//         </div>
+//       </div>
+//     </CommonWrapper>
+//   );
+// }

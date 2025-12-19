@@ -22,19 +22,18 @@ const ReleasesStrategy: React.FC = () => {
   return (
     <CommonWrapper>
       <div className="text-center w-full">
-
         {/* Top Tag */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={containerVariants}
-          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[260px] md:w-[396px] h-[52px] mx-auto border-t border-[#075D2F]"
+          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
         >
           <img
             src={smallLogoIcon}
             alt="Small Logo"
-            className="h-4 w-4 md:h-5 md:w-5 object-contain logo-spin"
+            className="h-8 w-8  object-contain logo-spin"
           />
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
             Release Strategy
@@ -72,10 +71,9 @@ const ReleasesStrategy: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={containerVariants}
-          className="py-16 sm:py-20 px-4 sm:px-8 md:px-16 w-full"
+          className="py-16 sm:py-20  w-full"
         >
           <div className="max-[1450px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-
             {/* Left Title */}
             <motion.h1
               variants={textItemVariants}
@@ -92,20 +90,19 @@ const ReleasesStrategy: React.FC = () => {
             {/* Right Box */}
             <motion.div
               variants={textItemVariants}
-              className="
-                md:col-span-2 p-6 sm:p-8 
-                text-gray-300 
-                text-base sm:text-lg 
-                leading-relaxed 
-                rounded-xl
+              className="md:col-span-2 p-6 sm:p-8  text-gray-300  text-base   leading-relaxed  rounded-xl
               "
             >
-              <p>
-                Key components include designing captivating artwork, developing a pre-save initiative, crafting a press release, pitching to playlists, leveraging social media for promotion, refreshing your electronic press kit (EPK), and analyzing performance metrics to enhance future campaigns.
-                Prioritizing the creation of anticipation, connecting with fans, and maximizing exposure across diverse platforms is essential for a successful launch.
+              <p className="text-start">
+                Key components include designing captivating artwork, developing
+                a pre-save initiative, crafting a press release, pitching to
+                playlists, leveraging social media for promotion, refreshing
+                your electronic press kit (EPK), and analyzing performance
+                metrics to enhance future campaigns. Prioritizing the creation
+                of anticipation, connecting with fans, and maximizing exposure
+                across diverse platforms is essential for a successful launch.
               </p>
             </motion.div>
-
           </div>
         </motion.section>
       </div>
