@@ -22,11 +22,7 @@ export const Navbar = () => {
   const isCartActive = location.pathname === "/cart";
 
   return (
-    <div
-      className="w-full max-w-[1350px] mx-auto px-4 md:px-6 py-3 md:py-4 
-        bg-white/10 backdrop-blur-2xl rounded-4xl shadow-lg shadow-black/10
-        flex items-center justify-between relative z-50"
-    >
+    <div className="w-full max-w-[1350px] mx-auto px-4 md:px-6 py-3 md:py-4 bg-white/10 backdrop-blur-2xl rounded-full shadow-lg shadow-black/10 flex items-center justify-between relative z-50">
       {/* Logo */}
       <motion.img
         src={logoImage}
@@ -47,9 +43,10 @@ export const Navbar = () => {
               href={link.path}
               className={`whitespace-nowrap px-4 py-2 text-sm lg:text-base font-medium 
                 rounded-xl transition-all duration-300 flex items-center gap-2
-                ${isActive
-                  ? "text-[#00ff00] bg-green-500/10 shadow-md"
-                  : "text-gray-300 hover:text-[#05E306]"
+                ${
+                  isActive
+                    ? "text-[#00ff00] bg-green-500/10 shadow-md"
+                    : "text-gray-300 hover:text-[#05E306]"
                 }`}
             >
               {link.name}
@@ -96,7 +93,7 @@ export const Navbar = () => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden text-white text-3xl cursor-pointer px-2 py-1  
+        className="md:hidden bg-[#283531] text-white text-3xl cursor-pointer px-2 py-1  
           backdrop-blur-sm active:scale-95"
       >
         {menuOpen ? "✕" : "☰"}
@@ -118,9 +115,10 @@ export const Navbar = () => {
                 onClick={() => setMenuOpen(false)}
                 className={`w-[90%] mx-auto text-center py-3 text-lg rounded-xl 
                   transition-all duration-300 flex justify-center items-center gap-2
-                  ${isActive
-                    ? "bg-green-500/10 !text-[#00ff00] shadow-lg shadow-green-500/20"
-                    : "text-gray-300 hover:text-white"
+                  ${
+                    isActive
+                      ? "bg-green-500/10 !text-[#00ff00] shadow-lg shadow-green-500/20"
+                      : "text-gray-300 hover:text-white"
                   }`}
               >
                 {link.name}
@@ -157,8 +155,6 @@ export const Navbar = () => {
     </div>
   );
 };
-
-
 
 // import { useState } from "react";
 // import { Link, useLocation } from "react-router-dom";

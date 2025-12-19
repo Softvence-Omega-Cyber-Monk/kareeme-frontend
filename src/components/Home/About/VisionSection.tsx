@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react';
-import char from '../../../assets/char.png';
-import pach from '../../../assets/pach.png';
+import { useEffect, useRef, useState } from "react";
+import char from "../../../assets/char.png";
+import pach from "../../../assets/pach.png";
 
 const VisionSection = () => {
   const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false]);
@@ -10,14 +10,16 @@ const VisionSection = () => {
   const visionItems = [
     {
       icon: char,
-      title: 'Fairness and Transparency',
-      description: 'We believe in a fair and transparent music industry where artists are compensated fairly for their work.'
+      title: "Fairness and Transparency",
+      description:
+        "We believe in a fair and transparent music industry where artists are compensated fairly for their work.",
     },
     {
       icon: pach,
-      title: 'Community and Collaboration',
-      description: "We're building a community of artists who support and collaborate with each other."
-    }
+      title: "Community and Collaboration",
+      description:
+        "We're building a community of artists who support and collaborate with each other.",
+    },
   ];
 
   useEffect(() => {
@@ -55,33 +57,39 @@ const VisionSection = () => {
   return (
     <div className="bg-black/50 py-12 sm:py-16 md:py-20 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-left">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-sans text-white/20 mb-6 sm:mb-8 text-left">
           <span className="text-white">A VISION FOR CHANGE</span>
         </h2>
-        
+
         <p className="text-gray-400 text-base sm:text-lg max-w-5xl mb-12 sm:mb-16 text-left">
-          We're building a more equitable and sustainable music industry. We're committed to creating a world where every artist has the opportunity to succeed, regardless of their background or connections.
+          We're building a more equitable and sustainable music industry. We're
+          committed to creating a world where every artist has the opportunity
+          to succeed, regardless of their background or connections.
         </p>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-20 sm:gap-24 max-w-4xl">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 l">
           {visionItems.map((item, index) => (
             <div
               key={index}
-              className={`bg-gradient-to-br from-gray-800 to-gray-900 p-7 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 cursor-pointer transition-all duration-700 ease-out ${
+              className={`bg-gradient-to-br from-[#0C1F1F] to-[#0C1F1F] p-7 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 cursor-pointer transition-all duration-700 ease-out ${
                 visibleBoxes[index]
-                  ? 'opacity-100 translate-x-0'
-                  : 'opacity-0 -translate-x-20'
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-20"
               } hover:scale-105`}
             >
               <div className="mb-4 w-12 h-12 sm:w-14 sm:h-14">
-                <img 
-                  src={item.icon} 
+                <img
+                  src={item.icon}
                   alt={item.title}
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 text-left">{item.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed text-left">{item.description}</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 text-left">
+                {item.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed text-left">
+                {item.description}
+              </p>
             </div>
           ))}
         </div>
@@ -263,7 +271,7 @@ export default VisionSection;
 //         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-6 sm:mb-8 text-left">
 //           <span className="text-white">A VISION FOR CHANGE</span>
 //         </h2>
-        
+
 //         <p className="text-gray-400 text-base sm:text-lg max-w-5xl mb-12 sm:mb-16 text-left">
 //           We're building a more equitable and sustainable music industry. We're committed to creating a world where every artist has the opportunity to succeed, regardless of their background or connections.
 //         </p>
@@ -279,8 +287,8 @@ export default VisionSection;
 //               } hover:scale-105`}
 //             >
 //               <div className="mb-4 w-12 h-12 sm:w-14 sm:h-14">
-//                 <img 
-//                   src={item.icon} 
+//                 <img
+//                   src={item.icon}
 //                   alt={item.title}
 //                   className="w-full h-full object-contain"
 //                 />

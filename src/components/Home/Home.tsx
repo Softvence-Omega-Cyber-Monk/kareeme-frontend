@@ -1,4 +1,3 @@
-
 import { HeroItems } from "./HeroItems";
 import MusicPlatforms from "@/components/Home/MusicPlatforms";
 import WhatWeDoSection from "./WhatWeDoSection";
@@ -9,14 +8,10 @@ import MarketingProcess from "./CoreFeaturesSection";
 import FeaturedArticlesSection from "./FeaturedArticlesSection";
 import DevelopmentArtist from "./DevelopmentArtist";
 import DistributionSection from "./DistributionSection";
-import Overview from "@/components/Home/Overview"
+import Overview from "@/components/Home/Overview";
 import CollageImage from "@/components/Home/CollageImage";
 import WorkWithUsSection from "./WorkWithUsSection";
-
-
-
-
-
+import CommonWrapper from "@/common/CommonWrapper";
 
 const customStyles = `
   /* Tailwind requires a base for custom layers */
@@ -112,30 +107,32 @@ const customStyles = `
 export default function Home() {
   return (
     <>
-
       <style>{customStyles}</style>
       <div className="relative z-10 min-h-screen">
-        <div className="animated-background fixed top-0 left-0 w-screen h-screen -z-10"></div>
-
+        {/* <div className="animated-background fixed top-0 left-0 w-screen h-screen -z-10"></div> */}
 
         <HeroItems />
+        <CommonWrapper>
+          <Overview></Overview>
+          <MusicPlatforms></MusicPlatforms>
+          <WhatWeDoSection></WhatWeDoSection>
+        </CommonWrapper>
 
-        {/* 5. Hero Items Component */}
-        <Overview></Overview>
-        <MusicPlatforms></MusicPlatforms>
-
-        <WhatWeDoSection></WhatWeDoSection>
         <FeaturesSection></FeaturesSection>
+
+        {/* note */}
         <HeroBanner></HeroBanner>
-        <ReleasesStrategy></ReleasesStrategy>
-        <MarketingProcess></MarketingProcess>
-        <FeaturedArticlesSection></FeaturedArticlesSection>
-        <DevelopmentArtist></DevelopmentArtist>
-        <DistributionSection></DistributionSection>
+        <CommonWrapper>
+          <ReleasesStrategy></ReleasesStrategy>
+          <MarketingProcess></MarketingProcess>
+          <FeaturedArticlesSection></FeaturedArticlesSection>
+          <DevelopmentArtist></DevelopmentArtist>
+          <DistributionSection></DistributionSection>
+        </CommonWrapper>
+
+        {/*  */}
         <CollageImage></CollageImage>
         <WorkWithUsSection></WorkWithUsSection>
-
-
       </div>
     </>
   );
