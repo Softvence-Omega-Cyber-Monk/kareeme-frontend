@@ -104,6 +104,10 @@ const routes = createBrowserRouter([
         element: <ProductDetailPage></ProductDetailPage>,
       },
       {
+        path: "/details/:id",
+        element: <ProductDetailPage></ProductDetailPage>,
+      },
+      {
         path: "/about",
         element: <AboutPage />,
       },
@@ -236,7 +240,6 @@ const routes = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
-  
 ]);
 
 export default routes;

@@ -1,7 +1,13 @@
-
-import React, { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
-import { Minus, Plus, ChevronLeft, ChevronRight, X, Trash2 } from 'lucide-react';
+import React, { useState } from "react";
+import { motion, Variants } from "framer-motion";
+import {
+  Minus,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Trash2,
+} from "lucide-react";
 import img from "@/assets/image44.png";
 
 interface Product {
@@ -52,13 +58,16 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
   };
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
   const shipping = 15;
   const total = subtotal + shipping - appliedDiscount;
 
   const overlayVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
+    visible: { opacity: 1, transition: { duration: 0.3 } },
   };
 
   const modalVariants: Variants = {
@@ -66,8 +75,8 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
   };
 
   return (
@@ -88,7 +97,9 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-800">
-          <h2 className="text-lg sm:text-xl font-semibold text-white">My Cart</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-white">
+            My Cart
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
@@ -121,7 +132,9 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     </h3>
                     <div className="flex items-center justify-center bg-gray-800 rounded-full p-1 border border-gray-700 w-[120px] sm:w-auto]">
                       <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity - 1)
+                        }
                         className="w-6 h-6 flex items-center justify-center text-[#3A5CFF] rounded  text-sm transition-colors cursor-pointer"
                       >
                         <Minus></Minus>
@@ -130,7 +143,9 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity + 1)
+                        }
                         className="w-6 h-6 text-[Blue] flex items-center justify-center  rounded  text-sm transition-colors cursor-pointer"
                       >
                         <Plus></Plus>
@@ -201,16 +216,18 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               Check Out
             </button>
           </div> */}
-              <span className=" text-white font-semibold mb-5 m-2
+          <span
+            className=" text-white font-semibold mb-5 m-2
           px-[50px] py-[13px]
           rounded-[29.455px]
           flex items-center justify-center gap-[10px]
           transition duration-300 ease-in-out
           shadow-[0_0_180px_rgba(58,92,181,0.6)]
           bg-[radial-gradient(50%_50%_at_50%_50%,#7B92FF_0%,#2941B5_100%)]
-          whitespace-nowrap cursor-pointer">
-              <p>Check Out</p>
-            </span>
+          whitespace-nowrap cursor-pointer"
+          >
+            <p>Check Out</p>
+          </span>
         </div>
       </motion.div>
     </motion.div>
@@ -221,7 +238,7 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 const ShippingDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const overlayVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
+    visible: { opacity: 1, transition: { duration: 0.3 } },
   };
 
   const dialogVariants: Variants = {
@@ -230,8 +247,8 @@ const ShippingDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
   };
 
   return (
@@ -251,8 +268,13 @@ const ShippingDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between p-4 sm:p-6 border-b border-gray-700">
-          <h2 className="text-white text-base sm:text-lg font-semibold">Shipping & Returns</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+          <h2 className="text-white text-base sm:text-lg font-semibold">
+            Shipping & Returns
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
             <X size={20} />
           </button>
         </div>
@@ -263,7 +285,8 @@ const ShippingDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               Standard / 3-5 Business Days / Estimated cost: $15.00
             </span>
             <p className="text-gray-400 text-xs mt-1 leading-relaxed">
-              Reliable and affordable, our Standard shipping option ensures your items reach your doorstep within 3 to 5 business days.
+              Reliable and affordable, our Standard shipping option ensures your
+              items reach your doorstep within 3 to 5 business days.
             </p>
           </div>
           <div>
@@ -271,15 +294,20 @@ const ShippingDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               Express / 1-2 Business Days / Estimated cost: $40.00
             </span>
             <p className="text-gray-400 text-xs mt-1 leading-relaxed">
-              Need it fast? Opt for Express shipping and receive your order within 1 to 2 business days.
+              Need it fast? Opt for Express shipping and receive your order
+              within 1 to 2 business days.
             </p>
           </div>
         </div>
 
         <div className="p-4 sm:p-6">
-          <h3 className="text-white text-base sm:text-lg font-semibold mb-2">Exchange & Returns</h3>
+          <h3 className="text-white text-base sm:text-lg font-semibold mb-2">
+            Exchange & Returns
+          </h3>
           <p className="text-gray-400 text-xs leading-relaxed">
-            Request a hassle-free return through your account, and we'll handle the rest. Home Returns are always free, and we offer an extended 100 days delivery confirmation date to send back your items.
+            Request a hassle-free return through your account, and we'll handle
+            the rest. Home Returns are always free, and we offer an extended 100
+            days delivery confirmation date to send back your items.
           </p>
         </div>
       </motion.div>
@@ -300,9 +328,27 @@ const ProductDetailPage: React.FC = () => {
   };
 
   const relatedProducts: Product[] = [
-    { id: 2, image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop', title: '"The Rhythm" Essential Tee', price: 99 },
-    { id: 3, image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop', title: '"The Rhythm" Essential Tee', price: 99 },
-    { id: 4, image: 'https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&h=400&fit=crop', title: '"The Rhythm" Essential Tee', price: 99 },
+    {
+      id: 2,
+      image:
+        "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop",
+      title: '"The Rhythm" Essential Tee',
+      price: 99,
+    },
+    {
+      id: 3,
+      image:
+        "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop",
+      title: '"The Rhythm" Essential Tee',
+      price: 99,
+    },
+    {
+      id: 4,
+      image:
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&h=400&fit=crop",
+      title: '"The Rhythm" Essential Tee',
+      price: 99,
+    },
   ];
 
   const imageVariants: Variants = {
@@ -310,8 +356,8 @@ const ProductDetailPage: React.FC = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    }
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
   const infoVariants: Variants = {
@@ -319,8 +365,8 @@ const ProductDetailPage: React.FC = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    }
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
   const relatedSectionVariants: Variants = {
@@ -328,8 +374,8 @@ const ProductDetailPage: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const cardVariants: Variants = {
@@ -337,75 +383,81 @@ const ProductDetailPage: React.FC = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
-  const handleQuantityChange = (type: 'increase' | 'decrease') => {
-    if (type === 'increase') setQuantity(prev => prev + 1);
-    else if (type === 'decrease' && quantity > 1) setQuantity(prev => prev - 1);
+  const handleQuantityChange = (type: "increase" | "decrease") => {
+    if (type === "increase") setQuantity((prev) => prev + 1);
+    else if (type === "decrease" && quantity > 1)
+      setQuantity((prev) => prev - 1);
   };
 
   return (
- <div className='w-full mx-auto'>
-   <div className='max-w-7xl mx-auto'>
-      <div className=" text-white mt-10 p-4">
-      {/* Product Details Section */}
-      <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-4  mx-auto mb-8 sm:mb-12 lg:mb-16">
-        {/* Left: Main Product Image */}
-        <motion.div
-          className=" rounded-lg justify-center"
-          variants={imageVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <img
-            src={mainProduct.image}
-            alt={mainProduct.title}
-            className="w-[708px] h-[500px] max-w-sm sm:max-w-md lg:max-w-lg object-contain rounded-md"
-          />
-        </motion.div>
+    <div className="w-full mx-auto">
+      <div className="max-w-7xl mx-auto">
+        <div className=" text-white mt-10 p-4">
+          {/* Product Details Section */}
+          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-4  mx-auto mb-8 sm:mb-12 lg:mb-16">
+            {/* Left: Main Product Image */}
+            <motion.div
+              className=" rounded-lg justify-center"
+              variants={imageVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <img
+                src={mainProduct.image}
+                alt={mainProduct.title}
+                className="w-[708px] h-[500px] max-w-sm sm:max-w-md lg:max-w-lg object-contain rounded-md"
+              />
+            </motion.div>
 
-        {/* Right: Product Info */}
-        <motion.div
-          className="flex-1 flex flex-col justify-center"
-          variants={infoVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3">
-            {mainProduct.title}
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl font-semibold text-green-700 mb-4 sm:mb-6">
-            ${mainProduct.price}
-          </p>
-          <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-6 sm:mb-8 leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur. Ut tellus tortor a aliquet id dolor. Semper donec volutpat aenean cursus eu odio. Dictum sit fringilla vel dui in mauris egestas ullamcorper. Et tristique eget imperdiet ac euismod.
-          </p>
+            {/* Right: Product Info */}
+            <motion.div
+              className="flex-1 flex flex-col justify-center"
+              variants={infoVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3">
+                {mainProduct.title}
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl font-semibold text-green-700 mb-4 sm:mb-6">
+                ${mainProduct.price}
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-6 sm:mb-8 leading-relaxed">
+                Lorem ipsum dolor sit amet consectetur. Ut tellus tortor a
+                aliquet id dolor. Semper donec volutpat aenean cursus eu odio.
+                Dictum sit fringilla vel dui in mauris egestas ullamcorper. Et
+                tristique eget imperdiet ac euismod.
+              </p>
 
-          {/* Quantity and Add to Cart */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <div className="flex items-center justify-center bg-gray-800 rounded-full p-1 border border-gray-700 w-full sm:w-auto">
-              <button 
-                onClick={() => handleQuantityChange('decrease')} 
-                className="p-2 px-4 sm:px-5 rounded-full hover:bg-gray-700 transition-colors text-blue-500 cursor-pointer"
-              >
-                <Minus size={16} className="sm:w-[18px] sm:h-[18px]" />
-              </button>
-              <span className="px-4 sm:px-6 text-base sm:text-lg font-semibold">{quantity}</span>
-              <button 
-                onClick={() => handleQuantityChange('increase')} 
-                className="p-2 px-4 sm:px-5 rounded-full hover:bg-gray-700 transition-colors text-blue-500 cursor-pointer"
-              >
-                <Plus size={16} className="sm:w-[18px] sm:h-[18px]" />
-              </button>
-            </div>
+              {/* Quantity and Add to Cart */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="flex items-center justify-center bg-gray-800 rounded-full p-1 border border-gray-700 w-full sm:w-auto">
+                  <button
+                    onClick={() => handleQuantityChange("decrease")}
+                    className="p-2 px-4 sm:px-5 rounded-full hover:bg-gray-700 transition-colors text-blue-500 cursor-pointer"
+                  >
+                    <Minus size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
+                  <span className="px-4 sm:px-6 text-base sm:text-lg font-semibold">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => handleQuantityChange("increase")}
+                    className="p-2 px-4 sm:px-5 rounded-full hover:bg-gray-700 transition-colors text-blue-500 cursor-pointer"
+                  >
+                    <Plus size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
+                </div>
 
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="text-white font-semibold w-full sm:flex-1 lg:max-w-sm
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="text-white font-semibold w-full sm:flex-1 lg:max-w-sm
                 px-6 sm:px-8 lg:px-12 py-3 sm:py-3.5
                 rounded-full
                 flex items-center justify-center gap-2
@@ -413,96 +465,87 @@ const ProductDetailPage: React.FC = () => {
                 shadow-[0_0_120px_rgba(58,92,181,0.5)] sm:shadow-[0_0_150px_rgba(58,92,181,0.55)] lg:shadow-[0_0_180px_rgba(58,92,181,0.6)]
                 bg-[radial-gradient(50%_50%_at_50%_50%,#7B92FF_0%,#2941B5_100%)]
                 whitespace-nowrap cursor-pointer text-sm sm:text-base hover:shadow-[0_0_200px_rgba(58,92,181,0.7)]"
-            >
-              Add To Cart
-            </button>
-          </div>
+                >
+                  Add To Cart
+                </button>
+              </div>
 
-          <button
-            onClick={() => setIsShippingDialogOpen(true)}
-            className="text-xs sm:text-sm text-gray-500 hover:text-gray-400 transition-colors text-left underline cursor-pointer"
-          >
-            Shipping, Exchange and Returns
-          </button>
-        </motion.div>
-      </div>
-
-      {/* Related Products Section */}
-      <div className=''>
-        <motion.div
-          className=""
-          variants={relatedSectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <div className="flex justify-between items-center mb-4 sm:mb-6">
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">RELATED PRODUCTS</h2>
-            <div className="flex gap-2">
-              <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 transition-colors border border-gray-700 cursor-pointer">
-                <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
-              </button>
-              <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 transition-colors border border-gray-700 cursor-pointer">
-                <ChevronRight size={20} className="sm:w-6 sm:h-6" />
-              </button>
-            </div>
-          </div>
-
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-            {relatedProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                className="group cursor-pointer"
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.1 }}
+              <button
+                onClick={() => setIsShippingDialogOpen(true)}
+                className="text-xs sm:text-sm text-gray-500 hover:text-gray-400 transition-colors text-left underline cursor-pointer"
               >
-                <div className="overflow-hidden rounded-lg">
-                  <img 
-                    src={product.image} 
-                    alt={product.title} 
-                    className="w-full h-64 sm:h-80 lg:h-96 object-cover object-center transition-transform duration-300 group-hover:scale-105" 
-                  />
-                </div>
-                <div className="mt-3 sm:mt-4 lg:mt-5 flex justify-between items-start gap-2">
-                  <h3 className="text-sm sm:text-base lg:text-lg font-semibold line-clamp-2 flex-1">
-                    {product.title}
-                  </h3>
-                  <p className="text-white text-sm sm:text-base lg:text-lg font-semibold whitespace-nowrap">
-                    ${product.price}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                Shipping, Exchange and Returns
+              </button>
+            </motion.div>
           </div>
-        </motion.div>
-      </div>
 
-      {/* Modals */}
-      {isShippingDialogOpen && <ShippingDialog onClose={() => setIsShippingDialogOpen(false)} />}
-      {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)} />}
+          {/* Related Products Section */}
+          <div className="">
+            <motion.div
+              className=""
+              variants={relatedSectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <div className="flex justify-between items-center mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                  RELATED PRODUCTS
+                </h2>
+                <div className="flex gap-2">
+                  <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 transition-colors border border-gray-700 cursor-pointer">
+                    <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
+                  </button>
+                  <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 transition-colors border border-gray-700 cursor-pointer">
+                    <ChevronRight size={20} className="sm:w-6 sm:h-6" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+                {relatedProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    className="group cursor-pointer"
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="overflow-hidden rounded-lg">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-64 sm:h-80 lg:h-96 object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-3 sm:mt-4 lg:mt-5 flex justify-between items-start gap-2">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-semibold line-clamp-2 flex-1">
+                        {product.title}
+                      </h3>
+                      <p className="text-white text-sm sm:text-base lg:text-lg font-semibold whitespace-nowrap">
+                        ${product.price}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Modals */}
+          {isShippingDialogOpen && (
+            <ShippingDialog onClose={() => setIsShippingDialogOpen(false)} />
+          )}
+          {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)} />}
+        </div>
+      </div>
     </div>
-  </div>
- </div>
   );
 };
 
 export default ProductDetailPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from 'react';
 // import { motion, Variants } from 'framer-motion';
@@ -959,7 +1002,6 @@ export default ProductDetailPage;
 // };
 
 // export default ProductDetailPage;
-
 
 // import React, { useState } from 'react';
 // import { motion, Variants } from 'framer-motion';
