@@ -195,11 +195,11 @@ const NewsArticles: React.FC = () => {
           animation: scanVertical 8s ease-in-out infinite;
         }
       `}</style>
-
+ {/* Animated Background */}
       <div className="min-h-screen bg-black/50 relative overflow-hidden">
-        {/* Animated Background */}
+       
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Gradient Orbs with Pulse Animation */}
+    
           <div
             className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
             style={{
@@ -235,7 +235,7 @@ const NewsArticles: React.FC = () => {
           />
 
           {/* Moving Grid Lines */}
-          <div className="absolute inset-0 opacity-10">
+          {/* <div className="absolute inset-0 opacity-10">
             <div
               className="absolute inset-0 animate-grid-down"
               style={{
@@ -252,7 +252,7 @@ const NewsArticles: React.FC = () => {
                 backgroundSize: "50px 50px",
               }}
             />
-          </div>
+          </div> */}
 
           {/* Floating Particles */}
           {[...Array(25)].map((_, i) => (
@@ -272,11 +272,11 @@ const NewsArticles: React.FC = () => {
           ))}
 
           {/* Scanning Lines Effect */}
-          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent animate-scan" />
+          {/* <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent animate-scan" /> */}
         </div>
 
         {/* Content */}
-        <div className="text-white py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div className="text-white py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 mt-20">
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">

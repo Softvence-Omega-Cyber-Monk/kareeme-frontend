@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import logo from "@/assets/icons/logo.svg";
+import logo from "@/assets/la.png";
 
 interface HeroProps {
   className?: string;
@@ -25,11 +25,11 @@ export const LabelBridgeSection: React.FC<HeroProps> = ({ className = "" }) => {
           <div className="absolute w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24 bg-green-500/20 rounded-full blur-xl"></div>
           
          
-          <motion.div
-            className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-2 border-green-400/30 bg-green-800/30 flex items-center justify-center shadow-lg shadow-green-500/40"
+          {/* <motion.div
+            className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-1 border-[#01D449]/20  bg-green-800/30 flex items-center justify-center shadow-lg shadow-green-500/40"
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-          >
+          > */}
           
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-500/10 to-transparent"></div>
             
@@ -37,13 +37,13 @@ export const LabelBridgeSection: React.FC<HeroProps> = ({ className = "" }) => {
             <img 
               src={logo} 
               alt="Logo" 
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain relative z-10" 
+              className="w-20 h-20 object-contain relative z-10" 
             />
-          </motion.div>
+          {/* </motion.div> */}
           
           {/* Floating particles */}
-          <motion.div
-            className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400/80 rounded-full blur-sm"
+          {/* <motion.div
+            className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2  rounded-full "
             animate={{
               x: [0, 30, 0],
               y: [0, -30, 0],
@@ -55,8 +55,8 @@ export const LabelBridgeSection: React.FC<HeroProps> = ({ className = "" }) => {
               ease: "easeInOut",
             }}
           />
-          <motion.div
-            className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400/80 rounded-full blur-sm"
+          <motion.div */}
+            {/* className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400/80 rounded-full blur-sm"
             animate={{
               x: [0, -30, 0],
               y: [0, 30, 0],
@@ -68,7 +68,7 @@ export const LabelBridgeSection: React.FC<HeroProps> = ({ className = "" }) => {
               ease: "easeInOut",
               delay: 1,
             }}
-          />
+          /> */}
         </div>
       </div>
 
