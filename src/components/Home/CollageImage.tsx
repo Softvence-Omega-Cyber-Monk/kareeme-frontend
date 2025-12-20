@@ -245,7 +245,7 @@ console.log(handleMouseLeave);
   return (
 
     // <CommonWrapper>
-    <div className="w-full bg-gradient-to-b from-black via-gray-900 to-black py-8 sm:py-12 md:py-16 overflow-hidden">
+    <div className="w-full  py-8 sm:py-12 md:py-16 overflow-hidden">
       <div 
         ref={scrollRef}
         className="flex gap-4 sm:gap-6 overflow-x-hidden px-4 sm:px-6 lg:px-8"

@@ -14,8 +14,8 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
 
   return (
     <section
-      className={`relative text-white text-center py-12 sm:py-16 md:py-24 lg:py-32 
-      px-4 sm:px-6 md:px-8 lg:px-12 z-10 ${className}`}
+      className={`relative text-white text-center pt-[100px]
+ z-10 ${className}`}
     >
       {/* ===========================
            Angle Background Image  
@@ -75,7 +75,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
                 stiffness: 300,
                 damping: 20,
               }}
-              className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-widest"
+              className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-widest "
               style={{ color: "transparent", WebkitTextStroke: "2px #f0fdf4" }}
             >
               {" "}

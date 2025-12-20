@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import img from "@/assets/Frame 1321317894.png";
-import img1 from "@/assets/comp1.png";
-import img2 from "@/assets/comp2.png";
+import img1 from "@/assets/sart1.png";
+import img2 from "@/assets/sart2.png";
 import img3 from "@/assets/comp3.png";
 import img4 from "@/assets/comp4.png";
 import img5 from "@/assets/comp5.png";
@@ -49,7 +49,7 @@ const ProductGallery: React.FC = () => {
 
   const renderProducts = (sliceStart: number, sliceEnd: number, cols: number) => (
     <div className="px-4 md:px-8 py-3">
-      <div className={`grid grid-cols-2 md:grid-cols-${cols} gap-3 md:gap-5`}>
+      <div className={`grid grid-cols-2 md:grid-cols-${cols} gap-2 md:gap-5`}>
         {products.slice(sliceStart, sliceEnd).map((product) => (
           <div
             key={product.id}
@@ -60,12 +60,12 @@ const ProductGallery: React.FC = () => {
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full rounded-2xl object-cover"
               />
             </div>
             <div className="flex justify-between items-center mt-2 px-1">
               <h1 className="text-white text-sm">{product.title}</h1>
-              <p className="text-gray-400 text-sm">{product.price}</p>
+              <p className="text-white text-sm">{product.price}</p>
             </div>
           </div>
         ))}
@@ -74,10 +74,10 @@ const ProductGallery: React.FC = () => {
   );
 
   return (
-    <div className="w-full max-w-7xl xl:max-w-[1350px] bg-black/70 mx-auto mt-5 rounded-lg shadow-2xl">
+    <div className="w-full max-w-7xl xl:max-w-[1350px] mx-auto mt-5 rounded-lg shadow-2xl">
       {/* Header */}
-      <div className="pt-8 pb-6 px-4 md:px-8">
-        <h1 className="text-white text-xs md:text-sm font-light tracking-[0.3em] mb-1 uppercase">Browse Our</h1>
+      <div className="pt-8 pb-6 px-4 md:px-8 ">
+        <h1 className="text-white text-[40px] md:text-2xl  tracking-[0.2em] uppercase font-semibold">Browse Our</h1>
         <h2 className="text-white text-lg md:text-2xl font-bold tracking-[0.2em] uppercase">Product Line Up</h2>
       </div>
 
@@ -87,13 +87,9 @@ const ProductGallery: React.FC = () => {
       {renderProducts(0, 2, 2)}
 
       {/* Hero Banner */}
-      <div className="relative w-full aspect-[4/3] md:aspect-[21/9] lg:aspect-[16/5] rounded-lg overflow-hidden my-8">
-        <img src={img} alt="Hero" className="w-full h-full object-cover blur-sm" />
-        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4">
-          {/* <h3 className="text-white text-2xl md:text-5xl lg:text-7xl font-black uppercase text-center leading-tight">
-            New Drops <br /> Arrived
-          </h3> */}
-        </div>
+      <div className="relative w-full h-full rounded-lg overflow-hidden my-8">
+        <img src={img} alt="Hero" className="w-full h-full object-cover " />
+       
       </div>
 
 
@@ -104,11 +100,11 @@ const ProductGallery: React.FC = () => {
 
 
       {/* Footer spacing */}
-      <div className="h-16 mt-6"></div>
+     
 
       {/* Lightbox */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <button onClick={handleClose} className="absolute top-4 right-4 text-white text-3xl hover:text-red-500 transition-colors z-50">
             <X size={32} />
           </button>

@@ -1,4 +1,4 @@
-import { RocketIcon } from "lucide-react";
+import vic from "@/assets/vic.png"
 import BrandLogo from "@/assets/logo 1.png";
 import { motion, Variants } from "framer-motion";
 // import CommonWrapper from "@/common/CommonWrapper";
@@ -85,7 +85,8 @@ export default function WorkWithUsSection() {
             "
           >
             <span>Launch Your Music</span>
-            <RocketIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+            {/* <RocketIcon className="h-5 w-5 sm:h-6 sm:w-6" /> */}
+            <img src={vic} alt="" />
           </motion.button>
         </div>
       </div>
