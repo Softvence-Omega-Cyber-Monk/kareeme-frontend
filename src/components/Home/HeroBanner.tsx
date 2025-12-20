@@ -24,17 +24,17 @@ const HeroBanner: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full  bg-[#0E1B20] overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#0E1B20] overflow-hidden">
       <div className="absolute inset-0 border-hero-blue pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-4 pt-24 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 md:pt-24 text-center">
         {/* TEXT BLOCK */}
         <motion.h1
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-white text-5xl md:text-[8rem] lg:text-[10rem] font-extrabold leading-none tracking-tighter"
+          className="text-white text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] font-extrabold leading-none tracking-tighter"
         >
           ONE IS ONE
         </motion.h1>
@@ -45,27 +45,27 @@ const HeroBanner: React.FC = () => {
           whileInView="visible"
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-white text-4xl md:text-8xl lg:text-9xl font-extrabold leading-none tracking-tight mt-2"
+          className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl font-extrabold leading-none tracking-tight mt-2"
         >
           ENTERTAINMENT
         </motion.h2>
 
-        {/* IMAGE BLOCK — PUSHED DOWN */}
+        {/* IMAGE BLOCK — RESPONSIVE */}
         <motion.div
           variants={imageVariants}
           initial="hidden"
           whileInView="visible"
           transition={{ delay: 0.5 }}
           viewport={{ once: true }}
-          className="relative w-full max-w-lg mx-auto -mt-20 "
+          className="relative w-full max-w-3xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:-mt-20 xl:-mt-32"
         >
           <div
-            className="w-full h-[420px] md:h-[480px] bg-cover bg-center relative"
+            className="w-full h-64 sm:h-80 md:h-96 lg:h-[480px] xl:h-[700px] 2xl:h-[811px] bg-cover bg-center relative rounded-lg sm:rounded-xl md:rounded-2xl"
             style={{ backgroundImage: `url(${musicImage})` }}
           >
-            {/* Glow */}
+            {/* Glow Effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-40 h-40 bg-gradient-to-r from-orange-500/50 via-cyan-400/50 to-pink-500/50 rounded-full blur-2xl opacity-70 animate-pulse" />
+              <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-gradient-to-r from-orange-500/50 via-cyan-400/50 to-pink-500/50 rounded-full blur-2xl opacity-70 animate-pulse" />
             </div>
           </div>
         </motion.div>
@@ -82,7 +82,6 @@ export default HeroBanner;
 // import musicImage from "@/assets/music image.png";
 
 // const HeroBanner: React.FC = () => {
-//   // Properly typed variants
 //   const textVariants: Variants = {
 //     hidden: { y: 50, opacity: 0 },
 //     visible: {
@@ -93,8 +92,9 @@ export default HeroBanner;
 //   };
 
 //   const imageVariants: Variants = {
-//     hidden: { scale: 0.9, opacity: 0 },
+//     hidden: { y: 40, scale: 0.9, opacity: 0 },
 //     visible: {
+//       y: 0,
 //       scale: 1,
 //       opacity: 1,
 //       transition: { duration: 1.5, ease: "easeOut" },
@@ -102,17 +102,17 @@ export default HeroBanner;
 //   };
 
 //   return (
-//     <section className="relative w-full h-screen flex flex-col justify-center items-center bg-[#0E1B20] overflow-hidden">
-//       <div className="absolute inset-0 border-hero-blue pointer-events-none"></div>
+//     <section className="relative w-full  bg-[#0E1B20] overflow-hidden">
+//       <div className="absolute inset-0 border-hero-blue pointer-events-none" />
 
-//       <div className="text-center  max-w-5xl mx-auto">
-//         {/* Main Title */}
+//       <div className="max-w-6xl mx-auto px-4 pt-24 text-center">
+//         {/* TEXT BLOCK */}
 //         <motion.h1
 //           variants={textVariants}
 //           initial="hidden"
 //           whileInView="visible"
-//           viewport={{ once: true, amount: 0.5 }}
-//           className="text-white text-5xl md:text-[8rem] mb-4 lg:text-[10rem] font-extrabold leading-none tracking-tighter"
+//           viewport={{ once: true }}
+//           className="text-white text-5xl md:text-[8rem] lg:text-[10rem] font-extrabold leading-none tracking-tighter"
 //         >
 //           ONE IS ONE
 //         </motion.h1>
@@ -121,27 +121,30 @@ export default HeroBanner;
 //           variants={textVariants}
 //           initial="hidden"
 //           whileInView="visible"
-//           viewport={{ once: true, amount: 0.5 }}
 //           transition={{ delay: 0.2 }}
-//           className="text-white text-4xl md:text-8xl lg:text-9xl font-extrabold leading-none tracking-tight -mt-4 md:-mt-8"
+//           viewport={{ once: true }}
+//           className="text-white text-4xl md:text-8xl lg:text-9xl font-extrabold leading-none tracking-tight mt-2"
 //         >
 //           ENTERTAINMENT
 //         </motion.h2>
 
-//         {/* Hero Image */}
+//         {/* IMAGE BLOCK — PUSHED DOWN */}
 //         <motion.div
 //           variants={imageVariants}
 //           initial="hidden"
 //           whileInView="visible"
-//           viewport={{ once: true, amount: 0.5 }}
 //           transition={{ delay: 0.5 }}
-//           className="relative w-full max-w-lg mx-auto z-10"
+//           viewport={{ once: true }}
+//           className="relative w-3xl mx-auto -mt-32"
 //         >
 //           <div
-//             className="w-full h-[490px] bg-cover bg-center relative"
+//             className="w-full h-[811px]  bg-cover bg-center relative"
 //             style={{ backgroundImage: `url(${musicImage})` }}
 //           >
-//             <div className="absolute top-1/2 left-1/2 w-40 h-40 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-orange-500/50 via-cyan-400/50 to-pink-500/50 rounded-full filter blur-xl opacity-70 animate-pulse"></div>
+//             {/* Glow */}
+//             <div className="absolute inset-0 flex items-center justify-center">
+//               <div className="w-40 h-40 bg-gradient-to-r from-orange-500/50 via-cyan-400/50 to-pink-500/50 rounded-full blur-2xl opacity-70 animate-pulse" />
+//             </div>
 //           </div>
 //         </motion.div>
 //       </div>
@@ -150,3 +153,4 @@ export default HeroBanner;
 // };
 
 // export default HeroBanner;
+

@@ -1,6 +1,6 @@
 import React from "react";
 import smallLogoIcon from "@/assets/logo 1.png";
-import CommonWrapper from "../../common/CommonWrapper";
+// import CommonWrapper from "../../common/CommonWrapper";
 import { motion, Variants } from "framer-motion";
 
 // --- Animation Variants ---
@@ -20,7 +20,7 @@ const textItemVariants: Variants = {
 
 const ReleasesStrategy: React.FC = () => {
   return (
-    <CommonWrapper>
+   
       <div className="text-center w-full">
         {/* Top Tag */}
         <motion.div
@@ -106,7 +106,7 @@ const ReleasesStrategy: React.FC = () => {
           </div>
         </motion.section>
       </div>
-    </CommonWrapper>
+   
   );
 };
 

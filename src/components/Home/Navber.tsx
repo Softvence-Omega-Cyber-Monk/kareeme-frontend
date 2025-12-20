@@ -147,7 +147,7 @@ export const Navbar = () => {
           </a>
 
           {/* Mobile Sign in */}
-          <button className="w-[90%] mx-auto py-3 bg-[#1B1E30] cursor-pointer rounded-xl text-lg text-white shadow-md">
+          <button className="w-[90%] mx-auto py-3 bg-[#E7EBFF] cursor-pointer rounded-xl text-lg text-white shadow-md">
             Sign In
           </button>
         </div>
