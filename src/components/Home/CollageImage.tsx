@@ -1,8 +1,8 @@
 // // import { motion, Variants } from "framer-motion";
-// // import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// // import Image2 from "@/assets/Rectangle 7197.png"; 
-// // import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// // import Image1 from "@/assets/icons/Rectangle 7197.png";
+// // import Image2 from "@/assets/Rectangle 7197.png";
+// // import Image3 from "@/assets/photo/Rectangle 7197.png";
+// // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // // // Scroll animation for individual images
 // // const fadeUp: Variants = {
@@ -80,12 +80,11 @@
 // //   );
 // // }
 
-
 // import { motion, Variants } from "framer-motion";
-// import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// import Image2 from "@/assets/Rectangle 7197.png"; 
-// import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// import Image1 from "@/assets/icons/Rectangle 7197.png";
+// import Image2 from "@/assets/Rectangle 7197.png";
+// import Image3 from "@/assets/photo/Rectangle 7197.png";
+// import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // // Scroll animation for individual images
 // const fadeUp: Variants = {
@@ -177,13 +176,12 @@
 //   );
 // }
 
-
 import { motion, Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-import Image2 from "@/assets/Rectangle 7197.png"; 
-import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+import Image1 from "@/assets/icons/Rectangle 7197.png";
+import Image2 from "@/assets/Rectangle 7197.png";
+import Image3 from "@/assets/photo/Rectangle 7197.png";
+import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 // import CommonWrapper from "../Shared/CommonWrapper";
 
 // Scroll animation for individual images
@@ -208,12 +206,12 @@ export default function ImageCollage() {
 
     const scroll = () => {
       scrollPosition += scrollSpeed;
-      
+
       // Reset scroll when reaching the end
       if (scrollPosition >= scrollContainer.scrollWidth / 2) {
         scrollPosition = 0;
       }
-      
+
       scrollContainer.scrollLeft = scrollPosition;
     };
 
@@ -225,12 +223,12 @@ export default function ImageCollage() {
       const newIntervalId = setInterval(scroll, 20);
       return newIntervalId;
     };
-console.log(handleMouseLeave);
-    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    console.log(handleMouseLeave);
+    scrollContainer.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       clearInterval(intervalId);
-      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
     };
   }, []);
 
@@ -239,17 +237,16 @@ console.log(handleMouseLeave);
     "Man in purple car with ripped jeans",
     "Man with gold chains on red background",
     "Woman in fur coat and denim shorts",
-    "Man holding money on black background"
+    "Man holding money on black background",
   ];
 
   return (
-
     // <CommonWrapper>
     <div className="w-full  py-8 sm:py-12 md:py-16 overflow-hidden">
-      <div 
+      <div
         ref={scrollRef}
         className="flex gap-4 sm:gap-6 overflow-x-hidden px-4 sm:px-6 lg:px-8"
-        style={{ scrollBehavior: 'auto' }}
+        style={{ scrollBehavior: "auto" }}
       >
         {/* First set of images */}
         {images.map((image, index) => (
@@ -261,7 +258,7 @@ console.log(handleMouseLeave);
             viewport={{ once: true, amount: 0.3 }}
             variants={fadeUp}
             className={`relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] h-[400px] sm:h-[450px] lg:h-[540px] ${
-              index % 2 === 1 ? 'lg:mt-16' : 'lg:mt-0'
+              index % 2 === 1 ? "lg:mt-16" : "lg:mt-0"
             }`}
           >
             <img
@@ -283,7 +280,7 @@ console.log(handleMouseLeave);
             viewport={{ once: true, amount: 0.3 }}
             variants={fadeUp}
             className={`relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] h-[400px] sm:h-[450px] lg:h-[540px] ${
-              index % 2 === 1 ? 'lg:mt-16' : 'lg:mt-0'
+              index % 2 === 1 ? "lg:mt-16" : "lg:mt-0"
             }`}
           >
             <img

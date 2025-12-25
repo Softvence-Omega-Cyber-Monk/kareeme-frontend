@@ -18,7 +18,7 @@ export const authApi = baseApi.injectEndpoints({
     }),
     register: builder.mutation<RegisterResponse, RegisterRequest>({
       query: (userData) => ({
-        url: "/auth/create-user",
+        url: "/auth/register",
         method: "POST",
         body: userData,
       }),
