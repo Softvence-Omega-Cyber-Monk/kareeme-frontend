@@ -364,7 +364,7 @@ export default function ImageCollage() {
     ">
       <div 
         ref={scrollRef}
-        className="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 overflow-x-hidden px-3 sm:px-4 md:px-6 lg:px-8"
+        className="flex gap-4 sm:gap-6 overflow-x-scroll no-scrollbar px-4 sm:px-6 lg:px-8"
         style={{ scrollBehavior: 'auto' }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
