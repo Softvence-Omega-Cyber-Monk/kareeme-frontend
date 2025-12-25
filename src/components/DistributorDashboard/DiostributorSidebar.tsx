@@ -104,13 +104,13 @@ const DiostributorSidebar: React.FC<SidebarProps> = ({
                         : "text-white hover:text-[#3A5CFF] hover:bg-[#1C1D28]/80 hover:rounded-xl hover:shadow-md"
                     }`}
                   >
-                    <div className="flex items-center space-x-2 md:text-lg">
+                    <div className="flex  items-center space-x-2 md:text-lg">
                       <img
                         src={item.icon}
                         alt={item.label}
                         className="w-5 h-5"
                       />
-                      <span>{item.label}</span>
+                      <span className="font-sans">{item.label}</span>
                     </div>
                   </Link>
                 ) : (

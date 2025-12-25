@@ -1,25 +1,25 @@
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants } from "framer-motion";
 import img from "@/assets/Overview.png";
 
 const Overview = () => {
   const imageVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8, y: 50 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
+    visible: {
+      opacity: 1,
+      scale: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: "easeOut" 
-      } 
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
     },
   };
 
   return (
-    <div className="w-full max-w-[1350px] mx-auto px-4 mt-5 mb-24">
-      <motion.img 
-        src={img} 
-        alt="Overview" 
+    <div className="w-full  mx-auto mt-5 mb-24">
+      <motion.img
+        src={img}
+        alt="Overview"
         className="w-full h-auto object-contain"
         variants={imageVariants}
         initial="hidden"

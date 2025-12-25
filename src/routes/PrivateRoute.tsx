@@ -1,17 +1,64 @@
-// src/routes/PrivateRoute.tsx
 import { Navigate, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { UserRole } from "@/redux/types/auth.type";
 
-const PrivateRoute = ({ children }: { children: ReactNode }) => {
-  const token = useAppSelector((state) => state.auth.token);
+interface PrivateRouteProps {
+  children: ReactNode;
+  allowedRoles?: UserRole[];
+  redirectTo?: string;
+}
+
+const PrivateRoute = ({
+  children,
+  allowedRoles,
+  redirectTo = "/login",
+}: PrivateRouteProps) => {
+  const { token, user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
+  // Check if user is authenticated
   if (!token) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={redirectTo} state={{ from: location }} replace />;
+  }
+
+  // If roles are specified, check if user has required role
+  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    // Redirect to appropriate dashboard based on user's actual role
+    switch (user.role) {
+      case "CLIENT":
+        return <Navigate to="/client-dashboard" replace />;
+      case "SUPER_ADMIN":
+      case "ADMIN":
+        return <Navigate to="/admin-dashboard" replace />;
+      case "ACCOUNTANT":
+        return <Navigate to="/accountant-dashboard" replace />;
+      case "DISTRIBUTOR":
+        return <Navigate to="/distributor-dashboard" replace />;
+      default:
+        return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   return <>{children}</>;
 };
 
 export default PrivateRoute;
+
+// // src/routes/PrivateRoute.tsx
+// import { Navigate, useLocation } from "react-router-dom";
+// import { ReactNode } from "react";
+// import { useAppSelector } from "@/redux/hooks/redux-hook";
+
+// const PrivateRoute = ({ children }: { children: ReactNode }) => {
+//   const token = useAppSelector((state) => state.auth.token);
+//   const location = useLocation();
+
+//   if (!token) {
+//     return <Navigate to="/login" state={{ from: location }} replace />;
+//   }
+
+//   return <>{children}</>;
+// };
+
+// export default PrivateRoute;

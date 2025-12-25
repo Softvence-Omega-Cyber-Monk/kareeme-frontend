@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Import images (adjust paths as needed)
 import pic1 from "@/assets/pic1.png";
@@ -25,76 +25,88 @@ const NewsArticles: React.FC = () => {
   const articles: Article[] = [
     {
       id: 1,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic1
+      image: pic1,
     },
     {
       id: 2,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic2
+      image: pic2,
     },
     {
       id: 3,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic3
+      image: pic3,
     },
     {
       id: 4,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic4
+      image: pic4,
     },
     {
       id: 5,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic5
+      image: pic5,
     },
     {
       id: 6,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic6
+      image: pic6,
     },
     {
       id: 7,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic7
+      image: pic7,
     },
     {
       id: 8,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic8
+      image: pic8,
     },
     {
       id: 9,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic9
+      image: pic9,
     },
     {
       id: 10,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic10
+      image: pic10,
     },
     {
       id: 11,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic11
+      image: pic11,
     },
     {
       id: 12,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title:
+        "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
-      image: pic12
-    }
+      image: pic12,
+    },
   ];
 
   return (
@@ -183,59 +195,64 @@ const NewsArticles: React.FC = () => {
           animation: scanVertical 8s ease-in-out infinite;
         }
       `}</style>
-
+ {/* Animated Background */}
       <div className="min-h-screen bg-black/50 relative overflow-hidden">
-        {/* Animated Background */}
+       
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Gradient Orbs with Pulse Animation */}
-          <div 
+    
+          <div
             className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
             style={{
-              top: '20%',
-              left: '10%',
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)',
-              animationDuration: '6s'
+              top: "20%",
+              left: "10%",
+              background:
+                "radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)",
+              animationDuration: "6s",
             }}
           />
-          <div 
+          <div
             className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
             style={{
-              bottom: '10%',
-              right: '10%',
-              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%)',
-              animationDuration: '8s',
-              animationDelay: '1s'
+              bottom: "10%",
+              right: "10%",
+              background:
+                "radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%)",
+              animationDuration: "8s",
+              animationDelay: "1s",
             }}
           />
-          <div 
+          <div
             className="absolute w-[450px] h-[450px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
             style={{
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)',
-              animationDuration: '7s',
-              animationDelay: '2s'
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              background:
+                "radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)",
+              animationDuration: "7s",
+              animationDelay: "2s",
             }}
           />
-          
+
           {/* Moving Grid Lines */}
-          <div className="absolute inset-0 opacity-10">
-            <div 
+          {/* <div className="absolute inset-0 opacity-10">
+            <div
               className="absolute inset-0 animate-grid-down"
               style={{
-                backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(16, 185, 129, 0.3) 25%, rgba(16, 185, 129, 0.3) 26%, transparent 27%, transparent 74%, rgba(16, 185, 129, 0.3) 75%, rgba(16, 185, 129, 0.3) 76%, transparent 77%, transparent)',
-                backgroundSize: '50px 50px'
+                backgroundImage:
+                  "linear-gradient(0deg, transparent 24%, rgba(16, 185, 129, 0.3) 25%, rgba(16, 185, 129, 0.3) 26%, transparent 27%, transparent 74%, rgba(16, 185, 129, 0.3) 75%, rgba(16, 185, 129, 0.3) 76%, transparent 77%, transparent)",
+                backgroundSize: "50px 50px",
               }}
             />
-            <div 
+            <div
               className="absolute inset-0 animate-grid-right"
               style={{
-                backgroundImage: 'linear-gradient(90deg, transparent 24%, rgba(16, 185, 129, 0.3) 25%, rgba(16, 185, 129, 0.3) 26%, transparent 27%, transparent 74%, rgba(16, 185, 129, 0.3) 75%, rgba(16, 185, 129, 0.3) 76%, transparent 77%, transparent)',
-                backgroundSize: '50px 50px'
+                backgroundImage:
+                  "linear-gradient(90deg, transparent 24%, rgba(16, 185, 129, 0.3) 25%, rgba(16, 185, 129, 0.3) 26%, transparent 27%, transparent 74%, rgba(16, 185, 129, 0.3) 75%, rgba(16, 185, 129, 0.3) 76%, transparent 77%, transparent)",
+                backgroundSize: "50px 50px",
               }}
             />
-          </div>
+          </div> */}
 
           {/* Floating Particles */}
           {[...Array(25)].map((_, i) => (
@@ -249,38 +266,35 @@ const NewsArticles: React.FC = () => {
                 top: `${Math.random() * 100}%`,
                 opacity: 0.3,
                 animationDuration: `${15 + Math.random() * 15}s`,
-                animationDelay: `${Math.random() * 5}s`
+                animationDelay: `${Math.random() * 5}s`,
               }}
             />
           ))}
 
           {/* Scanning Lines Effect */}
-          <div 
-            className="absolute w-full h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent animate-scan"
-          />
+          {/* <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent animate-scan" /> */}
         </div>
 
         {/* Content */}
-        <div className="text-white py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div className="text-white py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 mt-20">
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
               NEWS & ARTICLES
             </h1>
             <p className="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-              At OneiSlone Entertainment, we believe in the power of stories to inspire, connect, and entertain.
-              Dive into our News & Articles for the latest insights, trends, and behind-the-scenes glimpses of
-              the entertainment world, where every tale matters and every voice counts.
+              At OneiSlone Entertainment, we believe in the power of stories to
+              inspire, connect, and entertain. Dive into our News & Articles for
+              the latest insights, trends, and behind-the-scenes glimpses of the
+              entertainment world, where every tale matters and every voice
+              counts.
             </p>
           </div>
 
           {/* Articles Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {articles.map((article) => (
-              <div
-                key={article.id}
-                className="group cursor-pointer"
-              >
+              <div key={article.id} className="group cursor-pointer">
                 {/* Image Container - Rectangle */}
                 <div className="relative overflow-hidden rounded-lg mb-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/20">
                   <div className="relative aspect-[16/9] overflow-hidden bg-gray-900">
@@ -315,7 +329,6 @@ const NewsArticles: React.FC = () => {
 };
 
 export default NewsArticles;
-
 
 ///import { useEffect, useRef, useState } from 'react';
 

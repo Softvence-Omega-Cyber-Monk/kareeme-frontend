@@ -1,22 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 export function Privacy() {
-  const [privacyPolicy, setPrivacyPolicy] = useState("")
-  const [termsOfService, setTermsOfService] = useState("")
-  const [dataRetention, setDataRetention] = useState("1 Year")
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [privacyPolicy, setPrivacyPolicy] = useState("");
+  const [termsOfService, setTermsOfService] = useState("");
+  const [dataRetention, setDataRetention] = useState("1 Year");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const retentionOptions = ["1 Year", "2 Years", "3 Years", "5 Years", "Indefinite"]
+  const retentionOptions = [
+    "1 Year",
+    "2 Years",
+    "3 Years",
+    "5 Years",
+    "Indefinite",
+  ];
 
   return (
     <div className="p-8 bg-[#0D1D22] rounded-xl shadow-md space-y-6">
-      <h2 className="text-xl font-semibold text-white">Privacy & Legal Settings</h2>
+      <h2 className="text-xl font-semibold text-white">
+        Privacy & Legal Settings
+      </h2>
 
       {/* Privacy Policy */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-300">Privacy Policy</label>
+        <label className="block text-sm font-medium text-gray-300">
+          Privacy Policy
+        </label>
         <textarea
           value={privacyPolicy}
           onChange={(e) => setPrivacyPolicy(e.target.value)}
@@ -27,7 +37,9 @@ export function Privacy() {
 
       {/* Terms of Service */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-300">Terms of Service</label>
+        <label className="block text-sm font-medium text-gray-300">
+          Terms of Service
+        </label>
         <textarea
           value={termsOfService}
           onChange={(e) => setTermsOfService(e.target.value)}
@@ -38,7 +50,9 @@ export function Privacy() {
 
       {/* Data Retention */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-300">Data Retention</label>
+        <label className="block text-sm font-medium text-gray-300">
+          Data Retention
+        </label>
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -46,12 +60,19 @@ export function Privacy() {
           >
             <span>{dataRetention}</span>
             <svg
-              className={`w-4 h-4 text-green-500 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+              className={`w-4 h-4 text-green-500 transition-transform ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
 
@@ -61,15 +82,25 @@ export function Privacy() {
                 <button
                   key={option}
                   onClick={() => {
-                    setDataRetention(option)
-                    setIsDropdownOpen(false)
+                    setDataRetention(option);
+                    setIsDropdownOpen(false);
                   }}
                   className="w-full px-3 py-2 text-left text-white hover:bg-gray-700 flex items-center justify-between"
                 >
                   <span>{option}</span>
                   {option === dataRetention && (
-                    <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="w-4 h-4 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   )}
                 </button>
@@ -79,6 +110,5 @@ export function Privacy() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

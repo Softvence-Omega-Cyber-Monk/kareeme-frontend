@@ -1,6 +1,6 @@
-import pic13 from '../../../assets/pic13.png';
-import cc from '../../../assets/cc.png';
-import pach from '../../../assets/pach.png';
+import pic13 from "../../../assets/pic13.png";
+import cc from "../../../assets/cc.png";
+import pach from "../../../assets/pach.png";
 
 const CollaborationSection = () => {
   return (
@@ -8,28 +8,50 @@ const CollaborationSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-8">
-              <span className="text-white">FOSTERING COLLABORATION & DIVERSITY</span>
+            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-sans text-white/20 mb-8">
+              <span className="text-white">
+                FOSTERING COLLABORATION & DIVERSITY
+              </span>
             </h2>
-            
+
             <p className="text-gray-400 text-lg mb-12">
-              We are committed to building a vibrant, inclusive community where artists from all backgrounds can connect, collaborate, and thrive. We celebrate diversity and believe it's the heart of creativity.
+              We are committed to building a vibrant, inclusive community where
+              artists from all backgrounds can connect, collaborate, and thrive.
+              We celebrate diversity and believe it's the heart of creativity.
             </p>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4 hover:translate-x-2 transition-transform duration-300">
-                <img src={cc} alt="Inclusive Community" className="w-8 h-8 object-contain" />
+                <img
+                  src={cc}
+                  alt="Inclusive Community"
+                  className="w-8 h-8 object-contain"
+                />
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Inclusive Community</h3>
-                  <p className="text-gray-400">A welcoming space for artists of all genres, backgrounds, and identities.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Inclusive Community
+                  </h3>
+                  <p className="text-gray-400">
+                    A welcoming space for artists of all genres, backgrounds,
+                    and identities.
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-4 hover:translate-x-2 transition-transform duration-300">
-                <img src={pach} alt="Collaboration Platform" className="w-8 h-8 object-contain" />
+                <img
+                  src={pach}
+                  alt="Collaboration Platform"
+                  className="w-8 h-8 object-contain"
+                />
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Collaboration Platform</h3>
-                  <p className="text-gray-400">Connect with other artists, find collaborators, and create amazing music together.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Collaboration Platform
+                  </h3>
+                  <p className="text-gray-400">
+                    Connect with other artists, find collaborators, and create
+                    amazing music together.
+                  </p>
                 </div>
               </div>
             </div>
@@ -37,9 +59,9 @@ const CollaborationSection = () => {
 
           <div className="relative group">
             <div className="aspect-square rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
-              <img 
-                src={pic13} 
-                alt="Live Performance" 
+              <img
+                src={pic13}
+                alt="Live Performance"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -171,14 +193,14 @@ export default CollaborationSection;
 //         className="absolute inset-0 w-full h-full"
 //         style={{ zIndex: 0 }}
 //       />
-      
+
 //       <div className="max-w-7xl mx-auto relative z-10">
 //         <div className="grid md:grid-cols-2 gap-12 items-center">
 //           <div>
 //             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white/20 mb-8">
 //               <span className="text-white">FOSTERING COLLABORATION & DIVERSITY</span>
 //             </h2>
-            
+
 //             <p className="text-gray-400 text-lg mb-12">
 //               We are committed to building a vibrant, inclusive community where artists from all backgrounds can connect, collaborate, and thrive. We celebrate diversity and believe it's the heart of creativity.
 //             </p>
@@ -191,7 +213,7 @@ export default CollaborationSection;
 //                   <p className="text-gray-400">A welcoming space for artists of all genres, backgrounds, and identities.</p>
 //                 </div>
 //               </div>
-              
+
 //               <div className="flex items-start gap-4 hover:translate-x-2 transition-transform duration-300">
 //                 <img src={pach} alt="Collaboration Platform" className="w-8 h-8 object-contain" />
 //                 <div>
@@ -204,9 +226,9 @@ export default CollaborationSection;
 
 //           <div className="relative group">
 //             <div className="aspect-square rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
-//               <img 
-//                 src={pic13} 
-//                 alt="Live Performance" 
+//               <img
+//                 src={pic13}
+//                 alt="Live Performance"
 //                 className="w-full h-full object-cover"
 //               />
 //             </div>

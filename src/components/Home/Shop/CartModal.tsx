@@ -26,9 +26,9 @@ const CartModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       prev.map((item) =>
         item.id === id
           ? {
-              ...item,
-              quantity: type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1),
-            }
+            ...item,
+            quantity: type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1),
+          }
           : item
       )
     );

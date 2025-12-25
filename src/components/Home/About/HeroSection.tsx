@@ -5,46 +5,56 @@ const HeroSection = () => {
   const title2 = "STAGE".split("");
 
   return (
-    <div className="relative min-h-screen bg-black/nn flex flex-col items-center justify-center overflow-hidden py-20 px-4">
+    <div className="relative w-full mt-12 bg-black/nn flex flex-col items-center justify-center overflow-hidden py-20 px-4">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Green animated blobs */}
-        <div className="absolute w-[500px] h-[500px] bg-green-500/30 rounded-full blur-[120px] animate-pulse top-[10%] left-[5%]"></div>
+        {/* <div className="absolute w-[500px] h-[500px] bg-green-500/30 rounded-full blur-[120px] animate-pulse top-[10%] left-[5%]"></div>
         <div className="absolute w-[600px] h-[600px] bg-green-400/20 rounded-full blur-[150px] animate-pulse animation-delay-1000 bottom-[15%] right-[10%]"></div>
         <div className="absolute w-[400px] h-[400px] bg-emerald-500/25 rounded-full blur-[100px] animate-pulse animation-delay-2000 top-[50%] right-[20%]"></div>
-        <div className="absolute w-[450px] h-[450px] bg-green-300/15 rounded-full blur-[130px] animate-pulse animation-delay-3000 bottom-[30%] left-[15%]"></div>
-        
+        <div className="absolute w-[450px] h-[450px] bg-green-300/15 rounded-full blur-[130px] animate-pulse animation-delay-3000 bottom-[30%] left-[15%]"></div> */}
+
         {/* Gradient overlays for depth */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-900/10 via-transparent to-emerald-900/10"></div>
         <div className="absolute inset-0 bg-gradient-to-tl from-green-800/5 via-transparent to-green-900/5"></div>
       </div>
-      
+
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center gap-4 w-full max-w-[787px] mx-auto mb-16">
-        <h1 
+        <h1
           className="text-[48px] font-semibold text-[#F2F2F2] tracking-[-0.96px] uppercase leading-[120%] font-montserrat text-center"
           style={{
-            WebkitTextStroke: '1px #E6FBED',
-            fontStyle: 'normal'
+            WebkitTextStroke: "1px #E6FBED",
+            fontStyle: "normal",
           }}
         >
           <span className="not-italic">EMPOWERING INDEPENDENT</span>
           <br />
           <span className="italic">
-            ARTISTS ON A {title1.map((letter, index) => (
-              <span key={index} className="inline-block animate-pulse" style={{animationDelay: `${index * 0.1}s`}}>
+            ARTISTS ON A{" "}
+            {title1.map((letter, index) => (
+              <span
+                key={index}
+                className="inline-block animate-pulse"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {letter}
               </span>
             ))}{" "}
             {title2.map((letter, index) => (
-              <span key={index} className="inline-block animate-pulse" style={{animationDelay: `${(title1.length + index) * 0.1}s`}}>
+              <span
+                key={index}
+                className="inline-block animate-pulse"
+                style={{ animationDelay: `${(title1.length + index) * 0.1}s` }}
+              >
                 {letter}
               </span>
             ))}
           </span>
         </h1>
         <p className="text-[#E3E3E3] text-base font-normal leading-[160%] font-montserrat text-center">
-          At OneIsOne Entertainment, we empower artists worldwide, creating unforgettable stories through music.
+          At OneIsOne Entertainment, we empower artists worldwide, creating
+          unforgettable stories through music.
         </p>
       </div>
 
@@ -140,7 +150,7 @@ export default HeroSection;
 //         this.ctx.beginPath();
 //         this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
 //         this.ctx.fill();
-        
+
 //         // Add glow effect
 //         this.ctx.shadowBlur = 15;
 //         this.ctx.shadowColor = `hsla(${this.hue}, 70%, 55%, ${this.opacity * 0.8})`;
@@ -179,7 +189,7 @@ export default HeroSection;
 //             );
 //             gradient.addColorStop(0, `hsla(${particleA.hue}, 70%, 55%, ${0.2 * (1 - distance / 120)})`);
 //             gradient.addColorStop(1, `hsla(${particleB.hue}, 70%, 55%, ${0.2 * (1 - distance / 120)})`);
-            
+
 //             ctx.strokeStyle = gradient;
 //             ctx.lineWidth = 1.5;
 //             ctx.beginPath();
@@ -211,16 +221,16 @@ export default HeroSection;
 //         className="absolute inset-0 w-full h-full"
 //         style={{ zIndex: 0 }}
 //       />
-      
+
 //       {/* Gradient overlays for depth */}
 //       <div className="absolute inset-0 bg-gradient-to-br from-green-900/10 via-transparent to-emerald-900/10 z-[1]"></div>
 //       <div className="absolute inset-0 bg-gradient-to-tl from-green-800/5 via-transparent to-green-900/5 z-[1]"></div>
-      
+
 //       {/* Content */}
 //       <div className={`relative z-10 flex flex-col items-center gap-4 w-full max-w-[787px] mx-auto mb-16 transition-all duration-1000 ${
 //         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
 //       }`}>
-//         <h1 
+//         <h1
 //           className="text-[48px] font-semibold text-[#F2F2F2] tracking-[-0.96px] uppercase leading-[120%] font-montserrat text-center"
 //           style={{
 //             WebkitTextStroke: '1px #E6FBED',
@@ -231,9 +241,9 @@ export default HeroSection;
 //           <br />
 //           <span className="italic">
 //             ARTISTS ON A {title1.map((letter, index) => (
-//               <span 
-//                 key={index} 
-//                 className="inline-block animate-pulse" 
+//               <span
+//                 key={index}
+//                 className="inline-block animate-pulse"
 //                 style={{
 //                   animationDelay: `${index * 0.1}s`,
 //                   animationDuration: '2s'
@@ -243,9 +253,9 @@ export default HeroSection;
 //               </span>
 //             ))}{" "}
 //             {title2.map((letter, index) => (
-//               <span 
-//                 key={index} 
-//                 className="inline-block animate-pulse" 
+//               <span
+//                 key={index}
+//                 className="inline-block animate-pulse"
 //                 style={{
 //                   animationDelay: `${(title1.length + index) * 0.1}s`,
 //                   animationDuration: '2s'
@@ -270,7 +280,7 @@ export default HeroSection;
 //         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500 group">
 //           {/* Animated border glow */}
 //           <div className="absolute inset-0 bg-gradient-to-r from-green-500/50 via-emerald-500/50 to-green-500/50 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
-          
+
 //           <video
 //             className="w-full h-[60vh] object-cover"
 //             autoPlay
@@ -281,7 +291,7 @@ export default HeroSection;
 //             <source src={heroVideo} type="video/mp4" />
 //           </video>
 //           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-          
+
 //           {/* Animated corner accents */}
 //           <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-green-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 //           <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-green-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

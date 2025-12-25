@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "swiper/css";
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap'); */
 
 @theme {
   /* 🌑 Website Base Colors */
@@ -29,6 +30,19 @@
   }
 }
 
+/* font-Family */
+
+/* .title {
+  font-family: "Montserrat", sans-serif;
+  color: #F2F2F2;
+  text-align: center;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #F2F2F2;
+  font-size: 40px;
+  font-weight: 600;
+  text-transform: uppercase;
+} */
+
 /* 🟠 Swiper Pagination Customization */
 .custom-pagination .swiper-pagination-bullet {
   width: 8px;
@@ -38,6 +52,7 @@
   border-radius: 9999px;
   transition: all 0.3s ease;
 }
+
 .custom-pagination .swiper-pagination-bullet-active {
   opacity: 1;
   width: 10px;
@@ -45,14 +60,29 @@
 }
 
 input[type="number"] {
-  appearance: textfield; /* ✅ Standard property */
-  -moz-appearance: textfield; /* ✅ Firefox */
-  -webkit-appearance: none; /* ✅ Chrome, Safari, Edge */
+  appearance: textfield;
+  /* ✅ Standard property */
+  -moz-appearance: textfield;
+  /* ✅ Firefox */
+  -webkit-appearance: none;
+  /* ✅ Chrome, Safari, Edge */
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  appearance: none; /* ✅ Standard */
-  -webkit-appearance: none; /* ✅ Chrome, Safari, Edge */
+  appearance: none;
+  /* ✅ Standard */
+  -webkit-appearance: none;
+  /* ✅ Chrome, Safari, Edge */
   margin: 0;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }

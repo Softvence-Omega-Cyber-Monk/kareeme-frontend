@@ -1,9 +1,8 @@
-
-import gifIcon from '@/assets/gif.gif';
+import gifIcon from "@/assets/gif.gif";
 
 const MissionSection = () => {
   return (
-    <div className="bg-black/50 py-20 px-4 relative overflow-hidden">
+    <div className=" py-20 px-4 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-[400px] h-[400px] bg-green-500/20 rounded-full blur-[120px] animate-pulse top-[20%] left-[10%]"></div>
@@ -11,24 +10,35 @@ const MissionSection = () => {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-8">
-          <button className="bg-black border border-white/20 text-white px-6 py-3 rounded-full font-medium font-montserrat text-base leading-[130%] hover:border-green-400 transition-colors flex items-center gap-2 mx-auto cursor-pointer">
-            <img 
-              src={gifIcon} 
-              alt="About Us Icon" 
-              className="w-8 h-8 aspect-square object-contain"
-            />
-            About Us
-          </button>
-        </div>
-        
-        <h2 
+     <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center justify-center gap-2 mb-4 sm:mb-6 md:mb-8  bg-[#3A5CFF0D] rounded-3xl border-t border-[#075A2F] w-[180px] sm:w-[195px] md:w-[200px] lg:w-[240px]  h-[50px] sm:h-[48px] md:h-[52px] mx-auto"
+        >
+          <img
+            src={gifIcon}
+            alt="Small Logo"
+            className="h-9 w-9 object-contain logo-spin"
+          />
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
+            About us
+          </p>
+        </motion.div>
+
+        <h2
           className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white leading-[100%] text-center uppercase font-montserrat"
           style={{
-            WebkitTextStroke: '1px #F2F2F2',
+            WebkitTextStroke: "1px #F2F2F2",
           }}
         >
-          AT ONEISONE ENTERTAINMENT, WE ARE PASSIONATE STORYTELLERS COMMITTED TO CRAFTING UNFORGETTABLE EXPERIENCES THAT RESONATE WITH AUDIENCES AROUND THE GLOBE. OUR DIVERSE TEAM OF CREATIVES, DREAMERS, AND INNOVATORS COMES TOGETHER TO CELEBRATE THE ART OF STORYTELLING, EMPOWERING UNIQUE VOICES AND CAPTIVATING IMAGINATIONS. JOIN US ON THIS JOURNEY WHERE EVERY PROJECT IS A MASTERPIECE IN THE MAKING.
+          AT ONEISONE ENTERTAINMENT, WE ARE PASSIONATE STORYTELLERS COMMITTED TO
+          CRAFTING UNFORGETTABLE EXPERIENCES THAT RESONATE WITH AUDIENCES AROUND
+          THE GLOBE. OUR DIVERSE TEAM OF CREATIVES, DREAMERS, AND INNOVATORS
+          COMES TOGETHER TO CELEBRATE THE ART OF STORYTELLING, EMPOWERING UNIQUE
+          VOICES AND CAPTIVATING IMAGINATIONS. JOIN US ON THIS JOURNEY WHERE
+          EVERY PROJECT IS A MASTERPIECE IN THE MAKING.
         </h2>
       </div>
     </div>
@@ -37,9 +47,9 @@ const MissionSection = () => {
 
 export default MissionSection;
 
-
 // ///import { useEffect, useRef } from 'react';
 // import gifIcon from '@/assets/gif.gif';
+import { motion } from 'framer-motion';
 
 // const MissionSection = () => {
 //   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -160,16 +170,16 @@ export default MissionSection;
 //       <div className="max-w-5xl mx-auto relative z-10">
 //         <div className="text-center mb-8">
 //           <button className="bg-black border border-white/20 text-white px-6 py-3 rounded-full font-medium font-montserrat text-base leading-[130%] hover:border-green-400 transition-colors flex items-center gap-2 mx-auto cursor-pointer">
-//             <img 
-//               src={gifIcon} 
-//               alt="About Us Icon" 
+//             <img
+//               src={gifIcon}
+//               alt="About Us Icon"
 //               className="w-8 h-8 aspect-square object-contain"
 //             />
 //             About Us
 //           </button>
 //         </div>
-        
-//         <h2 
+
+//         <h2
 //           className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white leading-[100%] text-center uppercase font-montserrat"
 //           style={{
 //             WebkitTextStroke: '1px #F2F2F2',

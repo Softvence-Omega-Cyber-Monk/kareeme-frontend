@@ -35,12 +35,12 @@ const DevelopmentArtist: React.FC = () => {
         {/* Top Tag */}
         <motion.div
           variants={textItemVariants}
-          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-2xl w-[260px] md:w-[396px] h-[52px] mx-auto"
+          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
         >
           <img
             src={smallLogoIcon}
             alt="Small Logo"
-            className="h-4 w-4 md:h-5 md:w-5 object-contain logo-spin"
+            className="h-8 w-8 object-contain logo-spin"
           />
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
             Release Strategy
@@ -52,10 +52,12 @@ const DevelopmentArtist: React.FC = () => {
           variants={textItemVariants}
           className="font-extrabold w-full max-w-5xl mx-auto"
         >
-          <motion.h1 className="
+          <motion.h1
+            className="
             text-[22px] sm:text-[26px] md:text-3xl lg:text-3xl xl:text-4xl 
             uppercase text-[#F2F2F2] leading-normal
-          ">
+          "
+          >
             An effective strategy for launching music requires careful planning
             and implementation, spanning from generating excitement before the
             release to maintaining engagement afterward.

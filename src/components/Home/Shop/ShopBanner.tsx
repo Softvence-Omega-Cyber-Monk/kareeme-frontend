@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import smallLOGO from "@/assets/smallLOGO.svg";
+
 import img1 from "@/assets/image 2.png";
 import ProductGallery from "./ProductGallery";
+import ReuseButon from "../Shared/ReuseButon";
 
 interface HeroProps {
   className?: string;
@@ -12,16 +13,15 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
   const title2 = "PRODUCT".split("");
 
   return (
-  
-    <div className="w-full max-w-7xl xl:max-w-[1350px] mx-auto"> 
+    <div className="w-full max-w-[1580px] mx-auto">
       <div className="flex flex-col md:flex-col lg:flex-row ">
         {/* LEFT SECTION */}
         <section
-          // padding 
-          className={`text-white text-center py-12 sm:py-16 md:py-20 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 lg:w-1/2 ${className}`} 
+          // padding
+          className={`text-white text-center py-12 sm:py-16 md:py-20 lg:py-32 px-2 sm:px-4 md:px-6 lg:px-0 relative z-10 lg:w-1/2 ${className}`}
         >
           <h1 className="font-extrabold leading-snug sm:leading-tight md:leading-tight tracking-wide mb-6 sm:mb-8 md:mb-8">
-            <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl flex justify-center flex-wrap gap-1">
+            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl flex justify-center flex-wrap gap-1">
               EXPLORE OUR{" "}
               {title1.map((char, idx) => (
                 <motion.span
@@ -34,8 +34,7 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
                     stiffness: 300,
                     damping: 20,
                   }}
-                  // text size রেসপনসিভ করা হয়েছে
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-widest" 
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest"
                   style={{
                     color: "transparent",
                     WebkitTextStroke: "2px #f0fdf4",
@@ -49,7 +48,7 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
             <br className="block md:hidden" />
             <br />
 
-            <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl flex justify-center flex-wrap gap-1">
+            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl flex justify-center flex-wrap gap-1">
               {title2.map((char, idx) => (
                 <motion.span
                   key={idx}
@@ -61,8 +60,7 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
                     stiffness: 300,
                     damping: 20,
                   }}
-                  // text size রেসপনসিভ করা হয়েছে
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-widest" 
+                  className="text-3xl sm:text-5xl md:text-4xl lg:text-5xl font-bold tracking-widest"
                   style={{
                     color: "transparent",
                     WebkitTextStroke: "2px #f0fdf4",
@@ -70,21 +68,22 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
                 >
                   {char}
                 </motion.span>
-              ))}
-              {" "}RANGE AND SHOP
+              ))}{" "}
+              RANGE AND SHOP
             </span>
 
             <br />
 
-            <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
               OUR COLLECTION
             </span>
           </h1>
           <p className="mb-2">
-            Wear the Vibe. Support the Movement. Exclusive Merch from the OneIsOne Roster.
+            Wear the Vibe. Support the Movement. Exclusive Merch from the
+            OneIsOne Roster.
           </p>
 
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             // বাটন সাইজ রেসপনসিভ করা হয়েছে
@@ -92,40 +91,64 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
           >
             Learn More
             <span className="text-lg sm:text-xl md:text-xl">
-              <img src={smallLOGO} alt="Logo" className="w-4 sm:w-5 md:w-6 h-auto" />
+              <img
+                src={smallLOGO}
+                alt="Logo"
+                className="w-4 sm:w-5 md:w-6 h-auto"
+              />
             </span>
-          </motion.button>
+          </motion.button> */}
+          <ReuseButon
+            text="Shop Now"
+            onClick={() => console.log("Button clicked")}
+          />
         </section>
 
         {/* RIGHT IMAGE SECTION */}
-        <section className=" flex justify-center lg:justify-end px-4 mt-5 lg:w-1/2">
-          {/* স্থির max-w-[442px] h-[577px] সরিয়ে রেসপনসিভ ক্লাস ব্যবহার করা হয়েছে */}
-          <img 
-            src={img1} 
-            alt="banner" 
-            className="w-full max-w-md lg:max-w h-auto object-contain" 
+        <section className=" flex justify-center lg:justify-end px-4 mt-16 lg:w-1/3 ">
+          <img
+            src={img1}
+            alt="banner"
+            className="w-full max-w-md lg:max-w h-auto object-contain lg-[577px] "
           />
         </section>
       </div>
-      
-      {/* Product Gallery Section and Explore More Button */}
+
       <div>
         <ProductGallery></ProductGallery>
-          <div className="h-24 md:h-32 bg-black/70 flex items-center justify-center"> {/* flex/justify/items সেন্টার করার জন্য */}
-                <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#3a4790]  hover:bg-[#4b58a1] cursor-pointer bg-gradient-to-b from-[#7B92FF] to-[#2941B5] text-white font-semibold w-auto sm:w-[200px] md:w-[234px] h-[48px] sm:h-[50px] md:h-[55px] py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-10 rounded-full shadow-lg shadow-[#3a4790]/50 transition duration-300 ease-in-out flex items-center justify-center mx-auto gap-2 text-sm sm:text-base md:text-lg"
-              >
-                Explore More
-                <span className="text-lg sm:text-xl md:text-xl">
-                  <img src={smallLOGO} alt="Logo" className="w-4 sm:w-5 md:w-6 h-auto" />
-                </span>
-              </motion.button>
-          </div>
+        <div className="h-24 md:h-32 flex items-center justify-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className=""
+          >
         
+            <span className=" text-white font-semibold 
+          px-[54px] py-[13px]
+          rounded-[29.455px]
+          flex items-center justify-center gap-[10px]
+          transition duration-300 ease-in-out
+          shadow-[0_0_180px_rgba(58,92,181,0.6)]
+          bg-[radial-gradient(50%_50%_at_50%_50%,#7B92FF_0%,#2941B5_100%)]
+          whitespace-nowrap cursor-pointer">
+              <p>Explore More</p>
+            </span>
+              {/* <button
+             
+              className=" text-white font-semibold w-[384px]
+          px-[54px] py-[13px]
+          rounded-[29.455px]
+          flex items-center justify-center gap-[10px]
+          transition duration-300 ease-in-out
+          shadow-[0_0_180px_rgba(58,92,181,0.6)]
+          bg-[radial-gradient(50%_50%_at_50%_50%,#7B92FF_0%,#2941B5_100%)]
+          whitespace-nowrap cursor-pointer"
+            >
+              Add To Cart
+            </button> */}
+          </motion.button>
+        </div>
       </div>
-
     </div>
   );
 };
