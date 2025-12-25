@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import {
   User,
@@ -10,32 +9,10 @@ import {
 import { authApi } from "./authApi";
 import { AppRootState } from "@/redux/store";
 
-interface DecodedToken {
-  sub: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
-
 const initialState: TAuth = {
   user: null,
   token: null,
   refreshToken: null,
-};
-
-const decodeToken = (
-  token: string
-): { userId: string; email: string } | null => {
-  try {
-    const decoded = jwtDecode<DecodedToken>(token);
-    return {
-      userId: decoded.sub,
-      email: decoded.email,
-    };
-  } catch (error) {
-    console.error("Error decoding token:", error);
-    return null;
-  }
 };
 
 const authSlice = createSlice({
@@ -52,25 +29,32 @@ const authSlice = createSlice({
     ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+
       if (action.payload.refreshToken) {
         state.refreshToken = action.payload.refreshToken;
       }
+
       Cookies.set("token", action.payload.token, { expires: 7 });
+
       if (action.payload.refreshToken) {
         Cookies.set("refreshToken", action.payload.refreshToken, {
           expires: 30,
         });
       }
+
       localStorage.setItem("user", JSON.stringify(action.payload.user));
     },
+
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.refreshToken = null;
+
       Cookies.remove("token");
       Cookies.remove("refreshToken");
       localStorage.removeItem("user");
     },
+
     updateUser: (state, action: PayloadAction<Partial<User>>) => {
       if (state.user) {
         state.user = { ...state.user, ...action.payload };
@@ -78,6 +62,7 @@ const authSlice = createSlice({
       }
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addMatcher(
@@ -86,8 +71,10 @@ const authSlice = createSlice({
           state.user = payload.user;
           state.token = payload.access_token;
           state.refreshToken = payload.refresh_token;
+
           Cookies.set("token", payload.access_token, { expires: 7 });
           Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
+
           localStorage.setItem("user", JSON.stringify(payload.user));
         }
       )
@@ -97,8 +84,10 @@ const authSlice = createSlice({
           state.user = payload.user;
           state.token = payload.access_token;
           state.refreshToken = payload.refresh_token;
+
           Cookies.set("token", payload.access_token, { expires: 7 });
           Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
+
           localStorage.setItem("user", JSON.stringify(payload.user));
         }
       )
@@ -115,10 +104,133 @@ const authSlice = createSlice({
 export const { setCredentials, logout, updateUser } = authSlice.actions;
 export default authSlice.reducer;
 
+// selectors
 export const selectCurrentToken = (state: AppRootState) => state.auth.token;
 export const selectCurrentUser = (state: AppRootState) => state.auth.user;
 export const selectCurrentRefreshToken = (state: AppRootState) =>
   state.auth.refreshToken;
+
+// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import { jwtDecode } from "jwt-decode";
+// import Cookies from "js-cookie";
+// import {
+//   User,
+//   TAuth,
+//   LoginResponse,
+//   RegisterResponse,
+// } from "@/redux/types/auth.type";
+// import { authApi } from "./authApi";
+// import { AppRootState } from "@/redux/store";
+
+// interface DecodedToken {
+//   sub: string;
+//   email: string;
+//   iat: number;
+//   exp: number;
+// }
+
+// const initialState: TAuth = {
+//   user: null,
+//   token: null,
+//   refreshToken: null,
+// };
+
+// const decodeToken = (
+//   token: string
+// ): { userId: string; email: string } | null => {
+//   try {
+//     const decoded = jwtDecode<DecodedToken>(token);
+//     return {
+//       userId: decoded.sub,
+//       email: decoded.email,
+//     };
+//   } catch (error) {
+//     console.error("Error decoding token:", error);
+//     return null;
+//   }
+// };
+
+// const authSlice = createSlice({
+//   name: "auth",
+//   initialState,
+//   reducers: {
+//     setCredentials: (
+//       state,
+//       action: PayloadAction<{
+//         user: User;
+//         token: string;
+//         refreshToken?: string;
+//       }>
+//     ) => {
+//       state.user = action.payload.user;
+//       state.token = action.payload.token;
+//       if (action.payload.refreshToken) {
+//         state.refreshToken = action.payload.refreshToken;
+//       }
+//       Cookies.set("token", action.payload.token, { expires: 7 });
+//       if (action.payload.refreshToken) {
+//         Cookies.set("refreshToken", action.payload.refreshToken, {
+//           expires: 30,
+//         });
+//       }
+//       localStorage.setItem("user", JSON.stringify(action.payload.user));
+//     },
+//     logout: (state) => {
+//       state.user = null;
+//       state.token = null;
+//       state.refreshToken = null;
+//       Cookies.remove("token");
+//       Cookies.remove("refreshToken");
+//       localStorage.removeItem("user");
+//     },
+//     updateUser: (state, action: PayloadAction<Partial<User>>) => {
+//       if (state.user) {
+//         state.user = { ...state.user, ...action.payload };
+//         localStorage.setItem("user", JSON.stringify(state.user));
+//       }
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder
+//       .addMatcher(
+//         authApi.endpoints.login.matchFulfilled,
+//         (state, { payload }: PayloadAction<LoginResponse>) => {
+//           state.user = payload.user;
+//           state.token = payload.access_token;
+//           state.refreshToken = payload.refresh_token;
+//           Cookies.set("token", payload.access_token, { expires: 7 });
+//           Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
+//           localStorage.setItem("user", JSON.stringify(payload.user));
+//         }
+//       )
+//       .addMatcher(
+//         authApi.endpoints.register.matchFulfilled,
+//         (state, { payload }: PayloadAction<RegisterResponse>) => {
+//           state.user = payload.user;
+//           state.token = payload.access_token;
+//           state.refreshToken = payload.refresh_token;
+//           Cookies.set("token", payload.access_token, { expires: 7 });
+//           Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
+//           localStorage.setItem("user", JSON.stringify(payload.user));
+//         }
+//       )
+//       .addMatcher(
+//         authApi.endpoints.authMe.matchFulfilled,
+//         (state, { payload }: PayloadAction<User>) => {
+//           state.user = payload;
+//           localStorage.setItem("user", JSON.stringify(payload));
+//         }
+//       );
+//   },
+// });
+
+// export const { setCredentials, logout, updateUser } = authSlice.actions;
+// export default authSlice.reducer;
+
+// export const selectCurrentToken = (state: AppRootState) => state.auth.token;
+// export const selectCurrentUser = (state: AppRootState) => state.auth.user;
+// export const selectCurrentRefreshToken = (state: AppRootState) =>
+//   state.auth.refreshToken;
 
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import { jwtDecode } from "jwt-decode";
