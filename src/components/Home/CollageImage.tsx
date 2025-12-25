@@ -1,8 +1,8 @@
 // // // import { motion, Variants } from "framer-motion";
-// // // import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// // // import Image2 from "@/assets/Rectangle 7197.png"; 
-// // // import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// // // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// // // import Image1 from "@/assets/icons/Rectangle 7197.png";
+// // // import Image2 from "@/assets/Rectangle 7197.png";
+// // // import Image3 from "@/assets/photo/Rectangle 7197.png";
+// // // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // // // // Scroll animation for individual images
 // // // const fadeUp: Variants = {
@@ -80,12 +80,11 @@
 // // //   );
 // // // }
 
-
 // // import { motion, Variants } from "framer-motion";
-// // import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// // import Image2 from "@/assets/Rectangle 7197.png"; 
-// // import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// // import Image1 from "@/assets/icons/Rectangle 7197.png";
+// // import Image2 from "@/assets/Rectangle 7197.png";
+// // import Image3 from "@/assets/photo/Rectangle 7197.png";
+// // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // // // Scroll animation for individual images
 // // const fadeUp: Variants = {
@@ -177,13 +176,12 @@
 // //   );
 // // }
 
-
 // import { motion, Variants } from "framer-motion";
 // import { useEffect, useRef } from "react";
-// import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// import Image2 from "@/assets/Rectangle 7197.png"; 
-// import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// import Image1 from "@/assets/icons/Rectangle 7197.png";
+// import Image2 from "@/assets/Rectangle 7197.png";
+// import Image3 from "@/assets/photo/Rectangle 7197.png";
+// import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 // // import CommonWrapper from "../Shared/CommonWrapper";
 
 // // Scroll animation for individual images
@@ -208,12 +206,12 @@
 
 //     const scroll = () => {
 //       scrollPosition += scrollSpeed;
-      
+
 //       // Reset scroll when reaching the end
 //       if (scrollPosition >= scrollContainer.scrollWidth / 2) {
 //         scrollPosition = 0;
 //       }
-      
+
 //       scrollContainer.scrollLeft = scrollPosition;
 //     };
 
@@ -246,7 +244,7 @@
 
 //     // <CommonWrapper>
 //     <div className="w-full  py-8 sm:py-12 md:py-16 overflow-hidden">
-//       <div 
+//       <div
 //         ref={scrollRef}
 //         className="flex gap-4 sm:gap-6 overflow-x-hidden px-4 sm:px-6 lg:px-8"
 //         style={{ scrollBehavior: 'auto' }}
@@ -300,12 +298,11 @@
 //   );
 // }
 
-
 import { motion, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-import Image2 from "@/assets/Rectangle 7197.png"; 
-import Image3 from "@/assets/photo/Rectangle 7197.png"; 
+import Image1 from "@/assets/icons/Rectangle 7197.png";
+import Image2 from "@/assets/Rectangle 7197.png";
+import Image3 from "@/assets/photo/Rectangle 7197.png";
 import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // Scroll animation for individual images
@@ -333,12 +330,12 @@ export default function ImageCollage() {
     const scroll = () => {
       if (!isPaused && scrollContainer) {
         scrollPosition += scrollSpeed;
-        
+
         // Reset scroll when reaching halfway point for seamless loop
         if (scrollPosition >= scrollContainer.scrollWidth / 2) {
           scrollPosition = 0;
         }
-        
+
         scrollContainer.scrollLeft = scrollPosition;
       }
       animationFrameId = requestAnimationFrame(scroll);
@@ -356,16 +353,18 @@ export default function ImageCollage() {
     "Man in purple car with ripped jeans",
     "Man with gold chains on red background",
     "Woman in fur coat and denim shorts",
-    "Man holding money on black background"
+    "Man holding money on black background",
   ];
 
   return (
-    <div className="w-full py-6 sm:py-8 md:py-12 lg:py-16 overflow-hidden 
-    ">
-      <div 
+    <div
+      className="w-full py-6 sm:py-8 md:py-12 lg:py-16 overflow-hidden 
+    "
+    >
+      <div
         ref={scrollRef}
         className="flex gap-4 sm:gap-6 overflow-x-scroll no-scrollbar px-4 sm:px-6 lg:px-8"
-        style={{ scrollBehavior: 'auto' }}
+        style={{ scrollBehavior: "auto" }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
@@ -388,7 +387,7 @@ export default function ImageCollage() {
               md:w-[300px] md:h-[450px]
               lg:w-[340px] lg:h-[510px]
               xl:w-[360px] xl:h-[540px]
-              ${index % 2 === 1 ? 'md:mt-8 lg:mt-12 xl:mt-16' : 'md:mt-0'}
+              ${index % 2 === 1 ? "md:mt-8 lg:mt-12 xl:mt-16" : "md:mt-0"}
             `}
           >
             <img
@@ -417,7 +416,7 @@ export default function ImageCollage() {
               md:w-[300px] md:h-[450px]
               lg:w-[340px] lg:h-[510px]
               xl:w-[360px] xl:h-[540px]
-              ${index % 2 === 1 ? 'md:mt-8 lg:mt-12 xl:mt-16' : 'md:mt-0'}
+              ${index % 2 === 1 ? "md:mt-8 lg:mt-12 xl:mt-16" : "md:mt-0"}
             `}
           >
             <img
@@ -442,7 +441,7 @@ export default function ImageCollage() {
               md:w-[300px] md:h-[450px]
               lg:w-[340px] lg:h-[510px]
               xl:w-[360px] xl:h-[540px]
-              ${index % 2 === 1 ? 'md:mt-8 lg:mt-12 xl:mt-16' : 'md:mt-0'}
+              ${index % 2 === 1 ? "md:mt-8 lg:mt-12 xl:mt-16" : "md:mt-0"}
             `}
           >
             <img

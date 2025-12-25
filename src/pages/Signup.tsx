@@ -1,21 +1,114 @@
-import signupphoto from "@/assets/photo/signup.svg";
-import { useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useNavigate, Link } from "react-router-dom";
+import signupphoto from "@/assets/photo/signup.svg";
+import { useRegisterMutation } from "@/redux/features/auth/authApi";
+import { setCredentials } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks/redux-hook";
 
-const Signup = () => {
-  const [password, setPassword] = useState("");
-  const [retypePassword, setRetypePassword] = useState("");
+const Signup: React.FC = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    countryCode: "+1",
+  });
+
   const [showPassword, setShowPassword] = useState(false);
-  const [showRetypePassword, setShowRetypePassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [register] = useRegisterMutation();
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const registerData = {
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        phoneNumber: `${formData.countryCode}${formData.phoneNumber}`,
+      };
+
+      const result = await register(registerData).unwrap();
+
+      dispatch(
+        setCredentials({
+          user: result.user,
+          token: result.access_token,
+          refreshToken: result.refresh_token,
+        })
+      );
+
+      // Redirect based on role
+      switch (result.user.role) {
+        case "CLIENT":
+          navigate("/client-dashboard");
+          break;
+        case "SUPER_ADMIN":
+        case "ADMIN":
+          navigate("/admin-dashboard");
+          break;
+        case "ACCOUNTANT":
+          navigate("/accountant-dashboard");
+          break;
+        case "DISTRIBUTOR":
+          navigate("/distributor-dashboard");
+          break;
+        default:
+          navigate("/");
+      }
+    } catch (err: any) {
+      console.error("Registration failed:", err);
+      setError(
+        err?.data?.message ||
+          err?.error?.data?.message ||
+          "Registration failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  text-white">
-      <div className="max-w-5xl w-full   flex overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center text-white">
+      <div className="max-w-5xl w-full flex overflow-hidden">
         {/* Left Side - Image */}
-        <div className="hidden md:flex w-1/2  items-center justify-center">
+        <div className="hidden md:flex w-1/2 items-center justify-center">
           <img
             src={signupphoto}
-            className="h-full w-full object-cover rounded-l-xl rounded-r-xl"
+            alt="signup illustration"
+            className="h-full w-full object-cover rounded-l-xl"
           />
         </div>
 
@@ -29,83 +122,101 @@ const Signup = () => {
             to your dashboard, music distribution, and more.
           </p>
 
-          <form className="space-y-4">
-            {/* Full Name */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg">
+              <p className="text-red-300 text-sm">{error}</p>
+            </div>
+          )}
 
-            <div className="flex flex-col mb-4">
-              <label htmlFor="name" className="text-white font-sans mb-2">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {/* Full Name */}
+            <div className="flex flex-col">
+              <label htmlFor="fullName" className="text-white font-sans mb-2">
                 Full Name
               </label>
               <input
+                id="fullName"
+                name="fullName"
                 type="text"
                 placeholder="Full Name"
+                value={formData.fullName}
+                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                required
               />
             </div>
 
-            {/* Phone */}
-
-            <div className="flex flex-col mb-4">
-              <label htmlFor="number" className="text-white font-sans mb-2">
+            {/* Phone Number */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="phoneNumber"
+                className="text-white font-sans mb-2"
+              >
                 Phone Number
               </label>
-
-              <div className="flex items-center space-x-2">
-                <select className="px-3 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
-                  <option value="+1" className="cursor-pointer">
-                    🇺🇸 +1
-                  </option>
-                  <option value="+44" className="cursor-pointer">
-                    🇬🇧 +44
-                  </option>
+              <div className="flex items-center gap-2">
+                <select
+                  name="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  className="px-3 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer w-24"
+                >
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
                   <option value="+880">🇧🇩 +880</option>
                 </select>
                 <input
+                  id="phoneNumber"
+                  name="phoneNumber"
                   type="tel"
                   placeholder="Phone Number"
-                  className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  className="flex-1 px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                  required
                 />
               </div>
             </div>
 
             {/* Email */}
-            <div className="flex flex-col mb-4">
+            <div className="flex flex-col">
               <label htmlFor="email" className="text-white font-sans mb-2">
                 Email
               </label>
-
               <input
+                id="email"
+                name="email"
                 type="email"
                 placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                required
               />
             </div>
-            {/* Password */}
 
-            <div className="flex flex-col mb-4">
+            {/* Password */}
+            <div className="flex flex-col">
               <label htmlFor="password" className="text-white font-sans mb-2">
                 Password
               </label>
-
-              <div className="relative w-full">
+              <div className="relative">
                 <input
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 
-                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none 
-                       transition-all duration-300 shadow-sm hover:shadow-md"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+                  required
+                  minLength={6}
                 />
-
-                {/* Show eye only if password is not empty */}
-                {password && (
+                {formData.password && (
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 
-                         hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
                     aria-label={
                       showPassword ? "Hide password" : "Show password"
                     }
@@ -120,40 +231,35 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Re-type Password */}
-            <div className="flex flex-col mb-4">
+            {/* Confirm Password */}
+            <div className="flex flex-col">
               <label
-                htmlFor="retypePassword"
+                htmlFor="confirmPassword"
                 className="text-white font-sans mb-2"
               >
-                Re-type Password
+                Confirm Password
               </label>
-              <div className="relative w-full">
+              <div className="relative">
                 <input
-                  id="retypePassword"
-                  type={showRetypePassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter your password"
-                  value={retypePassword}
-                  onChange={(e) => setRetypePassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 
-                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none 
-                       transition-all duration-300 shadow-sm hover:shadow-md"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+                  required
                 />
-
-                {/* Show eye only if retype password is not empty */}
-                {retypePassword && (
+                {formData.confirmPassword && (
                   <button
                     type="button"
-                    onClick={() => setShowRetypePassword(!showRetypePassword)}
-                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 
-                         hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
                     aria-label={
-                      showRetypePassword
-                        ? "Hide retype password"
-                        : "Show retype password"
+                      showConfirmPassword ? "Hide password" : "Show password"
                     }
                   >
-                    {showRetypePassword ? (
+                    {showConfirmPassword ? (
                       <AiOutlineEyeInvisible size={22} />
                     ) : (
                       <AiOutlineEye size={22} />
@@ -162,21 +268,23 @@ const Signup = () => {
                 )}
               </div>
             </div>
+
             {/* Register Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
           </form>
 
           {/* Login Redirect */}
           <p className="text-sm text-gray-400 mt-4 text-center">
             Already have an account?
-            <a href="/login" className="text-blue-400 hover:text-sky-300 ml-1">
+            <Link to="/login" className="text-blue-400 hover:text-sky-300 ml-1">
               Log In
-            </a>
+            </Link>
           </p>
         </div>
       </div>
@@ -186,62 +294,30 @@ const Signup = () => {
 
 export default Signup;
 
-// src/pages/Signup.tsx
+// import signupphoto from "@/assets/photo/signup.svg";
 // import { useState } from "react";
-// import { useNavigate, Link } from "react-router-dom";
-// import { useRegisterMutation } from "@/redux/hooks/authApi";
-// import signupPhoto from "@/assets/photo/signup.png";
+// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 // const Signup = () => {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     businessName: "",
-//     address_Pickup_Location: "",
-//     phone: "",
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   });
-//   const [countryCode, setCountryCode] = useState("+1");
-//   const [register, { isLoading, error }] = useRegisterMutation();
-//   const navigate = useNavigate();
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     if (formData.password !== formData.confirmPassword) {
-//       alert("Passwords don't match");
-//       return;
-//     }
-
-//     try {
-//       const { confirmPassword, ...userData } = formData;
-//       await register({ ...userData, phone: `${countryCode}${userData.phone}` }).unwrap();
-//       navigate("/login");
-//     } catch (err) {
-//       console.error("Registration failed:", err);
-//     }
-//   };
+//   const [password, setPassword] = useState("");
+//   const [retypePassword, setRetypePassword] = useState("");
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [showRetypePassword, setShowRetypePassword] = useState(false);
 
 //   return (
-//     <div className="min-h-screen flex items-center justify-center bg-black text-white">
-//       <div className="max-w-5xl w-full bg-gradient-to-r from-[#021B17] to-[#041C2C] rounded-xl shadow-lg flex overflow-hidden">
+//     <div className="min-h-screen flex items-center justify-center  text-white">
+//       <div className="max-w-5xl w-full   flex overflow-hidden">
 //         {/* Left Side - Image */}
-//         <div className="hidden md:flex w-1/2 bg-[#0a0a0a] items-center justify-center">
+//         <div className="hidden md:flex w-1/2  items-center justify-center">
 //           <img
-//             src={signupPhoto}
-//             className="h-full w-full object-cover rounded-l-xl"
-//             alt="Sign up"
+//             src={signupphoto}
+//             className="h-full w-full object-cover rounded-l-xl rounded-r-xl"
 //           />
 //         </div>
 
 //         {/* Right Side - Form */}
 //         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
-//           <h2 className="text-2xl md:text-3xl font-bold mb-2">
+//           <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans mb-2">
 //             CREATE YOUR ARTIST ACCOUNT
 //           </h2>
 //           <p className="text-gray-400 mb-6 text-sm">
@@ -249,419 +325,158 @@ export default Signup;
 //             to your dashboard, music distribution, and more.
 //           </p>
 
-//           {error && (
-//             <div className="mb-4 p-2 bg-red-900 text-red-100 rounded-md">
-//               {"data" in error ? error.data.message : "Registration failed"}
-//             </div>
-//           )}
-
-//           <form onSubmit={handleSubmit} className="space-y-4">
+//           <form className="space-y-4">
 //             {/* Full Name */}
-//             <input
-//               type="text"
-//               name="name"
-//               placeholder="Full Name"
-//               value={formData.name}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
 
-//             {/* Business Name */}
-//             <input
-//               type="text"
-//               name="businessName"
-//               placeholder="Business Name"
-//               value={formData.businessName}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
-
-//             {/* Address/Pickup Location */}
-//             <input
-//               type="text"
-//               name="address_Pickup_Location"
-//               placeholder="Address/Pickup Location"
-//               value={formData.address_Pickup_Location}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
-
-//             {/* Phone */}
-//             <div className="flex items-center space-x-2">
-//               <select
-//                 value={countryCode}
-//                 onChange={(e) => setCountryCode(e.target.value)}
-//                 className="px-3 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//               >
-//                 <option value="+1">🇺🇸 +1</option>
-//                 <option value="+44">🇬🇧 +44</option>
-//                 <option value="+880">🇧🇩 +880</option>
-//               </select>
+//             <div className="flex flex-col mb-4">
+//               <label htmlFor="name" className="text-white font-sans mb-2">
+//                 Full Name
+//               </label>
 //               <input
-//                 type="tel"
-//                 name="phone"
-//                 placeholder="Phone Number"
-//                 value={formData.phone}
-//                 onChange={handleChange}
-//                 required
-//                 className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//                 type="text"
+//                 placeholder="Full Name"
+//                 className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
 //               />
 //             </div>
 
-//             {/* Email */}
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="Email"
-//               value={formData.email}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
+//             {/* Phone */}
 
+//             <div className="flex flex-col mb-4">
+//               <label htmlFor="number" className="text-white font-sans mb-2">
+//                 Phone Number
+//               </label>
+
+//               <div className="flex items-center space-x-2">
+//                 <select className="px-3 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
+//                   <option value="+1" className="cursor-pointer">
+//                     🇺🇸 +1
+//                   </option>
+//                   <option value="+44" className="cursor-pointer">
+//                     🇬🇧 +44
+//                   </option>
+//                   <option value="+880">🇧🇩 +880</option>
+//                 </select>
+//                 <input
+//                   type="tel"
+//                   placeholder="Phone Number"
+//                   className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Email */}
+//             <div className="flex flex-col mb-4">
+//               <label htmlFor="email" className="text-white font-sans mb-2">
+//                 Email
+//               </label>
+
+//               <input
+//                 type="email"
+//                 placeholder="Email"
+//                 className="w-full px-4 py-3 rounded-[20px] bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
+//               />
+//             </div>
 //             {/* Password */}
-//             <input
-//               type="password"
-//               name="password"
-//               placeholder="Password"
-//               value={formData.password}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
+
+//             <div className="flex flex-col mb-4">
+//               <label htmlFor="password" className="text-white font-sans mb-2">
+//                 Password
+//               </label>
+
+//               <div className="relative w-full">
+//                 <input
+//                   id="password"
+//                   type={showPassword ? "text" : "password"}
+//                   placeholder="Enter your password"
+//                   value={password}
+//                   onChange={(e) => setPassword(e.target.value)}
+//                   className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400
+//                        focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none
+//                        transition-all duration-300 shadow-sm hover:shadow-md"
+//                 />
+
+//                 {/* Show eye only if password is not empty */}
+//                 {password && (
+//                   <button
+//                     type="button"
+//                     onClick={() => setShowPassword(!showPassword)}
+//                     className="absolute inset-y-0 right-3 flex items-center text-gray-400
+//                          hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+//                     aria-label={
+//                       showPassword ? "Hide password" : "Show password"
+//                     }
+//                   >
+//                     {showPassword ? (
+//                       <AiOutlineEyeInvisible size={22} />
+//                     ) : (
+//                       <AiOutlineEye size={22} />
+//                     )}
+//                   </button>
+//                 )}
+//               </div>
+//             </div>
 
 //             {/* Re-type Password */}
-//             <input
-//               type="password"
-//               name="confirmPassword"
-//               placeholder="Re-type Password"
-//               value={formData.confirmPassword}
-//               onChange={handleChange}
-//               required
-//               className="w-full px-4 py-3 rounded-md bg-[#0F2B2E] text-white focus:ring-2 focus:ring-blue-500 outline-none"
-//             />
+//             <div className="flex flex-col mb-4">
+//               <label
+//                 htmlFor="retypePassword"
+//                 className="text-white font-sans mb-2"
+//               >
+//                 Re-type Password
+//               </label>
+//               <div className="relative w-full">
+//                 <input
+//                   id="retypePassword"
+//                   type={showRetypePassword ? "text" : "password"}
+//                   placeholder="Re-enter your password"
+//                   value={retypePassword}
+//                   onChange={(e) => setRetypePassword(e.target.value)}
+//                   className="w-full px-4 py-3 pr-12 rounded-[20px] bg-[#0F2B2E] text-white placeholder-gray-400
+//                        focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none
+//                        transition-all duration-300 shadow-sm hover:shadow-md"
+//                 />
 
+//                 {/* Show eye only if retype password is not empty */}
+//                 {retypePassword && (
+//                   <button
+//                     type="button"
+//                     onClick={() => setShowRetypePassword(!showRetypePassword)}
+//                     className="absolute inset-y-0 right-3 flex items-center text-gray-400
+//                          hover:text-white transition-colors duration-200 focus:outline-none cursor-pointer"
+//                     aria-label={
+//                       showRetypePassword
+//                         ? "Hide retype password"
+//                         : "Show retype password"
+//                     }
+//                   >
+//                     {showRetypePassword ? (
+//                       <AiOutlineEyeInvisible size={22} />
+//                     ) : (
+//                       <AiOutlineEye size={22} />
+//                     )}
+//                   </button>
+//                 )}
+//               </div>
+//             </div>
 //             {/* Register Button */}
 //             <button
 //               type="submit"
-//               disabled={isLoading}
-//               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition disabled:opacity-50"
+//               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-sans py-3 rounded-[20px] transition cursor-pointer"
 //             >
-//               {isLoading ? "Creating Account..." : "Register"}
+//               Register
 //             </button>
 //           </form>
 
 //           {/* Login Redirect */}
 //           <p className="text-sm text-gray-400 mt-4 text-center">
-//             Already have an account?{" "}
-//             <Link to="/login" className="text-blue-400 hover:underline">
+//             Already have an account?
+//             <a href="/login" className="text-blue-400 hover:text-sky-300 ml-1">
 //               Log In
-//             </Link>
+//             </a>
 //           </p>
 //         </div>
 //       </div>
 //     </div>
-//   );
-// };
-
-// export default Signup;
-
-// // src/pages/Signup.tsx
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { Link, useNavigate } from "react-router-dom";
-// import { useRegisterMutation } from "@/redux/features/auth/authApi";
-// import { useEffect } from "react";
-
-// import img from "../assets/Auth/signup.svg";
-// import business from "../assets/Auth/business.svg";
-// import name from "../assets/Auth/name.svg";
-// import address from "../assets/Auth/address.svg";
-// import phone from "../assets/Auth/telephone.svg";
-// import mail from "../assets/Auth/gmail.svg";
-// import password from "../assets/Auth/password.svg";
-// import CommonButton from "@/components/Reuseable/CommonButton";
-// import CommonHeading from "@/components/Reuseable/CommonHeading";
-// import CommonWrapper from "@/common/CommonWrapper";
-
-// const signupSchema = z
-//   .object({
-//     name: z.string().min(2, "Full Name is required"),
-//     businessName: z.string().min(1, "Business name is required"),
-//     address_Pickup_Location: z.string().min(1, "Address is required"),
-//     phone: z
-//       .string()
-//       .regex(/^\d+$/, "Phone number must contain only digits")
-//       .min(10, "Phone number must be at least 10 digits")
-//       .max(15, "Phone number must be at most 15 digits"),
-//     email: z.string().email("Invalid email"),
-//     password: z.string().min(6, "Password must be at least 6 characters"),
-//     confirmPassword: z.string(),
-//     terms: z.literal(true, {
-//       errorMap: () => ({ message: "You must accept the terms and conditions" }),
-//     }),
-//   })
-//   .refine((data) => data.password === data.confirmPassword, {
-//     path: ["confirmPassword"],
-//     message: "Passwords do not match",
-//   });
-
-// type SignupFormInputs = z.infer<typeof signupSchema>;
-
-// const Signup = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<SignupFormInputs>({ resolver: zodResolver(signupSchema) });
-
-//   const navigate = useNavigate();
-//   const [registerUser, { isLoading, isSuccess }] = useRegisterMutation();
-
-//   const onSubmit = async (data: SignupFormInputs) => {
-//     try {
-//       await registerUser({
-//         name: data.name,
-//         businessName: data.businessName,
-//         address_Pickup_Location: data.address_Pickup_Location,
-//         phone: data.phone,
-//         email: data.email,
-//         password: data.password,
-//       }).unwrap();
-//     } catch (error) {
-//       console.error("Registration failed:", error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isSuccess) {
-//       navigate("/login");
-//     }
-//   }, [isSuccess, navigate]);
-
-//   const styles = {
-//     inputWrapper: "relative flex items-center",
-//     input:
-//       "w-full py-2 md:py-3 pl-12 pr-4 rounded-[8px] border border-primary-border bg-white focus:outline-none focus:border-blue-400 focus:shadow-2xl placeholder:text-sm placeholder:text-gray-400",
-//     icon: "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 contrast-125",
-//     errorWrapper: "h-5 mt-1",
-//     error: "text-sm text-red-500",
-//     checkbox:
-//       "mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer",
-//     termsLabel: "text-sm text-gray-600",
-//   };
-
-//   return (
-//     <CommonWrapper>
-//       <div>
-//         <div className="w-full mx-auto bg-white rounded-[32px] shadow-[0_4px_24px_0_rgba(0,0,0,0.1)] px-6 md:px-[50px] lg:px-[100px] py-10">
-//           <div className="text-center mb-12 md:mb-[67px]">
-//             <CommonHeading
-//               title="Sign Up"
-//               description="We guarantee reliable delivery of your products to your customers, at the right location in the right time through our efficient distribution channel."
-//             />
-//           </div>
-//           <div className="flex flex-col md:flex-row gap-8 items-start justify-between">
-//             {/* Left Form */}
-//             <form
-//               onSubmit={handleSubmit(onSubmit)}
-//               className="w-full lg:space-y-2"
-//             >
-//               {/* Business Name */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img
-//                     src={business}
-//                     className={styles.icon}
-//                     alt="Business Icon"
-//                   />
-//                   <input
-//                     type="text"
-//                     placeholder="Your business name"
-//                     {...register("businessName")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.businessName && (
-//                     <p className={styles.error}>
-//                       {errors.businessName.message}
-//                     </p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Full Name */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img src={name} className={styles.icon} alt="Name Icon" />
-//                   <input
-//                     type="text"
-//                     placeholder="Your Name"
-//                     {...register("name")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.name && (
-//                     <p className={styles.error}>{errors.name.message}</p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Address */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img
-//                     src={address}
-//                     className={styles.icon}
-//                     alt="Address Icon"
-//                   />
-//                   <input
-//                     type="text"
-//                     placeholder="Address of your pickup location"
-//                     {...register("address_Pickup_Location")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.address_Pickup_Location && (
-//                     <p className={styles.error}>
-//                       {errors.address_Pickup_Location.message}
-//                     </p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Phone */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img src={phone} className={styles.icon} alt="Phone Icon" />
-//                   <input
-//                     type="tel"
-//                     placeholder="Phone number"
-//                     {...register("phone")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.phone && (
-//                     <p className={styles.error}>{errors.phone.message}</p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Email */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img src={mail} className={styles.icon} alt="Email Icon" />
-//                   <input
-//                     type="email"
-//                     placeholder="Email address"
-//                     {...register("email")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.email && (
-//                     <p className={styles.error}>{errors.email.message}</p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Password */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img
-//                     src={password}
-//                     className={styles.icon}
-//                     alt="Password Icon"
-//                   />
-//                   <input
-//                     type="password"
-//                     placeholder="Password"
-//                     {...register("password")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.password && (
-//                     <p className={styles.error}>{errors.password.message}</p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Confirm Password */}
-//               <div>
-//                 <div className={styles.inputWrapper}>
-//                   <img
-//                     src={password}
-//                     className={styles.icon}
-//                     alt="Confirm Password Icon"
-//                   />
-//                   <input
-//                     type="password"
-//                     placeholder="Confirm Password"
-//                     {...register("confirmPassword")}
-//                     className={styles.input}
-//                   />
-//                 </div>
-//                 <div className={styles.errorWrapper}>
-//                   {errors.confirmPassword && (
-//                     <p className={styles.error}>
-//                       {errors.confirmPassword.message}
-//                     </p>
-//                   )}
-//                 </div>
-//               </div>
-
-//               {/* Terms */}
-//               <div className="flex items-start gap-2">
-//                 <input
-//                   type="checkbox"
-//                   {...register("terms")}
-//                   className={styles.checkbox}
-//                 />
-//                 <label className={styles.termsLabel}>
-//                   By clicking Sign up you are agreeing with our{" "}
-//                   <span className="font-semibold">Terms & Condition</span>
-//                 </label>
-//               </div>
-//               <div className={styles.errorWrapper}>
-//                 {errors.terms && (
-//                   <p className={styles.error}>{errors.terms.message}</p>
-//                 )}
-//               </div>
-
-//               {/* Submit Button */}
-//               <CommonButton
-//                 btnTitle={isLoading ? "Registering..." : "Sign up"}
-//                 type="submit"
-//                 disabled={isLoading}
-//               />
-
-//               <p className="text-center text-sm text-paragraph-gray mt-3">
-//                 Already have an account?{" "}
-//                 <Link to="/login">
-//                   <span className="text-primary-orange cursor-pointer font-semibold">
-//                     Login here
-//                   </span>
-//                 </Link>
-//               </p>
-//             </form>
-
-//             {/* Right Image */}
-//             <div className="hidden md:block">
-//               <img src={img} alt="Signup Illustration" className="w-[282px] " />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </CommonWrapper>
 //   );
 // };
 
