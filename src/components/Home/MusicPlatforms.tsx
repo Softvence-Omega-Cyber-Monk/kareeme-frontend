@@ -8,7 +8,7 @@ import SoundCloud from "@/assets/icons/SoundCloud.svg";
 import Audiomack from "@/assets/icons/Audiomack.svg";
 import Deezer from "@/assets/icons/Deezer.svg";
 import TIDAL from "@/assets/icons/tidal.png";
-import iHeartRadio from "@/assets/icons/apple.png";
+import iHeartRadio from "@/assets/hart.png";
 
 const MusicPlatforms: React.FC = () => {
   const platforms = [

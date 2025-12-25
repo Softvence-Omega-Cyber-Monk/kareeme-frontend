@@ -46,8 +46,8 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
       {/* Title */}
    
          <h1 className="font-extrabold leading-snug sm:leading-tight md:leading-tight tracking-wide mb-6 sm:mb-8 md:mb-8">
-        <span className="text-3xl sm:text-5xl md:text-6xl font-bold flex justify-center flex-wrap gap-1">
-          WELCOME TO{" "}
+        {/* <span className="text-3xl sm:text-5xl md:text-6xl font-bold flex justify-center flex-wrap gap-1">
+          WELCOME TO {" "}
           {title1.map((char, idx) => (
             <motion.span
               key={idx}
@@ -66,7 +66,36 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
               {char}{" "}
             </motion.span>
           ))}
-        </span>
+        </span> */}
+        <span className="text-3xl sm:text-5xl md:text-6xl font-bold flex justify-center flex-wrap items-center">
+  {/* Static text */}
+  <span className="mr-4">WELCOME TO</span>
+
+  {/* Animated letters with proper spacing */}
+  <span className="flex mr-4">
+    {title1.map((char, idx) => (
+      <motion.span
+        key={idx}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: idx * 0.1,
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        }}
+        className="tracking-widest mx-[1px]"
+        style={{
+          color: "transparent",
+          WebkitTextStroke: "2px #f0fdf4",
+        }}
+      >
+        {char}
+      </motion.span>
+    ))}
+  </span>
+</span>
+
         <br className="block md:hidden" />
         <br />
         <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl flex justify-center flex-wrap gap-1">
@@ -91,7 +120,7 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
               {char}
             </motion.span>
           ))}{" "}
-          WHERE DREM SHIFT THE{" "}
+          <span>WHERE DREAMS SHIFT THE</span>{" "}
         </span>
         <br />
         <span className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
