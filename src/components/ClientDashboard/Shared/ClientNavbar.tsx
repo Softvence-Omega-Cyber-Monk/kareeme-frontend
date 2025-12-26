@@ -10,9 +10,10 @@ import togglebarIcon from "@/assets/icons/togglebar.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { useAppDispatch } from "@/redux/hooks/redux-hook";
-import { logOut } from "@/redux/features/auth/authSlice";
+// import { logOut } from "@/redux/features/auth/authSlice";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
+import { logout } from "@/redux/features/auth/authSlice";
 
 interface MerchantDashboardNavbarProps {
   onMobileMenuToggle: () => void;
@@ -50,7 +51,7 @@ const MerchantDashboardNavbar = ({
     localStorage.removeItem("user"); // if applicable
     localStorage.removeItem("refreshToken"); // if applicable
 
-    dispatch(logOut());
+    dispatch(logout());
     toast.success("Merchant logged out successfully!");
     navigate("/");
   };

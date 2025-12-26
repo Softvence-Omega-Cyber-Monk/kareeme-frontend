@@ -388,10 +388,10 @@ export default function ImageCollage() {
 
 
 // // // import { motion, Variants } from "framer-motion";
-// // // import Image1 from "@/assets/icons/Rectangle 7197.png"; 
-// // // import Image2 from "@/assets/Rectangle 7197.png"; 
-// // // import Image3 from "@/assets/photo/Rectangle 7197.png"; 
-// // // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png"; 
+// // // import Image1 from "@/assets/icons/Rectangle 7197.png";
+// // // import Image2 from "@/assets/Rectangle 7197.png";
+// // // import Image3 from "@/assets/photo/Rectangle 7197.png";
+// // // import Image4 from "@/assets/photo/New folder/Rectangle 7197.png";
 
 // // // // Scroll animation for individual images
 // // // const fadeUp: Variants = {
@@ -482,7 +482,6 @@ export default function ImageCollage() {
 // // //     </div>
 // // //   );
 // // // }
-
 
 // // import { motion, Variants } from "framer-motion";
 // // import { useEffect, useRef } from "react";
@@ -605,7 +604,6 @@ export default function ImageCollage() {
 // //     // </CommonWrapper>
 // //   );
 // // }
-
 
 // import { motion, Variants } from "framer-motion";
 // import { useEffect, useRef, useState } from "react";
