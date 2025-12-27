@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import logoImage from "@/assets/logo 1.png";
 
-export const Navbar = () => {
+export const NavBar = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
