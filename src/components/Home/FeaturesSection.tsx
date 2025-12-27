@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import cart from "@/assets/cart1.png";
-import Blueangle from "@/assets/Blueangle.png";
+import Blueangle from "@/assets/blueangle.png";
 
 const FeaturesSection: React.FC = () => {
   const itemVariants: Variants = {
