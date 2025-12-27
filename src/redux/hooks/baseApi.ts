@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
-const baseURL = import.meta.env.VITE_API_ENDPOINT;
+const baseURL = "http://16.16.232.254:3000"
 
 if (!baseURL) {
   throw new Error("VITE_API_ENDPOINT is not defined in environment variables");
