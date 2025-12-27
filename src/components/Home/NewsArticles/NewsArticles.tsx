@@ -195,11 +195,9 @@ const NewsArticles: React.FC = () => {
           animation: scanVertical 8s ease-in-out infinite;
         }
       `}</style>
- {/* Animated Background */}
+      {/* Animated Background */}
       <div className="min-h-screen bg-black/50 relative overflow-hidden">
-       
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    
           <div
             className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-20 animate-pulse-slow"
             style={{
