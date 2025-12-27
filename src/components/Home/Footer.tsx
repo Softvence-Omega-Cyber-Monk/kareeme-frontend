@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
       <style dangerouslySetInnerHTML={{ __html: DRIPPING_CSS }} />
 
       <footer className="relative z-[999] pointer-events-auto bg-gradient-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
-        <div className="w-full mx-auto px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+        <div className="w-full mx-auto px-5 lg:px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           {/* LEFT SECTION */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Rotating Logo */}
@@ -140,7 +140,7 @@ const Footer: React.FC = () => {
               </Link>
             </nav>
 
-            <div className=" flex justify-baseline items-center gap-3">
+            {/* <div className=" flex justify-baseline items-center gap-3">
               <div
                 className="relative w-[384px] flex items-center rounded-[53px] border-t border-l border-r border-[rgba(198,198,198,0.19)]
              bg-[linear-gradient(160deg,rgba(12,16,34,0.24)_-6.01%,rgba(41,183,84,0.06)_38.62%),rgba(12,16,34,0.6)] 
@@ -165,6 +165,38 @@ const Footer: React.FC = () => {
                 <img
                   src={sendmail}
                   className="w-15 h-15 cursor-pointer border border-[#2C3C39] rounded-full text-white"
+                />
+              </motion.button>
+            </div> */}
+
+            <div className="flex flex-row sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-xl">
+              {/* Input Wrapper */}
+              <div
+                className="relative flex items-center w-full rounded-full
+    border border-[rgba(198,198,198,0.19)]
+    bg-[linear-gradient(160deg,rgba(12,16,34,0.24)_-6.01%,rgba(41,183,84,0.06)_38.62%),rgba(12,16,34,0.6)]
+    px-5 py-4"
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full bg-transparent text-white placeholder-gray-400 text-sm focus:outline-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                onClick={handleSubmit}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Submit email"
+                className="self-end sm:self-auto"
+              >
+                <img
+                  src={sendmail}
+                  alt="Send"
+                  className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer rounded-full border border-[#2C3C39]"
                 />
               </motion.button>
             </div>
