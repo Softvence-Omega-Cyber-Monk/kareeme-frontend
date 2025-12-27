@@ -60,14 +60,14 @@ import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/S
 import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
-import Home from "@/components/home/Home";
 import LabelBridge from "@/components/LabelBridge/LabelBridge";
-import NewsArticlesPage from "@/pages/Home/NewsArticlesPage";
-import AboutPage from "@/pages/Home/AboutPage";
+import NewsArticlesPage from "@/pages/home/NewsArticlesPage";
+import AboutPage from "@/pages/home/AboutPage";
 import Shop from "@/components/home/Shop/Shop";
 import ProductDetailPage from "@/components/home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
+import Home from "@/components/home/Home";
 
 const routes = createBrowserRouter([
   {

@@ -1,5 +1,21 @@
+// import { HeroItems } from "./HeroItems";
+// import MusicPlatforms from "@/components/home/MusicPlatforms";
+// import WhatWeDoSection from "./WhatWeDoSection";
+// import FeaturesSection from "./FeaturesSection";
+// import HeroBanner from "./HeroBanner";
+// import ReleasesStrategy from "./ReleaseStrategy";
+// import MarketingProcess from "./CoreFeaturesSection";
+// import FeaturedArticlesSection from "./FeaturedArticlesSection";
+// import DevelopmentArtist from "./DevelopmentArtist";
+// import DistributionSection from "./DistributionSection";
+// import Overview from "@/components/home/Overview";
+// import WorkWithUsSection from "./WorkWithUsSection";
+import CollageImage from "@/components/home/CollageImage";
+
+import CommonWrapper from "@/common/CommonWrapper";
 import { HeroItems } from "./HeroItems";
-import MusicPlatforms from "@/components/home/MusicPlatforms";
+import Overview from "./Overview";
+import MusicPlatforms from "./MusicPlatforms";
 import WhatWeDoSection from "./WhatWeDoSection";
 import FeaturesSection from "./FeaturesSection";
 import HeroBanner from "./HeroBanner";
@@ -8,10 +24,7 @@ import MarketingProcess from "./CoreFeaturesSection";
 import FeaturedArticlesSection from "./FeaturedArticlesSection";
 import DevelopmentArtist from "./DevelopmentArtist";
 import DistributionSection from "./DistributionSection";
-import Overview from "@/components/home/Overview";
-import CollageImage from "@/components/home/CollageImage";
 import WorkWithUsSection from "./WorkWithUsSection";
-import CommonWrapper from "@/common/CommonWrapper";
 
 const customStyles = `
   /* Tailwind requires a base for custom layers */
