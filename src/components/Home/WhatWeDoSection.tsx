@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import smallLogoIcon from "@/assets/logo 1.png";
-import CommonWrapper from "./../../common/CommonWrapper";
+import CommonWrapper from "../../common/CommonWrapper";
 
 const WhatWeDoSection = () => {
   const lines = [

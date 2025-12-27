@@ -1,5 +1,5 @@
 import { HeroItems } from "./HeroItems";
-import MusicPlatforms from "@/components/Home/MusicPlatforms";
+import MusicPlatforms from "@/components/home/MusicPlatforms";
 import WhatWeDoSection from "./WhatWeDoSection";
 import FeaturesSection from "./FeaturesSection";
 import HeroBanner from "./HeroBanner";
@@ -8,8 +8,8 @@ import MarketingProcess from "./CoreFeaturesSection";
 import FeaturedArticlesSection from "./FeaturedArticlesSection";
 import DevelopmentArtist from "./DevelopmentArtist";
 import DistributionSection from "./DistributionSection";
-import Overview from "@/components/Home/Overview";
-import CollageImage from "@/components/Home/CollageImage";
+import Overview from "@/components/home/Overview";
+import CollageImage from "@/components/home/CollageImage";
 import WorkWithUsSection from "./WorkWithUsSection";
 import CommonWrapper from "@/common/CommonWrapper";
 
