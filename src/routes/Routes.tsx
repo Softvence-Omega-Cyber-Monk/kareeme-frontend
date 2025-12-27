@@ -103,6 +103,7 @@ const routes = createBrowserRouter([
         path: "/cart",
         element: <ProductDetailPage></ProductDetailPage>,
       },
+      
       {
         path: "/details/:id",
         element: <ProductDetailPage></ProductDetailPage>,

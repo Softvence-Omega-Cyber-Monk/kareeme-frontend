@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: DRIPPING_CSS }} />
 
-      <footer className="relative z-[999] pointer-events-auto bg-gradient-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
+      <footer className="relative  pointer-events-auto bg-gradient-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
         <div className="w-full mx-auto px-5 lg:px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           {/* LEFT SECTION */}
           <div className="flex flex-col items-center md:items-start space-y-6">
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4">
               <motion.a
-                href="#"
+                href="https://www.youtube.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#291213] hover:bg-[#3f1113]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://www.instagram.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#242027] hover:bg-[#372d3f]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://www.facebook.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#122640] hover:bg-[#0f2d55]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://x.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#061416] hover:bg-gray-900"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -196,31 +196,31 @@ const Footer: React.FC = () => {
                 <img
                   src={sendmail}
                   alt="Send"
-                  className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer rounded-full border border-[#2C3C39]"
+                  className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer rounded-full "
                 />
               </motion.button>
             </div>
           </div>
 
           {/* RIGHT SECTION */}
-          <div className="flex flex-col items-center md:items-end space-y-6 w-full max-w-sm md:max-w-none">
-            <div className="grid grid-cols-2 md:flex md:flex-col md:space-y-2 gap-2 w-full md:w-auto text-center md:text-right">
+          <div className="flex flex-col items-center md:items-center space-y-6 w-full max-w-sm md:max-w-none">
+            <div className="grid grid-cols-2 md:flex md:flex-col md:space-y-2 gap-2 w-full md:w-auto text-center md:text-left">
               {/* Manually written footer links */}
               <Link
                 to="/privacy"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Privacy Policy
               </Link>
               <Link
                 to="/term"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Terms & Condition
               </Link>
 
-              <div className="flex flex-col items-center md:items-end col-span-2 md:col-span-1">
-                <p className="text-gray-400 text-sm mb-1">Email</p>
+              <div className="flex flex-col items-center md:items-start col-span-2 md:col-span-1">
+                <p className="text-gray-400 text-sm mb-1 underline ">Email</p>
                 <a
                   href="mailto:Info@OneIOneEnt.com"
                   className="text-white hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base break-all"

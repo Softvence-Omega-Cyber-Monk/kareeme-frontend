@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ReuseButon from "../Shared/ReuseButon";
 
 const CTASection = () => {
@@ -36,10 +37,10 @@ const CTASection = () => {
           </button>
         </div> */}
 
-        <ReuseButon
+      <Link to="/login">  <ReuseButon
           text="Join Us Now"
           onClick={() => console.log("Button clicked")}
-        />
+        /></Link>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import vic from "@/assets/vic.png"
 import BrandLogo from "@/assets/logo 1.png";
 import { motion, Variants } from "framer-motion";
+import { Link } from "react-router-dom";
 // import CommonWrapper from "@/common/CommonWrapper";
 
 const fadeUp: Variants = {
@@ -84,7 +85,7 @@ export default function WorkWithUsSection() {
               whitespace-nowrap
             "
           >
-            <span>Launch Your Music</span>
+           <Link to ="/login"> <span>Launch Your Music</span></Link>
             {/* <RocketIcon className="h-5 w-5 sm:h-6 sm:w-6" /> */}
             <img src={vic} alt="" />
           </motion.button>

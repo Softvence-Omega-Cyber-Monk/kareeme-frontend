@@ -3,6 +3,7 @@ import smallLogoIcon from "@/assets/logo 1.png";
 import smallLOGO from "@/assets/smallLOGO.svg";
 import angle3 from "@/assets/Eff.png";
 import ReuseButon from "./Shared/ReuseButon";
+import { Link } from "react-router-dom";
 
 interface HeroProps {
   className?: string;
@@ -136,11 +137,13 @@ export const HeroItems: React.FC<HeroProps> = ({ className = "" }) => {
           transition={{ delay: 1.2, duration: 0.5 }}
           className="flex justify-center"
         >
-          <ReuseButon
+         <Link className="cursor-pointer" to ="/news-articles">
+          <ReuseButon 
             text="Learn More"
             icon={smallLOGO}
             onClick={() => console.log("Learn more")}
           />
+         </Link>
         </motion.div>
      
     </section>

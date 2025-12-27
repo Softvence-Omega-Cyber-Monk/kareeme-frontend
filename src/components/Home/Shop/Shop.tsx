@@ -5,7 +5,7 @@ import { ShopBanner } from "./ShopBanner";
 const Shop = () => {
     return (
         <div>
- <ShopBanner></ShopBanner>
+            <ShopBanner></ShopBanner>
         </div>
     );
 };
