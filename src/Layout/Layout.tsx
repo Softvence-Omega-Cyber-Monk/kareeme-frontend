@@ -1,6 +1,6 @@
 import video from "@/assets/video/animation-Video.mp4";
-import Footer from "@/components/home/Footer";
-import { NavBar } from "@/components/home/NavBar";
+import Footer from "@/components/Home/Footer";
+import { NavBar } from "@/components/Home/NavBar";
 
 import { Outlet } from "react-router-dom";
 

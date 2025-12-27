@@ -7,8 +7,8 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
-import AdminLayout from "@/Layout/AdminLayout";
-import ClientLayout from "@/Layout/ClientLayout";
+import AdminLayout from "@/layout/AdminLayout";
+import ClientLayout from "@/layout/ClientLayout";
 import ClientDashboardPage from "@/pages/Client/ClientDashboardPage";
 import ClientAnalyticsPage from "@/pages/Client/ClientAnalyticsPage";
 import AnalyticsYoutubePage from "@/pages/Client/AnalyticsYoutubePage";
@@ -24,9 +24,9 @@ import SpotifyPage from "@/pages/Client/SpotifyPage";
 import AppleMusicPage from "@/pages/Client/AppleMusicPage";
 import SoundCloudPage from "@/pages/Client/SoundCloudPage";
 import StapeComponent from "@/components/ClientDashboard/Catalog/Submit/StapeComponent";
-import DistributorLayout from "@/Layout/DistributorLayout";
+import DistributorLayout from "@/layout/DistributorLayout";
 import DistributorDashboardPage from "@/pages/Distributor/DistributorDashboardPage";
-import AccountantLayout from "@/Layout/AccountantLayout";
+import AccountantLayout from "@/layout/AccountantLayout";
 import AccountantDashboardPage from "@/pages/Accountant/AccountantDashboardPage";
 import DistributorSubmissions from "@/pages/Distributor/DistributorSubmissions";
 import StatementDetailsPage from "@/pages/Client/StatementDetailsPage";
@@ -61,13 +61,13 @@ import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
 import LabelBridge from "@/components/LabelBridge/LabelBridge";
-import NewsArticlesPage from "@/pages/home/NewsArticlesPage";
-import AboutPage from "@/pages/home/AboutPage";
-import Shop from "@/components/home/Shop/Shop";
-import ProductDetailPage from "@/components/home/Shop/ProductDetailPage";
+import NewsArticlesPage from "@/pages/Home/NewsArticlesPage";
+import AboutPage from "@/pages/Home/AboutPage";
+import Shop from "@/components/Home/Shop/Shop";
+import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
-import Home from "@/components/home/Home";
+import Home from "@/components/Home/Home";
 
 const routes = createBrowserRouter([
   {

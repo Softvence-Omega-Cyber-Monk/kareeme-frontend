@@ -1,4 +1,4 @@
-import NewsArticles from "@/components/home/NewsArticles/NewsArticles";
+import NewsArticles from "@/components/Home/NewsArticles/NewsArticles";
 
 const NewsArticlesPage = () => {
   return (
