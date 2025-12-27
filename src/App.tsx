@@ -1,5 +1,5 @@
 // import CustomCursor from "./components/Home/Shared/CustomCursor";
-import Layout from "./layout/Layout";
+import Layout from "./Layout/Layout";
 
 function App() {
   return (
