@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+
 import { ShoppingCart } from "lucide-react";
 import logoImage from "@/assets/logo 1.png";
 import { getCartCount } from "@/utils/cartUtils";
@@ -44,14 +44,11 @@ export const NavBar = () => {
     <>
       <div className="w-full max-w-[1350px] mx-auto px-4 md:px-6 py-3 md:py-4 bg-white/10 backdrop-blur-2xl rounded-full shadow-lg shadow-black/10 flex items-center justify-between relative z-50">
         {/* Logo */}
-        <motion.img
+     <Link to="/">   <img
           src={logoImage}
           alt="Logo"
           className="h-10 w-10 sm:h-12 sm:w-12 object-cover rounded-full cursor-pointer"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-          onClick={() => window.location.href = "/"}
-        />
+        /></Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-3 lg:gap-5">

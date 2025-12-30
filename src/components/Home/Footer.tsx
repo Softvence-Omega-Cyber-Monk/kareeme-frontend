@@ -41,17 +41,16 @@ const Footer: React.FC = () => {
           {/* LEFT SECTION */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Rotating Logo */}
-            <motion.div
+            <div
               className="w-14 h-14  rounded-full  flex items-center justify-center ml-10"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+
             >
               <img
                 src={logoImage}
                 alt="Logo"
                 className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain"
               />
-            </motion.div>
+            </div>
 
             {/* Footer Text Image */}
             <img
@@ -139,36 +138,6 @@ const Footer: React.FC = () => {
                 Shop
               </Link>
             </nav>
-
-            {/* <div className=" flex justify-baseline items-center gap-3">
-              <div
-                className="relative w-[384px] flex items-center rounded-[53px] border-t border-l border-r border-[rgba(198,198,198,0.19)]
-             bg-[linear-gradient(160deg,rgba(12,16,34,0.24)_-6.01%,rgba(41,183,84,0.06)_38.62%),rgba(12,16,34,0.6)] 
-             px-[20px] py-[19px] pr-[248px]"
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-1 cursor-pointer bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none"
-                />
-              </div>
-
-              <motion.button
-                onClick={handleSubmit}
-                className=""
-                whileHover={{ scale: 1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Submit email"
-              >
-                <img
-                  src={sendmail}
-                  className="w-15 h-15 cursor-pointer border border-[#2C3C39] rounded-full text-white"
-                />
-              </motion.button>
-            </div> */}
-
             <div className="flex flex-row sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-xl">
               {/* Input Wrapper */}
               <div
