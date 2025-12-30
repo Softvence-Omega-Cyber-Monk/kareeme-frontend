@@ -412,7 +412,7 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
               NEWS & ARTICLES
             </h1>
             <p className="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-              At OneiSlOneEnt Entertainment, we believe in the power of stories to
+              At OnelsOneEnt Entertainment, we believe in the power of stories to
               inspire, connect, and entertain. Dive into our News & Articles for
               the latest insights, trends, and behind-the-scenes glimpses of the
               entertainment world, where every tale matters and every voice
