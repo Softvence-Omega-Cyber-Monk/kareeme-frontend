@@ -287,19 +287,19 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
               <div className="mt-12 pt-8 border-t border-gray-800">
                 <h3 className="text-white font-semibold mb-4">Share this article</h3>
                 <div className="flex gap-4">
-                 <Link to="https://x.com"> <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
+                  <Link to="https://x.com"> <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
                     Twitter
                   </button></Link>
-                 <Link to="https://www.facebook.com">
-                 
-                  <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
-                    Facebook
-                  </button></Link>
-                <Link to="https://www.linkedin.com">
-                  <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
-                    LinkedIn
-                  </button>
-                </Link>
+                  <Link to="https://www.facebook.com">
+
+                    <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
+                      Facebook
+                    </button></Link>
+                  <Link to="https://www.linkedin.com">
+                    <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
+                      LinkedIn
+                    </button>
+                  </Link>
                 </div>
               </div>
             </article>
@@ -348,7 +348,7 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
           animation: floatUp linear infinite;
         }
       `}</style>
-      
+
       {/* Animated Background */}
       <div className="min-h-screen bg-black/50 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -412,7 +412,7 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
               NEWS & ARTICLES
             </h1>
             <p className="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-              At OneiSlone Entertainment, we believe in the power of stories to
+              At OneiSlOneEnt Entertainment, we believe in the power of stories to
               inspire, connect, and entertain. Dive into our News & Articles for
               the latest insights, trends, and behind-the-scenes glimpses of the
               entertainment world, where every tale matters and every voice
@@ -438,7 +438,7 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
                     />
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
+
                     {/* Read More Button */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="px-6 py-2 bg-emerald-500 text-white rounded-lg font-semibold">
