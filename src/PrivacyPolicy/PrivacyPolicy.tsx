@@ -22,7 +22,7 @@ const PrivacyPolicy: React.FC = () => {
               This privacy policy applies to the Services and all other products and services offered by
               OneIsOne Entertainment. The Policy is only applicable to our Services and not to any other website, service, or online platform.
             </p>
-            <div className='text-[18px]'>
+            <div className='text-[18px] text-red-500'>
               BY DOWNLOADING THE APPLICATION, ACCESSING AND/OR UTILIZING THE SERVICES, AND/OR REGISTERING WITH US, YOU SIGNIFY THAT YOU HAVE READ, UNDERSTOOD,
               AND AGREE TO BE BOUND BY THIS POLICY, INCLUDING OUR TERMS OF SERVICE, WHICH ARE INCORPORATED HEREIN BY REFERENCE.
             </div>
@@ -66,7 +66,9 @@ const PrivacyPolicy: React.FC = () => {
             <p className="mb-3 font-medium text-white">
               Types of Information Collected
             </p>
-            We may collect personal identification information from Users under a variety of circumstances, including, but not limited to when Users: (i) visit our Site,
+            We may collect personal identification information from Users under a variety of circumstances, including, but not limited to when Users: 
+            
+            <br /> <br /> (i) visit our Site,
             <br />  (ii) register on the Site,
             <br />  (iii) subscribe to a newsletter,
             <br />  (iv) fill out a form,
