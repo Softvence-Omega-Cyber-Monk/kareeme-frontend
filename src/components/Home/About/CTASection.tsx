@@ -7,7 +7,8 @@ const CTASection = () => {
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-          Join Us on the Journey
+  
+          JOIN US ON THE JOURNEY
         </h2>
 
         {/* Description */}
