@@ -3,6 +3,10 @@ import img from "@/assets/photo/ss.png";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import logo1 from "@/assets/kareme/icon/logo2.png";
+import star from "@/assets/kareme/icon/star1.png";
 
 // =================================================================
 // 1. DATA AND INTERFACES (Simulated Imports/Definitions)
@@ -164,11 +168,30 @@ const FeaturedArticlesSection: React.FC = () => {
           // variants={textItemVariants}
           className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#0C1C1F] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
         >
-          <img
+          {/* <img
             src={logo}
             alt="Small Logo"
             className="h-8 w-8 object-contain logo-spin"
-          />
+          /> */}
+          <Link
+            to="/"
+            className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 "
+          >
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src={star}
+                alt="Star"
+                className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover animate-[spin_12s_linear_infinite]"
+              />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src={logo1}
+                alt="Logo"
+                className="w-4 h-4 sm:w-6 sm:h-6 md:w-6 md:h-8 rounded-full object-cover z-10 shadow-lg"
+              />
+            </div>
+          </Link>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
             Featured Articles
           </p>

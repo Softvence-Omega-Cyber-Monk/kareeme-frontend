@@ -1,7 +1,11 @@
 import React from "react";
-import smallLogoIcon from "@/assets/logo 1.png";
+// import smallLogoIcon from "@/assets/logo 1.png";
+
+import logo from "@/assets/kareme/icon/logo2.png";
+import star from "@/assets/kareme/icon/star1.png";
 // import CommonWrapper from "../../common/CommonWrapper";
 import { motion, Variants } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // --- Animation Variants ---
 const containerVariants: Variants = {
@@ -20,93 +24,111 @@ const textItemVariants: Variants = {
 
 const ReleasesStrategy: React.FC = () => {
   return (
-   
-      <div className="text-center w-full">
-        {/* Top Tag */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={containerVariants}
-          className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
-        >
-          <img
+    <div className="text-center w-full">
+      {/* Top Tag */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={containerVariants}
+        className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#3A5CFF0D] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
+      >
+        {/* <img
             src={smallLogoIcon}
             alt="Small Logo"
             className="h-8 w-8  object-contain logo-spin"
-          />
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
-            Release Strategy
-          </p>
-        </motion.div>
+          /> */}
 
-        {/* Main Heading */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={containerVariants}
-          className="font-extrabold w-full max-w-5xl mx-auto"
+        <Link
+          to="/"
+          className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 "
         >
-          <motion.h1
-            variants={textItemVariants}
-            className="
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={star}
+              alt="Star"
+              className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover animate-[spin_12s_linear_infinite]"
+            />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-4 h-4 sm:w-6 sm:h-6 md:w-6 md:h-8 rounded-full object-cover z-10 shadow-lg"
+            />
+          </div>
+        </Link>
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light tracking-[0.25em] uppercase">
+          Release Strategy
+        </p>
+      </motion.div>
+
+      {/* Main Heading */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={containerVariants}
+        className="font-extrabold w-full max-w-5xl mx-auto"
+      >
+        <motion.h1
+          variants={textItemVariants}
+          className="
               text-[22px] sm:text-[26px] md:text-3xl lg:text-3xl xl:text-4xl 
               uppercase text-[#F2F2F2] leading-normal
             "
-          >
-            An effective strategy for launching music requires careful planning
-            and implementation, spanning from generating excitement before the
-            release to maintaining engagement afterward.
-            <br />
-            This process involves assembling a capable team to support your
-            release, which is where our exceptional marketing professionals come
-            into play.
-          </motion.h1>
-        </motion.div>
-
-        {/* Motion Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="py-16 sm:py-20  w-full"
         >
-          <div className="max-[1450px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-            {/* Left Title */}
-            <motion.h1
-              variants={textItemVariants}
-              className="
+          An effective strategy for launching music requires careful planning
+          and implementation, spanning from generating excitement before the
+          release to maintaining engagement afterward.
+          <br />
+          This process involves assembling a capable team to support your
+          release, which is where our exceptional marketing professionals come
+          into play.
+        </motion.h1>
+      </motion.div>
+
+      {/* Motion Section */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+        className="py-16 sm:py-20  w-full"
+      >
+        <div className="max-[1450px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+          {/* Left Title */}
+          <motion.h1
+            variants={textItemVariants}
+            className="
                 text-white 
                 text-3xl sm:text-4xl md:text-5xl lg:text-3xl 
                 tracking-tight leading-none
                 text-center md:text-left mt-8
               "
-            >
-              KEY COMPONENTS
-            </motion.h1>
+          >
+            KEY COMPONENTS
+          </motion.h1>
 
-            {/* Right Box */}
-            <motion.div
-              variants={textItemVariants}
-              className="md:col-span-2 p-6 sm:p-8  text-gray-300  text-base   leading-relaxed  rounded-xl
+          {/* Right Box */}
+          <motion.div
+            variants={textItemVariants}
+            className="md:col-span-2 p-6 sm:p-8  text-gray-300  text-base   leading-relaxed  rounded-xl
               "
-            >
-              <p className="text-start">
-                Key components include designing captivating artwork, developing
-                a pre-save initiative, crafting a press release, pitching to
-                playlists, leveraging social media for promotion, refreshing
-                your electronic press kit (EPK), and analyzing performance
-                metrics to enhance future campaigns. Prioritizing the creation
-                of anticipation, connecting with fans, and maximizing exposure
-                across diverse platforms is essential for a successful launch.
-              </p>
-            </motion.div>
-          </div>
-        </motion.section>
-      </div>
-   
+          >
+            <p className="text-start">
+              Key components include designing captivating artwork, developing a
+              pre-save initiative, crafting a press release, pitching to
+              playlists, leveraging social media for promotion, refreshing your
+              electronic press kit (EPK), and analyzing performance metrics to
+              enhance future campaigns. Prioritizing the creation of
+              anticipation, connecting with fans, and maximizing exposure across
+              diverse platforms is essential for a successful launch.
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+    </div>
   );
 };
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import cart from "@/assets/cart1.png";
+// import cart from "@/assets/cart1.png";
+// import cart from "@/assets/kareme/photo/photo1.svg";
+import cart from "@/assets/kareme/photo/photo1.svg";
 import Blueangle from "@/assets/blueAngle.png";
 
 const FeaturesSection: React.FC = () => {
@@ -114,13 +116,30 @@ const FeaturesSection: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Image Card */}
+          {/* <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex items-center justify-center w-full"
+          >
+            <div className="w-full  bg-gray-900/30 border border-gray-700/40 rounded-xl p-4 sm:p-6">
+              <img
+                src={cart}
+                alt="Revenue overview"
+                className="w-full h-auto object-contain rounded-lg"
+              />
+            </div>
+          </motion.div> */}
+
+          {/* Image */}
+
           <motion.div
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center w-full"
           >
             <div className="w-full  bg-gray-900/30 border border-gray-700/40 rounded-xl p-4 sm:p-6">
               <img

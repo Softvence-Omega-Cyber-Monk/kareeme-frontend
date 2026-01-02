@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
-import img from "@/assets/Overview.png";
+// import img from "@/assets/Overview.png";
+import img from "@/assets/kareme/photo/main.svg";
 
 const Overview = () => {
   const imageVariants: Variants = {

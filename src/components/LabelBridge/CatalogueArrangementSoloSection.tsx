@@ -1,4 +1,5 @@
-import img1 from "@/assets/cart12.png";
+// import img1 from "@/assets/cart12.png";
+import img1 from "@/assets/kareme/photo/lebel5.svg";
 
 import React from "react";
 

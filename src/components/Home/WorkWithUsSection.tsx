@@ -1,5 +1,9 @@
-import vic from "@/assets/vic.png"
-import BrandLogo from "@/assets/logo 1.png";
+import vic from "@/assets/vic.png";
+// import BrandLogo from "@/assets/logo 1.png";
+
+import logo from "@/assets/kareme/icon/logo2.png";
+import star from "@/assets/kareme/icon/star1.png";
+
 import { motion, Variants } from "framer-motion";
 import { Link } from "react-router-dom";
 // import CommonWrapper from "@/common/CommonWrapper";
@@ -36,11 +40,31 @@ export default function WorkWithUsSection() {
           variants={fadeUp}
           className="flex items-center gap-2 sm:gap-3 bg-[#3A5CFF0D] rounded-3xl px-4 sm:px-6 h-12 sm:h-14 border-t border-[#075D2F]"
         >
-          <img
+          {/* <img
             src={BrandLogo}
             alt="Brand Logo"
             className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
-          />
+          /> */}
+
+          <Link
+            to="/"
+            className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 "
+          >
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src={star}
+                alt="Star"
+                className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover animate-[spin_12s_linear_infinite]"
+              />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-4 h-4 sm:w-6 sm:h-6 md:w-6 md:h-8 rounded-full object-cover z-10 shadow-lg"
+              />
+            </div>
+          </Link>
           <p className="text-xs sm:text-sm md:text-base text-gray-300 font-light tracking-[0.25em] uppercase">
             Work with us
           </p>
@@ -85,7 +109,10 @@ export default function WorkWithUsSection() {
               whitespace-nowrap
             "
           >
-           <Link to ="/login"> <span>Launch Your Music</span></Link>
+            <Link to="/login">
+              {" "}
+              <span>Launch Your Music</span>
+            </Link>
             {/* <RocketIcon className="h-5 w-5 sm:h-6 sm:w-6" /> */}
             <img src={vic} alt="" />
           </motion.button>
