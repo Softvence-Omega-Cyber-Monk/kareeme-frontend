@@ -1,9 +1,12 @@
 import img from "@/assets/logo 4.png";
 import { useState } from "react";
 // import { Send, Instagram, Youtube, Facebook, X } from "lucide-react";
-import logoImage from "@/assets/logo 1.png";
+// import logoImage from "@/assets/logo 1.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+
+import logo from "@/assets/kareme/icon/logo2.png";
+import star from "@/assets/kareme/icon/star1.png";
 
 import youtube from "@/assets/kareme/icon/youtube.svg";
 import instagram from "@/assets/kareme/icon/instagram.svg";
@@ -36,12 +39,12 @@ const Footer: React.FC = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: DRIPPING_CSS }} />
 
-      <footer className="relative  pointer-events-auto bg-gradient-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
+      <footer className="relative  pointer-events-auto bg-linear-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
         <div className="w-full mx-auto px-5 lg:px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           {/* LEFT SECTION */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Rotating Logo */}
-            <div
+            {/* <div
               className="w-14 h-14  rounded-full  flex items-center justify-center ml-10"
 
             >
@@ -50,7 +53,27 @@ const Footer: React.FC = () => {
                 alt="Logo"
                 className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain"
               />
-            </div>
+            </div> */}
+            <Link
+              to="/"
+              className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 ml-10"
+            >
+              {/* Rotating Star Ring */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={star}
+                  alt="Star"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full object-cover animate-[spin_12s_linear_infinite]"
+                />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full object-cover z-10 shadow-lg"
+                />
+              </div>
+            </Link>
 
             {/* Footer Text Image */}
             <img

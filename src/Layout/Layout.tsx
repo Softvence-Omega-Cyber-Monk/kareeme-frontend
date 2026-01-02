@@ -19,7 +19,7 @@ const Layout: React.FC = () => {
       </video>
 
       {/* Main Content */}
-      <main className="relative z-10 min-h-screen bg-gradient-to-r from-[#061511]/98 via-[#061511]/95 to-[#061511]/98">
+      <main className="relative z-10 min-h-screen bg-gradient-to-r from-[#061511]/98 via-[#061511]/85 to-[#061511]/98">
         <div className="sticky top-[32px] z-50">
           <NavBar />
         </div>
