@@ -1,9 +1,11 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
+// import cart from "@/assets/kareme/photo/new1.png";
 // import cart from "@/assets/cart1.png";
 // import cart from "@/assets/kareme/photo/photo1.svg";
 import cart from "@/assets/kareme/photo/photo1.svg";
-import Blueangle from "@/assets/blueAngle.png";
+
+// import Blueangle from "@/assets/blueAngle.png";
 
 const FeaturesSection: React.FC = () => {
   const itemVariants: Variants = {
@@ -96,11 +98,11 @@ const FeaturesSection: React.FC = () => {
                        border-l-[#2C3E95] border-b-[#2C3E95]
                        rounded-xl p-5 sm:p-6 lg:p-8"
           >
-            <img
+            {/* <img
               src={Blueangle}
               alt=""
               className="absolute top-4 left-4 w-7 h-7 sm:w-9 sm:h-9"
-            />
+            /> */}
 
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 tracking-wide">
               ARTIST-CENTRIC PHILOSOPHY
@@ -141,7 +143,7 @@ const FeaturesSection: React.FC = () => {
             viewport={{ once: true }}
             className="flex items-center justify-center w-full"
           >
-            <div className="w-full  bg-gray-900/30 border border-gray-700/40 rounded-xl p-4 sm:p-6">
+            <div className="w-full bg-gray-900/30 border border-gray-700/40 rounded-xl p-4 sm:p-6">
               <img
                 src={cart}
                 alt="Revenue overview"
