@@ -3,8 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate, Link } from "react-router-dom";
 import signupphoto from "@/assets/photo/signup.svg";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
-import { setCredentials } from "@/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/redux/hooks/redux-hook";
+import { toast } from "sonner";
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,11 +17,9 @@ const Signup: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
 
   const handleChange = (
@@ -37,16 +34,14 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+      toast.error("Password must be at least 6 characters long");
       return;
     }
 
@@ -54,46 +49,22 @@ const Signup: React.FC = () => {
 
     try {
       const registerData = {
-        fullName: formData.fullName,
+        name: formData.fullName,
         email: formData.email,
         password: formData.password,
-        phoneNumber: `${formData.countryCode}${formData.phoneNumber}`,
+        phone: `${formData.countryCode}${formData.phoneNumber}`,
       };
 
-      const result = await register(registerData).unwrap();
-
-      dispatch(
-        setCredentials({
-          user: result.user,
-          token: result.access_token,
-          refreshToken: result.refresh_token,
-        })
-      );
-
-      // Redirect based on role
-      switch (result.user.role) {
-        case "CLIENT":
-          navigate("/client-dashboard");
-          break;
-        case "SUPER_ADMIN":
-        case "ADMIN":
-          navigate("/admin-dashboard");
-          break;
-        case "ACCOUNTANT":
-          navigate("/accountant-dashboard");
-          break;
-        case "DISTRIBUTOR":
-          navigate("/distributor-dashboard");
-          break;
-        default:
-          navigate("/");
-      }
+      await register(registerData).unwrap();
+      navigate("/login", {
+        state: { message: "Registration successful! Please login." },
+      });
     } catch (err: any) {
       console.error("Registration failed:", err);
-      setError(
+      toast.error(
         err?.data?.message ||
-          err?.error?.data?.message ||
-          "Registration failed. Please try again."
+        err?.error?.data?.message ||
+        "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -121,12 +92,6 @@ const Signup: React.FC = () => {
             Start your journey with us! Fill out the details below to get access
             to your dashboard, music distribution, and more.
           </p>
-
-          {error && (
-            <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg">
-              <p className="text-red-300 text-sm">{error}</p>
-            </div>
-          )}
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Full Name */}

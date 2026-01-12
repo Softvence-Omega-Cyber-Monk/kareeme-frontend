@@ -13,13 +13,11 @@ import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import user from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useLogout } from "@/hooks/useLogout";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
-import { useAppDispatch } from "@/redux/hooks/redux-hook";
-import { logout } from "@/redux/features/auth/authSlice";
-import { baseApi } from "@/redux/hooks/baseApi";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -36,22 +34,13 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [isOpendashboard, setIsOpendashboard] = useState(false);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  /* Handle logout functionality */
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(baseApi.util.resetApiState());
-    navigate("/login", { replace: true });
-  };
+  const { handleLogout } = useLogout();
 
   return (
     <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
-        className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${
-          isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
-        }`}
+        className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
+          }`}
       >
         {/* Left Section */}
         <div className="flex items-center space-x-4">

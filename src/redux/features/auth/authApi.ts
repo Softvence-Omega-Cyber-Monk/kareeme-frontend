@@ -31,10 +31,11 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
-    logout: builder.mutation<void, void>({
-      query: () => ({
+    logout: builder.mutation<void, { refreshToken: string }>({
+      query: (body) => ({
         url: "/auth/logout",
         method: "POST",
+        body,
       }),
     }),
   }),

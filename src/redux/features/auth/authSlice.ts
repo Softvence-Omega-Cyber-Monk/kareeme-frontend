@@ -4,7 +4,7 @@ import {
   User,
   TAuth,
   LoginResponse,
-  RegisterResponse,
+  AuthMeResponse,
 } from "@/redux/types/auth.type";
 import { authApi } from "./authApi";
 import { AppRootState } from "@/redux/store";
@@ -68,34 +68,21 @@ const authSlice = createSlice({
       .addMatcher(
         authApi.endpoints.login.matchFulfilled,
         (state, { payload }: PayloadAction<LoginResponse>) => {
-          state.user = payload.user;
-          state.token = payload.access_token;
-          state.refreshToken = payload.refresh_token;
+          state.user = payload.data.user;
+          state.token = payload.data.access_token;
+          state.refreshToken = payload.data.refresh_token;
 
-          Cookies.set("token", payload.access_token, { expires: 7 });
-          Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
+          Cookies.set("token", payload.data.access_token, { expires: 7 });
+          Cookies.set("refreshToken", payload.data.refresh_token, { expires: 30 });
 
-          localStorage.setItem("user", JSON.stringify(payload.user));
-        }
-      )
-      .addMatcher(
-        authApi.endpoints.register.matchFulfilled,
-        (state, { payload }: PayloadAction<RegisterResponse>) => {
-          state.user = payload.user;
-          state.token = payload.access_token;
-          state.refreshToken = payload.refresh_token;
-
-          Cookies.set("token", payload.access_token, { expires: 7 });
-          Cookies.set("refreshToken", payload.refresh_token, { expires: 30 });
-
-          localStorage.setItem("user", JSON.stringify(payload.user));
+          localStorage.setItem("user", JSON.stringify(payload.data.user));
         }
       )
       .addMatcher(
         authApi.endpoints.authMe.matchFulfilled,
-        (state, { payload }: PayloadAction<User>) => {
-          state.user = payload;
-          localStorage.setItem("user", JSON.stringify(payload));
+        (state, { payload }: PayloadAction<AuthMeResponse>) => {
+          state.user = payload.data;
+          localStorage.setItem("user", JSON.stringify(payload.data));
         }
       );
   },
