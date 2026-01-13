@@ -29,23 +29,30 @@ export type LoginRequest = {
 };
 
 export type RegisterRequest = {
-  fullName: string;
+  name: string;
   email: string;
   password: string;
-  phoneNumber: string;
+  phone: string;
 };
 
-export type LoginResponse = {
+export type ApiResponse<T> = {
+  success: boolean;
+  message: string;
+  data: T;
+};
+
+export type LoginResponseData = {
   access_token: string;
   refresh_token: string;
   user: User;
 };
 
-export type RegisterResponse = {
-  access_token: string;
-  refresh_token: string;
-  user: User;
+export type RegisterResponseData = {
+  email: string;
 };
+
+export type LoginResponse = ApiResponse<LoginResponseData>;
+export type RegisterResponse = ApiResponse<RegisterResponseData>;
 
 export type TAuth = {
   user: User | null;
@@ -53,7 +60,7 @@ export type TAuth = {
   refreshToken?: string | null;
 };
 
-export type AuthMeResponse = User;
+export type AuthMeResponse = ApiResponse<User>;
 
 // export type User = {
 //   id: string;

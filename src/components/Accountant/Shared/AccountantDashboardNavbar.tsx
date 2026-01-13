@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
+import { useLogout } from "@/hooks/useLogout";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -35,6 +36,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const { handleLogout } = useLogout();
   // const [isOpendashboard, setIsOpendashboard] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -65,9 +67,8 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
   return (
     <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
-        className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${
-          isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
-        }`}
+        className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
+          }`}
       >
         {/* Left Section */}
         <div className="flex items-center space-x-4">
@@ -227,7 +228,10 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
                 <span className="font-medium">Privacy Policy</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer">
+              <DropdownMenuItem
+                className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
+                onClick={handleLogout}
+              >
                 <RiLogoutBoxRLine className="text-red-500" />
                 <span className="font-medium">Sign Out</span>
               </DropdownMenuItem>
