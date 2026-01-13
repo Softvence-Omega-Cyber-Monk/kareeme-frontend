@@ -13,19 +13,14 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <ReduxProviderWrapper>
-         <CartProvider>
- <RouterProvider router={routes} />
-        <DashboardToaster />
-         </CartProvider>
-       
+        <CartProvider>
+          <RouterProvider router={routes} />
+          <DashboardToaster />
+        </CartProvider>
       </ReduxProviderWrapper>
     </Provider>
   </StrictMode>
 );
-
-
-
-
 
 // import React from "react";
 // import ReactDOM from "react-dom/client";

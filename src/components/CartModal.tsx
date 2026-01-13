@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Minus, Plus, X, Trash2, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { 
-  getCartItems, 
-  updateCartQuantity, 
-  removeFromCart, 
-  getCartTotal 
+import {
+  getCartItems,
+  updateCartQuantity,
+  removeFromCart,
+  getCartTotal,
 } from "@/utils/cartUtils";
 
 interface CartItem {
@@ -32,8 +32,8 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
       setCartItems(getCartItems());
     };
 
-    window.addEventListener('cartUpdated', handleCartUpdate);
-    return () => window.removeEventListener('cartUpdated', handleCartUpdate);
+    window.addEventListener("cartUpdated", handleCartUpdate);
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
   }, []);
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
@@ -139,7 +139,9 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center bg-gray-800 rounded-full border border-gray-700">
                         <button
-                          onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                          onClick={() =>
+                            handleQuantityChange(item.id, item.quantity - 1)
+                          }
                           className="w-8 h-8 flex items-center justify-center text-blue-400 
                             hover:text-white hover:bg-gray-700 rounded-l-full transition-colors cursor-pointer"
                         >
@@ -149,7 +151,9 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                          onClick={() =>
+                            handleQuantityChange(item.id, item.quantity + 1)
+                          }
                           className="w-8 h-8 flex items-center justify-center text-blue-400 
                             hover:text-white hover:bg-gray-700 rounded-r-full transition-colors cursor-pointer"
                         >
@@ -232,7 +236,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                   Proceed to Checkout
                 </button>
               </Link>
-              
+
               <button
                 onClick={onClose}
                 className="w-full mt-3 py-3 text-gray-400 hover:text-white 
@@ -249,11 +253,6 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
 };
 
 export default CartModal;
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { Minus, Plus, Trash2, X } from "lucide-react";

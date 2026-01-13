@@ -31,7 +31,7 @@ const NewsArticles: React.FC = () => {
   const articles: Article[] = [
     {
       id: 1,
-      title: "OneiSlone Entertainment: Redefining the Rhythm of Tomorrow's Hits",
+      title: "OneIsOne Entertainment: Redefining the Rhythm of Tomorrow's Hits",
       date: "25 Oct, 2025",
       image: pic1,
       category: "Music Industry",
@@ -276,25 +276,35 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
 
               {/* Content */}
               <div className="prose prose-invert prose-lg max-w-none">
-                {selectedArticle.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-300 mb-6 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
+                {selectedArticle.content
+                  .split("\n\n")
+                  .map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="text-gray-300 mb-6 leading-relaxed"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
               </div>
 
               {/* Share Section */}
               <div className="mt-12 pt-8 border-t border-gray-800">
-                <h3 className="text-white font-semibold mb-4">Share this article</h3>
+                <h3 className="text-white font-semibold mb-4">
+                  Share this article
+                </h3>
                 <div className="flex gap-4">
-                  <Link to="https://x.com"> <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
-                    Twitter
-                  </button></Link>
+                  <Link to="https://x.com">
+                    {" "}
+                    <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
+                      Twitter
+                    </button>
+                  </Link>
                   <Link to="https://www.facebook.com">
-
                     <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
                       Facebook
-                    </button></Link>
+                    </button>
+                  </Link>
                   <Link to="https://www.linkedin.com">
                     <button className="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors">
                       LinkedIn
@@ -412,10 +422,10 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
               NEWS & ARTICLES
             </h1>
             <p className="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-              At OnelsOneEnt Entertainment, we believe in the power of stories to
-              inspire, connect, and entertain. Dive into our News & Articles for
-              the latest insights, trends, and behind-the-scenes glimpses of the
-              entertainment world, where every tale matters and every voice
+              At OnelsOneEnt Entertainment, we believe in the power of stories
+              to inspire, connect, and entertain. Dive into our News & Articles
+              for the latest insights, trends, and behind-the-scenes glimpses of
+              the entertainment world, where every tale matters and every voice
               counts.
             </p>
           </div>
@@ -469,32 +479,6 @@ The journey ahead is exciting. With our talented artists, dedicated team, and pa
 };
 
 export default NewsArticles;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React from "react";
 
