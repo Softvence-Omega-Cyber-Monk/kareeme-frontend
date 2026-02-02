@@ -283,7 +283,7 @@ const routes = createBrowserRouter([
       },
 
       /* profile */
-      { path: "catalog/settings", element: <SettingsPage /> },
+      { path: "settings", element: <SettingsPage /> },
     ]
   },
 
