@@ -1,15 +1,21 @@
-
 import ClientAdminNavBar from "@/components/AdminDashboard/Shared/ClientAdminNavBar";
 import ClientAdminSidebar from "@/components/ClientDashboard/ClientAdminSidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 const ClientAdminLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   const shouldHideNavbar =
     pathname === "/admin/catalog/submit/form" ||
@@ -119,6 +125,7 @@ const ClientAdminLayout = () => {
 
         {/* Scrollable Page Content */}
         <main
+          ref={mainRef}
           className={`flex-1 overflow-y-auto mt-16 text-white ${
             isSidebarOpen ? "pt-4 md:pt-10" : "p-4 md:p-10"
           }`}
