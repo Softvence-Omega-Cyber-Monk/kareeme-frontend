@@ -33,7 +33,7 @@ const AdminRoute = ({
     if (!isSuperAdmin) {
       // If not super admin, redirect to appropriate dashboard
       if (isAdmin) {
-        return <Navigate to="/admin-dashboard" replace />;
+        return <Navigate to="/super-admin-dashboard" replace />;
       }
       return <Navigate to={`/${user.role.toLowerCase()}-dashboard`} replace />;
     }

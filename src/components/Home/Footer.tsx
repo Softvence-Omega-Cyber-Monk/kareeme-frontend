@@ -1,9 +1,12 @@
 import img from "@/assets/logo 4.png";
 import { useState } from "react";
 // import { Send, Instagram, Youtube, Facebook, X } from "lucide-react";
-import logoImage from "@/assets/logo 1.png";
+// import logoImage from "@/assets/logo 1.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+
+import logo from "@/assets/kareme/icon/logo2.png";
+import star from "@/assets/kareme/icon/star1.png";
 
 import youtube from "@/assets/kareme/icon/youtube.svg";
 import instagram from "@/assets/kareme/icon/instagram.svg";
@@ -36,22 +39,41 @@ const Footer: React.FC = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: DRIPPING_CSS }} />
 
-      <footer className="relative z-[999] pointer-events-auto bg-gradient-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
-        <div className="w-full mx-auto px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+      <footer className="relative  pointer-events-auto bg-linear-to-b from-[#0D1E20] to-[#0D1E20] text-white font-['Inter']">
+        <div className="w-full mx-auto px-5 lg:px-30 py-12 lg:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           {/* LEFT SECTION */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Rotating Logo */}
-            <motion.div
+            {/* <div
               className="w-14 h-14  rounded-full  flex items-center justify-center ml-10"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+
             >
               <img
                 src={logoImage}
                 alt="Logo"
                 className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain"
               />
-            </motion.div>
+            </div> */}
+            <Link
+              to="/"
+              className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 ml-10"
+            >
+              {/* Rotating Star Ring */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={star}
+                  alt="Star"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full object-cover animate-[spin_12s_linear_infinite]"
+                />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full object-cover z-10 shadow-lg"
+                />
+              </div>
+            </Link>
 
             {/* Footer Text Image */}
             <img
@@ -63,7 +85,7 @@ const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4">
               <motion.a
-                href="#"
+                href="https://www.youtube.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#291213] hover:bg-[#3f1113]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -73,7 +95,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://www.instagram.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#242027] hover:bg-[#372d3f]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -83,7 +105,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://www.facebook.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#122640] hover:bg-[#0f2d55]"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -93,7 +115,7 @@ const Footer: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="https://x.com"
                 className="w-10 h-10 sm:w-10 sm:h-10 lg:w-12 lg:h-12 cursor-pointer rounded-full flex items-center justify-center transition-transform duration-300 bg-[#061416] hover:bg-gray-900"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -139,56 +161,58 @@ const Footer: React.FC = () => {
                 Shop
               </Link>
             </nav>
-
-            <div className=" flex justify-baseline items-center gap-3">
+            <div className="flex flex-row sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-xl">
+              {/* Input Wrapper */}
               <div
-                className="relative w-[384px] flex items-center rounded-[53px] border-t border-l border-r border-[rgba(198,198,198,0.19)]
-             bg-[linear-gradient(160deg,rgba(12,16,34,0.24)_-6.01%,rgba(41,183,84,0.06)_38.62%),rgba(12,16,34,0.6)] 
-             px-[20px] py-[19px] pr-[248px]"
+                className="relative flex items-center w-full rounded-full
+    border border-[rgba(198,198,198,0.19)]
+    bg-[linear-gradient(160deg,rgba(12,16,34,0.24)_-6.01%,rgba(41,183,84,0.06)_38.62%),rgba(12,16,34,0.6)]
+    px-5 py-4"
               >
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 cursor-pointer bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none"
+                  className="w-full bg-transparent text-white placeholder-gray-400 text-sm focus:outline-none"
                 />
               </div>
 
+              {/* Submit Button */}
               <motion.button
                 onClick={handleSubmit}
-                className=""
-                whileHover={{ scale: 1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Submit email"
+                className="self-end sm:self-auto"
               >
                 <img
                   src={sendmail}
-                  className="w-15 h-15 cursor-pointer border border-[#2C3C39] rounded-full text-white"
+                  alt="Send"
+                  className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer rounded-full "
                 />
               </motion.button>
             </div>
           </div>
 
           {/* RIGHT SECTION */}
-          <div className="flex flex-col items-center md:items-end space-y-6 w-full max-w-sm md:max-w-none">
-            <div className="grid grid-cols-2 md:flex md:flex-col md:space-y-2 gap-2 w-full md:w-auto text-center md:text-right">
+          <div className="flex flex-col items-center md:items-center space-y-6 w-full max-w-sm md:max-w-none">
+            <div className="grid grid-cols-2 md:flex md:flex-col md:space-y-2 gap-2 w-full md:w-auto text-center md:text-left">
               {/* Manually written footer links */}
               <Link
                 to="/privacy"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Privacy Policy
               </Link>
               <Link
                 to="/term"
-                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base"
+                className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Terms & Condition
               </Link>
 
-              <div className="flex flex-col items-center md:items-end col-span-2 md:col-span-1">
-                <p className="text-gray-400 text-sm mb-1">Email</p>
+              <div className="flex flex-col items-center md:items-start col-span-2 md:col-span-1">
+                <p className="text-gray-400 text-sm mb-1 underline ">Email</p>
                 <a
                   href="mailto:Info@OneIOneEnt.com"
                   className="text-white hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base break-all"

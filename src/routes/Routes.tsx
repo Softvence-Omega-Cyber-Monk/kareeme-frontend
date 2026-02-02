@@ -60,7 +60,6 @@ import SplitSheetDetail from "@/components/ClientDashboard/Catalog/SplitSheets/S
 import EditorialSupportPage from "@/pages/Client/EditorialSupportPage";
 import EditorialStapeComponent from "@/components/ClientDashboard/EditorialSupport/EditorialStapeComponent";
 import EditorialPitchForm from "@/components/ClientDashboard/EditorialSupport/EditorialPitchForm";
-import Home from "@/components/Home/Home";
 import LabelBridge from "@/components/LabelBridge/LabelBridge";
 import NewsArticlesPage from "@/pages/Home/NewsArticlesPage";
 import AboutPage from "@/pages/Home/AboutPage";
@@ -68,6 +67,9 @@ import Shop from "@/components/Home/Shop/Shop";
 import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
+import Home from "@/components/Home/Home";
+import ClientAdminLayout from "@/Layout/ClientAdminLayout";
+import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
 
 const routes = createBrowserRouter([
   {
@@ -103,6 +105,7 @@ const routes = createBrowserRouter([
         path: "/cart",
         element: <ProductDetailPage></ProductDetailPage>,
       },
+      
       {
         path: "/details/:id",
         element: <ProductDetailPage></ProductDetailPage>,
@@ -212,9 +215,9 @@ const routes = createBrowserRouter([
     ],
   },
 
-  /* Admin Dashboard */
+  /* Super Admin Dashboard */
   {
-    path: "/admin-dashboard",
+    path: "/super-admin-dashboard",
     element: (
       // <AdminRoute>
       <AdminLayout />
@@ -234,6 +237,54 @@ const routes = createBrowserRouter([
       { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
     ],
+  },
+  {
+    path:"/admin",
+    element:(
+     <ClientAdminLayout />
+    ),
+    children:[
+      { index: true, element: <ClientAdminDashboard /> },
+      { path: "dashboard", element: <ClientAdminDashboard /> },
+      { path: "analytics", element: <ClientAnalyticsPage /> },
+      /* Analytics*/
+      { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
+      { path: "analytics/spotify", element: <SpotifyPage /> },
+      { path: "analytics/apple-music", element: <AppleMusicPage /> },
+      { path: "analytics/sound-cloud", element: <SoundCloudPage /> },
+      { path: "analytics/audiomack", element: <AudiomackPage /> },
+      { path: "analytics/deezer", element: <DeezerPage /> },
+      { path: "analytics/tidal", element: <TIDALPage /> },
+      { path: "analytics/iheart-radio", element: <IHeartRadioPage /> },
+      /* Accounting */
+      { path: "accounting/statement", element: <StatementPage /> },
+      { path: "accounting/statement/:id", element: <StatementDetailsPage /> },
+      { path: "accounting/profit-loss", element: <ProfitLossPage /> },
+      /*  Catalog*/
+      { path: "catalog/releases", element: <ReleasesPage /> },
+      { path: "catalog/releases/:id", element: <ReleasesDetails /> },
+      { path: "catalog/submit", element: <SubmitPage /> },
+      { path: "catalog/submit/form", element: <StapeComponent /> },
+
+      { path: "catalog/back-catalog", element: <BackCatalogPage /> },
+      { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
+      { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
+      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+
+      /* Editorial Support */
+      { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
+      { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
+      /*  */
+
+      {
+        path: "catalog/editorial-submit/form",
+        element: <EditorialStapeComponent />,
+      },
+
+      /* profile */
+      { path: "settings", element: <SettingsPage /> },
+    ]
   },
 
   {

@@ -7,294 +7,242 @@ const PrivacyPolicy: React.FC = () => {
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 sm:mb-8 uppercase tracking-wide">
           Privacy Policy
         </h1>
+        <p className='text-[16px] mb-5'>
+          Effective Date: January 1st 2026
 
+        </p>
         <div className="space-y-6 sm:space-y-8 text-sm sm:text-base leading-relaxed">
           {/* Introduction */}
           <section>
             <p className="text-justify sm:text-left mb-4">
-              This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from www.blessedlightstudio.com (the "Site").
+              One Is One Entertainment (“OneIsOne Ent”, “we”, “our”, or “us”) is the owner and operator of the Site and the provider of the Services.
+              OneIsOne Entertainment respects your privacy, and we created this privacy policy (the “Policy”). This Policy governs the manner in which
+              OneIsOne Entertainment collects, uses, maintains, and discloses information collected from users (each, a "User") of the OneIsOneEnt.com
+              website (the “Site”), Label Bridge Application (the “Application”), its network, and its personalized support (collectively, the “Services”).
+              This privacy policy applies to the Services and all other products and services offered by
+              OneIsOne Entertainment. The Policy is only applicable to our Services and not to any other website, service, or online platform.
             </p>
+            <div className='text-[18px] text-red-500'>
+              BY DOWNLOADING THE APPLICATION, ACCESSING AND/OR UTILIZING THE SERVICES, AND/OR REGISTERING WITH US, YOU SIGNIFY THAT YOU HAVE READ, UNDERSTOOD,
+              AND AGREE TO BE BOUND BY THIS POLICY, INCLUDING OUR TERMS OF SERVICE, WHICH ARE INCORPORATED HEREIN BY REFERENCE.
+            </div>
           </section>
 
           {/* Personal Information We Collect */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Personal Information We Collect
+              Our Use of Your Information
             </h2>
             <p className="mb-3">
-              When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as "Device Information."
+              Our primary purpose in collecting information, both Personal Information and other is to provide you with a safe,
+              smooth, efficient, and customized experience. OneIsOne Entertainment collects and uses Users' personal information for the following purposes: <br />
+              <br />  - To verify your eligibility to use the Service.
+              <br />   - To provide the services promised by the Service.
+              <br />   - To update our information to your Account.
+              <br />   - To verify submissions to our Services from your Account.
+              <br />   - To confirm reporting based on your Account.
+              <br />   - To produce the final documents promised by the Service.
+              <br />   - To more effectively respond to your customer service requests and support needs.
+              <br />   - To improve customer service, generally.
+              <br />   - To troubleshoot problems and prevent potentially prohibited or illegal activities.
+              <br />   - To monitor and enforce our Terms of Service.
+              <br />   - To personalize user experience.
+              <br />   - To customize, measure, and improve our Services, content, and advertising. To, in the aggregate, understand how our Users as a group use the services and resources provided on our Site.
+              <br />   - To improve our Site, generally.
+              <br />   - To improve our website offerings based on the information and feedback we receive from you.
+              <br />   - To communicate with Users, generally, about products and/or services they may be interested in.
+              <br />   - To tell you about our Services, targeted marketing, service updates, and promotional offers based on your communication preferences.
+              <br />   - To process transactions.
+              <br />   - To fulfil any orders placed through the Site (including processing your payment
+              information, arranging for shipping, and providing you with invoices and/or order confirmations).
+              <br />  - To provide service to, based on a specific User’s order and the information they provide about themselves when placing that order. (We do not share this information with outside parties except to the extent necessary to provide the service).
+              <br />  - To screen our orders for potential risk of fraud.
+              <br />   - To administer a content, promotion, survey, or other Site feature.
+              <br />  - To send Users information they agreed to receive about topics we think will be of interest to them.
+              <br />   - To send periodic emails.
+              <br />  - To send our mailing list, if any, that Users will be opted into upon registration.
+              <br />   - To confirm any desire to unsubscribe from receiving future emails.
             </p>
             <p className="mb-3 font-medium text-white">
-              We collect Device Information using the following technologies:
+              Types of Information Collected
             </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">
-                <span className="font-medium text-white">"Cookies"</span> are data files that are placed on your device or computer and often include an anonymous unique identifier. For more information about cookies, and how to disable cookies, visit http://www.allaboutcookies.org.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">"Log files"</span> track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">"Web beacons," "tags," and "pixels"</span> are electronic files used to record information about how you browse the Site.
-              </li>
-            </ul>
-            <p className="mb-3">
-              Additionally when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information (including credit card numbers), email address, and phone number. We refer to this information as "Order Information."
-            </p>
-            <p>
-              When we talk about "Personal Information" in this Privacy Policy, we are talking both about Device Information and Order Information.
-            </p>
-          </section>
+            We may collect personal identification information from Users under a variety of circumstances, including, but not limited to when Users: 
+            
+            <br /> <br /> (i) visit our Site,
+            <br />  (ii) register on the Site,
+            <br />  (iii) subscribe to a newsletter,
+            <br />  (iv) fill out a form,
+            <br />  (v) purchase something from our store,
+            <br /> (vi) email us directly,
+            <br />  (vii) sign up for a service,
+            <br /> (viii) seek help via support, and
+            <br />  (ix) in connection with other activities, services, features, or resources we make available on our Site.
+            <br /> Users may be asked for, as appropriate, some or all of the following types of information which may be identifiable to you:
+            <br /> (i) name,
+            <br /> (ii) email address,
+            <br />  (iii) mailing address,
+            <br />  (iv) phone number,
+            <br />  (v) other contact information,
+            <br />  (vi) your age,
+            <br /> (vii) information for the purpose of authenticating yourself or your account if we have reason to believe, in our sole discretion, that you may be violating site policies or for any other reason we deem necessary (collectively “Personal
+            Identification Information”). You are responsible for ensuring the accuracy of all Personal Information you submit to OneIsOne Entertainment.
 
+          </section>
+          <p className='mb-3 font-medium text-white'>Voluntariness
+          </p>
           {/* How Do We Use Your Personal Information? */}
           <section>
-            <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              How Do We Use Your Personal Information?
-            </h2>
-            <p className="mb-3">
-              We use the Order Information that we collect generally to fulfill any orders placed through the Site (including processing your payment information, arranging for shipping, and providing you with invoices and/or order confirmations). Additionally, we use this Order Information to:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">Communicate with you;</li>
-              <li className="pl-2">Screen our orders for potential risk or fraud; and</li>
-              <li className="pl-2">When in line with the preferences you have shared with us, provide you with information or advertising relating to our products or services.</li>
-            </ul>
-            <p>
-              We use the Device Information that we collect to help us screen for potential risk and fraud (in particular, your IP address), and more generally to improve and optimize our Site (for example, by generating analytics about how our customers browse and interact with the Site, and to assess the success of our marketing and advertising campaigns).
-            </p>
+            We will collect and store Personal Identification Information from Users only if they voluntarily
+            submit such information to us through registering with us or uploading or
+            posting User Content through the Services. Users can always refuse to supply personally
+            identifiable information, except that it may prevent them from engaging in certain Service-related
+            activities. We urge you to exercise caution when deciding to disclose any Personal Information through the Services.
           </section>
 
           {/* Sharing Your Personal Information */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Sharing Your Personal Information
+              Age of Consent
             </h2>
-            <p className="mb-3">
-              We share your Personal Information with third parties to help us use your Personal Information, as described above. For example, we use Shopify to power our online store--you can read more about how Shopify uses your Personal Information here: https://www.shopify.com/legal/privacy. We also use Google Analytics to help us understand how our customers use the Site--you can read more about how Google uses your Personal Information here: https://www.google.com/intl/en/policies/privacy/. You can also opt-out of Google Analytics here: https://tools.google.com/dlpage/gaoptout.
-            </p>
-            <p className="mb-3">
-              Finally, we may also share your Personal Information to comply with applicable laws and regulations, to respond to a subpoena, search warrant or other lawful request for information we receive, or to otherwise protect our rights.
-            </p>
+            <p>Protecting the privacy of young children is especially important to us.
+              For that reason, OneIsOne Entertainment does not knowingly collect or solicit Personal Information from anyone
+              under the age of majority in your state or province of residence. By using this site, you represent that you
+              are at least the age of majority in your state or province of residence or that you are the age of majority in
+              your state or province of residence and you have given us your consent to allow any of your minor dependents
+              to use this site. If you are under the age of majority,
+              you should review this agreement with your parent or guardian to make sure that you and your parent or guardian
+              understand and agree to it.</p>
           </section>
 
           {/* Behavioural Advertising */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Behavioural Advertising
+              Non-Personal Identification Information
             </h2>
             <p className="mb-3">
-              As described above, we use your Personal Information to provide you with targeted advertisements or marketing communications we believe may be of interest to you. For more information about how targeted advertising works, you can visit the Network Advertising Initiative's ("NAI") educational page at http://www.networkadvertising.org/understanding-online-advertising/how-does-it-work.
+              When you utilize our Service, we may collect non-personal identification
+              information about Users whenever they interact with our Service, such as: your IP address;
+              the URLs of websites you arrive at the Service from or leave the Service to go to; your type
+              of browser and language; access times; your email client; the content of any undeleted cookies that
+              your browser previously accepted from us;
+              the type of computer and technical information about your means of connection to the Service, such as the
+              operating system and the Internet service providers utilized and other similar information; your mobile provider,
+              and/or your mobile device. We may use such information to better understand how the Service visitors use the Service,
+              to analyze trends, administer the website, prevent fraud,
+              and gather broad demographic information.
             </p>
             <p className="mb-3 font-medium text-white">
-              You can opt out of targeted advertising by:
+              Web Browser Cookies
             </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">FACEBOOK - https://www.facebook.com/settings/?tab=ads</li>
-              <li className="pl-2">GOOGLE - https://www.google.com/settings/ads/anonymous</li>
-              <li className="pl-2">BING - https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</li>
-            </ul>
-            <p>
-              Additionally, you can opt out of some of these services by visiting the Digital Advertising Alliance's opt-out portal at: http://optout.aboutads.info/.
-            </p>
+            Our Service may use "cookies" to enhance the User experience. Cookies are very
+            small files placed on your drive, and they allow us to count the number of visitors
+            to OneIsOne Entertainment and distinguish repeat visitors from new visitors. They
+            also allow us to save User preferences and track User trends. A User's web
+            browser places cookies on their hard drive for record-keeping purposes and
+            sometimes to track information about them. Users may choose to set their web  browser to
+            refuse cookies or to alert them when cookies are being sent. If they do  so, note that
+            some parts of the Site may not function properly.
+
           </section>
 
           {/* Do Not Track */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Do Not Track
+              Consent
             </h2>
             <p className="text-justify sm:text-left">
-              Please note that we do not alter our Site's data collection and use practices when we see a Do Not Track signal from your browser.
+              When you provide us with personal information to complete a transaction, verify your credit card, place an order, arrange for a delivery or return a purchase, you imply that you consent to our collecting it and using it for that specific reason only or for reasons related to carrying out the task. If you send an email to us, we will collect your email address and the full content of your email, including attached files, and other information you provide. By opting in, you imply your consent to our collecting and using your Personal Identification Information for the reasons above, or for reasons reasonably related to those reasons. If after you opt-in, or at any time, you change your mind; you may withdraw your consent for us to contact you by following
+              the unsubscribe instructions provided in the promotional email you receive or by contacting us directly at  Info@OneIsOneEnt.com
             </p>
           </section>
 
           {/* Your Rights */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Your Rights
+              Your Information Protection
             </h2>
             <p className="mb-3">
-              If you are a European resident, you have the right to access personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us through the contact information below.
+
+              The Personal Information we collect is stored on a secure, password-protected server, and only authorized personnel have access to your information. We adopt appropriate data collection, storage, and processing practices and security
+              measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal information, username, password, transaction information, and data stored for our Service. We use industry-standard encryption
+              technologies with respect to the receipt and transfer of Personal Information you submit.
+              <p className='mb-2'>
+                Nevertheless, despite our best efforts, no transmission over the Internet and no
+                data storage method can be guaranteed to be safe 100% of the time. OneIsOne Entertainment cannot ensure or warrant the security of any information you
+                transmit to us or guarantee that your end-user data stored on the Services may not be accessed, disclosed, altered, or destroyed by breach of any of our industry-standard physical, technical, or managerial safeguards.
+              </p>
             </p>
-            <p>
-              Additionally, if you are a European resident we note that we are processing your information in order to fulfill contracts we might have with you (for example if you make an order through the Site), or otherwise to pursue our legitimate business interests listed above. Additionally, please note that your information will be transferred outside of Europe, including to Canada and the United States.
-            </p>
+
           </section>
 
           {/* Data Retention */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Data Retention
+              Disclosure
             </h2>
             <p className="text-justify sm:text-left">
-              When you place an order through the Site, we will maintain your Order Information for our records unless and until you ask us to delete this information.
+              OneIsOne Entertainment is committed to maintaining your trust, and we want you to
+              understand when and with whom we may share information collected about you. We may
+              disclose Personal Information to: (i) respond to legal requirements, including by subpoena or
+              under deposition, (ii) enforce our policies, (iii) respond to claims that a listing or other content
+              violates the rights of others, or (iv) protect anyone’s rights, property, or safety. Such information will
+              be disclosed in accordance with applicable laws and regulations.
+
             </p>
           </section>
 
           {/* Minors */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Minors
+              Sharing
             </h2>
             <p className="text-justify sm:text-left">
-              The Site is not intended for individuals under the age of 18.
+              We do not sell, trade, or rent Users' personal identification information to others.
+              However, we may share generic aggregated demographic information not linked to any
+              personal identification information regarding visitors and users with our business
+              partners, trusted affiliates, and advertisers for the purposes outlined above. We may
+              use a third-party service provider(s) to help us operate our business and the Site or administer activities on our behalf, such as sending out
+              newsletters or surveys.
             </p>
           </section>
 
           {/* Changes */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Changes
+              Changes to This Privacy Policy
             </h2>
             <p className="text-justify sm:text-left">
-              We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal or regulatory reasons.
+              OneIsOne Entertainment reserves the right to update this privacy policy at any time. When we do, we will revise the
+              updated date at the top of this page. Any such changes to this Policy will be posted here on our Site. We encourage Users to frequently
+              check this page for any changes to stay informed about how we are helping to protect the personal information we collect.
             </p>
           </section>
 
           {/* Contact Us */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Contact Us
+              Your Acceptance of These Terms
             </h2>
             <p className="mb-3">
-              For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at blessedlightstudio@gmail.com or by mail using the details provided below:
+              By using the Services, you signify your acceptance of this policy and terms of service. If you do not agree to this policy, please do
+              not use our Site. Your continued use of the Site following the posting of changes to this policy will be deemed your acceptance of those changes.
             </p>
-            <div className="mt-3 space-y-1 bg-black/30 p-4 rounded-lg border border-gray-800">
-              <p>
-                <span className="font-medium text-white">Address:</span> 11911 Freedom Drive Suite 620, Reston, VA, 20190, United States
-              </p>
-            </div>
           </section>
 
           {/* California Residents (CCPA) */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              California Residents (CCPA Compliance)
+              Contacting Us
             </h2>
             <p className="mb-3">
-              If you are a California resident, you have specific rights regarding your personal information under the California Consumer Privacy Act (CCPA).
-            </p>
-            
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Right to Know and Access
-            </h3>
-            <p className="mb-3">
-              You have the right to request that we disclose certain information to you about our collection and use of your personal information over the past 12 months. Once we receive and confirm your verifiable consumer request, we will disclose to you:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">The categories of personal information we collected about you.</li>
-              <li className="pl-2">The categories of sources for the personal information we collected about you.</li>
-              <li className="pl-2">Our business or commercial purpose for collecting or selling that personal information.</li>
-              <li className="pl-2">The categories of third parties with whom we share that personal information.</li>
-              <li className="pl-2">The specific pieces of personal information we collected about you.</li>
-            </ul>
-
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Right to Delete
-            </h3>
-            <p className="mb-3">
-              You have the right to request that we delete any of your personal information that we collected from you and retained, subject to certain exceptions. Once we receive and confirm your verifiable consumer request, we will delete (and direct our service providers to delete) your personal information from our records, unless an exception applies.
-            </p>
-
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Right to Opt-Out of Sale
-            </h3>
-            <p className="mb-3">
-              We do not sell personal information. However, if our practices change, we will update this Privacy Policy and provide you with the ability to opt-out of the sale of your personal information.
-            </p>
-
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Right to Non-Discrimination
-            </h3>
-            <p className="mb-3">
-              We will not discriminate against you for exercising any of your CCPA rights. Unless permitted by the CCPA, we will not:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">Deny you goods or services.</li>
-              <li className="pl-2">Charge you different prices or rates for goods or services, including through granting discounts or other benefits, or imposing penalties.</li>
-              <li className="pl-2">Provide you a different level or quality of goods or services.</li>
-              <li className="pl-2">Suggest that you may receive a different price or rate for goods or services or a different level or quality of goods or services.</li>
-            </ul>
-
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Exercising Your Rights
-            </h3>
-            <p className="mb-3">
-              To exercise your rights described above, please submit a verifiable consumer request to us by either:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">Emailing us at blessedlightstudio@gmail.com</li>
-              <li className="pl-2">Calling us at the number provided in our contact section</li>
-            </ul>
-            <p className="mb-3">
-              Only you, or a person registered with the California Secretary of State that you authorize to act on your behalf, may make a verifiable consumer request related to your personal information. You may also make a verifiable consumer request on behalf of your minor child.
-            </p>
-            <p className="mb-3">
-              You may only make a verifiable consumer request for access or data portability twice within a 12-month period. The verifiable consumer request must:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">Provide sufficient information that allows us to reasonably verify you are the person about whom we collected personal information or an authorized representative.</li>
-              <li className="pl-2">Describe your request with sufficient detail that allows us to properly understand, evaluate, and respond to it.</li>
-            </ul>
-            <p>
-              We cannot respond to your request or provide you with personal information if we cannot verify your identity or authority to make the request and confirm the personal information relates to you. We will only use personal information provided in a verifiable consumer request to verify the requestor's identity or authority to make the request.
+              If you have any questions about this Privacy Policy, the practices of this site, or
+              your dealings with this site; or if you would like to: access, correct, amend or
+              delete any personal
+              information we have about you, register a complaint, or simply  want more information;
+              please contact us at:  Info@OneIsOneEnt.com
             </p>
           </section>
 
-          {/* Virginia Residents (VCDPA) */}
-          <section>
-            <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4 uppercase">
-              Virginia Residents (VCDPA Compliance)
-            </h2>
-            <p className="mb-3">
-              If you are a Virginia resident, you have specific rights under the Virginia Consumer Data Protection Act (VCDPA).
-            </p>
-            
-            <p className="mb-3 font-medium text-white">
-              Your Virginia Privacy Rights include:
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 mb-4">
-              <li className="pl-2">
-                <span className="font-medium text-white">Right to Access:</span> You may request confirmation of whether we are processing your personal data and access to such personal data.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">Right to Correct:</span> You may request correction of inaccuracies in your personal data, taking into account the nature of the personal data and the purposes of the processing.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">Right to Delete:</span> You may request deletion of personal data provided by or obtained about you.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">Right to Data Portability:</span> You may request a copy of your personal data in a portable and, to the extent technically feasible, readily usable format.
-              </li>
-              <li className="pl-2">
-                <span className="font-medium text-white">Right to Opt-Out:</span> You may opt out of the processing of personal data for purposes of targeted advertising, the sale of personal data, or profiling in furtherance of decisions that produce legal or similarly significant effects.
-              </li>
-            </ul>
-
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Exercising Your Virginia Rights
-            </h3>
-            <p className="mb-3">
-              To exercise these rights, please contact us at blessedlightstudio@gmail.com. We will respond to your request within 45 days. If we need additional time, we will inform you of the reason and extension period in writing.
-            </p>
-            
-            <h3 className="text-sm sm:text-base font-semibold text-white mb-2 mt-4">
-              Appeals Process
-            </h3>
-            <p>
-              If we decline to take action regarding your request, you may appeal our decision by contacting us at blessedlightstudio@gmail.com and specifying you wish to appeal. Within 60 days of our receipt of your appeal, we will inform you in writing of any action taken or not taken in response to the appeal, including a written explanation of the reasons for the decisions.
-            </p>
-          </section>
-
-          {/* Footer Note */}
-          <section className="pt-6 sm:pt-8 border-t border-gray-800">
-            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-              By using our website and services, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.
-            </p>
-            <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
-              Last Updated: December 2024
-            </p>
-          </section>
         </div>
       </div>
     </div>
@@ -302,146 +250,3 @@ const PrivacyPolicy: React.FC = () => {
 };
 
 export default PrivacyPolicy;
-
-// import React from 'react';
-
-// const PrivacyPolicy: React.FC = () => {
-//   return (
-//     <div className="w-full mx-auto bg-black/40 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
-//       <div className="w-7xl mx-auto ">
-//         <h1 className="text-2xl font-bold text-white mb-8 uppercase tracking-wide">
-//           Privacy Policy
-//         </h1>
-
-//         <div className="space-y-8 text-sm leading-relaxed">
-//           {/* Introduction */}
-//           <section>
-//             <p>
-//               At Rhythm, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you visit our website or make a purchase from us. By using our services, you consent to the practices described in this policy.
-//             </p>
-//           </section>
-
-//           {/* Information We Collect */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Information We Collect
-//             </h2>
-//             <p className="mb-3">
-//               We may collect various types of information when you interact with our website:
-//             </p>
-//             <ul className="list-disc list-inside space-y-2 ml-4">
-//               <li>Personal Information: When you make a purchase or create an account, we collect your name, email address, shipping address, billing address, and payment information.</li>
-//               <li>Usage Information: We gather data about how you navigate our website, including your IP address, browser type, pages visited, and the time spent on each page.</li>
-//               <li>Cookies and Similar Technologies: We use cookies and similar tracking technologies to enhance your browsing experience and collect information about your preferences.</li>
-//             </ul>
-//           </section>
-
-//           {/* How We Use Your Information */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               How We Use Your Information
-//             </h2>
-//             <p className="mb-3">
-//               We use the information we collect for various purposes, including:
-//             </p>
-//             <ul className="list-disc list-inside space-y-2 ml-4">
-//               <li>Processing and fulfilling your orders.</li>
-//               <li>Communicating with you about your orders, inquiries, and updates.</li>
-//               <li>Personalizing your shopping experience and showing you relevant products.</li>
-//               <li>Improving our website's functionality and user experience.</li>
-//               <li>Sending you promotional materials and marketing communications (you can opt-out at any time).</li>
-//               <li>Detecting and preventing fraud or unauthorized activities.</li>
-//             </ul>
-//           </section>
-
-//           {/* Information Sharing and Disclosure */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Information Sharing and Disclosure
-//             </h2>
-//             <p className="mb-3">
-//               We may share your information with third parties in the following circumstances:
-//             </p>
-//             <ul className="list-disc list-inside space-y-2 ml-4">
-//               <li>Service Providers: We may share your data with trusted third-party service providers who assist us in operating our website, processing payments, and delivering orders.</li>
-//               <li>Legal Compliance: We may disclose your information if required by law, government request, or to protect our rights, privacy, safety, or property.</li>
-//               <li>Business Transfers: In the event of a merger, acquisition, or sale of all or part of our business, your information may be transferred to the acquiring entity.</li>
-//             </ul>
-//           </section>
-
-//           {/* Data Security */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Data Security
-//             </h2>
-//             <p>
-//               We implement reasonable security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction. However, no data transmission over the internet or electronic storage method is entirely secure, and we cannot guarantee absolute security.
-//             </p>
-//           </section>
-
-//           {/* Your Choices */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Your Choices
-//             </h2>
-//             <p className="mb-3">
-//               You have certain rights and choices regarding your personal information:
-//             </p>
-//             <ul className="list-disc list-inside space-y-2 ml-4">
-//               <li>Access and Correction: You can access and update your account information at any time by logging into your account.</li>
-//               <li>Marketing Communications: You can opt-out of receiving promotional emails by following the unsubscribe instructions provided in the emails.</li>
-//               <li>Cookies: You can manage your cookie preferences through your browser settings.</li>
-//             </ul>
-//           </section>
-
-//           {/* Children's Privacy */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Children's Privacy
-//             </h2>
-//             <p>
-//               Our website is not intended for children under the age of 13. We do not knowingly collect or solicit personal information from children. If you believe we have collected information from a child, please contact us, and we will take appropriate action.
-//             </p>
-//           </section>
-
-//           {/* Changes to this Privacy Policy */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Changes to this Privacy Policy
-//             </h2>
-//             <p>
-//               We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the updated policy on our website.
-//             </p>
-//           </section>
-
-//           {/* Contact Us */}
-//           <section>
-//             <h2 className="text-lg font-semibold text-white mb-4 uppercase">
-//               Contact Us
-//             </h2>
-//             <p>
-//               If you have any questions, concerns, or requests related to this Privacy Policy or our data practices, please contact us at:
-//             </p>
-//             <p className="mt-3">
-//               Email: info@rhythm.com<br />
-//               Phone: +1 (555) 123-4567<br />
-//               Address: 123 Rhythm Street, Fashion City, FC 12345
-//             </p>
-//           </section>
-
-//           {/* Footer Note */}
-//           <section className="pt-8 border-t border-gray-800">
-//             <p className="text-xs text-gray-500">
-//               By using our website and services, you acknowledge that you have read and understood this Privacy Policy and agree to its terms. Thank you for trusting Rhythm with your personal information.
-//             </p>
-//             <p className="text-xs text-gray-500 mt-4">
-//               Last Updated: November 2024
-//             </p>
-//           </section>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PrivacyPolicy;

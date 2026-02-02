@@ -1,11 +1,12 @@
-import img1 from "@/assets/cart12.png";
+// import img1 from "@/assets/cart12.png";
+import img1 from "@/assets/kareme/photo/lebel5.svg";
 
 import React from "react";
 
 // --- Data Definitions ---
 const catalogueContent = {
   title: "CATALOGUE ARRANGEMENT",
-  description: `At LabelEngine, we firmly believe that the organization of a music catalog is essential for effectively managing an artist's or label's collection. A well-structured catalog ensures that tracks are systematically arranged and readily available for distribution and sales. Each track is typically assigned an International Standard Recording Code (ISRC), which serves as a unique identifier, facilitating the efficient tracking of audio recordings across multiple platforms and aiding in royalty management. Furthermore, albums and compilations receive a Universal Product Code (UPC), which plays a similar role in retail, helping with sales tracking and inventory oversight. Effective catalog organization, complete with precise metadata and coding, not only streamlines the distribution process but also boosts visibility on streaming platforms and in retail spaces, thereby maximizing an artist's exposure and revenue potential. By keeping a meticulously organized organized catalog, music creators can ensure their works are properly managed and protected in an increasingly competitive landscape.`,
+  description: `At LabelBridge, we firmly believe that the organization of a music catalog is essential for effectively managing an artist's or label's collection. A well-structured catalog ensures that tracks are systematically arranged and readily available for distribution and sales. Each track is typically assigned an International Standard Recording Code (ISRC), which serves as a unique identifier, facilitating the efficient tracking of audio recordings across multiple platforms and aiding in royalty management. Furthermore, albums and compilations receive a Universal Product Code (UPC), which plays a similar role in retail, helping with sales tracking and inventory oversight. Effective catalog organization, complete with precise metadata and coding, not only streamlines the distribution process but also boosts visibility on streaming platforms and in retail spaces, thereby maximizing an artist's exposure and revenue potential. By keeping a meticulously organized organized catalog, music creators can ensure their works are properly managed and protected in an increasingly competitive landscape.`,
   imageSrc: "/images/image_2d0ec2.png",
   imageAlt: "Catalogue Arrangement Menu Mockup",
 };

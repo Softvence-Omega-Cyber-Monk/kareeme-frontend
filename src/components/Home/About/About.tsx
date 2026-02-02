@@ -1,5 +1,4 @@
 import HeroSection from "./HeroSection";
-
 import MissionSection from "./MissionSection";
 import EmpoweringSection from "./EmpoweringSection";
 import VisionSection from "./VisionSection";
@@ -14,7 +13,6 @@ const About = () => {
   return (
     <div className="w-full overflow-x-hidden">
       <HeroSection />
-
       <MissionSection />
       <EmpoweringSection />
       <VisionSection />

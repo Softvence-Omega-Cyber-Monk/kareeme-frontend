@@ -1,12 +1,11 @@
-import NewsArticles from "@/components/Home/NewsArticles/NewsArticles"
-
+import NewsArticles from "@/components/Home/NewsArticles/NewsArticles";
 
 const NewsArticlesPage = () => {
   return (
     <div>
-      <NewsArticles/>
+      <NewsArticles />
     </div>
-  )
-}
+  );
+};
 
-export default NewsArticlesPage
+export default NewsArticlesPage;

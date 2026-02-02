@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ReuseButon from "../Shared/ReuseButon";
 
 const CTASection = () => {
@@ -6,7 +7,8 @@ const CTASection = () => {
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-          Join Us on the Journey
+  
+          JOIN US ON THE JOURNEY
         </h2>
 
         {/* Description */}
@@ -36,10 +38,10 @@ const CTASection = () => {
           </button>
         </div> */}
 
-        <ReuseButon
+      <Link to="/login">  <ReuseButon
           text="Join Us Now"
           onClick={() => console.log("Button clicked")}
-        />
+        /></Link>
       </div>
     </div>
   );

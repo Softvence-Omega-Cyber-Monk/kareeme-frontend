@@ -1,17 +1,18 @@
-import { HeroItems } from "./HeroItems";
-import MusicPlatforms from "@/components/Home/MusicPlatforms";
-import WhatWeDoSection from "./WhatWeDoSection";
-import FeaturesSection from "./FeaturesSection";
-import HeroBanner from "./HeroBanner";
-import ReleasesStrategy from "./ReleaseStrategy";
-import MarketingProcess from "./CoreFeaturesSection";
-import FeaturedArticlesSection from "./FeaturedArticlesSection";
-import DevelopmentArtist from "./DevelopmentArtist";
-import DistributionSection from "./DistributionSection";
-import Overview from "@/components/Home/Overview";
 import CollageImage from "@/components/Home/CollageImage";
-import WorkWithUsSection from "./WorkWithUsSection";
+
 import CommonWrapper from "@/common/CommonWrapper";
+import { HeroItems } from "@/components/Home/HeroItems";
+import Overview from "@/components/Home/Overview";
+import MusicPlatforms from "@/components/Home/MusicPlatforms";
+import WhatWeDoSection from "@/components/Home/WhatWeDoSection";
+import FeaturesSection from "@/components/Home/FeaturesSection";
+import HeroBanner from "@/components/Home/HeroBanner";
+import ReleasesStrategy from "@/components/Home/ReleaseStrategy";
+import MarketingProcess from "@/components/Home/CoreFeaturesSection";
+import FeaturedArticlesSection from "@/components/Home/FeaturedArticlesSection";
+import DevelopmentArtist from "@/components/Home/DevelopmentArtist";
+import DistributionSection from "@/components/Home/DistributionSection";
+import WorkWithUsSection from "@/components/Home/WorkWithUsSection";
 
 const customStyles = `
   /* Tailwind requires a base for custom layers */

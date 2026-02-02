@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import img2 from "@/assets/photo/Frame 1321317706.png";
-import img1 from "@/assets/Frame 1321317706.png";
+// import img2 from "@/assets/photo/Frame 1321317706.png";
+// import img1 from "@/assets/Frame 1321317706.png";
+import img1 from "@/assets/kareme/photo/lebel1.svg";
+import img2 from "@/assets/kareme/photo/lebel2.svg";
 
 // --- Data Definitions ---
 const splitSheetContent = {

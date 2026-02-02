@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import loginphoto from "@/assets/photo/signup.svg";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { setCredentials } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks/redux-hook";
+import { toast } from "sonner";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const location = useLocation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
+
+  // Show success toast from navigation state if exists
+  useEffect(() => {
+    if (location.state?.message) {
+      toast.success(location.state.message);
+      // Clear state to prevent toast on refresh (though location state persists, doing this in strict mode is fine)
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Check if already logged in
   useEffect(() => {
@@ -33,7 +43,7 @@ const Login: React.FC = () => {
         break;
       case "SUPER_ADMIN":
       case "ADMIN":
-        navigate("/admin-dashboard");
+        navigate("/super-admin-dashboard");
         break;
       case "ACCOUNTANT":
         navigate("/accountant-dashboard");
@@ -48,26 +58,27 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       const result = await login({ email, password }).unwrap();
 
+      toast.success("Logged in successfully");
+
       dispatch(
         setCredentials({
-          user: result.user,
-          token: result.access_token,
-          refreshToken: result.refresh_token,
+          user: result.data.user,
+          token: result.data.access_token,
+          refreshToken: result.data.refresh_token,
         })
       );
 
-      redirectBasedOnRole(result.user.role);
+      redirectBasedOnRole(result.data.user.role);
     } catch (err: any) {
       console.error("Login failed:", err);
-      setError(
+      toast.error(
         err?.data?.message ||
-          err?.error?.data?.message ||
-          "Login failed. Please check your credentials."
+        err?.error?.data?.message ||
+        "Login failed. Please check your credentials."
       );
     }
   };
@@ -94,11 +105,8 @@ const Login: React.FC = () => {
             to your dashboard, music distribution, and more.
           </p>
 
-          {error && (
-            <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg">
-              <p className="text-red-300 text-sm">{error}</p>
-            </div>
-          )}
+
+
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Email */}

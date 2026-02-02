@@ -1,6 +1,7 @@
 import video from "@/assets/video/animation-Video.mp4";
 import Footer from "@/components/Home/Footer";
-import { Navbar } from "@/components/Home/Navber";
+import { NavBar } from "@/components/Home/NavBar";
+
 import { Outlet } from "react-router-dom";
 
 const Layout: React.FC = () => {
@@ -18,9 +19,9 @@ const Layout: React.FC = () => {
       </video>
 
       {/* Main Content */}
-      <main className="relative z-10 min-h-screen bg-gradient-to-r from-[#061511]/98 via-[#061511]/95 to-[#061511]/98">
+      <main className="relative z-10 min-h-screen bg-linear-to-r from-[#061511]/98 via-[#061511]/84 to-[#061511]/98">
         <div className="sticky top-[32px] z-50">
-          <Navbar />
+          <NavBar />
         </div>
         <Outlet />
         {/* ✅ Footer is now clickable */}
