@@ -31,7 +31,7 @@ export const LabelBridgeSection: React.FC<HeroProps> = ({ className = "" }) => {
             transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
           > */}
           
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-500/10 to-transparent"></div>
+            <div className="absolute inset-0 rounded-full bg-linear-to-br from-green-500/10 to-transparent"></div>
             
          
             <img 

@@ -88,7 +88,7 @@ const ClientLayout = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gradient-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
+    <div className="flex h-screen overflow-hidden bg-linear-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
         <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">
