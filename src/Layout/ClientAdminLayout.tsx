@@ -1,6 +1,6 @@
 
+import ClientAdminNavBar from "@/components/AdminDashboard/Shared/ClientAdminNavBar";
 import ClientAdminSidebar from "@/components/ClientDashboard/ClientAdminSidebar";
-import ClientDashboardNavbar from "@/components/ClientDashboard/Shared/ClientDashboardNavbar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -99,7 +99,7 @@ const ClientAdminLayout = () => {
         {/* Navbar */}
         {!shouldHideNavbar && (
           <div className="fixed top-0 left-0 right-0 z-20 bg-white ">
-            <ClientDashboardNavbar
+            <ClientAdminNavBar
               onMobileMenuToggle={handleMobileMenuToggle}
               notificationCount={3}
               isSidebarOpen={isSidebarOpen}
