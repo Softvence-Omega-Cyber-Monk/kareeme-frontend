@@ -66,7 +66,7 @@ const SubmitCard = ({
       </div>
 
       {/* Button */}
-      <Link to="/admin-dashboard/submit/view">
+      <Link to="/super-admin-dashboard/submit/view">
         <button className="w-full mt-4 px-6 py-2 bg-blue-500 rounded-lg hover:bg-blue-400 transition cursor-pointer">
           View Details
         </button>

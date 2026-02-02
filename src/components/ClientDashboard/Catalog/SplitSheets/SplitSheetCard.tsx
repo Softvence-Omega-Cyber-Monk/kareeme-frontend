@@ -8,7 +8,7 @@ const SplitSheetCard: React.FC<AlbumCardProps> = (album) => {
   const slug = encodeURIComponent(album.title);
 
   return (
-    <div className="bg-[#0C1F21] opacity-40 p-2 rounded-xl overflow-hidden shadow-lg flex flex-col border border-[#2C403E]">
+    <div className="bg-[#0C1F21] p-2 rounded-xl overflow-hidden shadow-lg flex flex-col border border-[#2C403E]">
       <img
         src={album.imageUrl}
         alt={album.title}

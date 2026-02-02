@@ -119,7 +119,7 @@ export default function NotificationReuseable({
 //       }
 
 //       // Navigate to parcel details page
-//       navigate(`/admin-dashboard/parcels/${notification.parcelId}`);
+//       navigate(`/super-admin-dashboard/parcels/${notification.parcelId}`);
 //       onClose();
 //     } catch (error) {
 //       console.error("Error handling notification click:", error);
