@@ -245,7 +245,7 @@ const routes = createBrowserRouter([
     ),
     children:[
       { index: true, element: <ClientAdminDashboard /> },
-      { path: "dashboard", element: <ClientDashboardPage /> },
+      { path: "dashboard", element: <ClientAdminDashboard /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
       /* Analytics*/
       { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
