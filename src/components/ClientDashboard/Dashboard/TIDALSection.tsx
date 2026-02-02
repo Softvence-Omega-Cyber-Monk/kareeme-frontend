@@ -2,7 +2,7 @@ import EarningsByType from "./EarningsByType";
 import EstimatedEarning from "./EstimatedEarning";
 import ReuserableCommonPart from "./Shared/ReuserableCommonPart";
 
-import iconatidal from "@/assets/icons/TIDAL.svg";
+import iconatidal from "@/assets/icons/tidal-logo 1.svg";
 
 const TIDALSection = () => {
   return (
