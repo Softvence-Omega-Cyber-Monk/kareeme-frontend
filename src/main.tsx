@@ -4,10 +4,11 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes/Routes.tsx";
 import { Provider } from "react-redux";
-import { store } from "./store/store.ts";
+
 import ReduxProviderWrapper from "./redux/readux-provider/reduxProviderWrapper.tsx";
 import { DashboardToaster } from "./components/ui/Toaster.tsx";
 import { CartProvider } from "./contexts/CartContext.tsx";
+import { store } from "./redux/store.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
