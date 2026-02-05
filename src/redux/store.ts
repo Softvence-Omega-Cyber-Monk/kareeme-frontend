@@ -15,10 +15,11 @@ import {
 import storage from "redux-persist/lib/storage";
 
 // Persist config for authentication
+// Only persist user data (non-sensitive), NOT tokens
 const authConfig = {
   key: "auth",
   storage,
-  whitelist: ["token", "user"],
+  whitelist: ["user"], // Only persist user, NOT token
 };
 const cartPersistConfig = {
   key: "cart",

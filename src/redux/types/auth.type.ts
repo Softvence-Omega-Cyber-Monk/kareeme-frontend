@@ -57,7 +57,6 @@ export type RegisterResponse = ApiResponse<RegisterResponseData>;
 export type TAuth = {
   user: User | null;
   token: string | null;
-  refreshToken?: string | null;
 };
 
 export type AuthMeResponse = ApiResponse<User>;

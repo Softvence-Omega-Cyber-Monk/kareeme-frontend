@@ -69,7 +69,6 @@ const Login: React.FC = () => {
         setCredentials({
           user: result.data.user,
           token: result.data.access_token,
-          refreshToken: result.data.refresh_token,
         }),
       );
 
