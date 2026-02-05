@@ -43,7 +43,7 @@ const ProductGallery: React.FC = () => {
 
     // Add to cart using cartUtils
     add(product);
-    dispatch(addToCart(product));
+    dispatch(addToCart({ ...product, quantity: 1 }));
 
     // Show feedback
     setShowFeedback(product.id);
