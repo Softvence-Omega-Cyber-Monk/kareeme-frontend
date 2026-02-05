@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate, Link, useLocation } from "react-router-dom";
@@ -69,7 +70,7 @@ const Login: React.FC = () => {
           user: result.data.user,
           token: result.data.access_token,
           refreshToken: result.data.refresh_token,
-        })
+        }),
       );
 
       redirectBasedOnRole(result.data.user.role);
@@ -77,8 +78,8 @@ const Login: React.FC = () => {
       console.error("Login failed:", err);
       toast.error(
         err?.data?.message ||
-        err?.error?.data?.message ||
-        "Login failed. Please check your credentials."
+          err?.error?.data?.message ||
+          "Login failed. Please check your credentials.",
       );
     }
   };
@@ -104,9 +105,6 @@ const Login: React.FC = () => {
             Start your journey with us! Fill out the details below to get access
             to your dashboard, music distribution, and more.
           </p>
-
-
-
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Email */}

@@ -10,7 +10,9 @@ import img5 from "@/assets/comp5.png";
 import img6 from "@/assets/comp6.png";
 import img7 from "@/assets/comp9.png";
 import img8 from "@/assets/comp8.png";
-import { addToCart,  } from "@/utils/cartUtils"; // Import from cartUtils
+import { addToCart as add } from "@/utils/cartUtils"; // Import from cartUtils
+import { useAppDispatch } from "@/redux/hooks/redux-hook";
+import { addToCart } from "@/redux/features/cart/cartSlice";
 
 interface Product {
   id: number;
@@ -23,6 +25,7 @@ const ProductGallery: React.FC = () => {
   const navigate = useNavigate();
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState<number | null>(null);
+  const dispatch = useAppDispatch();
 
   const products: Product[] = [
     { id: 1, image: img1, title: "Black Graphic Tee", price: 25 },
@@ -37,10 +40,11 @@ const ProductGallery: React.FC = () => {
 
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
     e.stopPropagation();
-    
+
     // Add to cart using cartUtils
-    addToCart(product);
-    
+    add(product);
+    dispatch(addToCart(product));
+
     // Show feedback
     setShowFeedback(product.id);
     setTimeout(() => {
@@ -51,7 +55,7 @@ const ProductGallery: React.FC = () => {
   const renderProducts = (
     sliceStart: number,
     sliceEnd: number,
-    cols: number
+    cols: number,
   ) => (
     <div className="px-4 md:px-8 py-3">
       <div className={`grid grid-cols-2 md:grid-cols-${cols} gap-2 md:gap-5`}>
@@ -72,13 +76,14 @@ const ProductGallery: React.FC = () => {
                 alt={product.title}
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Add to Cart Button (Shows on hover) */}
-              {(hoveredProduct === product.id || showFeedback === product.id) && (
+              {(hoveredProduct === product.id ||
+                showFeedback === product.id) && (
                 <button
                   onClick={(e) => handleAddToCart(e, product)}
                   className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 
-                    ${showFeedback === product.id ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700'} 
+                    ${showFeedback === product.id ? "bg-green-600" : "bg-blue-600 hover:bg-blue-700"} 
                     text-white px-4 py-2 rounded-full flex cursor-pointer items-center gap-2 text-sm font-medium
                     transition-all duration-300 z-10 shadow-lg`}
                 >
@@ -125,21 +130,6 @@ const ProductGallery: React.FC = () => {
 
 export default ProductGallery;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState} from "react";
 // import { useNavigate } from "react-router-dom";
 // import { ShoppingCart } from "lucide-react";
@@ -173,13 +163,13 @@ export default ProductGallery;
 //   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
 //     e.stopPropagation();
 //     addToCart(product);
-    
+
 //     // Optional: Show feedback
 //     const button = e.target as HTMLElement;
 //     const originalText = button.textContent;
 //     button.textContent = "Added!";
 //     button.classList.add("bg-green-600");
-    
+
 //     setTimeout(() => {
 //       button.textContent = originalText;
 //       button.classList.remove("bg-green-600");
@@ -210,13 +200,13 @@ export default ProductGallery;
 //                 alt={product.title}
 //                 className="w-full h-full object-cover"
 //               />
-              
+
 //               {/* Add to Cart Button (Shows on hover) */}
 //               {hoveredProduct === product.id && (
 //                 <button
 //                   onClick={(e) => handleAddToCart(e, product)}
-//                   className="absolute bottom-4 left-1/2 transform -translate-x-1/2 
-//                     bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 
+//                   className="absolute bottom-4 left-1/2 transform -translate-x-1/2
+//                     bg-blue-600 hover:bg-blue-700 text-white px-4 py-2
 //                     rounded-full flex items-center gap-2 text-sm font-medium
 //                     transition-all duration-300 z-10 shadow-lg"
 //                 >
@@ -262,12 +252,6 @@ export default ProductGallery;
 // };
 
 // export default ProductGallery;
-
-
-
-
-
-
 
 // import React from "react";
 // import { useNavigate } from "react-router-dom";
@@ -359,4 +343,3 @@ export default ProductGallery;
 // };
 
 // export default ProductGallery;
-

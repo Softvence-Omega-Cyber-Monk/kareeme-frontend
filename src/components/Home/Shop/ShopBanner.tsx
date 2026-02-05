@@ -122,18 +122,19 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
             whileTap={{ scale: 0.95 }}
             className=""
           >
-        
-            <span className=" text-white font-semibold 
+            <span
+              className=" text-white font-semibold 
           px-[54px] py-[13px]
           rounded-[29.455px]
-          flex items-center justify-center gap-[10px]
+          flex items-center justify-center gap-2.5
           transition duration-300 ease-in-out
           shadow-[0_0_180px_rgba(58,92,181,0.6)]
           bg-[radial-gradient(50%_50%_at_50%_50%,#7B92FF_0%,#2941B5_100%)]
-          whitespace-nowrap cursor-pointer">
+          whitespace-nowrap cursor-pointer"
+            >
               <p>Explore More</p>
             </span>
-              {/* <button
+            {/* <button
              
               className=" text-white font-semibold w-[384px]
           px-[54px] py-[13px]
