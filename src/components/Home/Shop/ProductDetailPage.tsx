@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
-import { Minus, Plus, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  ShoppingCart,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import img from "@/assets/image44.png";
 import ShippingDialog from "@/components/ShippingDialog";
@@ -21,7 +27,6 @@ const ProductDetailPage: React.FC = () => {
   const { openCart } = useCart();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState(3); // Default 3 items visible
-
   const mainProduct: Product = {
     id: 1,
     image: img,
@@ -32,38 +37,44 @@ const ProductDetailPage: React.FC = () => {
   const relatedProducts: Product[] = [
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop",
-      title: 'Classic Black Tee',
+      image:
+        "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=400&fit=crop",
+      title: "Classic Black Tee",
       price: 89,
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop",
-      title: 'Urban Street Hoodie',
+      image:
+        "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=400&fit=crop",
+      title: "Urban Street Hoodie",
       price: 129,
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&h=400&fit=crop",
-      title: ' White Shirt',
+      image:
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&h=400&fit=crop",
+      title: " White Shirt",
       price: 79,
     },
     {
       id: 5,
-      image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop",
-      title: 'Sporty Red Jacket',
+      image:
+        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop",
+      title: "Sporty Red Jacket",
       price: 149,
     },
     {
       id: 6,
-      image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=400&fit=crop",
-      title: 'Casual Blue Jeans',
+      image:
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=400&fit=crop",
+      title: "Casual Blue Jeans",
       price: 69,
     },
     {
       id: 7,
-      image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=400&fit=crop",
-      title: 'Green Summer Dress',
+      image:
+        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=400&fit=crop",
+      title: "Green Summer Dress",
       price: 119,
     },
   ];
@@ -71,18 +82,21 @@ const ProductDetailPage: React.FC = () => {
   // Calculate items per slide based on screen size
   useEffect(() => {
     const updateVisibleItems = () => {
-      if (window.innerWidth < 640) { // mobile
+      if (window.innerWidth < 640) {
+        // mobile
         setVisibleItems(1);
-      } else if (window.innerWidth < 1024) { // tablet
+      } else if (window.innerWidth < 1024) {
+        // tablet
         setVisibleItems(2);
-      } else { // desktop
+      } else {
+        // desktop
         setVisibleItems(3);
       }
     };
 
     updateVisibleItems();
-    window.addEventListener('resize', updateVisibleItems);
-    return () => window.removeEventListener('resize', updateVisibleItems);
+    window.addEventListener("resize", updateVisibleItems);
+    return () => window.removeEventListener("resize", updateVisibleItems);
   }, []);
 
   const handleAddToCart = () => {
@@ -105,8 +119,8 @@ const ProductDetailPage: React.FC = () => {
       const cardWidth = container.children[0]?.clientWidth || 300;
       const gap = 24; // gap-6 = 1.5rem = 24px
       const scrollAmount = (cardWidth + gap) * visibleItems;
-      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      setCurrentSlide(prev => Math.max(0, prev - 1));
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      setCurrentSlide((prev) => Math.max(0, prev - 1));
     }
   };
 
@@ -116,8 +130,8 @@ const ProductDetailPage: React.FC = () => {
       const cardWidth = container.children[0]?.clientWidth || 300;
       const gap = 24; // gap-6 = 1.5rem = 24px
       const scrollAmount = (cardWidth + gap) * visibleItems;
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      setCurrentSlide(prev => {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      setCurrentSlide((prev) => {
         const maxSlides = Math.ceil(relatedProducts.length / visibleItems) - 1;
         return Math.min(maxSlides, prev + 1);
       });
@@ -130,7 +144,7 @@ const ProductDetailPage: React.FC = () => {
       const cardWidth = container.children[0]?.clientWidth || 300;
       const gap = 24; // gap-6 = 1.5rem = 24px
       const scrollAmount = (cardWidth + gap) * visibleItems * slideIndex;
-      container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+      container.scrollTo({ left: scrollAmount, behavior: "smooth" });
       setCurrentSlide(slideIndex);
     }
   };
@@ -176,7 +190,7 @@ const ProductDetailPage: React.FC = () => {
   const showRightArrow = currentSlide < totalSlides - 1;
 
   // Calculate card width based on visible items
-  const cardWidthClass = `w-full ${visibleItems === 1 ? 'sm:w-full' : visibleItems === 2 ? 'sm:w-1/2 lg:w-1/2' : 'sm:w-1/2 lg:w-1/3'}`;
+  const cardWidthClass = `w-full ${visibleItems === 1 ? "sm:w-full" : visibleItems === 2 ? "sm:w-1/2 lg:w-1/2" : "sm:w-1/2 lg:w-1/3"}`;
 
   return (
     <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -197,7 +211,7 @@ const ProductDetailPage: React.FC = () => {
                 alt={mainProduct.title}
                 className="w-full h-auto max-h-[500px] object-contain rounded-lg"
               />
-              
+
               {/* Cart Icon on Image Hover */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-300 rounded-lg opacity-0 group-hover:opacity-100">
                 <button
@@ -226,18 +240,23 @@ const ProductDetailPage: React.FC = () => {
               <p className="text-xl sm:text-2xl font-semibold text-emerald-400 mb-6">
                 ${mainProduct.price.toFixed(2)}
               </p>
-              
+
               <div className="mb-8">
-                <h3 className="text-lg font-semibold mb-3 text-gray-400">Description</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-400">
+                  Description
+                </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  Experience ultimate comfort and style with our premium essential tee. 
-                  Made from 100% organic cotton, this tee features a modern fit and 
-                  sustainable construction. Perfect for everyday wear or special occasions.
+                  Experience ultimate comfort and style with our premium
+                  essential tee. Made from 100% organic cotton, this tee
+                  features a modern fit and sustainable construction. Perfect
+                  for everyday wear or special occasions.
                 </p>
               </div>
 
               <div className="mb-8">
-                <h3 className="text-lg text-gray-400 font-semibold mb-3">Features</h3>
+                <h3 className="text-lg text-gray-400 font-semibold mb-3">
+                  Features
+                </h3>
                 <ul className="text-gray-400 space-y-2">
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-emerald-400 rounded-full"></span>
@@ -320,11 +339,12 @@ const ProductDetailPage: React.FC = () => {
                 onClick={scrollLeft}
                 disabled={!showLeftArrow}
                 className={`p-2 rounded-full transition-colors border border-gray-700 cursor-pointer flex items-center justify-center
-                  ${showLeftArrow 
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                    : 'bg-gray-400 cursor-not-allowed text-gray-600'
+                  ${
+                    showLeftArrow
+                      ? "bg-blue-600 hover:bg-blue-700 text-white"
+                      : "bg-gray-400 cursor-not-allowed text-gray-600"
                   }`}
-                style={{ width: '40px', height: '40px' }}
+                style={{ width: "40px", height: "40px" }}
               >
                 <ChevronLeft size={24} />
               </button>
@@ -332,11 +352,12 @@ const ProductDetailPage: React.FC = () => {
                 onClick={scrollRight}
                 disabled={!showRightArrow}
                 className={`p-2 rounded-full transition-colors border border-gray-700 cursor-pointer flex items-center justify-center
-                  ${showRightArrow 
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                    : 'bg-gray-400 cursor-not-allowed text-gray-600'
+                  ${
+                    showRightArrow
+                      ? "bg-blue-600 hover:bg-blue-700 text-white"
+                      : "bg-gray-400 cursor-not-allowed text-gray-600"
                   }`}
-                style={{ width: '40px', height: '40px' }}
+                style={{ width: "40px", height: "40px" }}
               >
                 <ChevronRight size={24} />
               </button>
@@ -345,10 +366,10 @@ const ProductDetailPage: React.FC = () => {
 
           {/* Scrollable Container */}
           <div className="relative">
-            <div 
+            <div
               ref={scrollContainerRef}
               className="  flex gap-6 overflow-x-auto scrollbar-hide pb-2"
-              style={{ scrollBehavior: 'smooth' }}
+              style={{ scrollBehavior: "smooth" }}
             >
               {relatedProducts.map((product, index) => (
                 <motion.div
@@ -367,7 +388,7 @@ const ProductDetailPage: React.FC = () => {
                         alt={product.title}
                         className="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      
+
                       {/* Cart Icon on Related Products Image Hover */}
                       <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-300 rounded-2xl opacity-0 group-hover:opacity-100">
                         <button
@@ -406,9 +427,9 @@ const ProductDetailPage: React.FC = () => {
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      currentSlide === index 
-                        ? 'bg-blue-600 w-8' 
-                        : 'bg-gray-600 w-2 hover:bg-gray-500'
+                      currentSlide === index
+                        ? "bg-blue-600 w-8"
+                        : "bg-gray-600 w-2 hover:bg-gray-500"
                     }`}
                   />
                 ))}
@@ -424,7 +445,7 @@ const ProductDetailPage: React.FC = () => {
       )}
 
       {/* Custom CSS for hiding scrollbar */}
-      <style >{`
+      <style>{`
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
@@ -438,15 +459,6 @@ const ProductDetailPage: React.FC = () => {
 };
 
 export default ProductDetailPage;
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { motion, Variants } from "framer-motion";
@@ -572,7 +584,7 @@ export default ProductDetailPage;
 //                 alt={mainProduct.title}
 //                 className="w-full h-auto max-h-[500px] object-contain rounded-lg"
 //               />
-              
+
 //               {/* Cart Icon on Image Hover */}
 //               <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-300 rounded-lg opacity-0 group-hover:opacity-100">
 //                 <button
@@ -601,12 +613,12 @@ export default ProductDetailPage;
 //               <p className="text-xl sm:text-2xl font-semibold text-emerald-400 mb-6">
 //                 ${mainProduct.price.toFixed(2)}
 //               </p>
-              
+
 //               <div className="mb-8">
 //                 <h3 className="text-lg font-semibold mb-3 text-gray-400">Description</h3>
 //                 <p className="text-gray-400 leading-relaxed">
-//                   Experience ultimate comfort and style with our premium essential tee. 
-//                   Made from 100% organic cotton, this tee features a modern fit and 
+//                   Experience ultimate comfort and style with our premium essential tee.
+//                   Made from 100% organic cotton, this tee features a modern fit and
 //                   sustainable construction. Perfect for everyday wear or special occasions.
 //                 </p>
 //               </div>
@@ -718,7 +730,7 @@ export default ProductDetailPage;
 //                       alt={product.title}
 //                       className="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-110"
 //                     />
-                    
+
 //                     {/* Cart Icon on Related Products Image Hover */}
 //                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-300 rounded-2xl opacity-0 group-hover:opacity-100">
 //                       <button
@@ -735,7 +747,7 @@ export default ProductDetailPage;
 //                     </div>
 //                   </div>
 //                   <div className="mt-4 p-2">
-                    
+
 //                     <div className="flex flex-row justify-between items-center">
 //                            <h3 className="text-lg font-semibold mb-2 line-clamp-1 text-white">
 //                       {product.title}
@@ -743,14 +755,14 @@ export default ProductDetailPage;
 //                       <p className="text-emerald-400 font-semibold text-lg">
 //                         ${product.price.toFixed(2)}
 //                       </p>
-                 
+
 //                       {/* <button
 //                         onClick={(e) => {
 //                           e.preventDefault();
 //                           addToCart(product);
 //                           openCart();
 //                         }}
-//                         className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-full 
+//                         className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-full
 //                           text-sm font-medium transition-colors cursor-pointer"
 //                       >
 //                         Add to Cart
@@ -773,4 +785,3 @@ export default ProductDetailPage;
 // };
 
 // export default ProductDetailPage;
-

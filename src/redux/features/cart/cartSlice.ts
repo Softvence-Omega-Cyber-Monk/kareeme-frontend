@@ -10,17 +10,20 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart(state, action: PayloadAction<Omit<CartItem, 'quantity' | 'totalPrice'>>) {
+        addToCart(state, action: PayloadAction<Omit<CartItem, 'totalPrice'>>) {
             const newItem = action.payload
             const existedItem = state.items.find((item) => item.id === newItem.id)
-            state.totalQuantity++
+            const quantityToAdd = newItem.quantity ?? 1
+            const priceToAdd = newItem.price * quantityToAdd
+            state.totalQuantity += quantityToAdd
+            state.totalPrice += priceToAdd
             if (!existedItem) {
-                state.items.push({ ...newItem, quantity: 1, totalPrice: newItem.price })
+                state.items.push({ ...newItem, quantity: quantityToAdd, totalPrice: priceToAdd })
             } else {
                 existedItem.quantity++
                 existedItem.totalPrice += newItem.price
             }
-            state.totalPrice += newItem.price
+
 
         },
         removeFromCart(state, action: PayloadAction<string | number>) {
@@ -55,7 +58,8 @@ const cartSlice = createSlice({
             existedItem.totalPrice += existedItem.price
             state.totalQuantity++
             state.totalPrice += existedItem.price
-        }
+        },
+
     }
 })
 export const selectCart = (state: AppRootState) => state.cart

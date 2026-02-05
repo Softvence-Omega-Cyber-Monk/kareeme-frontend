@@ -130,7 +130,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                       {item.title}
                     </h3>
                     <p className="text-emerald-400 font-semibold text-sm mb-3">
-                      ${item.price.toFixed(2)}
+                      ${item.price * item.quantity}
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center bg-gray-800 rounded-full border border-gray-700">
