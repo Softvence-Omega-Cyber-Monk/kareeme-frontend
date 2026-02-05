@@ -8,6 +8,8 @@ import {
   removeFromCart,
   getCartTotal,
 } from "@/utils/cartUtils";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { selectCart } from "@/redux/features/cart/cartSlice";
 
 interface CartItem {
   id: number;
@@ -25,6 +27,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(getCartItems());
   const [discountCode, setDiscountCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
+  const cartItem = useAppSelector(selectCart);
 
   // Listen for cart updates
   useEffect(() => {
@@ -102,7 +105,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
 
         {/* Cart Items - Scrollable */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5">
-          {cartItems.length === 0 ? (
+          {cartItem.items.length === 0 ? (
             <div className="text-center text-gray-400 py-12">
               <ShoppingCart size={48} className="mx-auto mb-4 opacity-50" />
               <p className="text-lg mb-4">Your cart is empty</p>
@@ -118,7 +121,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
             </div>
           ) : (
             <div className="space-y-4">
-              {cartItems.map((item) => (
+              {cartItem.items.map((item) => (
                 <div
                   key={item.id}
                   className="flex items-start gap-3 sm:gap-4 bg-gray-900/40 p-3 sm:p-4 

@@ -3,7 +3,7 @@ export interface CartItem {
     title: string;
     image: string;
     price: number;
-    Quantity: number;
+    quantity: number;
     totalPrice: number
 
 }
