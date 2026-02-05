@@ -33,17 +33,36 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  // Store the current token before waiting
+  const tokenBeforeWait = (api.getState() as AppRootState).auth.token;
+  
   // Wait for any ongoing refresh to complete
   await mutex.waitForUnlock();
   
+  // Check if token changed while we were waiting (another request refreshed it)
+  const tokenAfterWait = (api.getState() as AppRootState).auth.token;
+  const tokenWasRefreshed = tokenBeforeWait !== tokenAfterWait;
+  
   let result = await rawBaseQuery(args, api, extraOptions);
+  const url = typeof args === "string" ? args : args.url;
 
-  if (result.error?.status === 401) {
+  if (result.error?.status === 401 && url !== "/auth/refresh") {
+    // If token was just refreshed by another request but still got 401, don't retry
+    if (tokenWasRefreshed) {
+      // Token was refreshed but still invalid - logout
+      api.dispatch(logout());
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+      return result;
+    }
+    
     // Check if mutex is locked (another request is refreshing)
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       
       try {
+        console.log("🔄 Attempting to refresh token...");
         // Try to refresh the token
         const refreshResult = await rawBaseQuery(
           { url: "/auth/refresh", method: "POST" },
@@ -52,6 +71,7 @@ const baseQueryWithReauth: BaseQueryFn<
         );
 
         if (refreshResult.data) {
+          console.log("✅ Token successfully refreshed.");
           // Store the new token
           const data = refreshResult.data as { 
             data: { 
@@ -78,11 +98,15 @@ const baseQueryWithReauth: BaseQueryFn<
           result = await rawBaseQuery(args, api, extraOptions);
         } else {
           // Refresh failed, logout user
+          console.error("❌ Token refresh failed:", refreshResult.error);
           api.dispatch(logout());
           if (typeof window !== "undefined") {
             window.location.href = "/login";
           }
         }
+      } catch (err) {
+        console.error("🔥 Unexpected error during refresh:", err);
+        api.dispatch(logout());
       } finally {
         release();
       }

@@ -13,11 +13,13 @@ const SilentRefresh = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+        console.log("🚀 [Startup] Checking for existing session...");
         // Try to refresh token using HttpOnly cookie
         await refresh().unwrap();
+        console.log("✅ [Startup] Session restored.");
       } catch {
         // If refresh fails, user stays logged out (expected behavior)
-        console.log("No active session found");
+        console.log("ℹ️ [Startup] No active session found.");
       } finally {
         setIsInitialized(true);
       }

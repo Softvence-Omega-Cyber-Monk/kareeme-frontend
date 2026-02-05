@@ -24,13 +24,11 @@ const authSlice = createSlice({
         token: string;
       }>
     ) => {
-      // Store only in memory - no cookies, no localStorage for tokens
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
 
     logout: (state) => {
-      // Clear in-memory state only
       state.user = null;
       state.token = null;
     },
