@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
-const baseURL = "https://api.oneisoneent.com"
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 if (!baseURL) {
-  throw new Error("VITE_API_ENDPOINT is not defined in environment variables");
+  throw new Error("VITE_API_BASE_URL is not defined in environment variables");
 }
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: baseURL,
-  credentials: "include", // Changed from "omit" to "include"
+  credentials: "include",
   prepareHeaders: (headers) => {
     const token = Cookies.get("token");
     if (token) {
