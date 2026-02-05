@@ -18,6 +18,7 @@ export const NavBar = () => {
   const [cartCount, setCartCount] = useState(0);
   const { isCartOpen, openCart, closeCart } = useCart();
   const cartItems = useSelector(selectCart);
+  console.log("car", cartItems);
 
   // Listen for cart updates
   useEffect(() => {

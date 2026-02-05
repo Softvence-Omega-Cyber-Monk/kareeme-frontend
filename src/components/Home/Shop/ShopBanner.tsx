@@ -79,7 +79,7 @@ export const ShopBanner: React.FC<HeroProps> = ({ className = "" }) => {
             </span>
           </h1>
           <p className="mb-2">
-            Wear the Vibe. Support the Movement. Exclusive Merch from the
+            Wear the Vibe. Support the Movement. Exclusive March from the
             OneIsOne Roster.
           </p>
 

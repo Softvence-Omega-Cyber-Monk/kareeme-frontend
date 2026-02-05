@@ -2,49 +2,43 @@ import React, { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Minus, Plus, X, Trash2, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/redux-hook";
 import {
-  getCartItems,
-  updateCartQuantity,
+  decreaseQuantity,
+  increaseQuantity,
   removeFromCart,
-  getCartTotal,
-} from "@/utils/cartUtils";
-import { useAppSelector } from "@/redux/hooks/redux-hook";
-import { selectCart } from "@/redux/features/cart/cartSlice";
-
-interface CartItem {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
+  selectCart,
+} from "@/redux/features/cart/cartSlice";
 
 interface CartModalProps {
   onClose: () => void;
 }
 
 const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(getCartItems());
   const [discountCode, setDiscountCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
-  const cartItem = useAppSelector(selectCart);
+  const cart = useAppSelector(selectCart);
+  const cartItems = cart.items;
+  const dispatch = useAppDispatch();
 
   // Listen for cart updates
   useEffect(() => {
-    const handleCartUpdate = () => {
-      setCartItems(getCartItems());
-    };
+    const handleCartUpdate = () => {};
 
     window.addEventListener("cartUpdated", handleCartUpdate);
     return () => window.removeEventListener("cartUpdated", handleCartUpdate);
   }, []);
 
-  const handleQuantityChange = (id: number, newQuantity: number) => {
-    updateCartQuantity(id, newQuantity);
+  const handleQuantityChange = (id: number | string, isDecrease: boolean) => {
+    if (isDecrease) {
+      dispatch(decreaseQuantity(id));
+    } else {
+      dispatch(increaseQuantity(id));
+    }
   };
 
-  const handleRemoveItem = (id: number) => {
-    removeFromCart(id);
+  const handleRemoveItem = (id: number | string) => {
+    dispatch(removeFromCart(id));
   };
 
   const handleApplyDiscount = () => {
@@ -56,9 +50,8 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
     }
   };
 
-  const subtotal = getCartTotal();
+  const subtotal = cart.totalPrice;
   const shipping = cartItems.length > 0 ? 15 : 0;
-  const total = subtotal + shipping - appliedDiscount;
 
   const overlayVariants: Variants = {
     hidden: { opacity: 0 },
@@ -105,7 +98,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
 
         {/* Cart Items - Scrollable */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5">
-          {cartItem.items.length === 0 ? (
+          {cartItems.length === 0 ? (
             <div className="text-center text-gray-400 py-12">
               <ShoppingCart size={48} className="mx-auto mb-4 opacity-50" />
               <p className="text-lg mb-4">Your cart is empty</p>
@@ -121,7 +114,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
             </div>
           ) : (
             <div className="space-y-4">
-              {cartItem.items.map((item) => (
+              {cartItems.map((item) => (
                 <div
                   key={item.id}
                   className="flex items-start gap-3 sm:gap-4 bg-gray-900/40 p-3 sm:p-4 
@@ -142,9 +135,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center bg-gray-800 rounded-full border border-gray-700">
                         <button
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity - 1)
-                          }
+                          onClick={() => handleQuantityChange(item.id, true)}
                           className="w-8 h-8 flex items-center justify-center text-blue-400 
                             hover:text-white hover:bg-gray-700 rounded-l-full transition-colors cursor-pointer"
                         >
@@ -154,9 +145,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity + 1)
-                          }
+                          onClick={() => handleQuantityChange(item.id, false)}
                           className="w-8 h-8 flex items-center justify-center text-blue-400 
                             hover:text-white hover:bg-gray-700 rounded-r-full transition-colors cursor-pointer"
                         >
@@ -222,7 +211,7 @@ const CartModal: React.FC<CartModalProps> = ({ onClose }) => {
               )}
               <div className="flex justify-between text-white font-semibold text-base sm:text-lg pt-2 sm:pt-3 border-t border-gray-800">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>${cart.totalPrice + 15} </span>
               </div>
             </div>
 
