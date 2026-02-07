@@ -6,7 +6,9 @@ type StepOneProps = {
   formData: FormDataType;
   artistData: ArtistInfo;
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => void;
   artistInfoChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -82,7 +84,7 @@ const StepOne = ({
 
               <input
                 type="text"
-                name="artistName"
+                name="stageName"
                 placeholder="Artist Name"
                 value={artistData.stageName}
                 onChange={artistInfoChange}
@@ -181,8 +183,8 @@ const StepOne = ({
                   Type Of Release
                 </label>
                 <select
-                  name="releaseType"
-                  value={formData.releaseType}
+                  name="typeOfRelease"
+                  value={formData.typeOfRelease}
                   onChange={handleChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 >
@@ -224,7 +226,7 @@ const StepOne = ({
                 />
               </div>
 
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm mb-2 font-sans"> Genre </label>
                 <input
                   type="text"
@@ -233,19 +235,6 @@ const StepOne = ({
                   value={formData.genre}
                   onChange={handleChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm mb-2 font-sans">
-                  Please provide a 60 sec time stamp you want to use for TikTok
-                </label>
-
-                <input
-                  type="file"
-                  name="tiktokClip"
-                  onChange={handleChange}
-                  className="p-3 rounded-xl bg-[#20362F] w-full cursor-pointer"
                 />
               </div>
             </div>

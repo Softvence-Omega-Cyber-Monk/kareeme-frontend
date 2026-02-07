@@ -59,13 +59,21 @@ const MultiStepForm = () => {
     const { name, value } = e.target as HTMLInputElement;
     setArtistInfo((prev) => ({ ...prev, [name]: value }));
   };
+  console.log("artistInfo", artistInfo);
+  console.log("formData", formData);
   // Handle input changes
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value, files } = e.target as HTMLInputElement;
+    const { name, value, type } = e.target as HTMLInputElement;
+    const files = (e.target as HTMLInputElement).files;
+
     if (files && files.length > 0) {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
+    } else if (type === "radio") {
+      // Convert "true"/"false" strings to actual booleans
+      const booleanValue = value === "true" ? true : value === "false" ? false : value;
+      setFormData((prev) => ({ ...prev, [name]: booleanValue }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }

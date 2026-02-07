@@ -17,7 +17,9 @@ interface Contributor {
 type StepFourProps = {
   formData: FormDataType; // <-- add this line
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => void;
   prevStep: () => void;
 };

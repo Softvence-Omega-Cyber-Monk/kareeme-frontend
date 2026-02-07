@@ -1,11 +1,14 @@
 import { FaAnglesLeft } from "react-icons/fa6";
-import { FormDataType } from "./MultiStepForm";
+
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { FormDataType } from "./data";
 
 type StepTwoProps = {
   formData: FormDataType;
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -31,7 +34,12 @@ type StepTwoProps = {
 //     setFormData({ ...formData, [name]: value });
 //   };
 
-const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
+const StepTwo = ({
+  formData,
+  handleChange,
+  nextStep,
+  prevStep,
+}: StepTwoProps) => {
   return (
     <div className="space-y-9">
       <div>
@@ -54,7 +62,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="publisher"
-                //value={formData.publisher || ""}
+                value={formData.publisher || ""}
                 onChange={handleChange}
                 placeholder="Enter release title"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -67,7 +75,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="copyrightHolder"
-                //value={formData.copyrightHolder || ""}
+                value={formData.copyrightHolder || ""}
                 onChange={handleChange}
                 placeholder="Enter release title"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -79,7 +87,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <label className="block text-sm mb-2">Language</label>
               <select
                 name="language"
-                //value={formData.language || ""}
+                value={formData.language || ""}
                 onChange={handleChange}
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -99,9 +107,9 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="explicit"
-                    value="Yes"
-                    //checked={formData.explicit === "Yes"}
+                    name="isExplicitContent"
+                    value="true"
+                    checked={formData.isExplicitContent === true}
                     onChange={handleChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
@@ -110,9 +118,9 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="explicit"
-                    value="No"
-                    //checked={formData.explicit === "No"}
+                    name="isExplicitContent"
+                    value="false"
+                    checked={formData.isExplicitContent === false}
                     onChange={handleChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
@@ -127,7 +135,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="producer"
-                //value={formData.producer || ""}
+                value={formData.producer || ""}
                 onChange={handleChange}
                 placeholder="Artist or Brand Name"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -140,7 +148,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="lyricist"
-                //value={formData.lyricist || ""}
+                value={formData.lyricist || ""}
                 onChange={handleChange}
                 placeholder="Artist or Brand Name"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -153,7 +161,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="masterSplits"
-                //value={formData.masterSplits || ""}
+                value={formData.masterSplits || ""}
                 onChange={handleChange}
                 placeholder="Artist or Brand Name"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -168,7 +176,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="territory"
-                //value={formData.territory || ""}
+                value={formData.territory || ""}
                 onChange={handleChange}
                 placeholder="Artist or Brand Name"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -185,9 +193,9 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="externalSplits"
-                    value="Yes"
-                    //checked={formData.externalSplits === "Yes"}
+                    name="hasExternalRightsHolder"
+                    value="true"
+                    checked={formData.hasExternalRightsHolder === true}
                     onChange={handleChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
@@ -196,9 +204,9 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="externalSplits"
-                    value="No"
-                    //checked={formData.externalSplits === "No"}
+                    name="hasExternalRightsHolder"
+                    value="false"
+                    checked={formData.hasExternalRightsHolder === false}
                     onChange={handleChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
@@ -213,7 +221,7 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="territories"
-                //   //value={formData.territories || ""}
+                value={formData.territories || ""}
                 onChange={handleChange}
                 placeholder="Enter territories"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
