@@ -18,6 +18,7 @@ import {
   useCreateSplitSheetMutation,
   useUploadTrackAudioMutation,
 } from "@/redux/features/newRelease/newReleaseApi";
+import { v4 as uuidv4 } from "uuid";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
@@ -54,7 +55,7 @@ const MultiStepForm = () => {
         role: "Primary Artist",
       },
     ],
-    territories: [{ territory: "WW" }], // Default to World Wide
+    territories: [{ territory: "WW" }], 
     status: "Draft",
     artwork: null,
   });
@@ -82,7 +83,7 @@ const MultiStepForm = () => {
     songTitle: "",
     isrc: "",
     releaseDate: "",
-    recordLabelId: "",
+    recordLabelId: uuidv4(),
     contributors: [],
   });
 
@@ -171,12 +172,17 @@ const MultiStepForm = () => {
       // 1. Create Release
       toast.loading("Creating release...", { id: "submit-form" });
       
+      const { artwork, ...releaseMetadata } = releaseData;
       const releasePayload = {
-        ...releaseData,
+        ...releaseMetadata,
         releaseDate: releaseData.releaseDate ? new Date(releaseData.releaseDate).toISOString() : "",
         preOrderDate: releaseData.preOrderDate ? new Date(releaseData.preOrderDate).toISOString() : "",
       };
 
+      if (artwork) {
+        console.log("Artwork file found:", artwork.name);
+      }
+      console.log("Submitting Release JSON (Artwork removed from JSON but kept in state):", releasePayload);
       const releaseResult = await createRelease(releasePayload).unwrap();
       console.log("Full Release Response:", releaseResult);
       const releaseId = releaseResult.data?.releaseId;
@@ -187,23 +193,29 @@ const MultiStepForm = () => {
       // 2. Create Track
       toast.loading("Creating track...", { id: "submit-form" });
       
+      const { audioFile, ...trackMetadata } = trackData;
       const trackPayload = {
-        ...trackData,
+        ...trackMetadata,
         releaseId,
         originalReleaseDate: trackData.originalReleaseDate 
           ? new Date(trackData.originalReleaseDate).toISOString() 
           : (releasePayload.releaseDate || new Date().toISOString()),
       };
 
+      console.log("Step 2a: Submitting Track Metadata (JSON):", trackPayload);
       const trackResult = await createTrack(trackPayload).unwrap();
-      console.log("Full Track Response:", trackResult);
+      console.log("Track Metadata Response:", trackResult);
       const trackId = trackResult.data?.trackId || trackResult.data?.id;
-      console.log("Extracted trackId:", trackId);
+      console.log("Extracted trackId for audio upload:", trackId);
 
       // 3. Upload Audio if present
-      if (trackId && trackData.audioFile) {
+      if (trackId && audioFile) {
+        console.log("Step 3: Audio File detected, starting upload for:", audioFile.name);
         toast.loading("Uploading audio file...", { id: "submit-form" });
-        await uploadAudio({ trackId, audioFile: trackData.audioFile }).unwrap();
+        const uploadResult = await uploadAudio({ trackId, audioFile }).unwrap();
+        console.log("Audio Upload Response:", uploadResult);
+      } else {
+        console.warn("Skipping Step 3 (Audio Upload): trackId missing or no audioFile selected", { trackId, hasFile: !!audioFile });
       }
 
       // 4. Create Split Sheet
@@ -212,7 +224,12 @@ const MultiStepForm = () => {
         ...splitSheetData,
         releaseId,
         releaseDate: releasePayload.releaseDate, 
+        contributors: splitSheetData.contributors.map(c => ({
+          ...c,
+          percentageSplit: Number(c.percentageSplit) || 0
+        }))
       };
+      console.log("Step 4: Submitting Split Sheet Metadata (JSON):", splitPayload);
       await createSplitSheet(splitPayload).unwrap();
 
       toast.success("Release submitted successfully!", { id: "submit-form" });

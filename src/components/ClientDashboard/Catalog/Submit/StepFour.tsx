@@ -73,7 +73,8 @@ function StepFour({
     const key = name as keyof SplitContributor;
 
     if (key === "percentageSplit") {
-      values[index].percentageSplit = Number(value);
+      const numValue = value === "" ? 0 : Number(value);
+      values[index].percentageSplit = isNaN(numValue) ? 0 : numValue;
     } else {
       values[index][key] = value;
     }

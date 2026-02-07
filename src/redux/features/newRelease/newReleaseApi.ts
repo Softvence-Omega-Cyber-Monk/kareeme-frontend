@@ -32,8 +32,9 @@ const newReleaseApi = baseApi.injectEndpoints({
         }),
         uploadTrackAudio: builder.mutation({
             query: ({ trackId, audioFile }: { trackId: string; audioFile: File }) => {
+                console.log("Mutation: uploadTrackAudio initializing FormData for file:", audioFile.name);
                 const formData = new FormData();
-                formData.append("audio", audioFile);
+                formData.append("audioFile", audioFile);
                 return {
                     url: `/tracks/${trackId}/upload-audio`,
                     method: "POST",
