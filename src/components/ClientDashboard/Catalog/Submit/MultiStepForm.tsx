@@ -3,7 +3,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
-// import StepFour from "./StepFour";
+import { toast } from "sonner";
 
 export type FormDataType = {
   producer: string;
@@ -81,7 +81,7 @@ const MultiStepForm = () => {
 
   // Handle input changes
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, files } = e.target as HTMLInputElement;
     if (files && files.length > 0) {
@@ -99,7 +99,7 @@ const MultiStepForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("✅ Final Form Data:", formData);
-    alert("Form submitted successfully! Check console for data.");
+    toast.success("Form submitted successfully! Check console for data.");
   };
 
   return (
@@ -109,28 +109,28 @@ const MultiStepForm = () => {
         <div
           className={`h-2 flex-1 rounded-full mr-2 ${
             step >= 1
-              ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
+              ? "bg-linear-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
               : "bg-gray-600"
           }`}
         />
         <div
           className={`h-2 flex-1 rounded-full mr-2 ${
             step >= 2
-              ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
+              ? "bg-linear-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
               : "bg-gray-600"
           }`}
         />
         <div
           className={`h-2 flex-1 rounded-full mr-2 ${
             step >= 3
-              ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
+              ? "bg-linear-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
               : "bg-gray-600"
           }`}
         />
         <div
           className={`h-2 flex-1 rounded-full ${
             step >= 4
-              ? "bg-gradient-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
+              ? "bg-linear-to-r from-[#04A245] via-[#167F7E] to-[#2E4ACA]"
               : "bg-gray-600"
           }`}
         />

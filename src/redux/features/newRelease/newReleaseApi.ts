@@ -9,7 +9,14 @@ const newReleaseApi = baseApi.injectEndpoints({
                 body: data
             })
         }),
+        createArtists: builder.mutation({
+            query: (newArtist) => ({
+                url: "/artists",
+                method: "POST",
+                body: newArtist
+            })
+        })
 
     })
 })
-export const { useCreateNewReleaseMutation } = newReleaseApi
+export const { useCreateNewReleaseMutation, useCreateArtistsMutation } = newReleaseApi

@@ -4,7 +4,7 @@ import { FormDataType } from "./MultiStepForm";
 type StepOneProps = {
   formData: FormDataType;
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   nextStep: () => void;
 };
@@ -30,7 +30,7 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
               <input
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Artist or Brand Name"
                 value={formData.name}
                 onChange={handleChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
