@@ -1,43 +1,96 @@
-export type FormDataType = {
+export type ReleaseArtist = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  stageName: string;
+  spotifyId?: string;
+  appleId?: string;
+  role: string;
+};
 
-  location: string;
+export type Territory = {
+  territory: string;
+};
+
+export type ReleaseData = {
   releaseDate: string;
   preOrderDate: string;
+  releaseTitle: string;
+  producerCredits: string;
+  lyricistCredits: string;
+  masterSplits: string;
+  copyrightHolder: string;
   labelName: string;
   albumLevelArtistName: string;
-  releaseTitle: string;
+  musicFileLink: string;
   typeOfRelease: string;
   genre: string;
-  artwork: File | null;
-  musicFile: string;
-  lyricistCredits: string
-  // Add fields for StepTwo
-  publisher: string;
-  producerCredits: string;
-  copyrightHolder: string;
   language: string;
   isExplicitContent: boolean;
-  producer: string;
   hasExternalRightsHolder: boolean;
   hasDolbyAtmosVersion: boolean;
   hasExtendedMixForDjStores: boolean;
   additionalDetails: string;
-  lyricist: string;
-  masterSplits: string;
-  territory: string;
-  externalSplits: string;
-  territories: string;
   hasArtistOnSpotify: boolean;
   hasMusicVideo: boolean;
-
-  // Add fields for StepFour
-  songTitle: string;
-  iswc: string;
-  releaseDateSplit: string;
-  recordingArtists: string;
-  recordLabel: string;
-  recordLabelFull: string;
+  artists: ReleaseArtist[];
+  territories: Territory[];
+  status: "Draft" | "Submitted";
+  artwork?: File | null; // For frontend handled specifically
 };
+
+export type TrackArtist = {
+  artistId?: string;
+  clientName: string;
+  nameOnTrack: string;
+  artistType: string;
+  songwriterRole: string;
+  realName: string;
+  masterSplit: string;
+  spotifyId?: string;
+  appleId?: string;
+};
+
+export type TrackData = {
+  releaseId: string;
+  trackNumber: number;
+  trackTitle: string;
+  trackGenre: string;
+  trackMix: string;
+  explicitContent: boolean;
+  trackLanguage: string;
+  trackPublisher: string;
+  originalReleaseDate: string;
+  trackIsrc: string;
+  territoryRestrictions: string;
+  audioFileUrl: string;
+  trackArtists: TrackArtist[];
+  audioFile?: File | null; // For frontend handled specifically
+};
+
+export type SplitContributor = {
+  fullName: string;
+  contribution: string;
+  email: string;
+  phone: string;
+  address: string;
+  publisher: string;
+  affiliation: string;
+  ipiCaeNumber: string;
+  percentageSplit: number;
+};
+
+export type SplitSheetData = {
+  releaseId: string;
+  songTitle: string;
+  isrc: string;
+  releaseDate: string;
+  recordLabelId: string;
+  contributors: SplitContributor[];
+};
+
+// Legacy or mapping types if needed
 export interface ArtistInfo {
   name: string;
   email: string;
@@ -49,18 +102,6 @@ export interface ArtistInfo {
   spotifyId?: string;
   appleId?: string;
 }
-export type Track = {
-  releaseId: string;
-  trackNumber: number;
-  trackTitle: string;
-  trackGenre: string;
-  trackMix: string;
-  explicitContent: boolean;
-  trackLanguage: string;
-  trackPublisher: string;
-  originalReleaseDate: string; // Could be Date if you parse it
-  trackIsrc: string;
-  territoryRestrictions: string;
-  audioFileUrl: string;
-  trackArtists: ArtistInfo[];
-};
+
+export type FormDataType = ReleaseData;
+export type Track = TrackData;

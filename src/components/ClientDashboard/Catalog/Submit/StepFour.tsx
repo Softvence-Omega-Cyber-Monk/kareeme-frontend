@@ -1,68 +1,81 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaMusic } from "react-icons/fa";
-import { FormDataType } from "./data";
-
-// Define the type for the contributor object
-interface Contributor {
-  name: string;
-  contribution: string;
-  email: string;
-  phone: string;
-  publisher: string;
-  affiliation: string;
-  split: number;
-}
+import { ReleaseData, SplitSheetData, SplitContributor } from "./data";
 
 type StepFourProps = {
-  formData: FormDataType; // <-- add this line
-  handleChange: (
+  releaseData: ReleaseData;
+  splitSheetData: SplitSheetData;
+  handleSplitChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => void;
+  handleContributorsChange: (contributors: SplitContributor[]) => void;
   prevStep: () => void;
+  isSubmitting: boolean;
 };
 
-function StepFour({ handleChange, prevStep }: StepFourProps) {
-  const [contributors, setContributors] = useState<Contributor[]>([
-    {
-      name: "",
-      contribution: "",
-      email: "",
-      phone: "",
-      publisher: "",
-      affiliation: "",
-      split: 0,
-    },
-  ]);
+function StepFour({
+  releaseData,
+  splitSheetData,
+  handleSplitChange,
+  handleContributorsChange,
+  prevStep,
+  isSubmitting,
+}: StepFourProps) {
+  // Local state for contributors to preserve UI feel, but synced to splitSheetData
+  const [contributors, setContributors] = useState<SplitContributor[]>(
+    splitSheetData.contributors.length > 0
+      ? splitSheetData.contributors
+      : [
+          {
+            fullName: "",
+            contribution: "Composer",
+            email: "",
+            phone: "",
+            address: "",
+            publisher: "",
+            affiliation: "",
+            percentageSplit: 0,
+            ipiCaeNumber: "",
+          },
+        ],
+  );
+
+  useEffect(() => {
+    handleContributorsChange(contributors);
+  }, [contributors, handleContributorsChange]);
 
   const handleAddContributor = () => {
+    if (contributors.length >= 5) return;
     setContributors([
       ...contributors,
       {
-        name: "",
-        contribution: "",
+        fullName: "",
+        contribution: "Composer",
         email: "",
         phone: "",
+        address: "",
         publisher: "",
         affiliation: "",
-        split: 0,
+        percentageSplit: 0,
+        ipiCaeNumber: "",
       },
     ]);
   };
 
-  // Specify the types for index and event
-  const handleContributorChange = (
+  const handleContributorChangeLocal = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const values: Contributor[] = [...contributors];
-    const key = event.target.name as keyof Contributor;
-    if (key === "split") {
-      values[index][key] = Number(event.target.value) as any;
+    const { name, value } = event.target;
+    const values = [...contributors];
+    const key = name as keyof SplitContributor;
+
+    if (key === "percentageSplit") {
+      values[index].percentageSplit = Number(value);
     } else {
-      values[index][key] = event.target.value as any;
+      values[index][key] = value;
     }
     setContributors(values);
   };
@@ -94,7 +107,8 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                   type="text"
                   placeholder="Enter song title"
                   name="songTitle"
-                  onChange={handleChange}
+                  value={splitSheetData.songTitle}
+                  onChange={handleSplitChange}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -106,8 +120,9 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                     className="p-3 rounded-xl bg-[#20362F] w-full"
                     type="text"
                     placeholder="Enter ISWC Code"
-                    name="iswc"
-                    onChange={handleChange}
+                    name="isrc"
+                    value={splitSheetData.isrc}
+                    onChange={handleSplitChange}
                   />
                 </div>
                 <div>
@@ -117,8 +132,9 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                   <input
                     className="p-3 rounded-xl bg-[#20362F] w-full"
                     type="date"
-                    name="releaseDateSplit"
-                    onChange={handleChange}
+                    name="releaseDate"
+                    value={splitSheetData.releaseDate}
+                    onChange={handleSplitChange}
                   />
                 </div>
                 <div>
@@ -126,11 +142,12 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                     Recording Artist(s)
                   </label>
                   <input
-                    className="p-3 rounded-xl bg-[#20362F] w-full"
                     type="text"
                     placeholder="Artist or Brand Name"
-                    name="recordingArtists"
-                    onChange={handleChange}
+                    name="albumLevelArtistName"
+                    value={releaseData.albumLevelArtistName}
+                    readOnly
+                    className="p-3 rounded-xl bg-[#20362F] w-full opacity-60 cursor-not-allowed"
                   />
                 </div>
                 <div>
@@ -138,25 +155,14 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                     Record Label
                   </label>
                   <input
-                    className="p-3 rounded-xl bg-[#20362F] w-full"
                     type="text"
                     placeholder="Record Label"
-                    name="recordLabel"
-                    onChange={handleChange}
+                    name="labelName"
+                    value={releaseData.labelName}
+                    readOnly
+                    className="p-3 rounded-xl bg-[#20362F] w-full opacity-60 cursor-not-allowed"
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm mb-2 font-sans">
-                  Record Label
-                </label>
-                <input
-                  className="p-3 rounded-xl bg-[#20362F] w-full"
-                  type="text"
-                  placeholder="Enter record label"
-                  name="recordLabelFull"
-                  onChange={handleChange}
-                />
               </div>
             </div>
           </div>
@@ -178,10 +184,10 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         Full Name
                       </label>
                       <input
-                        name="name"
+                        name="fullName"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
-                        value={contributor.name}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        value={contributor.fullName}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="text"
                         placeholder="Enter full name"
                       />
@@ -190,14 +196,17 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                       <label className="block text-sm mb-2 font-sans">
                         Contribution
                       </label>
-                      <input
+                      <select
                         name="contribution"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
                         value={contributor.contribution}
-                        onChange={(e) => handleContributorChange(index, e)}
-                        type="text"
-                        placeholder="Enter contribution"
-                      />
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
+                      >
+                        <option value="Composer">Composer</option>
+                        <option value="Lyricist">Lyricist</option>
+                        <option value="Producer">Producer</option>
+                        <option value="Publisher">Publisher</option>
+                      </select>
                     </div>
                     <div>
                       <label className="block text-sm mb-2 font-sans">
@@ -207,7 +216,7 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         name="email"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
                         value={contributor.email}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="email"
                         placeholder="Enter email address"
                       />
@@ -220,23 +229,11 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         name="phone"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
                         value={contributor.phone}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="text"
                         placeholder="Enter phone number"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm mb-2 font-sans">
-                      Address (Optional)
-                    </label>
-                    <input
-                      name="address"
-                      className="p-3 rounded-xl bg-[#20362F] w-full"
-                      onChange={(e) => handleContributorChange(index, e)}
-                      type="text"
-                      placeholder="street address, city, zip code"
-                    />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -247,7 +244,7 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         name="publisher"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
                         value={contributor.publisher}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="text"
                         placeholder="Enter publisher name"
                       />
@@ -260,7 +257,7 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         name="affiliation"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
                         value={contributor.affiliation}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="text"
                         placeholder="Affiliation"
                       />
@@ -270,10 +267,11 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         IPI/CAE Number
                       </label>
                       <input
-                        name="ipiCae"
+                        name="ipiCaeNumber"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
-                        onChange={(e) => handleContributorChange(index, e)}
-                        type="number"
+                        value={contributor.ipiCaeNumber}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
+                        type="text"
                         placeholder="Enter IPI/CAE number"
                       />
                     </div>
@@ -282,10 +280,10 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                         Percentage Split
                       </label>
                       <input
-                        name="split"
+                        name="percentageSplit"
                         className="p-3 rounded-xl bg-[#20362F] w-full"
-                        value={contributor.split}
-                        onChange={(e) => handleContributorChange(index, e)}
+                        value={contributor.percentageSplit}
+                        onChange={(e) => handleContributorChangeLocal(index, e)}
                         type="number"
                         placeholder="00"
                       />
@@ -294,8 +292,9 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => handleRemoveContributor(index)}
-                  className="mt-4 text-red-500 hover:text-red-700"
+                  className="mt-4 text-red-500 hover:text-red-700 cursor-pointer"
                 >
                   Remove Contributor
                 </button>
@@ -304,6 +303,7 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
 
             <div className="flex justify-center items-center mt-6">
               <button
+                type="button"
                 onClick={handleAddContributor}
                 className="bg-[#132539] p-2 rounded-xl text-white hover:bg-[#1E3A59] transition duration-300 ease-in-out cursor-pointer"
               >
@@ -318,7 +318,7 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
                 Total Split:{" "}
                 <span className="text-[#01D449]">
                   {contributors.reduce(
-                    (sum, contributor) => sum + contributor.split,
+                    (sum, contributor) => sum + contributor.percentageSplit,
                     0,
                   )}
                   %
@@ -349,9 +349,14 @@ function StepFour({ handleChange, prevStep }: StepFourProps) {
           </button>
           <button
             type="submit"
-            className="px-6 py-2 bg-green-600 rounded-xl hover:bg-green-700 cursor-pointer"
+            disabled={isSubmitting}
+            className={`px-6 py-2 rounded-xl transition-all duration-200 cursor-pointer ${
+              isSubmitting
+                ? "bg-green-800 opacity-70 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700"
+            }`}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </div>

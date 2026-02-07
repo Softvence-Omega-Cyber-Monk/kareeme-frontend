@@ -1,30 +1,34 @@
 import { FaAnglesLeft } from "react-icons/fa6";
 
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { FormDataType, Track } from "./data";
+import { ReleaseData, TrackData, Territory } from "./data";
 
 type StepTwoProps = {
-  formData: FormDataType;
-  trackInfo: Track;
-  handleTrackInfoChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => void;
-  handleChange: (
+  releaseData: ReleaseData;
+  trackData: TrackData;
+  handleReleaseChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => void;
+  handleTrackChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+  handleTerritoryChange: (territories: Territory[]) => void;
   nextStep: () => void;
   prevStep: () => void;
 };
 
 const StepTwo = ({
-  formData,
-  handleChange,
+  releaseData,
+  trackData,
+  handleReleaseChange,
+  handleTrackChange,
+  handleTerritoryChange,
   nextStep,
   prevStep,
-  trackInfo,
-  handleTrackInfoChange,
 }: StepTwoProps) => {
   return (
     <div className="space-y-9">
@@ -42,16 +46,28 @@ const StepTwo = ({
           <h2 className="text-2xl font-bold mb-6">Release Information</h2>
           <form className="space-y-6">
             {/* Publisher */}
-            <div>
-              <label className="block text-sm mb-2">Publisher</label>
-              <input
-                type="text"
-                name="trackPublisher"
-                value={trackInfo.trackPublisher || ""}
-                onChange={handleTrackInfoChange}
-                placeholder="Enter release title"
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm mb-2">Publisher</label>
+                <input
+                  type="text"
+                  name="trackPublisher"
+                  value={trackData.trackPublisher || ""}
+                  onChange={handleTrackChange}
+                  placeholder="Enter publisher name"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2">Original Release Date</label>
+                <input
+                  type="date"
+                  name="originalReleaseDate"
+                  value={trackData.originalReleaseDate || ""}
+                  onChange={handleTrackChange}
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                />
+              </div>
             </div>
 
             {/* Copyright Holder */}
@@ -60,9 +76,9 @@ const StepTwo = ({
               <input
                 type="text"
                 name="copyrightHolder"
-                value={formData.copyrightHolder || ""}
-                onChange={handleChange}
-                placeholder="Enter release title"
+                value={releaseData.copyrightHolder || ""}
+                onChange={handleReleaseChange}
+                placeholder="Enter copyright holder"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -72,9 +88,9 @@ const StepTwo = ({
               <label className="block text-sm mb-2">Language</label>
               <select
                 name="language"
-                value={formData.language || ""}
-                onChange={handleChange}
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={releaseData.language || ""}
+                onChange={handleReleaseChange}
+                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               >
                 <option value="">Select language</option>
                 <option value="English">English</option>
@@ -94,8 +110,8 @@ const StepTwo = ({
                     type="radio"
                     name="isExplicitContent"
                     value="true"
-                    checked={formData.isExplicitContent === true}
-                    onChange={handleChange}
+                    checked={releaseData.isExplicitContent === true}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   Yes
@@ -105,8 +121,8 @@ const StepTwo = ({
                     type="radio"
                     name="isExplicitContent"
                     value="false"
-                    checked={formData.isExplicitContent === false}
-                    onChange={handleChange}
+                    checked={releaseData.isExplicitContent === false}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   No
@@ -119,10 +135,10 @@ const StepTwo = ({
               <label className="block text-sm mb-2">Producer Credits</label>
               <input
                 type="text"
-                name="producer"
-                value={formData.producer || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="producerCredits"
+                value={releaseData.producerCredits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Producer Credits"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -132,10 +148,10 @@ const StepTwo = ({
               <label className="block text-sm mb-2">Lyricist Credits</label>
               <input
                 type="text"
-                name="lyricist"
-                value={formData.lyricist || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="lyricistCredits"
+                value={releaseData.lyricistCredits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Lyricist Credits"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -146,9 +162,23 @@ const StepTwo = ({
               <input
                 type="text"
                 name="masterSplits"
-                value={formData.masterSplits || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                value={releaseData.masterSplits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Master Splits"
+                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* Audio File Upload */}
+            <div className="md:col-span-2">
+              <label className="block text-sm mb-2">
+                Upload Audio File (MP3, WAV, FLAC, AAC, M4A - Max 100MB)
+              </label>
+              <input
+                type="file"
+                name="audioFile"
+                accept=".mp3,.wav,.flac,.aac,.m4a"
+                onChange={handleTrackChange}
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -160,10 +190,20 @@ const StepTwo = ({
               </label>
               <input
                 type="text"
-                name="territory"
-                value={formData.territory || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="territories"
+                value={
+                  releaseData.territories
+                    .map((t) => t.territory)
+                    .join(", ") || ""
+                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const territories = val
+                    .split(",")
+                    .map((t) => ({ territory: t.trim() }));
+                  handleTerritoryChange(territories);
+                }}
+                placeholder="e.g. US, UK, WW"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -180,8 +220,8 @@ const StepTwo = ({
                     type="radio"
                     name="hasExternalRightsHolder"
                     value="true"
-                    checked={formData.hasExternalRightsHolder === true}
-                    onChange={handleChange}
+                    checked={releaseData.hasExternalRightsHolder === true}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   Yes
@@ -191,8 +231,8 @@ const StepTwo = ({
                     type="radio"
                     name="hasExternalRightsHolder"
                     value="false"
-                    checked={formData.hasExternalRightsHolder === false}
-                    onChange={handleChange}
+                    checked={releaseData.hasExternalRightsHolder === false}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   No
@@ -200,18 +240,6 @@ const StepTwo = ({
               </div>
             </div>
 
-            {/* Territories */}
-            <div>
-              <label className="block text-sm mb-2">Territories</label>
-              <input
-                type="text"
-                name="territories"
-                value={formData.territories || ""}
-                onChange={handleChange}
-                placeholder="Enter territories"
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
           </form>
 
           {/* Navigation Buttons */}

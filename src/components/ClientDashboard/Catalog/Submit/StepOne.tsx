@@ -1,28 +1,27 @@
 import { FaAngleDoubleRight } from "react-icons/fa";
 
-import { ArtistInfo, FormDataType } from "./data";
+import { ReleaseData } from "./data";
 
 type StepOneProps = {
-  formData: FormDataType;
-  artistData: ArtistInfo;
-  handleChange: (
+  releaseData: ReleaseData;
+  handleReleaseChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => void;
-  artistInfoChange: (
+  handleArtistChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   nextStep: () => void;
 };
 
 const StepOne = ({
-  formData,
-  handleChange,
+  releaseData,
+  handleReleaseChange,
   nextStep,
-  artistData,
-  artistInfoChange,
+  handleArtistChange,
 }: StepOneProps) => {
+  const primaryArtist = releaseData.artists[0];
   return (
     <div className="space-y-9">
       <div>
@@ -44,8 +43,8 @@ const StepOne = ({
                 type="text"
                 name="name"
                 placeholder="Artist or Brand Name"
-                value={artistData.name}
-                onChange={artistInfoChange}
+                value={primaryArtist.name}
+                onChange={handleArtistChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -57,8 +56,8 @@ const StepOne = ({
                 type="email"
                 name="email"
                 placeholder="Your Email"
-                value={artistData.email}
-                onChange={artistInfoChange}
+                value={primaryArtist.email}
+                onChange={handleArtistChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -71,8 +70,8 @@ const StepOne = ({
                 type="text"
                 name="phone"
                 placeholder="Phone Number"
-                value={artistData.phone}
-                onChange={artistInfoChange}
+                value={primaryArtist.phone}
+                onChange={handleArtistChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -86,22 +85,22 @@ const StepOne = ({
                 type="text"
                 name="stageName"
                 placeholder="Artist Name"
-                value={artistData.stageName}
-                onChange={artistInfoChange}
+                value={primaryArtist.stageName}
+                onChange={handleArtistChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
             <div className="col-span-2">
               <label className="block text-sm mb-2 font-sans">
                 {" "}
-                Where are you from?
+                Where are you from? (Address)
               </label>
               <input
                 type="text"
-                name="location"
-                placeholder="Artist Location"
-                value={artistData.location}
-                onChange={artistInfoChange}
+                name="address"
+                placeholder="Artist Location / Address"
+                value={primaryArtist.address}
+                onChange={handleArtistChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full col-span-2"
               />
             </div>
@@ -118,8 +117,8 @@ const StepOne = ({
                 <input
                   type="date"
                   name="releaseDate"
-                  value={formData.releaseDate}
-                  onChange={handleChange}
+                  value={releaseData.releaseDate}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -130,8 +129,8 @@ const StepOne = ({
                 <input
                   type="date"
                   name="preOrderDate"
-                  value={formData.preOrderDate}
-                  onChange={handleChange}
+                  value={releaseData.preOrderDate}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -144,8 +143,8 @@ const StepOne = ({
                   type="text"
                   name="labelName"
                   placeholder="Label Name"
-                  value={formData.labelName}
-                  onChange={handleChange}
+                  value={releaseData.labelName}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -156,10 +155,10 @@ const StepOne = ({
                 </label>
                 <input
                   type="text"
-                  name="albumArtist"
+                  name="albumLevelArtistName"
                   placeholder="Album Level Artist"
-                  value={formData.albumLevelArtistName}
-                  onChange={handleChange}
+                  value={releaseData.albumLevelArtistName}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -172,8 +171,8 @@ const StepOne = ({
                   type="text"
                   name="releaseTitle"
                   placeholder="Release Title"
-                  value={formData.releaseTitle}
-                  onChange={handleChange}
+                  value={releaseData.releaseTitle}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -184,13 +183,13 @@ const StepOne = ({
                 </label>
                 <select
                   name="typeOfRelease"
-                  value={formData.typeOfRelease}
-                  onChange={handleChange}
-                  className="p-3 rounded-xl bg-[#20362F] w-full"
+                  value={releaseData.typeOfRelease}
+                  onChange={handleReleaseChange}
+                  className="p-3 rounded-xl bg-[#20362F] w-full text-white"
                 >
-                  <option>Single</option>
-                  <option>Album</option>
-                  <option>EP</option>
+                  <option value="Single">Single</option>
+                  <option value="Album">Album</option>
+                  <option value="EP">EP</option>
                 </select>
               </div>
             </div>
@@ -207,7 +206,7 @@ const StepOne = ({
                 <input
                   type="file"
                   name="artwork"
-                  onChange={handleChange}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -218,10 +217,10 @@ const StepOne = ({
                 </label>
                 <input
                   type="url"
-                  name="musicFile"
+                  name="musicFileLink"
                   placeholder="Music File Link (http://...)"
-                  value={formData.musicFile}
-                  onChange={handleChange}
+                  value={releaseData.musicFileLink}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
@@ -232,8 +231,8 @@ const StepOne = ({
                   type="text"
                   name="genre"
                   placeholder="Genre"
-                  value={formData.genre}
-                  onChange={handleChange}
+                  value={releaseData.genre}
+                  onChange={handleReleaseChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
               </div>
