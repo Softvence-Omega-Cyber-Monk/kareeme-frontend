@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import loginphoto from "@/assets/photo/signup.svg";
+import loginPhoto from "@/assets/photo/signup.svg";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { setCredentials } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks/redux-hook";
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
         {/* Left Side - Image */}
         <div className="hidden md:flex w-1/2 items-center justify-center">
           <img
-            src={loginphoto}
+            src={loginPhoto}
             alt="artist"
             className="h-full w-full object-cover rounded-l-xl"
           />
