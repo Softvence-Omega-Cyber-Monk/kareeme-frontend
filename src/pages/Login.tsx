@@ -27,15 +27,8 @@ const Login: React.FC = () => {
     }
   }, [location.state]);
 
-  // Check if already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    if (token && user) {
-      const parsedUser = JSON.parse(user);
-      redirectBasedOnRole(parsedUser.role);
-    }
-  }, []);
+  // Already handled by ReduxProviderWrapper and Redux Persist
+  // No need to check localStorage manually for token/user
 
   const redirectBasedOnRole = (role: string) => {
     switch (role) {

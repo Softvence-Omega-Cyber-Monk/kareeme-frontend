@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { AppRootState } from "@/redux/store";
 import { setCredentials, logout } from "@/redux/features/auth/authSlice";
-import { UserRole } from "@/redux/types/auth.type";
+import { LoginResponse } from "@/redux/types/auth.type";
 import { Mutex } from "async-mutex";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -73,24 +73,11 @@ const baseQueryWithReauth: BaseQueryFn<
         if (refreshResult.data) {
           console.log("✅ Token successfully refreshed.");
           // Store the new token
-          const data = refreshResult.data as { 
-            data: { 
-              access_token: string; 
-              user: {
-                clientId?: string;
-                id?: string;
-                fullName: string;
-                email: string;
-                phoneNumber: string;
-                profileImageUrl?: string | null;
-                role: UserRole;
-              };
-            } 
-          };
+          const refreshData = refreshResult.data as LoginResponse;
           api.dispatch(
             setCredentials({
-              token: data.data.access_token,
-              user: data.data.user,
+              token: refreshData.data.access_token,
+              user: refreshData.data.user,
             })
           );
 
