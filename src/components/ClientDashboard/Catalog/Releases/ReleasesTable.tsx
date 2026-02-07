@@ -4,8 +4,14 @@ import fannel from "@/assets/icons/fanel.svg";
 import short from "@/assets/icons/short.svg";
 import { RiDownloadLine } from "react-icons/ri";
 import TableHere from "./TableHere";
+import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
 
 const ReleasesTable = () => {
+  const { data, isLoading } = useGetAllReleasesQuery({
+    limit: 10,
+    page: 1,
+  })
+  console.log("data",data)
   return (
     <div className="space-y-9">
       {/* Header Section */}

@@ -105,7 +105,7 @@ const routes = createBrowserRouter([
         path: "/cart",
         element: <ProductDetailPage></ProductDetailPage>,
       },
-      
+
       {
         path: "/details/:id",
         element: <ProductDetailPage></ProductDetailPage>,
@@ -174,7 +174,7 @@ const routes = createBrowserRouter([
     ],
   },
 
-  /* Diostributor Dashboard */
+  /* Distributor Dashboard */
   {
     path: "/distributor-dashboard",
     element: <DistributorLayout />,
@@ -239,11 +239,9 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path:"/admin",
-    element:(
-     <ClientAdminLayout />
-    ),
-    children:[
+    path: "/admin",
+    element: <ClientAdminLayout />,
+    children: [
       { index: true, element: <ClientAdminDashboard /> },
       { path: "dashboard", element: <ClientAdminDashboard /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
@@ -284,7 +282,7 @@ const routes = createBrowserRouter([
 
       /* profile */
       { path: "settings", element: <SettingsPage /> },
-    ]
+    ],
   },
 
   {

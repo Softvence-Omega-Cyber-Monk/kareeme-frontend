@@ -42,13 +42,21 @@ const newReleaseApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        getAllReleases: builder.query({
+            query: ({ limit, page }) => ({
+                url: "/releases",
+                method: "GET",
+                params: { limit, page }
+            })
+        })
     })
 })
 
-export const { 
-    useCreateNewReleaseMutation, 
+export const {
+    useCreateNewReleaseMutation,
     useCreateArtistsMutation,
     useCreateTrackMutation,
     useCreateSplitSheetMutation,
-    useUploadTrackAudioMutation
+    useUploadTrackAudioMutation,
+    useGetAllReleasesQuery
 } = newReleaseApi;

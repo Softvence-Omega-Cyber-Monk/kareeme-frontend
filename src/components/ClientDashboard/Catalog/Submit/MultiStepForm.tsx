@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -96,7 +96,7 @@ const MultiStepForm = () => {
   const isSubmitting = isReleaseLoading || isTrackLoading || isAudioLoading || isSplitLoading;
 
   // Handlers
-  const handleReleaseChange = (
+  const handleReleaseChange = useCallback((
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
@@ -112,9 +112,9 @@ const MultiStepForm = () => {
     } else {
       setReleaseData((prev) => ({ ...prev, [name]: value }));
     }
-  };
+  }, []);
 
-  const handleArtistChange = (
+  const handleArtistChange = useCallback((
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
@@ -123,9 +123,9 @@ const MultiStepForm = () => {
       updatedArtists[0] = { ...updatedArtists[0], [name]: value };
       return { ...prev, artists: updatedArtists };
     });
-  };
+  }, []);
 
-  const handleTrackChange = (
+  const handleTrackChange = useCallback((
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
@@ -141,24 +141,24 @@ const MultiStepForm = () => {
     } else {
       setTrackData((prev) => ({ ...prev, [name]: value }));
     }
-  };
+  }, []);
 
-  const handleTerritoryChange = (territories: Territory[]) => {
+  const handleTerritoryChange = useCallback((territories: Territory[]) => {
     setReleaseData((prev) => ({ ...prev, territories }));
-  };
+  }, []);
 
-  const handleSplitChange = (
+  const handleSplitChange = useCallback((
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
     const { name, value } = e.target;
     setSplitSheetData((prev) => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
-  const handleContributorsChange = (contributors: SplitContributor[]) => {
+  const handleContributorsChange = useCallback((contributors: SplitContributor[]) => {
     setSplitSheetData((prev) => ({ ...prev, contributors }));
-  };
+  }, []);
 
   // Navigation
   const nextStep = () => setStep((prev) => prev + 1);
