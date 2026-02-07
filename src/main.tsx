@@ -15,21 +15,5 @@ createRoot(document.getElementById("root")!).render(
         <DashboardToaster />
       </CartProvider>
     </ReduxProviderWrapper>
-  </StrictMode>
+  </StrictMode>,
 );
-
-// import React from "react";
-// import ReactDOM from "react-dom/client";
-// import { RouterProvider } from "react-router-dom";
-// import "./index.css";
-
-// import { CartProvider } from "./contexts/CartContext";
-// import routes from "./routes/Routes";
-
-// ReactDOM.createRoot(document.getElementById("root")!).render(
-//   <React.StrictMode>
-//     <CartProvider>
-//       <RouterProvider router={routes} />
-//     </CartProvider>
-//   </React.StrictMode>
-// );
