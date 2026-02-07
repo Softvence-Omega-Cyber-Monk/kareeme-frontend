@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FaMusic } from "react-icons/fa";
-import { FormDataType } from "./MultiStepForm";
+import { FormDataType } from "./data";
 
 // Define the type for the contributor object
 interface Contributor {

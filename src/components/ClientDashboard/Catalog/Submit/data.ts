@@ -1,30 +1,35 @@
 export type FormDataType = {
-  name: string;
-  email: string;
-  phone: string;
-  artistName: string;
+
   location: string;
   releaseDate: string;
   preOrderDate: string;
-  label: string;
-  albumArtist: string;
+  labelName: string;
+  albumLevelArtistName: string;
   releaseTitle: string;
-  releaseType: string;
+  typeOfRelease: string;
   genre: string;
   artwork: File | null;
   musicFile: string;
-  tiktokClip: File | null;
+  lyricistCredits: string
   // Add fields for StepTwo
   publisher: string;
+  producerCredits: string;
   copyrightHolder: string;
   language: string;
-  explicit: string;
+  isExplicitContent: boolean;
   producer: string;
+  hasExternalRightsHolder: boolean;
+  hasDolbyAtmosVersion: boolean;
+  hasExtendedMixForDjStores: boolean;
+  additionalDetails: string;
   lyricist: string;
   masterSplits: string;
   territory: string;
   externalSplits: string;
   territories: string;
+  hasArtistOnSpotify: boolean;
+  hasMusicVideo: boolean;
+
   // Add fields for StepFour
   songTitle: string;
   iswc: string;
@@ -33,3 +38,14 @@ export type FormDataType = {
   recordLabel: string;
   recordLabelFull: string;
 };
+export interface ArtistInfo {
+  name: string;
+  email: string;
+  phone: string;
+  stageName: string;
+  bio?: string;
+  location: string;
+  imageUrl?: string;
+  spotifyId?: string;
+  appleId?: string;
+}

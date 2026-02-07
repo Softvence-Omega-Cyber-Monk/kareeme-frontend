@@ -4,63 +4,31 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import { toast } from "sonner";
-
-export type FormDataType = {
-  producer: string;
-  explicit: string;
-  name: string;
-  email: string;
-  phone: string;
-  artistName: string;
-  location: string;
-  releaseDate: string;
-  preOrderDate: string;
-  label: string;
-  albumArtist: string;
-  releaseTitle: string;
-  releaseType: string;
-  genre: string;
-  artwork: File | null;
-  musicFile: string;
-  tiktokClip: File | null;
-  // StepTwo fields
-  publisher: string;
-  copyrightHolder: string;
-  language: string;
-  lyricist: string;
-  masterSplits: string;
-  territory: string;
-  externalSplits: string;
-  territories: string;
-  // StepFour fields
-  songTitle: string;
-  iswc: string;
-  releaseDateSplit: string;
-  recordingArtists: string;
-  recordLabel: string;
-  recordLabelFull: string;
-};
+import { ArtistInfo, FormDataType } from "./data";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormDataType>({
     producer: "",
-    explicit: "",
-    name: "",
-    email: "",
-    phone: "",
-    artistName: "",
     location: "",
     releaseDate: "",
     preOrderDate: "",
-    label: "",
-    albumArtist: "",
+    additionalDetails: "",
+    hasArtistOnSpotify: false,
+    hasMusicVideo: false,
+    isExplicitContent: false,
+    hasDolbyAtmosVersion: false,
+    hasExtendedMixForDjStores: false,
+    hasExternalRightsHolder: false,
+    lyricistCredits: "",
+    typeOfRelease: "",
+    labelName: "",
+    albumLevelArtistName: "",
     releaseTitle: "",
-    releaseType: "",
     genre: "",
+    producerCredits: "",
     artwork: null,
     musicFile: "",
-    tiktokClip: null,
     // Add fields for StepTwo
     publisher: "",
     copyrightHolder: "",
@@ -78,7 +46,19 @@ const MultiStepForm = () => {
     recordLabel: "",
     recordLabelFull: "",
   });
-
+  const [artistInfo, setArtistInfo] = useState<ArtistInfo>({
+    name: "",
+    email: "",
+    phone: "",
+    stageName: "",
+    location: "",
+  });
+  const artistInfoChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setArtistInfo((prev) => ({ ...prev, [name]: value }));
+  };
   // Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -146,8 +126,10 @@ const MultiStepForm = () => {
         {step === 1 && (
           <StepOne
             formData={formData}
+            artistData={artistInfo}
             handleChange={handleChange}
             nextStep={nextStep}
+            artistInfoChange={artistInfoChange}
           />
         )}
         {step === 2 && (

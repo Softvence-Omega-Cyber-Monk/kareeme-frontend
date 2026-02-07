@@ -1,15 +1,26 @@
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { FormDataType } from "./MultiStepForm";
+
+import { ArtistInfo, FormDataType } from "./data";
 
 type StepOneProps = {
   formData: FormDataType;
+  artistData: ArtistInfo;
   handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
+  artistInfoChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   nextStep: () => void;
 };
 
-const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
+const StepOne = ({
+  formData,
+  handleChange,
+  nextStep,
+  artistData,
+  artistInfoChange,
+}: StepOneProps) => {
   return (
     <div className="space-y-9">
       <div>
@@ -31,8 +42,8 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                 type="text"
                 name="name"
                 placeholder="Artist or Brand Name"
-                value={formData.name}
-                onChange={handleChange}
+                value={artistData.name}
+                onChange={artistInfoChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -44,8 +55,8 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                 type="email"
                 name="email"
                 placeholder="Your Email"
-                value={formData.email}
-                onChange={handleChange}
+                value={artistData.email}
+                onChange={artistInfoChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -58,8 +69,8 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                 type="text"
                 name="phone"
                 placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
+                value={artistData.phone}
+                onChange={artistInfoChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
@@ -73,12 +84,12 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                 type="text"
                 name="artistName"
                 placeholder="Artist Name"
-                value={formData.artistName}
-                onChange={handleChange}
+                value={artistData.stageName}
+                onChange={artistInfoChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full"
               />
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="block text-sm mb-2 font-sans">
                 {" "}
                 Where are you from?
@@ -86,9 +97,9 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
               <input
                 type="text"
                 name="location"
-                placeholder="Where are you from?"
-                value={formData.location}
-                onChange={handleChange}
+                placeholder="Artist Location"
+                value={artistData.location}
+                onChange={artistInfoChange}
                 className="p-3 rounded-xl bg-[#20362F] w-full col-span-2"
               />
             </div>
@@ -129,9 +140,9 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                 </label>
                 <input
                   type="text"
-                  name="label"
+                  name="labelName"
                   placeholder="Label Name"
-                  value={formData.label}
+                  value={formData.labelName}
                   onChange={handleChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
@@ -145,7 +156,7 @@ const StepOne = ({ formData, handleChange, nextStep }: StepOneProps) => {
                   type="text"
                   name="albumArtist"
                   placeholder="Album Level Artist"
-                  value={formData.albumArtist}
+                  value={formData.albumLevelArtistName}
                   onChange={handleChange}
                   className="p-3 rounded-xl bg-[#20362F] w-full"
                 />
