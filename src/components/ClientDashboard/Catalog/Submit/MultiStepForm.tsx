@@ -4,7 +4,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import { toast } from "sonner";
-import { ArtistInfo, FormDataType } from "./data";
+import { ArtistInfo, FormDataType, Track } from "./data";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
@@ -53,17 +53,44 @@ const MultiStepForm = () => {
     stageName: "",
     location: "",
   });
+  const [trackInfo, setTrackInfo] = useState<Track>({
+    releaseId: "",
+    trackNumber: 0,
+    trackTitle: "",
+    trackGenre: "",
+    trackMix: "",
+    explicitContent: false,
+    trackLanguage: "",
+    trackPublisher: "",
+    audioFileUrl: "",
+    originalReleaseDate: "",
+    territoryRestrictions: "",
+    trackArtists: [],
+    trackIsrc: "",
+  });
   const artistInfoChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target as HTMLInputElement;
     setArtistInfo((prev) => ({ ...prev, [name]: value }));
   };
-  console.log("artistInfo", artistInfo);
-  console.log("formData", formData);
+  const handleTrackInfoChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value, type } = e.target as HTMLInputElement;
+    if (type === "radio") {
+      const booleanValue =
+        value === "true" ? true : value === "false" ? false : value;
+      setTrackInfo((prev) => ({ ...prev, [name]: booleanValue }));
+    } else {
+      setTrackInfo((prev) => ({ ...prev, [name]: value }));
+    }
+  };
   // Handle input changes
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     const { name, value, type } = e.target as HTMLInputElement;
     const files = (e.target as HTMLInputElement).files;
@@ -72,7 +99,8 @@ const MultiStepForm = () => {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
     } else if (type === "radio") {
       // Convert "true"/"false" strings to actual booleans
-      const booleanValue = value === "true" ? true : value === "false" ? false : value;
+      const booleanValue =
+        value === "true" ? true : value === "false" ? false : value;
       setFormData((prev) => ({ ...prev, [name]: booleanValue }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -143,7 +171,9 @@ const MultiStepForm = () => {
         {step === 2 && (
           <StepTwo
             formData={formData}
+            trackInfo={trackInfo}
             handleChange={handleChange}
+            handleTrackInfoChange={handleTrackInfoChange}
             nextStep={nextStep}
             prevStep={prevStep}
           />

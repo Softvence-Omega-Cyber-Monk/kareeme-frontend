@@ -5,9 +5,7 @@ import { FormDataType } from "./data";
 type StepThreeProps = {
   formData: FormDataType;
   handleChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -31,18 +29,18 @@ const StepThree = ({
       <div>
         <h2 className="text-2xl font-sans mb-4">Content & Promotion</h2>
         <div className="space-y-6">
-          {/* Dolby Atmos Version */}
+          {/* Explicit Content */}
           <div>
             <label className="block text-sm mb-2">
-              Does this track have a Dolby Atmos version?
+              Does this track contain explicit content?
             </label>
             <div className="flex items-center gap-6">
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="hasDolbyAtmosVersion"
-                  value="true"
-                  checked={formData.hasDolbyAtmosVersion === true}
+                  name="explicit1"
+                  value="Yes"
+                  checked={formData.isExplicitContent === true}
                   onChange={handleChange}
                   className="text-blue-500 focus:ring-0 cursor-pointer"
                 />
@@ -51,9 +49,9 @@ const StepThree = ({
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="hasDolbyAtmosVersion"
-                  value="false"
-                  checked={formData.hasDolbyAtmosVersion === false}
+                  name="explicit"
+                  value="No"
+                  checked={formData.isExplicitContent === false}
                   onChange={handleChange}
                   className="text-blue-500 focus:ring-0 cursor-pointer"
                 />
@@ -61,19 +59,19 @@ const StepThree = ({
               </label>
             </div>
           </div>
-
-          {/* Extended Mix */}
+          {/* 2 */}
+          {/* Explicit Content */}
           <div>
             <label className="block text-sm mb-2">
-              Is there an extended mix available for DJ stores?
+              Does this track contain explicit content?
             </label>
             <div className="flex items-center gap-6">
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="hasExtendedMixForDjStores"
-                  value="true"
-                  checked={formData.hasExtendedMixForDjStores === true}
+                  name="explicit"
+                  value="Yes"
+                  //checked={formData.explicit === "Yes"}
                   onChange={handleChange}
                   className="text-blue-500 focus:ring-0 cursor-pointer"
                 />
@@ -82,9 +80,9 @@ const StepThree = ({
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="hasExtendedMixForDjStores"
-                  value="false"
-                  checked={formData.hasExtendedMixForDjStores === false}
+                  name="explicit"
+                  value="No"
+                  //checked={formData.explicit === "No"}
                   onChange={handleChange}
                   className="text-blue-500 focus:ring-0 cursor-pointer"
                 />
@@ -93,84 +91,107 @@ const StepThree = ({
             </div>
           </div>
 
-          {/* Artist on Spotify */}
-          <div>
-            <label className="block text-sm mb-2">
-              Does the artist already have a profile on Spotify?
-            </label>
-            <div className="flex items-center gap-6">
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="hasArtistOnSpotify"
-                  value="true"
-                  checked={formData.hasArtistOnSpotify === true}
-                  onChange={handleChange}
-                  className="text-blue-500 focus:ring-0 cursor-pointer"
-                />
-                Yes
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="hasArtistOnSpotify"
-                  value="false"
-                  checked={formData.hasArtistOnSpotify === false}
-                  onChange={handleChange}
-                  className="text-blue-500 focus:ring-0 cursor-pointer"
-                />
-                No
-              </label>
-            </div>
-          </div>
-
-          {/* Music Video */}
-          <div>
-            <label className="block text-sm mb-2">
-              Is there a music video for this release?
-            </label>
-            <div className="flex items-center gap-6">
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="hasMusicVideo"
-                  value="true"
-                  checked={formData.hasMusicVideo === true}
-                  onChange={handleChange}
-                  className="text-blue-500 focus:ring-0 cursor-pointer"
-                />
-                Yes
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="hasMusicVideo"
-                  value="false"
-                  checked={formData.hasMusicVideo === false}
-                  onChange={handleChange}
-                  className="text-blue-500 focus:ring-0 cursor-pointer"
-                />
-                No
-              </label>
-            </div>
-          </div>
-
-          {/* Additional Details (Message) */}
+          {/* Example input for another field, e.g., "promotion" */}
           <div className="grid w-full gap-2">
             <label
-              htmlFor="additionalDetails"
+              htmlFor="message"
               className="text-sm font-medium text-gray-200"
             >
-              Additional Details
+              Your message
             </label>
             <textarea
-              id="additionalDetails"
-              name="additionalDetails"
-              value={formData.additionalDetails || ""}
-              onChange={handleChange}
-              placeholder="Type any additional details here..."
+              id="message"
+              placeholder="Type your message here..."
               className="w-full min-h-[120px] rounded-xl border border-gray-600 bg-[#213430] px-4 py-3 text-sm text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-y"
             />
+          </div>
+
+          {/* Explicit Content */}
+          <div>
+            <label className="block text-sm mb-2">
+              Does this track contain explicit content?
+            </label>
+            <div className="flex items-center gap-6">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="explicit"
+                  value="Yes"
+                  //checked={formData.explicit === "Yes"}
+                  onChange={handleChange}
+                  className="text-blue-500 focus:ring-0 cursor-pointer"
+                />
+                Yes
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="explicit"
+                  value="No"
+                  //checked={formData.explicit === "No"}
+                  onChange={handleChange}
+                  className="text-blue-500 focus:ring-0 cursor-pointer"
+                />
+                No
+              </label>
+            </div>
+          </div>
+          {/* 4 */}
+          <div>
+            <label className="block text-sm mb-2">Producer Credits</label>
+            <input
+              type="text"
+              name="producer"
+              value={formData.producer || ""}
+              onChange={handleChange}
+              placeholder="Artist or Brand Name"
+              className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* 5 */}
+          <div>
+            <label className="block text-sm mb-2">Producer Credits</label>
+            <input
+              type="text"
+              name="producer"
+              //value={formData.producer || ""}
+              onChange={handleChange}
+              placeholder="Artist or Brand Name"
+              className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          {/* 6 */}
+
+          {/* Explicit Content */}
+          <div>
+            <label className="block text-sm mb-2">
+              Does this track contain explicit content?
+            </label>
+            <div className="flex items-center gap-6">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="explicit"
+                  value="Yes"
+                  //checked={formData.explicit === "Yes"}
+                  onChange={handleChange}
+                  className="text-blue-500 focus:ring-0 cursor-pointer"
+                />
+                Yes
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="explicit"
+                  value="No"
+                  //checked={formData.explicit === "No"}
+                  onChange={handleChange}
+                  className="text-blue-500 focus:ring-0 cursor-pointer"
+                />
+                No
+              </label>
+            </div>
           </div>
         </div>
         <div className="flex justify-between mt-6">

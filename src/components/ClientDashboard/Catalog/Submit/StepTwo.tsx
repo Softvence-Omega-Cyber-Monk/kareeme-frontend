@@ -1,10 +1,14 @@
 import { FaAnglesLeft } from "react-icons/fa6";
 
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { FormDataType } from "./data";
+import { FormDataType, Track } from "./data";
 
 type StepTwoProps = {
   formData: FormDataType;
+  trackInfo: Track;
+  handleTrackInfoChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
   handleChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -14,31 +18,13 @@ type StepTwoProps = {
   prevStep: () => void;
 };
 
-//   const [formData, setFormData] = useState({
-//     publisher: "",
-//     copyrightHolder: "",
-//     language: "English",
-//     explicit: "No",
-//     producer: "",
-//     lyricist: "",
-//     masterSplits: "",
-//     territory: "",
-//     externalSplits: "No",
-//     territories: "",
-//   });
-
-//   const handleChange = (
-//     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-//   ) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
 const StepTwo = ({
   formData,
   handleChange,
   nextStep,
   prevStep,
+  trackInfo,
+  handleTrackInfoChange,
 }: StepTwoProps) => {
   return (
     <div className="space-y-9">
@@ -61,9 +47,9 @@ const StepTwo = ({
               <label className="block text-sm mb-2">Publisher</label>
               <input
                 type="text"
-                name="publisher"
-                value={formData.publisher || ""}
-                onChange={handleChange}
+                name="trackPublisher"
+                value={trackInfo.trackPublisher || ""}
+                onChange={handleTrackInfoChange}
                 placeholder="Enter release title"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -75,7 +61,7 @@ const StepTwo = ({
               <input
                 type="text"
                 name="copyrightHolder"
-                value={formData.copyrightHolder || ""}
+                value={trackInfo.copyrightHolder || ""}
                 onChange={handleChange}
                 placeholder="Enter release title"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"

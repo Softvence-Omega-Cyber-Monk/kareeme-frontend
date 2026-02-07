@@ -49,3 +49,18 @@ export interface ArtistInfo {
   spotifyId?: string;
   appleId?: string;
 }
+export type Track = {
+  releaseId: string;
+  trackNumber: number;
+  trackTitle: string;
+  trackGenre: string;
+  trackMix: string;
+  explicitContent: boolean;
+  trackLanguage: string;
+  trackPublisher: string;
+  originalReleaseDate: string; // Could be Date if you parse it
+  trackIsrc: string;
+  territoryRestrictions: string;
+  audioFileUrl: string;
+  trackArtists: ArtistInfo[];
+};
