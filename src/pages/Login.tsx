@@ -35,8 +35,10 @@ const Login: React.FC = () => {
       case "CLIENT":
         navigate("/client-dashboard");
         break;
-      case "SUPER_ADMIN":
       case "ADMIN":
+        navigate("/admin");
+        break;
+      case "SUPER_ADMIN":
         navigate("/super-admin-dashboard");
         break;
       case "ACCOUNTANT":
