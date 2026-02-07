@@ -4,7 +4,11 @@ import { FormDataType } from "./data";
 
 type StepThreeProps = {
   formData: FormDataType;
-  handleChange: () => void;
+  handleChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
   nextStep: () => void;
   prevStep: () => void;
 };
