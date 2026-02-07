@@ -40,7 +40,6 @@ const StepTwo = ({
       <div className=" flex items-center justify-center px-4">
         <div className="w-full  text-gray-200">
           <h2 className="text-2xl font-bold mb-6">Release Information</h2>
-
           <form className="space-y-6">
             {/* Publisher */}
             <div>
@@ -61,7 +60,7 @@ const StepTwo = ({
               <input
                 type="text"
                 name="copyrightHolder"
-                value={trackInfo.copyrightHolder || ""}
+                value={formData.copyrightHolder || ""}
                 onChange={handleChange}
                 placeholder="Enter release title"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
