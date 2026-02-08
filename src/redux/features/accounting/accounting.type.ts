@@ -23,3 +23,28 @@ export interface ProfitLossResponse {
     message: string;
     data: ProfitLossData;
 }
+interface Statement {
+  statementId: string;
+  title: string;
+  subtitle: string;
+  status: string;
+  paymentAmount: string;
+  month: number;
+  year: number;
+  createdAt: string; // ISO date string
+}
+
+interface Metadata {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+
+export interface StatementsResponse {
+  success: boolean;
+  message: string;
+  data: Statement[];
+  metadata: Metadata;
+}
+

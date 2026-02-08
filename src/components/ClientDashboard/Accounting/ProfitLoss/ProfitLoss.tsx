@@ -4,8 +4,8 @@ import { Income } from "./Income";
 import IncomeExpensesChart from "./IncomeExpensesChart";
 import ProfitCard from "./ProfitCard";
 import { useState } from "react";
-import { LoadingLogo } from "@/components/LoadingLogo";
 import ComponentError from "@/components/Reuseable/ComponentError";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const ProfitLoss = () => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
@@ -14,7 +14,7 @@ const ProfitLoss = () => {
   });
 
   if (isLoading) {
-    return <LoadingLogo />;
+    return <ComponentLoader />;
   }
 
   if (isError || !data?.data) {

@@ -1,4 +1,4 @@
-import { ProfitLossResponse } from './accounting.type';
+import { ProfitLossResponse, StatementsResponse } from './accounting.type';
 import { baseApi } from "@/redux/hooks/baseApi";
 
 const accountingApi = baseApi.injectEndpoints({
@@ -9,7 +9,14 @@ const accountingApi = baseApi.injectEndpoints({
                 method: "GET",
                 params: { year }
             })
+        }),
+        getAccountingStatement: builder.query<StatementsResponse, { page: number, limit: number }>({
+            query: ({ page, limit }) => ({
+                url: "/accounting/statements",
+                method: "GET",
+                params: { page, limit }
+            })
         })
     })
 })
-export const { useGetAccountProfitAndLossQuery } = accountingApi
+export const { useGetAccountProfitAndLossQuery, useGetAccountingStatementQuery } = accountingApi
