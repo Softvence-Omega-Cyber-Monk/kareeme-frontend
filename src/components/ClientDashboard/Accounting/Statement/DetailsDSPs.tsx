@@ -1,9 +1,15 @@
 import { DSPsDetailsTable } from "./Shared/DSPsDetailsTable";
-import { PlatformDetail } from "@/redux/features/accounting/accounting.type";
+import { PlatformDetail, StatementDetail } from "@/redux/features/accounting/accounting.type";
 import DSPsStatementCard from "./Shared/DSPsStatementCard";
 import DSPsTable from "./Shared/DSPsTable";
 
-const DetailsDSPs = ({ data }: { data: PlatformDetail[] }) => {
+const DetailsDSPs = ({
+  data,
+  statement,
+}: {
+  data: PlatformDetail[];
+  statement: StatementDetail;
+}) => {
   return (
     <div>
       <div className=" space-y-8">
@@ -12,7 +18,7 @@ const DetailsDSPs = ({ data }: { data: PlatformDetail[] }) => {
             <DSPsTable data={data} />
           </div>
           <div className="w-full xl:col-span-1 space-y-6">
-            <DSPsStatementCard />
+            <DSPsStatementCard statement={statement} />
           </div>
         </div>
       </div>

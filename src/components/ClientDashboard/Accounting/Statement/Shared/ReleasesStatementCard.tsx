@@ -1,15 +1,27 @@
-const ReleasesStatementCard = () => {
+import { StatementDetail } from "@/redux/features/accounting/accounting.type";
+import { format } from "date-fns";
+
+const ReleasesStatementCard = ({ statement }: { statement: StatementDetail }) => {
+  if (!statement) return null;
+
+  const monthName = format(
+    new Date(statement.statementYear, statement.statementMonth - 1),
+    "MMMM"
+  );
+  const issuedOn = statement.issuedOn
+    ? format(new Date(statement.issuedOn), "MMM dd, yyyy")
+    : "N/A";
+  const paidOn = statement.paidOn
+    ? format(new Date(statement.paidOn), "MMM dd, yyyy")
+    : "Pending";
+
   return (
     <div className="w-full mx-auto bg-[#0F1F23] p-6 rounded-lg shadow-lg text-white space-y-4">
       <h2 className="text-lg sm:text-xl font-semibold mb-1">
-        July 2025 Statement
+        {monthName} {statement.statementYear} Statement
       </h2>
-      <p className="text-xs sm:text-sm text-gray-400">
-        Issued On: Jul 24, 2025
-      </p>
-      <p className="text-xs sm:text-sm text-gray-400 mb-4">
-        Paid On: Aug 11, 2025
-      </p>
+      <p className="text-xs sm:text-sm text-gray-400">Issued On: {issuedOn}</p>
+      <p className="text-xs sm:text-sm text-gray-400 mb-4">Paid On: {paidOn}</p>
 
       <p className="text-xs sm:text-sm text-gray-300 mb-6">
         There is typically a delay between when streams or activities occur and
@@ -19,24 +31,32 @@ const ReleasesStatementCard = () => {
 
       <div className="border-t border-gray-600 pt-4 space-y-3">
         <p className="flex justify-between items-center text-sm sm:text-base">
-          <span className="font-sans text-[#BDBDBD]">Earnings:</span> +$382.19
+          <span className="font-sans text-[#BDBDBD]">Earnings:</span> +$
+          {statement.totalEarnings}
         </p>
         <p className="flex justify-between items-center text-sm sm:text-base">
-          <span className="font-sans text-[#BDBDBD]">Expenses:</span> $0.00
+          <span className="font-sans text-[#BDBDBD]">Expenses:</span> $
+          {statement.totalExpenses}
         </p>
         <p className="flex justify-between items-center text-sm sm:text-base mb-4">
-          <span className="font-sans text-[#BDBDBD]">Your Payment:</span>{" "}
-          $382.19
+          <span className="font-sans text-[#BDBDBD]">Your Payment:</span> $
+          {statement.payment}
         </p>
 
         <div className="border-t border-gray-600 pt-4 space-y-3">
           <p className="flex justify-between items-center text-sm sm:text-base">
-            <span className="font-sans text-[#BDBDBD]">Closing Balance:</span>{" "}
-            $0.00
+            <span className="font-sans text-[#BDBDBD]">Closing Balance:</span> $
+            {statement.closingBalance}
           </p>
           <p className="flex justify-between items-center text-sm sm:text-base">
             <span className="font-sans text-[#BDBDBD]">Status:</span>
-            <span className="text-green-500 font-medium">Paid</span>
+            <span
+              className={`${
+                statement.status === "Paid" ? "text-green-500" : "text-yellow-500"
+              } font-medium`}
+            >
+              {statement.status}
+            </span>
           </p>
         </div>
       </div>

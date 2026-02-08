@@ -32,27 +32,27 @@ const DetailsTab = ({ data }: { data: StatementFullDetail }) => {
       <div className="pt-8">
         {activeTab === "Releases" && (
           <div>
-            <DetailsRealise data={data.releases} />
+            <DetailsRealise data={data.releases} statement={data.statement} />
           </div>
         )}
         {activeTab === "Tracks" && (
           <div>
-            <DetailsTracks data={data.tracks} />
+            <DetailsTracks data={data.tracks} statement={data.statement} />
           </div>
         )}
         {activeTab === "Assets" && (
           <div>
-            <DetailsAsserts data={data.assets} />
+            <DetailsAsserts data={data.assets} statement={data.statement} />
           </div>
         )}
         {activeTab === "DSPs" && (
           <div>
-            <DetailsDSPs data={data.platforms} />
+            <DetailsDSPs data={data.platforms} statement={data.statement} />
           </div>
         )}
         {activeTab === "Territories" && (
           <div>
-            <DetailsTerritories data={data.territories} />
+            <DetailsTerritories data={data.territories} statement={data.statement} />
           </div>
         )}
       </div>

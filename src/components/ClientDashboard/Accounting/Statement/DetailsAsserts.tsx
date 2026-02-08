@@ -1,9 +1,15 @@
 import { AssetsDetailsTable } from "./Shared/AssetsDetailsTable";
-import { AssetDetail } from "@/redux/features/accounting/accounting.type";
+import { AssetDetail, StatementDetail } from "@/redux/features/accounting/accounting.type";
 import AssetsStatementCard from "./Shared/AssetsStatementCard";
 import AssetsTable from "./Shared/AssetsTable";
 
-const DetailsAsserts = ({ data }: { data: AssetDetail[] }) => {
+const DetailsAsserts = ({
+  data,
+  statement,
+}: {
+  data: AssetDetail[];
+  statement: StatementDetail;
+}) => {
   return (
     <div>
       <div className=" space-y-8">
@@ -12,7 +18,7 @@ const DetailsAsserts = ({ data }: { data: AssetDetail[] }) => {
             <AssetsTable data={data} />
           </div>
           <div className="w-full xl:col-span-1 space-y-6">
-            <AssetsStatementCard />
+            <AssetsStatementCard statement={statement} />
           </div>
         </div>
       </div>
