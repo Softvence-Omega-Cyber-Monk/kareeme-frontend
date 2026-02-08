@@ -6,14 +6,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const ProfitCard = () => {
+interface ProfileCardProps {
+  year: number;
+  setYear: (year: number) => void;
+}
+const ProfitCard = ({ year, setYear }: ProfileCardProps) => {
   const statusData = [
     { title: "Total Income", amount: "$1,061.16" },
     { title: "Total Expenses", amount: "$27,183.94" },
     { title: "Net Profit / Loss", amount: "$-26,122.78" },
   ];
-
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
   const getAmountColor = (item: (typeof statusData)[0]) => {
     switch (item.title) {
       case "Total Income":
@@ -44,37 +48,24 @@ const ProfitCard = () => {
         </div>
 
         {/* Year Selector */}
-        <Select>
-          <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
+        <Select
+          value={year.toString()}
+          onValueChange={(value) => setYear(Number(value))}
+        >
+          <SelectTrigger className="w-full sm:w-[200px] md:w-60 h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
             <SelectValue placeholder="2024" className="text-gray-300" />
           </SelectTrigger>
 
           <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>
-              <SelectItem
-                value="2025"
-                className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
-              >
-                2025
-              </SelectItem>
-              <SelectItem
-                value="2026"
-                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
-              >
-                2026
-              </SelectItem>
-              <SelectItem
-                value="2027"
-                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
-              >
-                2027
-              </SelectItem>
-              <SelectItem
-                value="2028"
-                className="hover:bg-[#131320] p-3 cursor-pointer   border-b border-[#2C2C3A]"
-              >
-                2028
-              </SelectItem>
+              {years.map((y) => (
+                <SelectItem
+                  value={y.toString()}
+                  className="hover:bg-[#131320] p-3 cursor-pointer  border-b border-[#2C2C3A]"
+                >
+                  {y}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -95,7 +86,7 @@ const ProfitCard = () => {
             {/* Amount */}
             <h2
               className={`text-xl sm:text-2xl md:text-3xl 2xl:text-4xl font-semibold font-Robot tracking-[-0.68px] ${getAmountColor(
-                item
+                item,
               )}`}
             >
               {item.amount}
