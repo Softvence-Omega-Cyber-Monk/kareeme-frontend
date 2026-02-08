@@ -4,15 +4,30 @@ import { Income } from "./Income";
 import IncomeExpensesChart from "./IncomeExpensesChart";
 import ProfitCard from "./ProfitCard";
 import { useState } from "react";
+import { LoadingLogo } from "@/components/LoadingLogo";
+import ComponentError from "@/components/Reuseable/ComponentError";
 
 const ProfitLoss = () => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
-  const { data, isLoading } = useGetAccountProfitAndLossQuery({
+  const { data, isLoading, isError, refetch } = useGetAccountProfitAndLossQuery({
     year: year.toString(),
   });
-  if (isLoading || !data?.data) {
-    return <div>loading</div>;
+
+  if (isLoading) {
+    return <LoadingLogo />;
   }
+
+  if (isError || !data?.data) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <ComponentError 
+          message="Failed to load profit and loss data. Please try again later." 
+          onRetry={refetch}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className=" space-y-9">
       <ProfitCard data={data?.data} year={year} setYear={setYear} />
