@@ -1,12 +1,12 @@
+import { StatementFullDetail } from "@/redux/features/accounting/accounting.type";
 import { useState } from "react";
-
-import DetailsRealise from "./DetailsRealise";
-import DetailsTracks from "./DetailsTracks";
 import DetailsAsserts from "./DetailsAsserts";
 import DetailsDSPs from "./DetailsDSPs";
+import DetailsRealise from "./DetailsRealise";
 import DetailsTerritories from "./DetailsTerritories";
+import DetailsTracks from "./DetailsTracks";
 
-const DetailsTab = () => {
+const DetailsTab = ({ data }: { data: StatementFullDetail }) => {
   const [activeTab, setActiveTab] = useState("Releases");
 
   return (
@@ -32,27 +32,27 @@ const DetailsTab = () => {
       <div className="pt-8">
         {activeTab === "Releases" && (
           <div>
-            <DetailsRealise />
+            <DetailsRealise data={data.releases} />
           </div>
         )}
         {activeTab === "Tracks" && (
           <div>
-            <DetailsTracks />
+            <DetailsTracks data={data.tracks} />
           </div>
         )}
         {activeTab === "Assets" && (
           <div>
-            <DetailsAsserts />
+            <DetailsAsserts data={data.assets} />
           </div>
         )}
         {activeTab === "DSPs" && (
           <div>
-            <DetailsDSPs />
+            <DetailsDSPs data={data.platforms} />
           </div>
         )}
         {activeTab === "Territories" && (
           <div>
-            <DetailsTerritories />
+            <DetailsTerritories data={data.territories} />
           </div>
         )}
       </div>

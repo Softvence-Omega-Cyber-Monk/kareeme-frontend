@@ -65,11 +65,67 @@ export interface StatementDetail {
   notes: string;
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
+  transactions?: any[];
+  dealStatuses?: any[];
 }
 
 export interface StatementDetailResponse {
   success: boolean;
   message: string;
   data: StatementDetail;
+}
+
+export interface ReleaseDetail {
+  releaseTitle: string;
+  mainArtist: string;
+  upc: string;
+  amount: string;
+  image?: string;
+}
+
+export interface TrackDetail {
+  trackTitle: string;
+  mainArtist: string;
+  isrc: string;
+  amount: string;
+  image?: string;
+}
+
+export interface AssetDetail {
+  assetTitle: string;
+  mainArtist: string;
+  isrc: string;
+  amount: string;
+  image?: string;
+}
+
+export interface PlatformDetail {
+  platformName: string;
+  upc?: string;
+  amount: string;
+  image?: string;
+}
+
+export interface TerritoryDetail {
+  territoryName: string;
+  upc?: string;
+  amount: string;
+  image?: string;
+}
+
+export interface StatementFullDetail {
+  statement: StatementDetail;
+  releases: ReleaseDetail[];
+  tracks: TrackDetail[];
+  assets: AssetDetail[];
+  platforms: PlatformDetail[];
+  territories: TerritoryDetail[];
+  dealStatuses: any[];
+}
+
+export interface StatementFullDetailResponse {
+  success: boolean;
+  message: string;
+  data: StatementFullDetail;
 }
 
