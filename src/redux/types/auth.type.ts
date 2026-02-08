@@ -6,21 +6,19 @@ export type UserRole =
   | "ACCOUNTANT";
 
 export type User = {
-  clientId?: string;
-  id?: string;
-  fullName: string;
+  id: string;
+  name: string;
   email: string;
-  phoneNumber: string;
-  profileImageUrl?: string | null;
+  phone: string;
   role: UserRole;
-  isNewReleaseAlertsOn?: boolean;
-  isEarningAlertsOn?: boolean;
-  isPlatformUpdatesOn?: boolean;
-  defaultDistributionPlatforms?: string[];
-  defaultGenres?: string[];
-  distributionTerritorys?: string[];
-  createdAt?: string;
-  updatedAt?: string;
+  status: string;
+  isVerified: boolean;
+  isTFAEnabled: boolean;
+  lastLoginAt: string;
+  lastActiveAt: string;
+  profilePictureUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type LoginRequest = {
@@ -42,9 +40,14 @@ export type ApiResponse<T> = {
 };
 
 export type LoginResponseData = {
+  user: User;
+  token: {
+    accessToken: string;
+    refreshToken: string;
+    refreshTokenExpiresAt: string;
+  };
   access_token: string;
   refresh_token: string;
-  user: User;
 };
 
 export type RegisterResponseData = {
@@ -57,7 +60,6 @@ export type RegisterResponse = ApiResponse<RegisterResponseData>;
 export type TAuth = {
   user: User | null;
   token: string | null;
-  refreshToken?: string | null;
 };
 
 export type AuthMeResponse = ApiResponse<User>;

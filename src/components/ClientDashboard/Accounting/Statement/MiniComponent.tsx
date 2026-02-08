@@ -1,62 +1,99 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import StatementTable from "./StatementTable";
+import { Statement } from "@/redux/features/accounting/accounting.type";
 
-const MiniComponent = () => {
-  const [selectedYear, setSelectedYear] = useState("2025"); // default year
+interface MiniComponentProps {
+  statements: Statement[];
+}
 
-  const yearData = [
-    { year: "2025", amount: "$999.27 USD" },
-    { year: "2024", amount: "$1,249.15 USD" },
-    { year: "2023", amount: "$879.45 USD" },
-    { year: "2022", amount: "$799.99 USD" },
-  ];
+const MiniComponent = ({ statements }: MiniComponentProps) => {
+  // Aggregate data by year
+  const yearData = useMemo(() => {
+    const aggregations: Record<number, number> = {};
+    statements.forEach((s) => {
+      const year = s.year;
+      const amount = parseFloat(s.paymentAmount) || 0;
+      aggregations[year] = (aggregations[year] || 0) + amount;
+    });
+
+    const sortedYears = Object.keys(aggregations)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    return sortedYears.map((year) => ({
+      year: year.toString(),
+      amount: `$${aggregations[year].toLocaleString()} USD`,
+    }));
+  }, [statements]);
+
+  const [selectedYear, setSelectedYear] = useState(
+    yearData.length > 0 ? yearData[0].year : new Date().getFullYear().toString()
+  );
+
+  const pendingAmount = useMemo(() => {
+    const total = statements
+      .filter((s) => s.status.toLowerCase() === "pending")
+      .reduce((acc, s) => acc + (parseFloat(s.paymentAmount) || 0), 0);
+    return total;
+  }, [statements]);
+
+  const filteredStatements = useMemo(() => {
+    return statements.filter((s) => s.year.toString() === selectedYear);
+  }, [statements, selectedYear]);
 
   return (
     <div className="space-y-9">
-      {/* Header */}
-
       {/* Year Selector + Upload Button */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         {/* Year Selector */}
         <div className="w-full pb-2 grid grid-cols-2 gap-3 sm:flex sm:overflow-x-auto sm:gap-3">
-          {yearData.map((item) => (
-            <div
-              key={item.year}
-              onClick={() => setSelectedYear(item.year)}
-              className={`flex px-3 py-3 justify-center items-center rounded-[12px] 
-          border cursor-pointer transition
-          ${
-            selectedYear === item.year
-              ? "border-[#2941B5] bg-[#3A5CFF] text-white"
-              : "border-[#636E6B] bg-[#0D2B24] text-white"
-          }`}
-            >
-              <div className="text-center">
-                <h2 className="text-xl font-sans">{item.year}</h2>
-                <p className="text-sm">{item.amount}</p>
+          {yearData.length === 0 ? (
+            <div className="text-gray-400 py-3 px-4">No data available</div>
+          ) : (
+            yearData.map((item) => (
+              <div
+                key={item.year}
+                onClick={() => setSelectedYear(item.year)}
+                className={`flex px-3 py-3 justify-center items-center rounded-[12px] 
+            border cursor-pointer transition
+            ${
+              selectedYear === item.year
+                ? "border-[#2941B5] bg-[#3A5CFF] text-white"
+                : "border-[#636E6B] bg-[#0D2B24] text-white"
+            }`}
+              >
+                <div className="text-center">
+                  <h2 className="text-xl font-sans">{item.year}</h2>
+                  <p className="text-sm">{item.amount}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         {/* Right side */}
         <div className="flex flex-col sm:flex-row justify-start items-center gap-3 w-full lg:w-auto">
           <div className="flex flex-1  w-full sm:w-[239px] px-3 py-3 justify-center items-center rounded-[12px] border border-[#D31301] bg-[#211617] text-white">
             <div className="text-center">
-              <h2 className="text-xl font-sans text-[#D31301]">$2,349</h2>
+              <h2 className="text-xl font-sans text-[#D31301]">
+                ${pendingAmount.toLocaleString()}
+              </h2>
               <p className="text-sm text-[#D31301]">Pending Payment</p>
             </div>
           </div>
 
-          <Button className="flex h-[52px] w-full sm:w-auto px-4 justify-center items-center gap-2 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#01D449] text-white text-base sm:text-lg cursor-pointer">
+          <Button 
+            disabled={pendingAmount <= 0}
+            className="flex h-[52px] w-full sm:w-auto px-4 justify-center items-center gap-2 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#01D449] text-white text-base sm:text-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             Request Payment
           </Button>
         </div>
       </div>
 
       {/* Table (Filtered by Year) */}
-      <StatementTable selectedYear={selectedYear} />
+      <StatementTable statements={filteredStatements} selectedYear={selectedYear} />
     </div>
   );
 };

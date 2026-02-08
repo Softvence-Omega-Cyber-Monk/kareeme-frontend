@@ -11,57 +11,7 @@ import {
 import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/download.svg";
 
-// Sample Data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Golden Horizon",
-    name: "Liam Carter",
-    upc: "UPC: 123456789012",
-    amount: "$420.00 USD",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Midnight Vibes",
-    name: "Sophia Lane",
-    upc: "UPC: 234567890123",
-    amount: "$380.00 USD",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Sunset Drive",
-    name: "Ethan Brooks",
-    upc: "UPC: 345678901234",
-    amount: "$400.00 USD",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "Neon Lights",
-    name: "Olivia Reed",
-    upc: "UPC: 456789012345",
-    amount: "$360.00 USD",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "Electric Pulse",
-    name: "Noah King",
-    upc: "UPC: 567890123456",
-    amount: "$390.00 USD",
-    image: download,
-  },
-  {
-    id: "10006",
-    assetsName: "Aurora Sky",
-    name: "Ava Mitchell",
-    upc: "UPC: 678901234567",
-    amount: "$410.00 USD",
-    image: download,
-  },
-];
+import { TrackDetail } from "@/redux/features/accounting/accounting.type";
 
 // UPC Cell Component with Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
@@ -96,7 +46,7 @@ const UpcCell = ({ upc }: { upc: string }) => {
 };
 
 // Main Table
-const TrackTable = () => {
+const TrackTable = ({ data }: { data: TrackDetail[] }) => {
   return (
     <div className="overflow-x-auto">
       <Table className="w-full min-w-[1000px]">
@@ -113,33 +63,33 @@ const TrackTable = () => {
 
         {/* Table Body */}
         <TableBody className="text-white">
-          {productData.map((product) => (
-            <TableRow key={product.id}>
+          {data?.map((track, index) => (
+            <TableRow key={index}>
               {/* Title & Artist */}
               <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
                 <img
-                  src={product.image}
+                  src={track.image || download}
                   alt=""
                   className="h-5 w-5 md:h-7 md:w-7 rounded"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm md:text-base font-medium">
-                    {product.assetsName}
+                    {track.trackTitle}
                   </span>
                   <span className="text-xs md:text-sm text-gray-500">
-                    {product.name}
+                    {track.mainArtist}
                   </span>
                 </div>
               </TableCell>
 
               {/* UPC with Copy Button */}
               <TableCell className="text-center px-2 md:px-4 py-3">
-                <UpcCell upc={product.upc} />
+                <UpcCell upc={track.isrc} />
               </TableCell>
 
               {/* Payment Amount */}
               <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium">
-                {product.amount}
+                ${track.amount} USD
               </TableCell>
             </TableRow>
           ))}
