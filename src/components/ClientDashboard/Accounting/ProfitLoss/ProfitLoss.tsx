@@ -16,7 +16,7 @@ const ProfitLoss = () => {
   return (
     <div className=" space-y-9">
       <ProfitCard data={data?.data} year={year} setYear={setYear} />
-      <IncomeExpensesChart />
+      <IncomeExpensesChart data={data?.data?.monthlyData} />
       {/* Income Express aprt */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-2 w-full">
