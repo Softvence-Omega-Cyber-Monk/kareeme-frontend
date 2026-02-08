@@ -6,15 +6,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ProfitLossData } from "@/redux/features/accounting/accounting.type";
 interface ProfileCardProps {
   year: number;
   setYear: (year: number) => void;
+  data: ProfitLossData;
 }
-const ProfitCard = ({ year, setYear }: ProfileCardProps) => {
+const ProfitCard = ({ year, setYear, data }: ProfileCardProps) => {
   const statusData = [
-    { title: "Total Income", amount: "$1,061.16" },
-    { title: "Total Expenses", amount: "$27,183.94" },
-    { title: "Net Profit / Loss", amount: "$-26,122.78" },
+    { title: "Total Income", amount: data?.totalIncome },
+    { title: "Total Expenses", amount: data?.totalExpenses },
+    { title: "Net Profit / Loss", amount: data?.netProfitLoss },
   ];
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
@@ -25,8 +27,9 @@ const ProfitCard = ({ year, setYear }: ProfileCardProps) => {
       case "Total Expenses":
         return "text-[#D31301]";
       case "Net Profit / Loss":
-        const value = parseFloat(item.amount.replace(/[$,]/g, ""));
-        return value >= 0 ? "text-[#E2C001]" : "text-[#E2C001]";
+        return parseFloat(item.amount.replace(/[$,]/g, "")) >= 0
+          ? "text-[#E2C001]"
+          : "text-[#E2C001]";
       case "Neat Earning":
         return "text-[#E2C001]";
       default:
@@ -76,10 +79,10 @@ const ProfitCard = ({ year, setYear }: ProfileCardProps) => {
         {statusData.map((item) => (
           <div
             key={item.title}
-            className="w-full h-[140px] p-5 sm:p-6 bg-[#0D1A23] rounded-[16px] border border-[#323943] flex flex-col justify-between"
+            className="w-full h-[140px] p-5 sm:p-6 bg-[#0D1A23] rounded-2xl border border-[#323943] flex flex-col justify-between"
           >
             {/* Title */}
-            <h2 className="text-white text-[18px] leading-[160%] font-[400] font-poppins">
+            <h2 className="text-white text-[18px] leading-[160%] font-normal font-poppins">
               {item.title}
             </h2>
 

@@ -10,10 +10,12 @@ const ProfitLoss = () => {
   const { data, isLoading } = useGetAccountProfitAndLossQuery({
     year: year.toString(),
   });
-
+  if (isLoading || !data?.data) {
+    return <div>loading</div>;
+  }
   return (
     <div className=" space-y-9">
-      <ProfitCard year={year} setYear={setYear} />
+      <ProfitCard data={data?.data} year={year} setYear={setYear} />
       <IncomeExpensesChart />
       {/* Income Express aprt */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4  gap-5">
