@@ -1,5 +1,11 @@
 import { baseApi } from "@/redux/hooks/baseApi";
-import { DashboardAnalyticsResponse, PlatformOverviewResponse } from "./analytics.type";
+import {
+  AnalyticsAssetsResponse,
+  AnalyticsClaimsResponse,
+  AnalyticsGeoTrendsResponse,
+  DashboardAnalyticsResponse,
+  PlatformOverviewResponse,
+} from "./analytics.type";
 
 const analyticsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,8 +21,44 @@ const analyticsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAnalyticsAssets: builder.query<
+      AnalyticsAssetsResponse,
+      { page: number; limit: number; platform: string }
+    >({
+      query: ({ page, limit, platform }) => ({
+        url: `/analytics/assets`,
+        method: "GET",
+        params: { page, limit, platform },
+      }),
+    }),
+    getAnalyticsGeoTrends: builder.query<
+      AnalyticsGeoTrendsResponse,
+      { page: number; limit: number; platform: string }
+    >({
+      query: ({ page, limit, platform }) => ({
+        url: `/analytics/geo-trends`,
+        method: "GET",
+        params: { page, limit, platform },
+      }),
+    }),
+    getAnalyticsClaims: builder.query<
+      AnalyticsClaimsResponse,
+      { page: number; limit: number; platform: string }
+    >({
+      query: ({ page, limit, platform }) => ({
+        url: `/analytics/claims`,
+        method: "GET",
+        params: { page, limit, platform },
+      }),
+    }),
   }),
 });
 
-export const { useGetPlatformOverviewQuery, useGetDashboardAnalyticsQuery } = analyticsApi;
+export const {
+  useGetPlatformOverviewQuery,
+  useGetDashboardAnalyticsQuery,
+  useGetAnalyticsAssetsQuery,
+  useGetAnalyticsGeoTrendsQuery,
+  useGetAnalyticsClaimsQuery,
+} = analyticsApi;
 export default analyticsApi;

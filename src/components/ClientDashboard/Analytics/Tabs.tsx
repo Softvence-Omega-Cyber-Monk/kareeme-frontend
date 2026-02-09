@@ -36,21 +36,21 @@ const Tabs = ({ platform = "YouTube" }: { platform?: string }) => {
         {activeTab === "Assets" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <TopAssetsDetails />
+              <TopAssetsDetails platform={platform} />
             </div>
           </div>
         )}
         {activeTab === "Claims" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <TopClaimsDetails />
+              <TopClaimsDetails platform={platform} />
             </div>
           </div>
         )}
         {activeTab === "Geo Trends" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <GeoTrendsDetails />
+              <GeoTrendsDetails platform={platform} />
             </div>
           </div>
         )}
