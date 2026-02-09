@@ -4,11 +4,12 @@ import { TopCountries } from "@/components/ClientDashboard/Analytics/Youtube/Top
 import { TopUsRegions } from "@/components/ClientDashboard/Analytics/Youtube/TopUsRegions";
 import YoutubeSection from "../Dashboard/YoutubeSection";
 import { useGetPlatformOverviewQuery } from "@/redux/features/analytics/analyticsApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const OverView = ({ platform }: { platform: string }) => {
   const { data: response, isLoading, isError } = useGetPlatformOverviewQuery(platform);
 
-  if (isLoading) return <div className="text-white">Loading analytics...</div>;
+  if (isLoading) return <div className="text-white"><ComponentLoader /> </div>;
   if (isError || !response?.success) return <div className="text-white">No analytics found for {platform}.</div>;
 
   const data = response.data;
