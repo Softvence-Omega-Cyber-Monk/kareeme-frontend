@@ -149,3 +149,8 @@ export type AuthMeResponse = ApiResponse<User>;
 //   email: string;
 //   password: string;
 // };
+
+export type ChangePasswordRequest = {
+  password?: string;
+  newPassword?: string;
+};

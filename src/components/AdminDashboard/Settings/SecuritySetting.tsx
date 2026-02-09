@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaEye, FaEyeSlash, FaDesktop, FaMobileAlt } from "react-icons/fa";
 import { User } from "@/redux/types/auth.type";
+import { useChangePasswordMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
 
 interface PasswordManagementProps {
   user: User;
@@ -18,11 +20,47 @@ const PasswordManagement = ({ user }: PasswordManagementProps) => {
     retypeNewPassword: "",
   });
 
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
+  };
+
+  const handlePasswordChange = async () => {
+    if (!formData.currentPassword || !formData.newPassword) {
+      toast.error("Please fill in all password fields.");
+      return;
+    }
+
+    if (formData.newPassword !== formData.retypeNewPassword) {
+      toast.error("New passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await changePassword({
+        password: formData.currentPassword,
+        newPassword: formData.newPassword,
+      }).unwrap();
+
+      if (response.success) {
+        toast.success("Password changed successfully!");
+        setFormData({
+          currentPassword: "",
+          newPassword: "",
+          retypeNewPassword: "",
+        });
+      }
+    } catch (err) {
+      console.error("Failed to change password", err);
+      const errorData = err as { data?: { message?: string } };
+      toast.error(
+        errorData.data?.message || "Failed to change password. Please try again."
+      );
+    }
   };
 
   return (
@@ -130,8 +168,12 @@ const PasswordManagement = ({ user }: PasswordManagementProps) => {
             </div>
           </div>
         </div>
-        <button className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 shrink-0">
-          Update Password
+        <button
+          onClick={handlePasswordChange}
+          disabled={isLoading}
+          className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 shrink-0 disabled:bg-gray-500"
+        >
+          {isLoading ? "Updating..." : "Update Password"}
         </button>
       </div>
 

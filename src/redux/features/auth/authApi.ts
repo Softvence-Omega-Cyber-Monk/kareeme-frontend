@@ -7,6 +7,7 @@ import {
   AuthMeResponse,
   User,
   ApiResponse,
+  ChangePasswordRequest,
 } from "@/redux/types/auth.type";
 
 export const authApi = baseApi.injectEndpoints({
@@ -48,6 +49,13 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    changePassword: builder.mutation<ApiResponse<void>, ChangePasswordRequest>({
+      query: (data) => ({
+        url: "/auth/password/change",
+        method: "POST",
+        body: data,
+      }),
+    }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout",
@@ -63,5 +71,6 @@ export const {
   useRefreshMutation,
   useAuthMeQuery,
   useUpdateProfileMutation,
+  useChangePasswordMutation,
   useLogoutMutation,
 } = authApi;
