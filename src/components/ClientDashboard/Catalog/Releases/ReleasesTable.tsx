@@ -10,11 +10,13 @@ import Pagination from "@/components/Reuseable/Pagination";
 
 const ReleasesTable = () => {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const { data, isLoading } = useGetAllReleasesQuery({
     limit: 10,
     page: page,
   })
-  console.log("data",data)
+  console.log("data",search)
+  
   return (
     <div className="space-y-9">
       {/* Header Section */}
@@ -34,6 +36,8 @@ const ReleasesTable = () => {
           {/* Search Input */}
           <div className="w-full sm:w-72 md:w-96 relative">
             <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full border h-12 bg-[#171719] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
               placeholder="Search loads"
             />
