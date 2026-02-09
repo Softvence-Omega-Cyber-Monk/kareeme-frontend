@@ -6,6 +6,7 @@ import IHeartRadioSection from "@/components/ClientDashboard/Dashboard/IHeartRad
 import SoundCloudSection from "@/components/ClientDashboard/Dashboard/SoundCloudSection";
 import SpotifySection from "@/components/ClientDashboard/Dashboard/SpotifySection";
 import TIDALSection from "@/components/ClientDashboard/Dashboard/TIDALSection";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/analytics/analyticsApi";
 
@@ -16,7 +17,7 @@ const ClientDashboardPage = () => {
   const getPlatformData = (platform: string) => 
     analyticsData.find((item) => item.platform === platform);
 
-  if (isLoading) return <div className="text-white p-6">Loading dashboard analytics...</div>;
+  if (isLoading) return <ComponentLoader />;
 
   return (
     <div className="space-y-6">
