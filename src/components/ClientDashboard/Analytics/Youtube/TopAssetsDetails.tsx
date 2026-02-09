@@ -25,6 +25,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface TopAssetsDetailsProps {
   platform: string;
+  period: string;
 }
 
 const AssetTableSkeleton = () => (
@@ -55,7 +56,7 @@ const AssetTableSkeleton = () => (
   </div>
 );
 
-export function TopAssetsDetails({ platform }: TopAssetsDetailsProps) {
+export function TopAssetsDetails({ platform, period }: TopAssetsDetailsProps) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
@@ -64,6 +65,7 @@ export function TopAssetsDetails({ platform }: TopAssetsDetailsProps) {
     page,
     limit,
     platform,
+    period,
   });
 
   const assets = response?.data || [];

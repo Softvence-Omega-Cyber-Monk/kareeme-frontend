@@ -6,8 +6,8 @@ import YoutubeSection from "../Dashboard/YoutubeSection";
 import { useGetPlatformOverviewQuery } from "@/redux/features/analytics/analyticsApi";
 import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
-const OverView = ({ platform }: { platform: string }) => {
-  const { data: response, isLoading, isError } = useGetPlatformOverviewQuery(platform);
+const OverView = ({ platform, period }: { platform: string; period: string }) => {
+  const { data: response, isLoading, isError } = useGetPlatformOverviewQuery({ platform, period });
 
   if (isLoading) return <div className="text-white"><ComponentLoader /> </div>;
   if (isError || !response?.success) return <div className="text-white">No analytics found for {platform}.</div>;

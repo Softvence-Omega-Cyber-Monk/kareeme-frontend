@@ -27,7 +27,28 @@ const getPlatformIcon = (platform?: string) => {
   }
 };
 
-const Youtube = ({ platform = "YouTube" }: { platform?: string }) => {
+interface YoutubeProps {
+  platform?: string;
+  period: string;
+  setPeriod: (period: string) => void;
+}
+
+const Youtube = ({ 
+  platform = "YouTube", 
+  period, 
+  setPeriod 
+}: YoutubeProps) => {
+  const getPeriodLabel = (val: string) => {
+    switch (val) {
+      case "last_7_days": return "Last 7 Days";
+      case "last_30_days": return "Last 30 Days";
+      case "last_6_months": return "Last 6 Months";
+      case "last_1_year": return "Last 1 Year";
+      case "this_year": return "This Year";
+      default: return "Select Period";
+    }
+  };
+
   return (
     <div className="space-y-9">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -38,9 +59,11 @@ const Youtube = ({ platform = "YouTube" }: { platform?: string }) => {
         />
 
         {/* Filter Dropdown (kept separate) */}
-        <Select>
+        <Select value={period} onValueChange={setPeriod}>
           <SelectTrigger className="w-full sm:w-full md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
-            <SelectValue placeholder="Last 1 Year" className="text-gray-300" />
+            <SelectValue placeholder="Last 1 Year" className="text-gray-300">
+              {getPeriodLabel(period)}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>

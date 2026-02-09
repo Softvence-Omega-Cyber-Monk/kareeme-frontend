@@ -23,6 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface GeoTrendsDetailsProps {
   platform: string;
+  period: string;
 }
 
 const GeoTrendTableSkeleton = () => (
@@ -47,7 +48,7 @@ const GeoTrendTableSkeleton = () => (
   </>
 );
 
-export function GeoTrendsDetails({ platform }: GeoTrendsDetailsProps) {
+export function GeoTrendsDetails({ platform, period }: GeoTrendsDetailsProps) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
@@ -55,6 +56,7 @@ export function GeoTrendsDetails({ platform }: GeoTrendsDetailsProps) {
     page,
     limit,
     platform,
+    period,
   });
 
   const geoTrends = response?.data || [];

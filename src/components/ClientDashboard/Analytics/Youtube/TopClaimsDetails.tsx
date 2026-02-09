@@ -22,6 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface TopClaimsDetailsProps {
   platform: string;
+  period: string;
 }
 
 const ClaimTableSkeleton = () => (
@@ -52,7 +53,7 @@ const ClaimTableSkeleton = () => (
   </>
 );
 
-export function TopClaimsDetails({ platform }: TopClaimsDetailsProps) {
+export function TopClaimsDetails({ platform, period }: TopClaimsDetailsProps) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
@@ -60,6 +61,7 @@ export function TopClaimsDetails({ platform }: TopClaimsDetailsProps) {
     page,
     limit,
     platform,
+    period,
   });
 
   const claims = response?.data || [];
