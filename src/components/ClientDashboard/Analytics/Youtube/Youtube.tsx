@@ -1,4 +1,5 @@
-import { FaYoutube } from "react-icons/fa6";
+import { FaYoutube, FaSpotify, FaApple, FaSoundcloud, FaDeezer } from "react-icons/fa6";
+import { SiAudiomack, SiTidal, SiIheartradio } from "react-icons/si";
 import {
   Select,
   SelectContent,
@@ -9,14 +10,31 @@ import {
 } from "@/components/ui/select";
 import ReuseHeader from "../Shared/ReuseHeader";
 
-const Youtube = () => {
+const getPlatformIcon = (platform?: string) => {
+  if (!platform) return null;
+  switch (platform.toLowerCase()) {
+    case "youtube": return <FaYoutube className="text-[#FF0000] w-10 h-6" />;
+    case "spotify": return <FaSpotify className="text-[#1DB954] w-10 h-6" />;
+    case "apple music":
+    case "applemusic": return <FaApple className="text-[#FA243C] w-10 h-6" />;
+    case "soundcloud": return <FaSoundcloud className="text-[#FF5500] w-10 h-6" />;
+    case "audiomack": return <SiAudiomack className="text-[#FFA200] w-10 h-6" />;
+    case "deezer": return <FaDeezer className="text-[#00C7FF] w-10 h-6" />;
+    case "tidal": return <SiTidal className="text-[#000000] w-10 h-6 bg-white rounded-sm" />;
+    case "iheart radio":
+    case "iheartradio": return <SiIheartradio className="text-[#C6002B] w-10 h-6" />;
+    default: return null;
+  }
+};
+
+const Youtube = ({ platform = "YouTube" }: { platform?: string }) => {
   return (
     <div className="space-y-9">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         {/* Reusable Header */}
         <ReuseHeader
-          platform="YouTube"
-          icon={<FaYoutube className="text-[#FF0000] w-10 h-6" />}
+          platform={platform}
+          icon={getPlatformIcon(platform)}
         />
 
         {/* Filter Dropdown (kept separate) */}

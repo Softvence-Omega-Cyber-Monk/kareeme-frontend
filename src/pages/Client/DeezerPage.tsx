@@ -1,10 +1,9 @@
-import Deezer from "@/components/ClientDashboard/Analytics/Deezer/Deezer";
-
+import Analytics from "@/components/ClientDashboard/Analytics/Analytics";
 
 const DeezerPage = () => {
   return (
     <div>
-      <Deezer />
+      <Analytics platform="Deezer" />
     </div>
   );
 };

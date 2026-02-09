@@ -1,15 +1,9 @@
-"use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
-
-const chartData = [
-  { customer: "new", visitors: 70, fill: "#01C142" },
-  { customer: "returning", visitors: 30, fill: "#F97316" },
-];
 
 const chartConfig = {
   visitors: {
@@ -25,6 +19,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+interface CustomizedLabelProps {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}
+
 const renderCustomizedLabel = ({
   cx,
   cy,
@@ -32,7 +35,7 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-}: any) => {
+}: CustomizedLabelProps) => {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -57,7 +60,19 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function EarningsByType() {
+interface EarningsByTypeProps {
+  data?: {
+    free: { earnings: string; views: string; percentage: number };
+    premium: { earnings: string; views: string; percentage: number };
+  };
+}
+
+export default function EarningsByType({ data }: EarningsByTypeProps) {
+  const chartData = [
+    { customer: "new", visitors: data?.free?.percentage || 0, fill: "#01C142" },
+    { customer: "returning", visitors: data?.premium?.percentage || 0, fill: "#F97316" },
+  ];
+
   return (
     <div className="w-full mx-auto  bg-[#0C2322] border-[#1B2E2E]  rounded-2xl">
       <Card className="border-0 shadow-sm h-full flex flex-col">
@@ -68,7 +83,6 @@ export default function EarningsByType() {
         </CardHeader>
 
         <CardContent className="flex flex-col justify-between">
-          {/* Chart + Legend Section */}
           <div className="flex flex-col items-center">
             <div className="relative w-58 h-58">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -116,12 +130,12 @@ export default function EarningsByType() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <span className="flex items-center gap-1 text-green-500 font-semibold text-md">
                       <AiFillDollarCircle className="h-5 w-5" />
-                      $5.33
+                      {data?.free?.earnings || "$0.00"}
                     </span>
 
                     <span className="flex items-center gap-1 text-blue-500 font-semibold text-md">
                       <IoEye className="h-5 w-5" />
-                      3k
+                      {data?.free?.views || "0"}
                     </span>
                   </div>
                 </div>
@@ -140,12 +154,12 @@ export default function EarningsByType() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <span className="flex items-center gap-1 text-green-500 font-semibold text-md">
                       <AiFillDollarCircle className="h-5 w-5" />
-                      $2.00
+                      {data?.premium?.earnings || "$0.00"}
                     </span>
 
                     <span className="flex items-center gap-1 text-blue-500 font-semibold text-md">
                       <IoEye className="h-5 w-5" />
-                      1k
+                      {data?.premium?.views || "0"}
                     </span>
                   </div>
                 </div>
@@ -156,8 +170,6 @@ export default function EarningsByType() {
               </button>
             </div>
           </div>
-
-          {/* Metrics Section */}
         </CardContent>
       </Card>
     </div>

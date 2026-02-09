@@ -38,6 +38,29 @@ export type ReleaseData = {
   territories: Territory[];
   status: "Draft" | "Submitted";
   artwork?: File | null; // For frontend handled specifically
+  distributor?: string;
+  upc?: string;
+  catalogueNumber?: string;
+  releasePLine?: string;
+  releaseCLine?: string;
+};
+
+export type BackCatalogueData = {
+  releaseId: string;
+  labelName: string;
+  distributor: string;
+  upc: string;
+  catalogueNumber: string;
+  releaseArtist: string;
+  releaseTitle: string;
+  releaseType: string;
+  releaseDate: string;
+  releasePLine: string;
+  releaseCLine: string;
+  id?: string;
+  catalogueId?: string;
+  status?: string;
+  imageUrl?: string;
 };
 
 export type TrackArtist = {
@@ -86,7 +109,7 @@ export type SplitSheetData = {
   songTitle: string;
   isrc: string;
   releaseDate: string;
-  recordLabelId: string;
+  recordLabelId?: string;
   contributors: SplitContributor[];
 };
 

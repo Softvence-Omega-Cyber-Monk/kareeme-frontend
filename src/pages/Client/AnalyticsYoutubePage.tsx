@@ -3,8 +3,7 @@ import Analytics from "@/components/ClientDashboard/Analytics/Analytics";
 const AnalyticsYoutubePage = () => {
   return (
     <div>
-      <Analytics />
-      
+      <Analytics platform="YouTube" />
     </div>
   );
 };

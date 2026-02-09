@@ -189,8 +189,46 @@ const StepOne = ({
                 >
                   <option value="Single">Single</option>
                   <option value="Album">Album</option>
-                  <option value="EP">EP</option>
                 </select>
+              </div>
+              <div>
+                <label className="block text-sm mb-2 font-sans">
+                  Distributor
+                </label>
+                <input
+                  type="text"
+                  name="distributor"
+                  placeholder="e.g. Distrokid"
+                  value={releaseData.distributor || ""}
+                  onChange={handleReleaseChange}
+                  className="p-3 rounded-xl bg-[#20362F] w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2 font-sans">
+                  UPC
+                </label>
+                <input
+                  type="text"
+                  name="upc"
+                  placeholder="Enter UPC"
+                  value={releaseData.upc || ""}
+                  onChange={handleReleaseChange}
+                  className="p-3 rounded-xl bg-[#20362F] w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2 font-sans">
+                  Catalogue Number
+                </label>
+                <input
+                  type="text"
+                  name="catalogueNumber"
+                  placeholder="Enter Catalogue Number"
+                  value={releaseData.catalogueNumber || ""}
+                  onChange={handleReleaseChange}
+                  className="p-3 rounded-xl bg-[#20362F] w-full"
+                />
               </div>
             </div>
           </div>

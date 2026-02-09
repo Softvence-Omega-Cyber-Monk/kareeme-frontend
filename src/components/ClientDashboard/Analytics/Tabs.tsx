@@ -4,7 +4,7 @@ import { TopClaimsDetails } from "./Youtube/TopClaimsDetails";
 import { GeoTrendsDetails } from "./Youtube/GeoTrendsDetails";
 import OverView from "./OverView";
 
-const Tabs = () => {
+const Tabs = ({ platform = "YouTube" }: { platform?: string }) => {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
@@ -30,7 +30,7 @@ const Tabs = () => {
       <div className="pt-8">
         {activeTab === "Overview" && (
           <div>
-            <OverView />
+            <OverView platform={platform} />
           </div>
         )}
         {activeTab === "Assets" && (

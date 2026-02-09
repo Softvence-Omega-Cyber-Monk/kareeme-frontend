@@ -1,11 +1,11 @@
 import Tabs from "./Tabs";
 import Youtube from "./Youtube/Youtube";
 
-const Analytics = () => {
+const Analytics = ({ platform = "YouTube" }: { platform?: string }) => {
   return (
     <div className="space-y-9">
-      <Youtube />
-      <Tabs />
+      <Youtube platform={platform} />
+      <Tabs platform={platform} />
     </div>
   );
 };

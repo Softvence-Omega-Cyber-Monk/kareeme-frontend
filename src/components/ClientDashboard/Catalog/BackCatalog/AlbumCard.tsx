@@ -9,6 +9,7 @@ type AlbumCardProps = {
   releaseDate: string;
   type: string;
   imageUrl: string;
+  catalogueId?: string;
 };
 
 const AlbumCard: React.FC<AlbumCardProps> = ({
@@ -19,6 +20,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   releaseDate,
   type,
   imageUrl,
+  catalogueId,
 }) => {
   return (
     <div className="bg-[#0C1F21] p-2 rounded-xl overflow-hidden shadow-lg flex flex-col">
@@ -60,7 +62,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
 
           {/* View Details Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/view"
+            to={`/client-dashboard/catalog/back-catalog/view/${catalogueId}`}
             className="flex-1"
           >
             <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-[#3A5CFF] bg-[#3A5CFF] text-white hover:bg-[#3350d1] transition-all duration-300 font-medium cursor-pointer">

@@ -1,9 +1,9 @@
-import IHeartRadio from "@/components/ClientDashboard/Analytics/IHeartRadio/IHeartRadio";
+import Analytics from "@/components/ClientDashboard/Analytics/Analytics";
 
 const IHeartRadioPage = () => {
   return (
     <div>
-      <IHeartRadio />
+      <Analytics platform="iHeartRadio" />
     </div>
   );
 };

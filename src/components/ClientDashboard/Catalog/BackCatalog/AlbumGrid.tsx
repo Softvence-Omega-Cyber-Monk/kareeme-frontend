@@ -2,16 +2,9 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AlbumCard from "./AlbumCard";
 
-import img1 from "@/assets/photo/image1.png";
-import img2 from "@/assets/photo/image2.png";
-import img3 from "@/assets/photo/image3.png";
-import img4 from "@/assets/photo/image4.png";
-import img5 from "@/assets/photo/image5.png";
-import img6 from "@/assets/photo/image6.png";
-
-import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -20,108 +13,64 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGetAllBackCatalogueQuery } from "@/redux/features/newRelease/newReleaseApi";
+import Pagination from "@/components/Reuseable/Pagination";
+import { BackCatalogueData } from "../Submit/data";
 
-const albumData = [
-  {
-    title: "The World is Yours (feat. LeeLee Babii)",
-    artist: "Gemini Chachi",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2025-05-25",
-    type: "Album",
-    status: "PAID",
-    imageUrl: img1,
-  },
-  {
-    title: "Echoes of Time",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2025-05-25",
-    type: "Album",
-    status: "PENDING",
-    imageUrl: img2,
-  },
-  {
-    title: "Starlight Dreams",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2024-12-15",
-    type: "Album",
-    status: "PROCESSING",
-    imageUrl: img3,
-  },
-  {
-    title: "Galaxy Pulse",
-    artist: "Gemini Chachi",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2024-06-10",
-    type: "Album",
-    status: "PAID",
-    imageUrl: img4,
-  },
-  {
-    title: "Nebula Nights",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2025-01-20",
-    type: "Album",
-    status: "PENDING",
-    imageUrl: img5,
-  },
-  {
-    title: "Echoes of Time 2",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "2023-09-10",
-    type: "Album",
-    status: "PROCESSING",
-    imageUrl: img6,
-  },
-];
+// Placeholder image for fetched items if they don't have one
+import placeholderImg from "@/assets/photo/image1.png";
+
+// Unused mock data removed
 
 const AlbumGrid = () => {
   const [search, setSearch] = useState("");
   const [filterLabel, setFilterLabel] = useState("all");
   const [filterYear, setFilterYear] = useState("all");
+  const [page, setPage] = useState(1);
+  const limit = 9;
 
-  const filteredAlbums = useMemo(() => {
-    return albumData.filter((album) => {
+  const { data: backCatalogueResponse, isLoading } = useGetAllBackCatalogueQuery({
+    page,
+    limit,
+  });
+
+  const backCatalogueItems = useMemo(() => {
+    return backCatalogueResponse?.data || [];
+  }, [backCatalogueResponse]);
+
+  const totalPages = useMemo(() => {
+    return backCatalogueResponse?.meta?.totalPage || 1;
+  }, [backCatalogueResponse]);
+
+  const filteredItems = useMemo(() => {
+    return backCatalogueItems.filter((item: BackCatalogueData) => {
       const matchesSearch =
-        album.title.toLowerCase().includes(search.toLowerCase()) ||
-        album.artist.toLowerCase().includes(search.toLowerCase());
+        item.releaseTitle?.toLowerCase().includes(search.toLowerCase()) ||
+        item.releaseArtist?.toLowerCase().includes(search.toLowerCase());
 
       const matchesLabel =
-        filterLabel === "all" ? true : album.status === filterLabel;
+        filterLabel === "all" ? true : item.status === filterLabel;
 
+      const albumYear = item.releaseDate ? new Date(item.releaseDate).getFullYear() : null;
       const currentYear = new Date().getFullYear();
-      const albumYear = new Date(album.releaseDate).getFullYear();
       let matchesYear = true;
 
       switch (filterYear) {
         case "last_7_days":
-          matchesYear =
-            new Date(album.releaseDate) >=
-            new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+          matchesYear = !!(item.releaseDate &&
+            new Date(item.releaseDate) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
           break;
         case "last_30_days":
-          matchesYear =
-            new Date(album.releaseDate) >=
-            new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+          matchesYear = !!(item.releaseDate &&
+            new Date(item.releaseDate) >= new Date(Date.now() - 30 * 24 * 60 * 60 * 1000));
           break;
         case "last_6_months":
-          matchesYear =
-            new Date(album.releaseDate) >=
-            new Date(Date.now() - 6 * 30 * 24 * 60 * 60 * 1000);
+          matchesYear = !!(item.releaseDate &&
+            new Date(item.releaseDate) >= new Date(Date.now() - 6 * 30 * 24 * 60 * 60 * 1000));
           break;
         case "last_1_year":
-          matchesYear =
-            new Date(album.releaseDate) >=
-            new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+          matchesYear = !!(item.releaseDate &&
+            new Date(item.releaseDate) >= new Date(Date.now() - 365 * 24 * 60 * 60 * 1000));
           break;
         case "this_year":
           matchesYear = albumYear === currentYear;
@@ -132,7 +81,7 @@ const AlbumGrid = () => {
 
       return matchesSearch && matchesLabel && matchesYear;
     });
-  }, [search, filterLabel, filterYear]);
+  }, [backCatalogueItems, search, filterLabel, filterYear]);
 
   return (
     <div className="space-y-8">
@@ -165,7 +114,7 @@ const AlbumGrid = () => {
             <Input
               className="w-full h-[44px] md:h-[48px] border bg-[#17171A] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[#2563EB] text-sm md:text-base"
               placeholder="Search"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
             />
             <span className="absolute inset-y-0 right-3 flex items-center text-gray-400 cursor-pointer">
               <IoSearch className="w-4 h-4 md:w-5 md:h-5" />
@@ -236,96 +185,37 @@ const AlbumGrid = () => {
 
       {/* Album Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredAlbums.length > 0 ? (
-          filteredAlbums.map((album, idx) => <AlbumCard key={idx} {...album} />)
+        {isLoading ? (
+          <p className="text-gray-400 col-span-full text-center">Loading...</p>
+        ) : filteredItems.length > 0 ? (
+          filteredItems.map((item: BackCatalogueData, idx: number) => (
+            <AlbumCard
+              key={item.id || idx}
+              catalogueId={item.catalogueId}
+              title={item.releaseTitle}
+              artist={item.releaseArtist}
+              label={item.labelName}
+              upc={item.upc}
+              releaseDate={item.releaseDate}
+              type={item.releaseType}
+              imageUrl={item.imageUrl || placeholderImg}
+            />
+          ))
         ) : (
           <p className="text-gray-400 col-span-full text-center">
-            No albums found.
+            No items found.
           </p>
         )}
       </div>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={page}
+        totalPage={totalPages}
+        onPageChange={(newPage) => setPage(newPage)}
+      />
     </div>
   );
 };
 
 export default AlbumGrid;
-
-// import AlbumCard from "./AlbumCard";
-
-// import img1 from "@/assets/photo/image1.png";
-// import img2 from "@/assets/photo/image2.png";
-// import img3 from "@/assets/photo/image3.png";
-// import img4 from "@/assets/photo/image4.png";
-// import img5 from "@/assets/photo/image5.png";
-// import img6 from "@/assets/photo/image6.png";
-
-// const albumData = [
-//   {
-//     title: "The World is Yours (feat. LeeLee Babii)",
-//     artist: "Gemini Chachi",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img1, // Replace with your image paths
-//   },
-//   {
-//     title: "Echoes of Time",
-//     artist: "Luna Waves",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img2,
-//   },
-//   {
-//     title: "Echoes of Time",
-//     artist: "Luna Waves",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img3,
-//   },
-//   {
-//     title: "Echoes of Time",
-//     artist: "Luna Waves",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img4,
-//   },
-//   {
-//     title: "Echoes of Time",
-//     artist: "Luna Waves",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img5,
-//   },
-//   {
-//     title: "Echoes of Time",
-//     artist: "Luna Waves",
-//     label: "OnelsOneEnt",
-//     upc: "123456789",
-//     releaseDate: "25 May, 2025",
-//     type: "Album",
-//     imageUrl: img6,
-//   },
-// ];
-
-// const AlbumGrid = () => {
-//   return (
-//     <div className="  min-h-screen">
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-//         {albumData.map((album, index) => (
-//           <AlbumCard key={index} {...album} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AlbumGrid;

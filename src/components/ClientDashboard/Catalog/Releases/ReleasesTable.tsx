@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
 import fannel from "@/assets/icons/fanel.svg";
@@ -5,11 +6,13 @@ import short from "@/assets/icons/short.svg";
 import { RiDownloadLine } from "react-icons/ri";
 import TableHere from "./TableHere";
 import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
+import Pagination from "@/components/Reuseable/Pagination";
 
 const ReleasesTable = () => {
+  const [page, setPage] = useState(1);
   const { data, isLoading } = useGetAllReleasesQuery({
     limit: 10,
-    page: 1,
+    page: page,
   })
   console.log("data",data)
   return (
@@ -69,7 +72,20 @@ const ReleasesTable = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-4 w-full">
-          <TableHere />
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3A5CFF]"></div>
+            </div>
+          ) : (
+            <>
+              <TableHere releases={data?.data || []} />
+              <Pagination
+                currentPage={page}
+                totalPage={data?.metadata?.totalPage || 1}
+                onPageChange={(newPage) => setPage(newPage)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

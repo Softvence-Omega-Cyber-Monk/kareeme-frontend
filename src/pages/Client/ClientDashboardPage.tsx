@@ -7,17 +7,27 @@ import SoundCloudSection from "@/components/ClientDashboard/Dashboard/SoundCloud
 import SpotifySection from "@/components/ClientDashboard/Dashboard/SpotifySection";
 import TIDALSection from "@/components/ClientDashboard/Dashboard/TIDALSection";
 
+import { useGetDashboardAnalyticsQuery } from "@/redux/features/analytics/analyticsApi";
+
 const ClientDashboardPage = () => {
+  const { data: response, isLoading } = useGetDashboardAnalyticsQuery();
+  const analyticsData = response?.data || [];
+
+  const getPlatformData = (platform: string) => 
+    analyticsData.find((item) => item.platform === platform);
+
+  if (isLoading) return <div className="text-white p-6">Loading dashboard analytics...</div>;
+
   return (
     <div className="space-y-6">
-      <Dashboard />
-      <SpotifySection />
-      <AppleMusicSection />
-      <SoundCloudSection />
-      <AudiomackSection />
-      <DeezerSection />
-      <TIDALSection />
-      <IHeartRadioSection />
+      <Dashboard youtubeData={getPlatformData("YouTube")} />
+      <SpotifySection data={getPlatformData("Spotify")} />
+      <AppleMusicSection data={getPlatformData("AppleMusic")} />
+      <SoundCloudSection data={getPlatformData("SoundCloud")} />
+      <AudiomackSection data={getPlatformData("Audiomack")} />
+      <DeezerSection data={getPlatformData("Deezer")} />
+      <TIDALSection data={getPlatformData("TIDAL")} />
+      <IHeartRadioSection data={getPlatformData("iHeartRadio")} />
     </div>
   );
 };
