@@ -16,7 +16,7 @@ const getPlatformIcon = (platform?: string) => {
     case "youtube": return <FaYoutube className="text-[#FF0000] w-10 h-6" />;
     case "spotify": return <FaSpotify className="text-[#1DB954] w-10 h-6" />;
     case "apple music":
-    case "applemusic": return <FaApple className="text-[#FA243C] w-10 h-6" />;
+    case "applemusic": return <FaApple className="text-white w-10 h-6" />;
     case "soundcloud": return <FaSoundcloud className="text-[#FF5500] w-10 h-6" />;
     case "audiomack": return <SiAudiomack className="text-[#FFA200] w-10 h-6" />;
     case "deezer": return <FaDeezer className="text-[#00C7FF] w-10 h-6" />;

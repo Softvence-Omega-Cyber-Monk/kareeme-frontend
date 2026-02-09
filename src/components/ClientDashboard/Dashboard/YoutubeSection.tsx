@@ -14,7 +14,7 @@ const getPlatformIcon = (platform?: string) => {
       return <FaSpotify className="text-[#1DB954] w-10 h-6" />;
     case "apple music":
     case "applemusic":
-      return <FaApple className="text-[#FA243C] w-10 h-6" />;
+      return <FaApple className="text-white w-10 h-6" />;
     case "soundcloud":
       return <FaSoundcloud className="text-[#FF5500] w-10 h-6" />;
     case "audiomack":
