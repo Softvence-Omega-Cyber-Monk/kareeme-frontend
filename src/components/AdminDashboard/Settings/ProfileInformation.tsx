@@ -2,18 +2,61 @@ import { useState, ChangeEvent } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { User } from "@/redux/types/auth.type";
+import { useUpdateProfileMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
 
-const ProfileInformation = () => {
-  const [avatar, setAvatar] = useState<string | null>(null);
+interface ProfileInformationProps {
+  user: User;
+}
+
+const ProfileInformation = ({ user }: ProfileInformationProps) => {
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(
+    user.profilePictureUrl
+  );
+  const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setImageFile(file);
       const reader = new FileReader();
       reader.onload = () => {
-        setAvatar(reader.result as string);
+        setAvatarPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const getInitials = (userName: string) => {
+    return userName
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  };
+
+  const handleSaveChanges = async () => {
+    const formData = new FormData();
+    if (name) formData.append("name", name);
+    if (phone) formData.append("phone", phone);
+    if (imageFile) formData.append("image", imageFile);
+
+    try {
+      const response = await updateProfile(formData).unwrap();
+      if (response.success) {
+        toast.success("Profile updated successfully!");
+      }
+    } catch (err) {
+      console.error("Failed to update profile", err);
+      const errorData = err as { data?: { message?: string } };
+      toast.error(
+        errorData.data?.message || "Failed to update profile. Please try again."
+      );
     }
   };
 
@@ -24,10 +67,10 @@ const ProfileInformation = () => {
 
         <div className="flex items-center space-x-4 mb-8">
           <Avatar className="w-20 h-20 rounded-full bg-[#D9D9D9]">
-            {avatar ? (
-              <AvatarImage src={avatar} alt="Profile" />
+            {avatarPreview ? (
+              <AvatarImage src={avatarPreview} alt="Profile" />
             ) : (
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>{getInitials(name)}</AvatarFallback>
             )}
           </Avatar>
 
@@ -60,6 +103,8 @@ const ProfileInformation = () => {
             </Label>
             <Input
               id="firstName"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="rounded-xl px-6 py-6 w-full bg-[#253438]"
             />
           </div>
@@ -70,7 +115,9 @@ const ProfileInformation = () => {
             <Input
               id="email"
               type="email"
-              className="rounded-xl px-6 py-6 w-full bg-[#253438]"
+              defaultValue={user.email}
+              readOnly
+              className="rounded-xl px-6 py-6 w-full bg-[#253438] cursor-not-allowed opacity-70"
             />
           </div>
           <div className="space-y-2">
@@ -79,14 +126,19 @@ const ProfileInformation = () => {
             </Label>
             <Input
               id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               className="rounded-xl px-6 py-6 w-full bg-[#253438]"
             />
           </div>
         </div>
 
-        <button className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 flex-shrink-0">
-          Save Changes
-         
+        <button
+          onClick={handleSaveChanges}
+          disabled={isLoading}
+          className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 flex-shrink-0 disabled:bg-gray-500"
+        >
+          {isLoading ? "Saving..." : "Save Changes"}
         </button>
       </div>
     </div>

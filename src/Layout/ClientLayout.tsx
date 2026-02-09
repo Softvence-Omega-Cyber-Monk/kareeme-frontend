@@ -3,6 +3,7 @@ import ClientSidebar from "@/components/ClientDashboard/Shared/ClientSidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { DashboardToaster } from "@/components/ui/Toaster";
 
 const ClientLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -89,6 +90,7 @@ const ClientLayout = () => {
 
   return (
     <div className="flex h-screen overflow-hidden bg-linear-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
+      <DashboardToaster />
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
         <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">

@@ -16,12 +16,21 @@ import TwoFactor from "@/assets/settingIcon/security1.svg";
 import Content from "@/assets/settingIcon/Destributor.svg";
 import PrivacyIcon from "@/assets/settingIcon/privacy.svg";
 import NotificationIcon from "@/assets/settingIcon/notifications.svg";
+import { useAuthMeQuery } from "@/redux/features/auth/authApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+
 const AccountSettings = () => {
   const [activeSection, setActiveSection] = useState("profile");
+  const { data: response, isLoading } = useAuthMeQuery();
 
   const handleButtonClick = (section: string) => {
     setActiveSection(section);
   };
+
+  if (isLoading) return <ComponentLoader />;
+  if (!response?.success || !response.data) return null;
+
+  const user = response.data;
 
   return (
     <div className="text-white">
@@ -143,14 +152,16 @@ const AccountSettings = () => {
 
         {/* Content */}
         <div className="w-full md:w-3/4 pl-0 md:pl-6">
-          {activeSection === "profile" && <ProfileInformation />}
-          {activeSection === "security" && <PasswordManagement />}
-          {activeSection === "billing" && <BillingInformation />}
-          {activeSection === "platform" && <PlatformSettings />}
-          {activeSection === "two-factor" && <TwoFactorSecuritySettings />}
-          {activeSection === "content" && <ContentManagement />}
-          {activeSection === "privacy" && <Privacy />}
-          {activeSection === "notifications" && <NotificationPreferences />}
+          {activeSection === "profile" && <ProfileInformation user={user} />}
+          {activeSection === "security" && <PasswordManagement user={user} />}
+          {activeSection === "billing" && <BillingInformation user={user} />}
+          {activeSection === "platform" && <PlatformSettings user={user} />}
+          {activeSection === "two-factor" && <TwoFactorSecuritySettings user={user} />}
+          {activeSection === "content" && <ContentManagement user={user} />}
+          {activeSection === "privacy" && <Privacy user={user} />}
+          {activeSection === "notifications" && (
+            <NotificationPreferences user={user} />
+          )}
         </div>
       </div>
     </div>

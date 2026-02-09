@@ -5,6 +5,8 @@ import {
   RegisterRequest,
   RegisterResponse,
   AuthMeResponse,
+  User,
+  ApiResponse,
 } from "@/redux/types/auth.type";
 
 export const authApi = baseApi.injectEndpoints({
@@ -38,6 +40,14 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    updateProfile: builder.mutation<ApiResponse<User>, FormData>({
+      query: (formData) => ({
+        url: "/auth",
+        method: "PATCH",
+        body: formData,
+      }),
+      invalidatesTags: ["User"],
+    }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout",
@@ -52,5 +62,6 @@ export const {
   useRegisterMutation,
   useRefreshMutation,
   useAuthMeQuery,
+  useUpdateProfileMutation,
   useLogoutMutation,
 } = authApi;

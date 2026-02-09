@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { User } from "@/redux/types/auth.type";
 
-export function Privacy() {
+interface PrivacyProps {
+  user: User;
+}
+
+export function Privacy({ user }: PrivacyProps) {
+  console.log("user", user);
   const [privacyPolicy, setPrivacyPolicy] = useState("");
   const [termsOfService, setTermsOfService] = useState("");
   const [dataRetention, setDataRetention] = useState("1 Year");

@@ -1,8 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
+import { User } from "@/redux/types/auth.type";
 
-export function ContentManagement() {
+interface ContentManagementProps {
+  user: User;
+}
+
+export function ContentManagement({ user }: ContentManagementProps) {
+  console.log("user", user);
   const [enableModeration, setEnableModeration] = useState(true)
   const [contentManagement, setContentManagement] = useState("Automatic")
   const [seoTitle, setSeoTitle] = useState("Music Dashboard")
