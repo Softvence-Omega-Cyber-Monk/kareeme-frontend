@@ -15,7 +15,6 @@ const getPlatformIcon = (platform?: string) => {
   switch (platform.toLowerCase()) {
     case "youtube": return <FaYoutube className="text-[#FF0000] w-10 h-6" />;
     case "spotify": return <FaSpotify className="text-[#1DB954] w-10 h-6" />;
-    case "apple music":
     case "applemusic": return <FaApple className="text-white w-10 h-6" />;
     case "soundcloud": return <FaSoundcloud className="text-[#FF5500] w-10 h-6" />;
     case "audiomack": return <SiAudiomack className="text-[#FFA200] w-10 h-6" />;
