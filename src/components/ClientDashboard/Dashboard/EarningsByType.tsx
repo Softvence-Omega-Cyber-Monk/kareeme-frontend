@@ -75,7 +75,7 @@ export default function EarningsByType({ data }: EarningsByTypeProps) {
         fill: index === 0 ? "#01C142" : "#F97316", 
       }))
     : [];
-  console.log("chartData",chartData);
+  console.log("chartData",data);
 
   return (
     <div className="w-full mx-auto  bg-[#0C2322] border-[#1B2E2E]  rounded-2xl">
