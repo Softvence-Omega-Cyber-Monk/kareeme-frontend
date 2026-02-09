@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IoSearch } from "react-icons/io5";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useGetAnalyticsAssetsQuery } from "@/redux/features/analytics/analyticsApi";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -67,10 +67,17 @@ export function TopAssetsDetails({ platform, period }: TopAssetsDetailsProps) {
     platform,
     period,
   });
+ 
 
-  const assets = response?.data || [];
+  
   const metadata = response?.metadata;
-
+  const filteredAssets = useMemo(() => {
+   const assets = response?.data || [];
+  return assets.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase()) ||
+    item.artist.toLowerCase().includes(search.toLowerCase())
+  );
+}, [response, search]);
   if (isError) return <div className="text-white">Error loading assets.</div>;
 
   return (
@@ -160,8 +167,8 @@ export function TopAssetsDetails({ platform, period }: TopAssetsDetailsProps) {
               <TableBody className="text-white">
                 {isLoading ? (
                   <AssetTableSkeleton />
-                ) : assets.length > 0 ? (
-                  assets.map((item) => (
+                ) : filteredAssets.length > 0 ? (
+                  filteredAssets.map((item) => (
                     <TableRow key={item.assetId}>
                       <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
                         <img
