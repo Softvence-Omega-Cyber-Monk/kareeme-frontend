@@ -73,8 +73,6 @@ import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
 
 import PrivateRoute from "./PrivateRoute";
-import AdminRoute from "./AdminRoutes";
-
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -239,9 +237,9 @@ const routes = createBrowserRouter([
   {
     path: "/super-admin-dashboard",
     element: (
-      <AdminRoute>
+      <PrivateRoute allowedRoles={["SUPER_ADMIN"]}>
         <AdminLayout />
-      </AdminRoute>
+      </PrivateRoute>
     ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
