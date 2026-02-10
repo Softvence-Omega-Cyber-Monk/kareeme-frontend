@@ -8,47 +8,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import flag from "@/assets/icons/flag.svg";
+import { AccountTransaction } from "@/redux/features/accounting/accounting.type";
 
-const incomeData = [
-  {
-    id: "10001",
-    source: "August 2024 Royalties",
-    amount: "$350.00",
-    date: "2024-08-31",
-    image: flag,
-  },
-  {
-    id: "10002",
-    source: "May 2025 Royalties",
-    amount: "$420.00",
-    date: "2025-05-31",
-    image: flag,
-  },
-  {
-    id: "10003",
-    source: "June 2025 Royalties",
-    amount: "$300.00",
-    date: "2025-06-30",
-    image: flag,
-  },
-  {
-    id: "10004",
-    source: "July 2025 Royalties",
-    amount: "$500.00",
-    date: "2025-07-31",
-    image: flag,
-  },
-  {
-    id: "10005",
-    source: "May 2025 Royalties",
-    amount: "$350.00",
-    date: "2025-05-15",
-    image: flag,
-  },
-];
+interface IncomeProps {
+  data: AccountTransaction[];
+}
 
-export function Income() {
+export function Income({ data }: IncomeProps) {
   return (
     <div className="bg-[#0C2322] border border-[#313E41] rounded-2xl shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
       {/* Header */}
@@ -60,7 +26,7 @@ export function Income() {
       <div className="overflow-x-auto">
         <Table className="w-full min-w-[400px] md:min-w-full">
           <TableHeader>
-            <TableRow className="text-[#BDBDBD]">
+            <TableRow className="text-[#BDBDBD] border-b border-[#313E41]">
               <TableHead className="px-2 md:px-4 py-2">Source</TableHead>
               <TableHead className="text-right px-2 md:px-4 py-2">
                 Amount
@@ -72,22 +38,30 @@ export function Income() {
           </TableHeader>
 
           <TableBody className="text-white">
-            {incomeData.map((item) => (
-              <TableRow
-                key={item.id}
-                className="hover:bg-[#1E3A38] transition-colors"
-              >
-                <TableCell className="flex items-center gap-2 pr-4 md:pr-8 py-3">
-                  {item.source}
-                </TableCell>
-                <TableCell className="text-right pr-4 md:pr-8 py-3 text-[#01D449]">
-                  {item.amount}
-                </TableCell>
-                <TableCell className="text-right pr-4 md:pr-8 py-3">
-                  {item.date}
+            {data && data.length > 0 ? (
+              data.map((item) => (
+                <TableRow
+                  key={item.id}
+                  className="hover:bg-[#1E3A38] transition-colors border-b border-[#313E41]"
+                >
+                  <TableCell className="px-2 md:px-4 py-3">
+                    {item.source}
+                  </TableCell>
+                  <TableCell className="text-right px-2 md:px-4 py-3 text-[#01D449]">
+                    {item.amount}
+                  </TableCell>
+                  <TableCell className="text-right px-2 md:px-4 py-3">
+                    {item.date}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center py-10 text-gray-500">
+                  No income transactions found for this year.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
 
           <TableFooter>
