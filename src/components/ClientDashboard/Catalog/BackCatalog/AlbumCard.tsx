@@ -52,7 +52,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
         <div className="mt-4 flex gap-4">
           {/* Edit Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/edit"
+            to={`/client-dashboard/catalog/back-catalog/edit/${catalogueId}`}
             className="flex-1"
           >
             <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-gray-700 bg-white/10 text-white hover:bg-white/20 transition-all duration-300 font-medium cursor-pointer">

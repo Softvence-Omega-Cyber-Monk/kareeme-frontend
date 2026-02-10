@@ -74,6 +74,34 @@ const newReleaseApi = baseApi.injectEndpoints({
                 url: `/back-catalogue/${id}`,
                 method: "GET"
             })
+        }),
+        updateRelease: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/releases/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
+        updateTrack: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/tracks/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
+        updateSplitSheet: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/split-sheets/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
+        updateBackCatalogue: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/back-catalogue/${id}`,
+                method: "PATCH",
+                body: data
+            })
         })
     })
 })
@@ -87,6 +115,10 @@ export const {
     useGetAllReleasesQuery,
     useGetSingleReleaseQuery,
     useCreateBackCatalogueMutation,
+    useUpdateBackCatalogueMutation,
+    useUpdateReleaseMutation,
+    useUpdateTrackMutation,
+    useUpdateSplitSheetMutation,
     useGetAllBackCatalogueQuery,
     useGetSingleBackCatalogueQuery
 } = newReleaseApi;

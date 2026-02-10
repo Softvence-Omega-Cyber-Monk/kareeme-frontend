@@ -172,7 +172,7 @@ const AlbumGrid = () => {
 
           {/* Add Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/edit"
+            to="/client-dashboard/catalog/back-catalog/add"
             className="w-full sm:w-auto"
           >
             <button className="w-full flex justify-center items-center gap-2 px-4 py-2 rounded-[15px] bg-[#3A5CFF] hover:bg-[#002afa] text-white font-medium text-base md:text-lg transition cursor-pointer">
