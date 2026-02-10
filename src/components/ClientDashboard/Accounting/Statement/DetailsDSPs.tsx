@@ -10,9 +10,7 @@ const DetailsDSPs = ({
   data: PlatformDetail[];
   statement: StatementDetail;
   }) => {
-   if (data.length === 0) {
-    return <div className="text-center">No data available</div>;
-  }
+  
   return (
     <div>
       <div className=" space-y-8">

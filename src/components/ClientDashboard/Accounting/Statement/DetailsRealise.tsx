@@ -14,9 +14,7 @@ const DetailsRealise = ({
   statement: StatementDetail;
 }) => {
  
-  if (data.length === 0) {
-    return <div className="text-center">No data available</div>;
-  }
+ 
   return (
     <div className="space-y-6">
       <div className=" space-y-8">
