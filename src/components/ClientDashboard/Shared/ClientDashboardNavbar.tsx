@@ -34,7 +34,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [isOpendashboard, setIsOpendashboard] = useState(false);
-  const { handleLogout } = useLogout();
+  const { handleLogout , isLoading} = useLogout();
   const user = useAuthMeQuery();
 
   return (
@@ -174,7 +174,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
               >
                 <RiLogoutBoxRLine className="text-red-500" />
-                <span className="font-medium">Sign Out</span>
+                <span className="font-medium">{isLoading ? "Signing out..." : "Sign Out"}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
