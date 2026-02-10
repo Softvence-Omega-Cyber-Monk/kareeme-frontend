@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
 import fannel from "@/assets/icons/fanel.svg";
@@ -14,9 +15,21 @@ const ReleasesTable = () => {
   const { data, isLoading } = useGetAllReleasesQuery({
     limit: 10,
     page: page,
-  })
-  console.log("data",search)
-  
+  });
+  console.log(data);
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
+
+    return data.data.filter((item: any) => {
+      if (!search) return true;
+
+      return (
+        item?.name && item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+  }, [data?.data, search]);
+
+  console.log(filteredData);
   return (
     <div className="space-y-9">
       {/* Header Section */}
@@ -82,7 +95,7 @@ const ReleasesTable = () => {
             </div>
           ) : (
             <>
-              <TableHere releases={data?.data || []} />
+              <TableHere releases={filteredData || []} />
               <Pagination
                 currentPage={page}
                 totalPage={data?.metadata?.totalPage || 1}
