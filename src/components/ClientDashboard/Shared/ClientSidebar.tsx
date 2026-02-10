@@ -60,10 +60,10 @@ const defaultSidebarItems: SidebarItem[] = [
       { label: "Submit", href: "/client-dashboard/catalog/submit" },
       { label: "Back Catalog", href: "/client-dashboard/catalog/back-catalog" },
       { label: "Split Sheets", href: "/client-dashboard/catalog/split-sheets" },
-      {
-        label: "Editorial Support",
-        href: "/client-dashboard/catalog/editorial-submit",
-      },
+      // {
+      //   label: "Editorial Support",
+      //   href: "/client-dashboard/catalog/editorial-submit",
+      // },
     ],
   },
 ];

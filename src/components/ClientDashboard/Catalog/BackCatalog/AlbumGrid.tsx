@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AlbumCard from "./AlbumCard";
+import AlbumCardSkeleton from "./AlbumCardSkeleton";
 
 import { IoSearch } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
@@ -19,7 +20,6 @@ import { BackCatalogueData } from "../Submit/data";
 
 // Placeholder image for fetched items if they don't have one
 import placeholderImg from "@/assets/photo/image1.png";
-
 // Unused mock data removed
 
 const AlbumGrid = () => {
@@ -183,10 +183,11 @@ const AlbumGrid = () => {
         </div>
       </div>
 
-      {/* Album Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {isLoading ? (
-          <p className="text-gray-400 col-span-full text-center">Loading...</p>
+          Array.from({ length: 6 }).map((_, idx) => (
+            <AlbumCardSkeleton key={idx} />
+          ))
         ) : filteredItems.length > 0 ? (
           filteredItems.map((item: BackCatalogueData, idx: number) => (
             <AlbumCard

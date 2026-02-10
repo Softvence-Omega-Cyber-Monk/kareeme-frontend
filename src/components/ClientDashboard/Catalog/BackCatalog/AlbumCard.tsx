@@ -45,7 +45,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
               </p>
             </div>
             <p>
-              Release Date: <span className="text-white">{releaseDate}</span>{" "}
+              Release Date: <span className="text-white">{new Date(releaseDate).toLocaleDateString()}</span>{" "}
             </p>
           </div>
         </div>

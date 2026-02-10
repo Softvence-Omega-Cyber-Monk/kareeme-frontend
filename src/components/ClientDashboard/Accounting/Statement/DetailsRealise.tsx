@@ -1,4 +1,7 @@
-import { ReleaseDetail, StatementDetail } from "@/redux/features/accounting/accounting.type";
+import {
+  ReleaseDetail,
+  StatementDetail,
+} from "@/redux/features/accounting/accounting.type";
 import { ReleasesDetailsTable } from "./Shared/ReleasesDetailsTable";
 import ReleasesStatementCard from "./Shared/ReleasesStatementCard";
 import ReleasesTable from "./Shared/ReleasesTable";
@@ -10,6 +13,10 @@ const DetailsRealise = ({
   data: ReleaseDetail[];
   statement: StatementDetail;
 }) => {
+ 
+  if (data.length === 0) {
+    return <div className="text-center">No data available</div>;
+  }
   return (
     <div className="space-y-6">
       <div className=" space-y-8">
