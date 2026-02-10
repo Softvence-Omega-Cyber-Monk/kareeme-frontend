@@ -259,7 +259,7 @@ const routes = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <PrivateRoute allowedRoles={["ADMIN", "SUPER_ADMIN"]}>
+      <PrivateRoute allowedRoles={["ADMIN"]}>
         <ClientAdminLayout />
       </PrivateRoute>
     ),
