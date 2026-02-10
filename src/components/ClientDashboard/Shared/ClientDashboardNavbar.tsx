@@ -36,7 +36,6 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   const [isOpendashboard, setIsOpendashboard] = useState(false);
   const { handleLogout } = useLogout();
   const user = useAuthMeQuery();
-  console.log("user", user);
 
   return (
     <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
@@ -156,15 +155,19 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 </DropdownMenuItem>
               </Link>
 
+            <Link to="/terms-and-conditions">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
               </DropdownMenuItem>
+            </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
-                <MdPrivacyTip className="text-white" />
-                <span className="font-medium">Privacy Policy</span>
-              </DropdownMenuItem>
+              <Link to="/privacy-policy">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <MdPrivacyTip className="text-white" />
+                  <span className="font-medium">Privacy Policy</span>
+                </DropdownMenuItem>
+              </Link>
 
               <DropdownMenuItem
                 onClick={handleLogout}

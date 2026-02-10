@@ -98,11 +98,11 @@ const routes = createBrowserRouter([
         element: <Shop></Shop>,
       },
       {
-        path: "/privacy",
+        path: "/privacy-policy",
         element: <PrivacyPolicy></PrivacyPolicy>,
       },
       {
-        path: "/term",
+        path: "/terms-and-conditions",
         element: <TermsConditions></TermsConditions>,
       },
       {
