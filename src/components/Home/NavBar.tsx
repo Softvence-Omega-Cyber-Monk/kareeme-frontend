@@ -155,7 +155,6 @@ export const NavBar = () => {
                       alt="User"
                       className="w-10 h-10 rounded-full border-2 border-green-500/20 group-hover:border-green-500/50 transition-all object-cover"
                     />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
                   </div>
                 </button>
               </DropdownMenuTrigger>
