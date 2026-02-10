@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrashAlt } from "react-icons/fa";
 import { RiFileMusicFill } from "react-icons/ri";
 
 type TrackDetail = {
@@ -63,7 +63,11 @@ export default function DataEntryForm() {
   });
 
   const addTrack = () => {
-    setTracks([...tracks, { id: tracks.length + 1 }]);
+    setTracks([...tracks, { id: Date.now() }]);
+    setFormData((prevData) => ({
+      ...prevData,
+      trackDetails: [...prevData.trackDetails, {} as TrackDetail],
+    }));
   };
 
   const handleInputChange = (
@@ -86,6 +90,15 @@ export default function DataEntryForm() {
     const updatedTracks = [...formData.trackDetails];
     updatedTracks[idx] = { ...updatedTracks[idx], [name]: value };
     setFormData((prevData) => ({ ...prevData, trackDetails: updatedTracks }));
+  };
+  const handleRemoveTrack = (idx: number) => {
+    const updatedTracks = [...formData.trackDetails];
+    updatedTracks.splice(idx, 1);
+    const updatedTrackIds = [...tracks];
+    updatedTrackIds.splice(idx, 1);
+
+    setFormData((prevData) => ({ ...prevData, trackDetails: updatedTracks }));
+    setTracks(updatedTrackIds);
   };
 
   return (
@@ -224,7 +237,18 @@ export default function DataEntryForm() {
               key={track.id}
               className="border-t border-gray-700 pt-6 mt-6 space-y-4"
             >
-              <h3 className="font-medium text-gray-200">Track {idx + 1}</h3>
+              <div className="flex justify-between items-center bg-[#1A2E30] p-3 rounded-xl">
+                <h3 className="font-medium text-gray-200">Track {idx + 1}</h3>
+                {tracks.length > 1 && (
+                  <button
+                    onClick={() => handleRemoveTrack(idx)}
+                    className="text-red-500 hover:text-red-400 transition-colors cursor-pointer p-1"
+                    title="Remove Track"
+                  >
+                    <FaTrashAlt size={16} />
+                  </button>
+                )}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
