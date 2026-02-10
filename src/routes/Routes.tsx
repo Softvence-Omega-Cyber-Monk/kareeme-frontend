@@ -68,8 +68,12 @@ import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
 import Home from "@/components/Home/Home";
+import Unauthorized from "@/pages/Unauthorized";
 import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
+
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoutes";
 
 const routes = createBrowserRouter([
   {
@@ -123,13 +127,21 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
+      },
     ],
   },
 
   /* Client Dashboard */
   {
     path: "/client-dashboard",
-    element: <ClientLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["CLIENT"]}>
+        <ClientLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
@@ -177,7 +189,11 @@ const routes = createBrowserRouter([
   /* Distributor Dashboard */
   {
     path: "/distributor-dashboard",
-    element: <DistributorLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["DISTRIBUTOR"]}>
+        <DistributorLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
@@ -202,7 +218,11 @@ const routes = createBrowserRouter([
   /* Accountant Dashboard */
   {
     path: "/accountant-dashboard",
-    element: <AccountantLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["ACCOUNTANT"]}>
+        <AccountantLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <AccountantDashboardPage /> },
       { path: "dashboard", element: <AccountantDashboardPage /> },
@@ -219,9 +239,9 @@ const routes = createBrowserRouter([
   {
     path: "/super-admin-dashboard",
     element: (
-      // <AdminRoute>
-      <AdminLayout />
-      // </AdminRoute>
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
     ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
@@ -240,7 +260,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <ClientAdminLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["ADMIN", "SUPER_ADMIN"]}>
+        <ClientAdminLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <ClientAdminDashboard /> },
       { path: "dashboard", element: <ClientAdminDashboard /> },

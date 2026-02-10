@@ -29,8 +29,9 @@ const PrivateRoute = ({
       case "CLIENT":
         return <Navigate to="/client-dashboard" replace />;
       case "SUPER_ADMIN":
-      case "ADMIN":
         return <Navigate to="/super-admin-dashboard" replace />;
+      case "ADMIN":
+        return <Navigate to="/admin" replace />;
       case "ACCOUNTANT":
         return <Navigate to="/accountant-dashboard" replace />;
       case "DISTRIBUTOR":
