@@ -41,3 +41,49 @@ export interface AdminDashboardResponse {
   message: string;
   data: AdminDashboardData;
 }
+
+export interface AddTeamMemberRequest {
+  name: string;
+  email: string;
+  role: string;
+}
+
+export interface UpdateTeamMemberRequest {
+  memberId: string;
+  role?: string;
+  status?: "Active" | "Inactive";
+}
+
+export interface GenericResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface TeamMember {
+  memberId: string;
+  userId: string;
+  name: string;
+  email: string;
+  role: string;
+  status: "Active" | "Inactive";
+  joinDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeamQuery {
+  page: number;
+  limit: number;
+}
+
+export interface TeamResponse {
+  success: boolean;
+  message: string;
+  data: TeamMember[];
+  metadata: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
