@@ -18,18 +18,18 @@ type RevenueData = {
 
 // Yearly data (by month) - Default fallback
 const yearlyData: RevenueData[] = [
-  { month: "Jan", revenue: 10000, views: 7000 },
-  { month: "Feb", revenue: 8000, views: 6000 },
-  { month: "Mar", revenue: 4000, views: 9000 },
-  { month: "Apr", revenue: 10000, views: 8000 },
-  { month: "May", revenue: 12000, views: 15000 },
-  { month: "Jun", revenue: 7000, views: 12000 },
-  { month: "Jul", revenue: 15000, views: 10000 },
-  { month: "Aug", revenue: 18000, views: 22000 },
-  { month: "Sep", revenue: 13000, views: 17000 },
-  { month: "Oct", revenue: 20000, views: 15000 },
-  { month: "Nov", revenue: 10000, views: 14000 },
-  { month: "Dec", revenue: 16000, views: 18000 },
+  { month: "Jan", revenue: 0, views: 0 },
+  { month: "Feb", revenue: 0, views: 0 },
+  { month: "Mar", revenue: 0, views: 0 },
+  { month: "Apr", revenue: 0, views: 0 },
+  { month: "May", revenue: 0, views: 0 },
+  { month: "Jun", revenue: 0, views: 0 },
+  { month: "Jul", revenue: 0, views: 0 },
+  { month: "Aug", revenue: 0, views: 0 },
+  { month: "Sep", revenue: 0, views: 0 },
+  { month: "Oct", revenue: 0, views: 0 },
+  { month: "Nov", revenue: 0, views: 0 },
+  { month: "Dec", revenue: 0, views: 0 },
 ];
 
 interface EstimatedEarningProps {

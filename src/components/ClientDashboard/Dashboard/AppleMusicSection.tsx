@@ -5,7 +5,20 @@ import iconapple from "@/assets/icons/AppleMusic.svg"
 import { PlatformOverviewData } from "@/redux/features/analytics/analytics.type";
 
 const AppleMusicSection = ({ data }: { data?: PlatformOverviewData }) => {
-  if (!data) return null;
+  const safeData = data || {
+    platform: "Apple Music",
+    totalViews: "0",
+    totalEarnings: "0",
+    earningsByType: {
+      free: { earnings: "0", views: "0", percentage: 0 },
+      premium: { earnings: "0", views: "0", percentage: 0 }
+    },
+    estimatedEarnings: [],
+    topCountries: [],
+    topUSRegions: [],
+    topAssets: [],
+    topClaims: []
+  };
 
   return (
     <ReuserableCommonPart
@@ -14,13 +27,13 @@ const AppleMusicSection = ({ data }: { data?: PlatformOverviewData }) => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-3 gap-5">
         <div className="w-full space-y-6">
-          <EarningsByType data={data.earningsByType} />
+          <EarningsByType data={safeData.earningsByType} />
         </div>
         <div className="lg:col-span-2 w-full">
           <EstimatedEarning 
-            data={data.estimatedEarnings} 
-            totalViews={data.totalViews} 
-            totalEarnings={data.totalEarnings} 
+            data={safeData.estimatedEarnings} 
+            totalViews={safeData.totalViews} 
+            totalEarnings={safeData.totalEarnings} 
           />
         </div>
       </div>

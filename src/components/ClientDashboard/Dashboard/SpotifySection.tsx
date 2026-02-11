@@ -5,7 +5,21 @@ import ReuserableCommonPart from "./Shared/ReuserableCommonPart";
 import { PlatformOverviewData } from "@/redux/features/analytics/analytics.type";
 
 const SpotifySection = ({ data }: { data?: PlatformOverviewData }) => {
-  if (!data) return null;
+  // Define default empty data if none provided
+  const safeData = data || {
+    platform: "Spotify",
+    totalViews: "0",
+    totalEarnings: "0",
+    earningsByType: {
+      free: { earnings: "0", views: "0", percentage: 0 },
+      premium: { earnings: "0", views: "0", percentage: 0 }
+    },
+    estimatedEarnings: [],
+    topCountries: [],
+    topUSRegions: [],
+    topAssets: [],
+    topClaims: []
+  };
 
   return (
     <ReuserableCommonPart
@@ -14,13 +28,13 @@ const SpotifySection = ({ data }: { data?: PlatformOverviewData }) => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-3 gap-5">
         <div className="w-full space-y-6">
-          <EarningsByType data={data.earningsByType} />
+          <EarningsByType data={safeData.earningsByType} />
         </div>
         <div className="lg:col-span-2 w-full">
           <EstimatedEarning 
-            data={data.estimatedEarnings} 
-            totalViews={data.totalViews} 
-            totalEarnings={data.totalEarnings} 
+            data={safeData.estimatedEarnings} 
+            totalViews={safeData.totalViews} 
+            totalEarnings={safeData.totalEarnings} 
           />
         </div>
       </div>

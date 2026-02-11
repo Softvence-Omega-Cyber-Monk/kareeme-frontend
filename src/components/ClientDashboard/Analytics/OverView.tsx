@@ -7,12 +7,27 @@ import { useGetPlatformOverviewQuery } from "@/redux/features/analytics/analytic
 import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const OverView = ({ platform, period }: { platform: string; period: string }) => {
-  const { data: response, isLoading, isError } = useGetPlatformOverviewQuery({ platform, period });
+  const { data: response, isLoading } = useGetPlatformOverviewQuery({ platform, period });
 
   if (isLoading) return <div className="text-white"><ComponentLoader /> </div>;
-  if (isError || !response?.success) return <div className="text-white">No analytics found for {platform}.</div>;
+  
+  // Use response data if available, otherwise use default empty structure
+  const defaultData = {
+    platform: platform,
+    totalViews: "0",
+    totalEarnings: "0",
+    earningsByType: {
+      free: { earnings: "0", views: "0", percentage: 0 },
+      premium: { earnings: "0", views: "0", percentage: 0 }
+    },
+    estimatedEarnings: [],
+    topCountries: [],
+    topUSRegions: [],
+    topAssets: [],
+    topClaims: []
+  };
 
-  const data = response.data;
+  const data = response?.success && response.data ? response.data : defaultData;
 
   return (
     <div className=" space-y-6">

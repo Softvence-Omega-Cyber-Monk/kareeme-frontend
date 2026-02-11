@@ -6,18 +6,44 @@ import IHeartRadioSection from "@/components/ClientDashboard/Dashboard/IHeartRad
 import SoundCloudSection from "@/components/ClientDashboard/Dashboard/SoundCloudSection";
 import SpotifySection from "@/components/ClientDashboard/Dashboard/SpotifySection";
 import TIDALSection from "@/components/ClientDashboard/Dashboard/TIDALSection";
+import { LoadingLogo } from "@/components/LoadingLogo";
+import { useGetDashboardAnalyticsQuery } from "@/redux/features/analytics/analyticsApi";
 
 export default function ClientAdminDashboard() {
+  const { data: analyticsData, isLoading, isError, error } = useGetDashboardAnalyticsQuery();
+
+  console.log("Dashboard Analytics Data:", analyticsData);
+  const getPlatformData = (platformName: string) => {
+    return analyticsData?.data?.find(
+      (item) => item.platform.toLowerCase() === platformName.toLowerCase()
+    );
+  };
+
   return (
-   <div className="space-y-6">
+    <div className="space-y-6">
       <ClientAdminDashboardHeader />
-      <SpotifySection />
-      <AppleMusicSection />
-      <SoundCloudSection />
-      <AudiomackSection />
-      <DeezerSection />
-      <TIDALSection />
-      <IHeartRadioSection />
+      
+      {isLoading && <LoadingLogo />}
+      
+      {isError && (
+        <div className="p-4 text-center text-red-500 bg-red-100 rounded-md">
+           Error loading dashboard data. Please try refresh the page.
+           <br/>
+           <small>{JSON.stringify(error)}</small>
+        </div>
+      )}
+
+      {!isLoading && !isError && (
+        <div className="space-y-6">
+          <SpotifySection data={getPlatformData("Spotify")} />
+          <AppleMusicSection data={getPlatformData("Apple Music")} />
+          <SoundCloudSection data={getPlatformData("SoundCloud")} />
+          <AudiomackSection data={getPlatformData("Audiomack")} />
+          <DeezerSection data={getPlatformData("Deezer")} />
+          <TIDALSection data={getPlatformData("Tidal")} />
+          <IHeartRadioSection data={getPlatformData("iHeartRadio")} />
+        </div>
+      )}
     </div>
-  )
+  );
 }
