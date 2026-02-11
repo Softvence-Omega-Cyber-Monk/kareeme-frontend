@@ -12,7 +12,7 @@ import location from "@/assets/icons/location.svg";
 import { TopUSRegion } from "@/redux/features/analytics/analytics.type";
 
 interface TopUsRegionsProps {
-  data: TopUSRegion[];
+  data?: TopUSRegion[];
 }
 
 export function TopUsRegions({ data }: TopUsRegionsProps) {
@@ -45,7 +45,7 @@ export function TopUsRegions({ data }: TopUsRegionsProps) {
             </TableRow>
           </TableHeader>
           <TableBody className="text-white">
-            {data?.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((item, idx) => (
                 <TableRow key={idx} className="border-b border-[#313E41]/20">
                   <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">

@@ -12,7 +12,7 @@ import flag from "@/assets/icons/flag.svg";
 import { TopCountry } from "@/redux/features/analytics/analytics.type";
 
 interface TopCountriesProps {
-  data: TopCountry[];
+  data?: TopCountry[];
 }
 
 export function TopCountries({ data }: TopCountriesProps) {
@@ -46,7 +46,7 @@ export function TopCountries({ data }: TopCountriesProps) {
             </TableRow>
           </TableHeader>
           <TableBody className="text-white">
-            {data?.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((item, idx) => (
                 <TableRow key={idx} className="border-b border-[#313E41]/20">
                   <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">

@@ -12,7 +12,7 @@ import camera from "@/assets/icons/audio.svg";
 import { TopAsset } from "@/redux/features/analytics/analytics.type";
 
 interface TopAssetsProps {
-  data: TopAsset[];
+  data?: TopAsset[];
 }
 
 export function TopAssets({ data }: TopAssetsProps) {
@@ -44,7 +44,7 @@ export function TopAssets({ data }: TopAssetsProps) {
             </TableRow>
           </TableHeader>
           <TableBody className="text-white">
-            {data?.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((item, idx) => (
                 <TableRow key={idx}>
                   <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
