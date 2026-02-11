@@ -14,8 +14,6 @@ import {
 import { FaPlus } from "react-icons/fa";
 import { useAddTeamMemberMutation } from "@/redux/features/admin/adminApi";
 import { toast } from "sonner";
-import ComponentLoader from "@/components/Reuseable/ComponentLoader";
-
 const Team = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -130,7 +128,7 @@ const Team = () => {
             disabled={isLoading}
             className="w-full md:w-auto bg-[#3A5CFF] hover:bg-sky-600 text-white font-sans text-base px-6 py-6 rounded-xl shadow-lg transition-all duration-200 cursor-pointer flex items-center gap-2"
           >
-            {isLoading ? <ComponentLoader /> : "Add Member"}
+            {isLoading ? "Adding..." : "Add Member"}
             {!isLoading && <FaPlus />}
           </Button>
         </div>
