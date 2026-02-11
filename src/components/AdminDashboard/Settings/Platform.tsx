@@ -1,10 +1,24 @@
-import { useState } from "react"
-import { ExternalLink } from "lucide-react"
+"use client";
 
-export default function PlatformSettings() {
-  const [platformName] = useState("NextWave CRM")
-  const [logoUrl] = useState("https://placehold.co/120x50/10B981/FFFFFF?text=NEXTWAVE")
-  const [timezone, setTimezone] = useState("est")
+import { useState } from "react";
+import { ExternalLink } from "lucide-react";
+import { User } from "@/redux/types/auth.type";
+
+interface PlatformSettingsProps {
+  user: User;
+}
+
+export default function PlatformSettings({ user }: PlatformSettingsProps) {
+  const clientSetting = user.clientSettings?.[0];
+
+  const [platformName] = useState(
+    clientSetting?.defaultDistributionPlatforms?.join(", ") || "No Platforms Set"
+  );
+  const [logoUrl] = useState(
+    user.profilePictureUrl ||
+      "https://placehold.co/120x50/10B981/FFFFFF?text=NEXTWAVE"
+  );
+  const [timezone, setTimezone] = useState("est");
 
   return (
     <div className="p-8 bg-[#0D1D22] rounded-xl shadow-md">
@@ -14,26 +28,26 @@ export default function PlatformSettings() {
         {/* Platform Name */}
         <div className="space-y-2">
           <label htmlFor="platform-name" className="text-sm text-gray-400">
-            Platform Name
+            Default Distribution Platforms
           </label>
           <input
             id="platform-name"
             value={platformName}
-        
-            className="w-full p-3 rounded-xl bg-[#253438] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            readOnly
+            className="w-full p-3 rounded-xl bg-[#253438] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-not-allowed"
           />
         </div>
 
         {/* Logo URL */}
         <div className="space-y-2">
           <label htmlFor="logo-url" className="text-sm text-gray-400">
-            Logo URL
+            Profile Banner / Logo URL
           </label>
           <div className="relative">
             <input
               id="logo-url"
               value={logoUrl}
-            
+              readOnly
               className="w-full p-3 pr-10 rounded-xl bg-[#253438] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
@@ -65,5 +79,5 @@ export default function PlatformSettings() {
         </div>
       </div>
     </div>
-  )
+  );
 }

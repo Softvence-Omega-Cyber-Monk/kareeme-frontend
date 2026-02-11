@@ -35,10 +35,10 @@ const ProfitLoss = () => {
       {/* Income Express aprt */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-2 w-full">
-          <Income />
+          <Income data={data?.data?.incomeTransactions || []} />
         </div>
         <div className="w-full xl:col-span-2">
-          <Express />
+          <Express data={data?.data?.expenseTransactions || []} />
         </div>
       </div>
     </div>

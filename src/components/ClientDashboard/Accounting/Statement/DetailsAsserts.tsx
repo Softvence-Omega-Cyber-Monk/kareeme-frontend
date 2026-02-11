@@ -9,7 +9,8 @@ const DetailsAsserts = ({
 }: {
   data: AssetDetail[];
   statement: StatementDetail;
-}) => {
+  }) => {
+  
   return (
     <div>
       <div className=" space-y-8">

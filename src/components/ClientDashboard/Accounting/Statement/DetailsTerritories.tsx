@@ -9,7 +9,7 @@ const DetailsTerritories = ({
 }: {
   data: TerritoryDetail[];
   statement: StatementDetail;
-}) => {
+  }) => {
   return (
     <div>
       <div className=" space-y-8">

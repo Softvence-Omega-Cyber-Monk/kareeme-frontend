@@ -29,8 +29,9 @@ const PrivateRoute = ({
       case "CLIENT":
         return <Navigate to="/client-dashboard" replace />;
       case "SUPER_ADMIN":
-      case "ADMIN":
         return <Navigate to="/super-admin-dashboard" replace />;
+      case "ADMIN":
+        return <Navigate to="/admin" replace />;
       case "ACCOUNTANT":
         return <Navigate to="/accountant-dashboard" replace />;
       case "DISTRIBUTOR":
@@ -44,21 +45,3 @@ const PrivateRoute = ({
 };
 
 export default PrivateRoute;
-
-// // src/routes/PrivateRoute.tsx
-// import { Navigate, useLocation } from "react-router-dom";
-// import { ReactNode } from "react";
-// import { useAppSelector } from "@/redux/hooks/redux-hook";
-
-// const PrivateRoute = ({ children }: { children: ReactNode }) => {
-//   const token = useAppSelector((state) => state.auth.token);
-//   const location = useLocation();
-
-//   if (!token) {
-//     return <Navigate to="/login" state={{ from: location }} replace />;
-//   }
-
-//   return <>{children}</>;
-// };
-
-// export default PrivateRoute;

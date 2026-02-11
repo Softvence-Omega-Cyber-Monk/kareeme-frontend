@@ -47,6 +47,9 @@ const UpcCell = ({ upc }: { upc: string }) => {
 
 // Main Table
 const DSPsTable = ({ data }: { data: PlatformDetail[] }) => {
+   if (data.length === 0) {
+    return <div className="text-center">No data available</div>;
+  }
   return (
     <div className="overflow-x-auto">
       <Table className="w-full min-w-[1000px]">

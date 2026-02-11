@@ -68,9 +68,11 @@ import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
 import Home from "@/components/Home/Home";
+import Unauthorized from "@/pages/Unauthorized";
 import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
 
+import PrivateRoute from "./PrivateRoute";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -94,11 +96,11 @@ const routes = createBrowserRouter([
         element: <Shop></Shop>,
       },
       {
-        path: "/privacy",
+        path: "/privacy-policy",
         element: <PrivacyPolicy></PrivacyPolicy>,
       },
       {
-        path: "/term",
+        path: "/terms-and-conditions",
         element: <TermsConditions></TermsConditions>,
       },
       {
@@ -123,26 +125,34 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
+      },
     ],
   },
 
   /* Client Dashboard */
   {
     path: "/client-dashboard",
-    element: <ClientLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["CLIENT"]}>
+        <ClientLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
       /* Analytics*/
-      { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
-      { path: "analytics/spotify", element: <SpotifyPage /> },
-      { path: "analytics/apple-music", element: <AppleMusicPage /> },
-      { path: "analytics/sound-cloud", element: <SoundCloudPage /> },
-      { path: "analytics/audiomack", element: <AudiomackPage /> },
-      { path: "analytics/deezer", element: <DeezerPage /> },
-      { path: "analytics/tidal", element: <TIDALPage /> },
-      { path: "analytics/iheart-radio", element: <IHeartRadioPage /> },
+      { path: "analytics/YouTube", element: <AnalyticsYoutubePage /> },
+      { path: "analytics/Spotify", element: <SpotifyPage /> },
+      { path: "analytics/AppleMusic", element: <AppleMusicPage /> },
+      { path: "analytics/SoundCloud", element: <SoundCloudPage /> },
+      { path: "analytics/Audiomack", element: <AudiomackPage /> },
+      { path: "analytics/Deezer", element: <DeezerPage /> },
+      { path: "analytics/TIDAL", element: <TIDALPage /> },
+      { path: "analytics/iHeartRadio", element: <IHeartRadioPage /> },
       /* Accounting */
       { path: "accounting/statement", element: <StatementPage /> },
       { path: "accounting/statement/:id", element: <StatementDetailsPage /> },
@@ -154,8 +164,9 @@ const routes = createBrowserRouter([
       { path: "catalog/submit/form", element: <StapeComponent /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
-      { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
-      { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       { path: "split-sheet/:title", element: <SplitSheetDetail /> },
 
@@ -177,7 +188,11 @@ const routes = createBrowserRouter([
   /* Distributor Dashboard */
   {
     path: "/distributor-dashboard",
-    element: <DistributorLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["DISTRIBUTOR"]}>
+        <DistributorLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
@@ -202,7 +217,11 @@ const routes = createBrowserRouter([
   /* Accountant Dashboard */
   {
     path: "/accountant-dashboard",
-    element: <AccountantLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["ACCOUNTANT"]}>
+        <AccountantLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <AccountantDashboardPage /> },
       { path: "dashboard", element: <AccountantDashboardPage /> },
@@ -219,9 +238,9 @@ const routes = createBrowserRouter([
   {
     path: "/super-admin-dashboard",
     element: (
-      // <AdminRoute>
-      <AdminLayout />
-      // </AdminRoute>
+      <PrivateRoute allowedRoles={["SUPER_ADMIN"]}>
+        <AdminLayout />
+      </PrivateRoute>
     ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
@@ -240,7 +259,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <ClientAdminLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["ADMIN"]}>
+        <ClientAdminLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <ClientAdminDashboard /> },
       { path: "dashboard", element: <ClientAdminDashboard /> },
@@ -266,7 +289,7 @@ const routes = createBrowserRouter([
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
-      { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       { path: "split-sheet/:title", element: <SplitSheetDetail /> },
 

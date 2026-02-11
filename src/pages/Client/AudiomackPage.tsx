@@ -1,9 +1,9 @@
-import Audiomack from "@/components/ClientDashboard/Analytics/Audiomack/Audiomack";
+import Analytics from "@/components/ClientDashboard/Analytics/Analytics";
 
 const AudiomackPage = () => {
   return (
     <div>
-      <Audiomack />
+      <Analytics platform="Audiomack" />
     </div>
   );
 };

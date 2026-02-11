@@ -7,9 +7,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { PlatformOverviewData } from "@/redux/features/analytics/analytics.type";
 import YoutubeSection from "./YoutubeSection";
 
-const Dashboard = () => {
+const Dashboard = ({ youtubeData }: { youtubeData?: PlatformOverviewData }) => {
   return (
     <div className=" space-y-9">
       <div className="flex justify-end items-center">
@@ -56,7 +57,7 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <YoutubeSection />
+        <YoutubeSection data={youtubeData} platform="YouTube" />
       </div>
     </div>
   );

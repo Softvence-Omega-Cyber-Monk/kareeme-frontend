@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userImage from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useLogout } from "@/hooks/useLogout";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
+import { useAuthMeQuery } from "@/redux/features/auth/authApi";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -29,12 +30,12 @@ export interface NavbarProps {
 const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Gemini Chachi",
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [isOpendashboard, setIsOpendashboard] = useState(false);
-  const { handleLogout } = useLogout();
+  const { handleLogout , isLoading} = useLogout();
+  const user = useAuthMeQuery();
 
   return (
     <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
@@ -59,7 +60,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-gray-400">Dashboard</span>
               <span className="text-sm md:text-base font-medium text-white">
-                HELLO, {userName}
+                HELLO, {user?.data?.data.name}
               </span>
             </div>
           </div>
@@ -76,7 +77,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               size="icon"
               className="relative text-white cursor-pointer hover:bg-amber-400"
             >
-              <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
+              <img src={ dashboard} alt="Dashboard" className="w-5 h-5" />
             </Button>
 
             {/* Dropdown */}
@@ -139,7 +140,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.data?.data.profilePictureUrl || userImage} alt="User" className="size-8 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -154,22 +155,26 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 </DropdownMenuItem>
               </Link>
 
+            <Link to="/terms-and-conditions">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
               </DropdownMenuItem>
+            </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
-                <MdPrivacyTip className="text-white" />
-                <span className="font-medium">Privacy Policy</span>
-              </DropdownMenuItem>
+              <Link to="/privacy-policy">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <MdPrivacyTip className="text-white" />
+                  <span className="font-medium">Privacy Policy</span>
+                </DropdownMenuItem>
+              </Link>
 
               <DropdownMenuItem
                 onClick={handleLogout}
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
               >
                 <RiLogoutBoxRLine className="text-red-500" />
-                <span className="font-medium">Sign Out</span>
+                <span className="font-medium">{isLoading ? "Signing out..." : "Sign Out"}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

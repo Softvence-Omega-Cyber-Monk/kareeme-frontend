@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
 import fannel from "@/assets/icons/fanel.svg";
@@ -5,13 +7,39 @@ import short from "@/assets/icons/short.svg";
 import { RiDownloadLine } from "react-icons/ri";
 import TableHere from "./TableHere";
 import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
+import Pagination from "@/components/Reuseable/Pagination";
 
 const ReleasesTable = () => {
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  
   const { data, isLoading } = useGetAllReleasesQuery({
-    limit: 10,
-    page: 1,
-  })
-  console.log("data",data)
+    limit: 1000, // Increased limit to make client-side filtering effective across more items
+    page: page,
+  });
+  console.log(data);
+
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
+
+    return data.data.filter((item: any) => {
+      if (!search) return true;
+
+      const searchTerm = search.toLowerCase();
+      // Check name and potentially other relevant fields
+      return (
+        (item?.releaseTitle && item.releaseTitle.toLowerCase().includes(searchTerm)) ||
+        (item?.artistName && item.artistName.toLowerCase().includes(searchTerm)) ||
+        (item?.upc && item.upc.toLowerCase().includes(searchTerm))
+      );
+    });
+  }, [data?.data, search]);
+
+  // Calculate pagination based on filtered data if needed, or just display all
+  // But since the API is paginated, we receive 'limit' items.
+  // To make client-side filtering useful, we increased the limit to 1000 above.
+
+
   return (
     <div className="space-y-9">
       {/* Header Section */}
@@ -31,6 +59,8 @@ const ReleasesTable = () => {
           {/* Search Input */}
           <div className="w-full sm:w-72 md:w-96 relative">
             <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full border h-12 bg-[#171719] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
               placeholder="Search loads"
             />
@@ -69,7 +99,20 @@ const ReleasesTable = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-4 w-full">
-          <TableHere />
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3A5CFF]"></div>
+            </div>
+          ) : (
+            <>
+              <TableHere releases={filteredData || []} />
+              <Pagination
+                currentPage={page}
+                totalPage={data?.metadata?.totalPage || 1}
+                onPageChange={(newPage) => setPage(newPage)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

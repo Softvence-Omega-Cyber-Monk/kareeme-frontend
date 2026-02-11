@@ -9,7 +9,8 @@ const DetailsTracks = ({
 }: {
   data: TrackDetail[];
   statement: StatementDetail;
-}) => {
+  }) => {
+   
   return (
     <div>
       <div className=" space-y-8">

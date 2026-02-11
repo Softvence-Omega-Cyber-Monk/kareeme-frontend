@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 export interface MonthlyData {
   date: string;
   income: number;
   expenses: number;
+}
+
+export interface AccountTransaction {
+  id: string;
+  source: string;
+  amount: string;
+  date: string;
 }
 
 // Main data type
@@ -13,8 +19,8 @@ export interface ProfitLossData {
   totalExpenses: string;
   netProfitLoss: string;
   monthlyData: MonthlyData[];
-  incomeTransactions: any[];
-  expenseTransactions: any[];
+  incomeTransactions: AccountTransaction[];
+  expenseTransactions: AccountTransaction[];
 }
 
 // Full API response type

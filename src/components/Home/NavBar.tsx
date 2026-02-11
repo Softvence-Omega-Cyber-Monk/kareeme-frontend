@@ -11,6 +11,17 @@ import logo from "@/assets/kareme/icon/logo2.png";
 import star from "@/assets/kareme/icon/star1.png";
 import { useSelector } from "react-redux";
 import { selectCart } from "@/redux/features/cart/cartSlice";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { selectCurrentUser, selectCurrentToken } from "@/redux/features/auth/authSlice";
+import { useLogout } from "@/hooks/useLogout";
+import userIcon from "@/assets/icons/user.svg";
+import { Settings, LogOut, LayoutDashboard } from "lucide-react";
 
 export const NavBar = () => {
   const location = useLocation();
@@ -18,6 +29,11 @@ export const NavBar = () => {
   const [cartCount, setCartCount] = useState(0);
   const { isCartOpen, openCart, closeCart } = useCart();
   const cartItems = useSelector(selectCart);
+  
+  const user = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(selectCurrentToken);
+  const { handleLogout } = useLogout();
+  const isAuthenticated = !!token && !!user;
 
   // Listen for cart updates
   useEffect(() => {
@@ -53,7 +69,7 @@ export const NavBar = () => {
         {/* <Link to="/">
           {" "}
           <img
-            src={logoImage}
+            src={logo}
             alt="Logo"
             className="h-10 w-10 sm:h-12 sm:w-12 object-cover rounded-full cursor-pointer"
           />
@@ -106,12 +122,12 @@ export const NavBar = () => {
         </div>
 
         {/* Right Side (Cart + Sign In) */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-6">
           {/* Cart Icon with Badge */}
           <button
             onClick={handleCartClick}
-            className={`relative p-2 rounded-xl cursor-pointer transition-all duration-300 
-              hover:bg-white/10`}
+            className="relative p-2 rounded-xl cursor-pointer transition-all duration-300 
+              hover:bg-white/10"
           >
             {cartItems.totalQuantity > 0 && (
               <span
@@ -128,16 +144,56 @@ export const NavBar = () => {
             />
           </button>
 
-          {/* Sign In button */}
-          <Link to="/login">
-            <button
-              className="bg-[#1B1E30] text-white px-6 py-3 rounded-full 
-              text-sm font-medium shadow-md hover:bg-[#2A2E45] transition-all 
-              active:scale-95 cursor-pointer"
-            >
-              Sign In
-            </button>
-          </Link>
+          {/* Auth State Button */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 cursor-pointer outline-none group">
+                  <div className="relative">
+                    <img
+                      src={user?.profilePictureUrl || userIcon}
+                      alt="User"
+                      className="w-10 h-10 rounded-full border-2 border-green-500/20 group-hover:border-green-500/50 transition-all object-cover"
+                    />
+                  </div>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-[#0F172A] border border-white/10 text-white p-2 rounded-2xl shadow-2xl backdrop-blur-xl"
+              >
+                <div className="px-3 py-2 border-b border-white/5 mb-2">
+                  <p className="text-sm font-medium truncate">{user?.name}</p>
+                  <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+                </div>
+                <Link to="/client-dashboard">
+                  <DropdownMenuItem className="flex items-center gap-2 p-2 rounded-xl cursor-pointer hover:bg-white/5 focus:bg-white/5 focus:text-[#00ff00]">
+                    <LayoutDashboard size={18} />
+                    <span>Dashboard</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/client-dashboard/catalog/settings">
+                  <DropdownMenuItem className="flex items-center gap-2 p-2 rounded-xl cursor-pointer hover:bg-white/5 focus:bg-white/5 focus:text-[#00ff00]">
+                    <Settings size={18} />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 p-2 rounded-xl cursor-pointer hover:bg-red-500/10 text-red-400 hover:text-red-400 focus:bg-red-500/10 focus:text-red-400"
+                >
+                  <LogOut size={18} />
+                  <span>Sign Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to="/login">
+              <button className="bg-white text-black px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg hover:shadow-white/10 hover:bg-gray-100 transition-all active:scale-95">
+                Sign In
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -195,19 +251,58 @@ export const NavBar = () => {
               Cart
             </button>
 
-            {/* Mobile Sign in */}
-            <Link
-              to="/login"
-              className="w-[90%] mx-auto"
-              onClick={() => setMenuOpen(false)}
-            >
-              <button
-                className="w-full py-3 bg-[#155DFC] rounded-xl text-lg text-white 
-                shadow-md hover:bg-[#0F4CD3] transition-all cursor-pointer"
-              >
-                Sign In
-              </button>
-            </Link>
+            {/* Mobile Auth State */}
+            <div className="w-[90%] mx-auto pt-2 border-t border-white/5 mt-2">
+              {isAuthenticated ? (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3 px-4 py-3">
+                    <img
+                      src={user?.profilePictureUrl || userIcon}
+                      alt="User"
+                      className="w-12 h-12 rounded-full border border-white/10"
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-white font-medium">{user?.name}</span>
+                      <span className="text-gray-400 text-sm truncate max-w-[180px]">
+                        {user?.email}
+                      </span>
+                    </div>
+                  </div>
+                  <Link
+                    to="/client-dashboard"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                  >
+                    <LayoutDashboard size={20} />
+                    <span>Dashboard</span>
+                  </Link>
+                  <Link
+                    to="/client-dashboard/catalog/settings"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                  >
+                    <Settings size={20} />
+                    <span>Settings</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-400/5 rounded-xl transition-all w-full text-left"
+                  >
+                    <LogOut size={20} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <Link to="/login" className="w-full" onClick={() => setMenuOpen(false)}>
+                  <button className="w-full py-4 bg-white text-black rounded-2xl text-lg font-bold shadow-lg transition-all active:scale-95">
+                    Sign In
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </div>

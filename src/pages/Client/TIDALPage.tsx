@@ -1,10 +1,9 @@
-import TIDAL from "@/components/ClientDashboard/Analytics/TIDAL/TIDAL";
-
+import Analytics from "@/components/ClientDashboard/Analytics/Analytics";
 
 const TIDALPage = () => {
   return (
     <div>
-      <TIDAL />
+      <Analytics platform="TIDAL" />
     </div>
   );
 };

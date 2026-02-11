@@ -1,8 +1,24 @@
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
+import { FaPlus, FaTrashAlt } from "react-icons/fa";
 import { RiFileMusicFill } from "react-icons/ri";
+import { toast } from "sonner";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useCreateNewReleaseMutation,
+  useCreateTrackMutation,
+  useCreateSplitSheetMutation,
+  useUploadTrackAudioMutation,
+  useCreateBackCatalogueMutation,
+  useGetSingleBackCatalogueQuery,
+  useUpdateBackCatalogueMutation,
+  useUpdateReleaseMutation,
+  useUpdateTrackMutation,
+  useUpdateSplitSheetMutation,
+} from "@/redux/features/newRelease/newReleaseApi";
 
 type TrackDetail = {
+  trackId?: string;
   trackTitle?: string;
   artistNameOnTrack?: string;
   trackGenre?: string;
@@ -17,6 +33,8 @@ type TrackDetail = {
 };
 
 export default function DataEntryForm() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [tracks, setTracks] = useState([{ id: 1 }]);
   type FormDataType = {
     labelName: string;
@@ -38,6 +56,10 @@ export default function DataEntryForm() {
     realName: string;
     spotifyId: string;
     appleId: string;
+    producerCredits: string;
+    lyricistCredits: string;
+    masterSplits: string;
+    copyrightHolder: string;
   };
 
   const [formData, setFormData] = useState<FormDataType>({
@@ -60,10 +82,93 @@ export default function DataEntryForm() {
     realName: "",
     spotifyId: "",
     appleId: "",
+    producerCredits: "",
+    lyricistCredits: "",
+    masterSplits: "",
+    copyrightHolder: "",
   });
+  const [audioFile, setAudioFile] = useState<File | null>(null);
+
+  // API Mutations
+  const [createRelease, { isLoading: isReleaseLoading }] =
+    useCreateNewReleaseMutation();
+  const [createTrack, { isLoading: isTrackLoading }] = useCreateTrackMutation();
+  const [uploadAudio, { isLoading: isAudioLoading }] =
+    useUploadTrackAudioMutation();
+  const [createSplitSheet, { isLoading: isSplitLoading }] =
+    useCreateSplitSheetMutation();
+  const [createBackCatalogue, { isLoading: isBackCatalogueLoading }] =
+    useCreateBackCatalogueMutation();
+
+  const isSubmitting =
+    isReleaseLoading ||
+    isTrackLoading ||
+    isAudioLoading ||
+    isSplitLoading ||
+    isBackCatalogueLoading;
+
+  // Query for editing
+  const { data: singleCatalogueData } =
+    useGetSingleBackCatalogueQuery(id, { skip: !id });
+
+  const [updateBackCatalogue] = useUpdateBackCatalogueMutation();
+  const [updateRelease] = useUpdateReleaseMutation();
+  const [updateTrack] = useUpdateTrackMutation();
+  const [updateSplitSheet] = useUpdateSplitSheetMutation();
+
+  useEffect(() => {
+    if (singleCatalogueData?.data) {
+      const item = singleCatalogueData.data;
+      const release = item.release || {};
+      const tracksData = release.tracks || [];
+
+      setFormData((prev) => ({
+        ...prev,
+        labelName: item.labelName || "",
+        distributorName: item.distributor || "",
+        upcCode: item.upc || "",
+        catalogueNumber: item.catalogueNumber || "",
+        releaseArtist: item.releaseArtist || "",
+        releaseTitle: item.releaseTitle || "",
+        releaseType: item.releaseType || "",
+        releaseDate: item.releaseDate ? item.releaseDate.split("T")[0] : "",
+        pLine: item.releasePLine || "",
+        cLine: item.releaseCLine || "",
+        producerCredits: release.producerCredits || "",
+        lyricistCredits: release.lyricistCredits || "",
+        masterSplits: release.masterSplits || "",
+        copyrightHolder: release.copyrightHolder || "",
+      }));
+
+      if (tracksData.length > 0) {
+        const mappedTracks: TrackDetail[] = tracksData.map((t: Record<string, any>) => ({
+          trackId: t.id || t.trackId,
+          trackTitle: t.trackTitle,
+          artistNameOnTrack: t.artistNameOnTrack,
+          trackGenre: t.trackGenre,
+          trackMix: t.trackMix,
+          isRemix: t.isRemix ? "Yes" : "No",
+          trackLanguage: t.trackLanguage,
+          trackPublisher: t.trackPublisher,
+          trackDate: t.originalReleaseDate
+            ? t.originalReleaseDate.split("T")[0]
+            : "",
+          isrcCode: t.trackIsrc || t.isrc,
+          territoryRestrictions: t.territoryRestrictions,
+          trackPublisherInfo: t.trackPublisherInfo,
+        }));
+        setFormData((prev) => ({ ...prev, trackDetails: mappedTracks }));
+        setTracks(mappedTracks.map((_, i) => ({ id: i + 1 })));
+      }
+    }
+  }, [singleCatalogueData]);
 
   const addTrack = () => {
-    setTracks([...tracks, { id: tracks.length + 1 }]);
+    setTracks([...tracks, { id: Date.now() }]);
+    setFormData((prevData) => ({
+      ...prevData,
+      trackDetails: [...prevData.trackDetails, {} as TrackDetail],
+    }));
   };
 
   const handleInputChange = (
@@ -78,14 +183,176 @@ export default function DataEntryForm() {
     setFormData((prevData) => ({ ...prevData, artwork: file }));
   };
 
+  const handleAudioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      setAudioFile(file);
+    }
+  };
+
   const handleTrackChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     idx: number
   ) => {
     const { name, value } = e.target;
+    // Strip possible index suffix if it exists, though we'll remove it from the JSX too
+    const fieldName = name.split("-")[0];
     const updatedTracks = [...formData.trackDetails];
-    updatedTracks[idx] = { ...updatedTracks[idx], [name]: value };
+    updatedTracks[idx] = { ...updatedTracks[idx], [fieldName]: value };
     setFormData((prevData) => ({ ...prevData, trackDetails: updatedTracks }));
+  };
+  const handleRemoveTrack = (idx: number) => {
+    const updatedTracks = [...formData.trackDetails];
+    updatedTracks.splice(idx, 1);
+    const updatedTrackIds = [...tracks];
+    updatedTrackIds.splice(idx, 1);
+
+    setFormData((prevData) => ({ ...prevData, trackDetails: updatedTracks }));
+    setTracks(updatedTrackIds);
+  };
+
+  const handleSubmit = async () => {
+    const toastId = "submit-form";
+    try {
+      const isEdit = !!id;
+      toast.loading(isEdit ? "Updating..." : "Creating release...", { id: toastId });
+
+      const releasePayload = {
+        labelName: formData.labelName,
+        releaseTitle: formData.releaseTitle,
+        releaseDate: formData.releaseDate
+          ? new Date(formData.releaseDate).toISOString()
+          : "",
+        typeOfRelease: formData.releaseType,
+        albumLevelArtistName: formData.releaseArtist,
+        distributor: formData.distributorName,
+        upc: formData.upcCode,
+        catalogueNumber: formData.catalogueNumber,
+        releasePLine: formData.pLine,
+        releaseCLine: formData.cLine,
+        producerCredits: formData.producerCredits,
+        lyricistCredits: formData.lyricistCredits,
+        masterSplits: formData.masterSplits,
+        copyrightHolder: formData.copyrightHolder,
+        status: "Draft",
+      };
+
+      let releaseId = "";
+      if (isEdit && singleCatalogueData?.data?.releaseId) {
+        releaseId = singleCatalogueData.data.releaseId;
+        await updateRelease({ id: releaseId, data: releasePayload }).unwrap();
+      } else {
+        const releaseResult = await createRelease(releasePayload).unwrap();
+        releaseId = releaseResult.data?.releaseId;
+      }
+
+      if (!releaseId)
+        throw new Error("Failed to get release ID");
+
+      // 2. Tracks - For simplicity in Edit mode, we might just update the first one or create new ones
+      // In a real app, you'd fetch existing tracks and update them specifically.
+      toast.loading(isEdit ? "Updating tracks..." : "Creating tracks...", { id: toastId });
+
+      let firstTrackId = null;
+
+      for (const [idx, track] of formData.trackDetails.entries()) {
+        const trackPayload = {
+          releaseId,
+          trackNumber: idx + 1,
+          trackTitle: track.trackTitle || "Untitled Track",
+          trackGenre: track.trackGenre,
+          trackMix: track.trackMix || "Original Mix",
+          explicitContent: false,
+          trackLanguage: track.trackLanguage || "English",
+          trackPublisher: track.trackPublisher,
+          originalReleaseDate: track.trackDate
+            ? new Date(track.trackDate).toISOString()
+            : releasePayload.releaseDate || new Date().toISOString(),
+          trackIsrc: track.isrcCode,
+          territoryRestrictions: track.territoryRestrictions || "None",
+        };
+
+        let currentTrackId = "";
+        if (isEdit && track.trackId) {
+          currentTrackId = track.trackId;
+          await updateTrack({ id: currentTrackId, data: trackPayload }).unwrap();
+        } else {
+          const trackResult = await createTrack(trackPayload).unwrap();
+          currentTrackId = trackResult.data?.trackId || trackResult.data?.id;
+        }
+
+        if (idx === 0) firstTrackId = currentTrackId;
+      }
+
+      // 3. Audio
+      if (firstTrackId && audioFile) {
+        toast.loading("Uploading audio file...", { id: toastId });
+        await uploadAudio({ trackId: firstTrackId, audioFile }).unwrap();
+      }
+
+      // 4. Split Sheet
+      toast.loading(
+        isEdit ? "Updating split sheet..." : "Creating split sheet...",
+        { id: toastId }
+      );
+      const splitPayload = {
+        releaseId,
+        songTitle: formData.releaseTitle,
+        isrc: formData.trackDetails[0]?.isrcCode || "",
+        releaseDate: releasePayload.releaseDate,
+        contributors: [
+          {
+            name:
+              formData.realName || formData.nameOnTrack || "Unknown Contributor",
+            role: formData.songWriterRole || "Composer",
+            percentageSplit: 100,
+          },
+        ],
+      };
+
+      const existingSplitSheetId = singleCatalogueData?.data?.release?.splitSheets?.[0]?.id;
+      if (isEdit && existingSplitSheetId) {
+        await updateSplitSheet({
+          id: existingSplitSheetId,
+          data: splitPayload,
+        }).unwrap();
+      } else {
+        await createSplitSheet(splitPayload).unwrap();
+      }
+
+      // 5. Back Catalogue
+      toast.loading(isEdit ? "Updating back catalogue..." : "Adding to back catalogue...", { id: toastId });
+      const backCataloguePayload = {
+        releaseId,
+        labelName: formData.labelName,
+        distributor: formData.distributorName,
+        upc: formData.upcCode,
+        catalogueNumber: formData.catalogueNumber,
+        releaseArtist: formData.releaseArtist,
+        releaseTitle: formData.releaseTitle,
+        releaseType: formData.releaseType,
+        releaseDate: releasePayload.releaseDate,
+        releasePLine: formData.pLine,
+        releaseCLine: formData.cLine,
+      };
+
+      if (isEdit) {
+        await updateBackCatalogue({ id, data: backCataloguePayload }).unwrap();
+      } else {
+        await createBackCatalogue(backCataloguePayload).unwrap();
+      }
+
+      toast.success(isEdit ? "Catalogue updated successfully!" : "Back catalog release submitted successfully!", {
+        id: toastId,
+      });
+      navigate("/client-dashboard/catalog/back-catalog");
+    } catch (error: unknown) {
+      console.error("Submission failed:", error);
+      const errorMessage =
+        (error as { data?: { message?: string } })?.data?.message ||
+        "Something went wrong during submission";
+      toast.error(errorMessage, { id: toastId });
+    }
   };
 
   return (
@@ -179,6 +446,38 @@ export default function DataEntryForm() {
               value={formData.cLine}
               onChange={handleInputChange}
             />
+            <input
+              type="text"
+              className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
+              placeholder="Producer Credits"
+              name="producerCredits"
+              value={formData.producerCredits}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
+              placeholder="Lyricist Credits"
+              name="lyricistCredits"
+              value={formData.lyricistCredits}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
+              placeholder="Master Splits"
+              name="masterSplits"
+              value={formData.masterSplits}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
+              placeholder="Copyright Holder"
+              name="copyrightHolder"
+              value={formData.copyrightHolder}
+              onChange={handleInputChange}
+            />
           </div>
         </div>
 
@@ -224,7 +523,18 @@ export default function DataEntryForm() {
               key={track.id}
               className="border-t border-gray-700 pt-6 mt-6 space-y-4"
             >
-              <h3 className="font-medium text-gray-200">Track {idx + 1}</h3>
+              <div className="flex justify-between items-center bg-[#1A2E30] p-3 rounded-xl">
+                <h3 className="font-medium text-gray-200">Track {idx + 1}</h3>
+                {tracks.length > 1 && (
+                  <button
+                    onClick={() => handleRemoveTrack(idx)}
+                    className="text-red-500 hover:text-red-400 transition-colors cursor-pointer p-1"
+                    title="Remove Track"
+                  >
+                    <FaTrashAlt size={16} />
+                  </button>
+                )}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
@@ -238,7 +548,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Title"
-                  name={`trackTitle-${idx}`}
+                  name="trackTitle"
                   value={formData.trackDetails[idx]?.trackTitle || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -246,7 +556,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Artist name on track"
-                  name={`artistNameOnTrack-${idx}`}
+                  name="artistNameOnTrack"
                   value={formData.trackDetails[idx]?.artistNameOnTrack || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -254,7 +564,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Genre"
-                  name={`trackGenre-${idx}`}
+                  name="trackGenre"
                   value={formData.trackDetails[idx]?.trackGenre || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -262,13 +572,13 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Mix/Version"
-                  name={`trackMix-${idx}`}
+                  name="trackMix"
                   value={formData.trackDetails[idx]?.trackMix || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
                 <select
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
-                  name={`isRemix-${idx}`}
+                  name="isRemix"
                   value={formData.trackDetails[idx]?.isRemix || "No"}
                   onChange={(e) => handleTrackChange(e, idx)}
                 >
@@ -279,7 +589,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Language"
-                  name={`trackLanguage-${idx}`}
+                  name="trackLanguage"
                   value={formData.trackDetails[idx]?.trackLanguage || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -287,14 +597,14 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Publisher"
-                  name={`trackPublisher-${idx}`}
+                  name="trackPublisher"
                   value={formData.trackDetails[idx]?.trackPublisher || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
                 <input
                   type="date"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
-                  name={`trackDate-${idx}`}
+                  name="trackDate"
                   value={formData.trackDetails[idx]?.trackDate || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -302,7 +612,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Enter ISRC code"
-                  name={`isrcCode-${idx}`}
+                  name="isrcCode"
                   value={formData.trackDetails[idx]?.isrcCode || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -310,7 +620,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Territory Restrictions"
-                  name={`territoryRestrictions-${idx}`}
+                  name="territoryRestrictions"
                   value={
                     formData.trackDetails[idx]?.territoryRestrictions || ""
                   }
@@ -320,7 +630,7 @@ export default function DataEntryForm() {
                   type="text"
                   className="w-full p-3 mt-2 rounded-xl bg-[#253638] text-white"
                   placeholder="Track Publisher"
-                  name={`trackPublisherInfo-${idx}`}
+                  name="trackPublisherInfo"
                   value={formData.trackDetails[idx]?.trackPublisherInfo || ""}
                   onChange={(e) => handleTrackChange(e, idx)}
                 />
@@ -351,7 +661,7 @@ export default function DataEntryForm() {
                 type="file"
                 className="hidden"
                 accept=".wav,.mp3,.ogg"
-                // onChange={handleAudioChange} // your handler
+                onChange={handleAudioChange}
               />
               <p className="text-xs text-gray-500 mt-2">
                 WAV, MP3, or OGG, max 20MB
@@ -432,8 +742,12 @@ export default function DataEntryForm() {
         <button className="px-6 py-2 bg-gray-600 rounded-lg text-white cursor-pointer hover:bg-gray-700 transition">
           Save As Draft
         </button>
-        <button className="px-6 py-2 bg-blue-600 rounded-lg text-white cursor-pointer hover:bg-blue-700 transition">
-          Submit Back Catalog Data
+        <button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="px-6 py-2 bg-blue-600 rounded-lg text-white cursor-pointer hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? "Submitting..." : "Submit Back Catalog Data"}
         </button>
       </div>
     </div>

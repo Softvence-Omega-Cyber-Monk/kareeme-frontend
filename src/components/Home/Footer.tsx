@@ -199,13 +199,13 @@ const Footer: React.FC = () => {
             <div className="grid grid-cols-2 md:flex md:flex-col md:space-y-2 gap-2 w-full md:w-auto text-center md:text-left">
               {/* Manually written footer links */}
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Privacy Policy
               </Link>
               <Link
-                to="/term"
+                to="/terms-and-conditions"
                 className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base underline"
               >
                 Terms & Condition

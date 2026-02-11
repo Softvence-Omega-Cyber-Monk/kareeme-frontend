@@ -20,22 +20,32 @@ import {
 import incomicon from "@/assets/icons/income1.svg";
 import expressicon from "@/assets/icons/express1.svg";
 
-// Sample data
-const data = [
-  { name: "Jan", profit: 400, loss: 240 },
-  { name: "Feb", profit: 300, loss: 200 },
-  { name: "Mar", profit: 500, loss: 150 },
-  { name: "Apr", profit: 700, loss: 300 },
-  { name: "May", profit: 600, loss: 250 },
-  { name: "Jun", profit: 800, loss: 350 },
-  { name: "Jul", profit: 900, loss: 400 },
-];
+import { ProfitLossData } from "@/redux/features/admin/admin.type";
 
 const formatYAxis = (tick: number) => `${tick / 1000}k`;
 
-const ProfitLossSummary = () => {
+interface ProfitLossSummaryProps {
+  data?: ProfitLossData[];
+}
+
+const ProfitLossSummary = ({ data }: ProfitLossSummaryProps) => {
   const [_selectedFilter, setSelectedFilter] = useState("Last 6 Months");
   const [hoveredBar, setHoveredBar] = useState<string | null>(null);
+
+  // Transform or use empty default
+  const chartData = data && data.length > 0 ? data.map(item => ({
+    name: item.month,
+    profit: item.profit,
+    loss: item.loss
+  })) : [
+    { name: "Jan", profit: 0, loss: 0 },
+    { name: "Feb", profit: 0, loss: 0 },
+    { name: "Mar", profit: 0, loss: 0 },
+    { name: "Apr", profit: 0, loss: 0 },
+    { name: "May", profit: 0, loss: 0 },
+    { name: "Jun", profit: 0, loss: 0 },
+    { name: "Jul", profit: 0, loss: 0 },
+  ];
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
@@ -100,7 +110,7 @@ const ProfitLossSummary = () => {
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} barGap={20}>
+        <BarChart data={chartData} barGap={20}>
           <Bar
             dataKey="profit"
             barSize={30}

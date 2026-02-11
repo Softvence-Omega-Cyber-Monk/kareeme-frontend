@@ -7,12 +7,12 @@ function cn(...classes: (string | false | null | undefined)[]) {
 }
 
 // Skeleton component props
-interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {}
+type SkeletonProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const Skeleton: React.FC<SkeletonProps> = ({ className, ...props }) => {
   return (
     <div
-      className={cn("animate-pulse bg-gray-200 rounded-md", className)}
+      className={cn("animate-pulse bg-[#1c1c24] rounded-md", className)}
       {...props}
     />
   );

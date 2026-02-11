@@ -43,8 +43,8 @@ const MerchantDashboardNavbar = ({
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // Tokens are now managed securely (HttpOnly cookies + in-memory)
-    // No need to manually clear cookies or localStorage
+      // Tokens are now managed securely (HttpOnly cookies + in-memory)
+      // No need to manually clear cookies or localStorage
     dispatch(logout());
     toast.success("Merchant logged out successfully!");
     navigate("/");
@@ -62,7 +62,7 @@ const MerchantDashboardNavbar = ({
     <div className="w-full max-w-[1560px] mx-auto px-4 md:px-8 py-3 bg-white shadow-lg rounded-2xl">
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <Link to="/">
             <img src={logo} alt="Logo" className="w-28 h-auto drop-shadow-md" />
           </Link>

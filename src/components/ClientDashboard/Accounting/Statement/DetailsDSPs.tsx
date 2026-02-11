@@ -9,7 +9,8 @@ const DetailsDSPs = ({
 }: {
   data: PlatformDetail[];
   statement: StatementDetail;
-}) => {
+  }) => {
+  
   return (
     <div>
       <div className=" space-y-8">

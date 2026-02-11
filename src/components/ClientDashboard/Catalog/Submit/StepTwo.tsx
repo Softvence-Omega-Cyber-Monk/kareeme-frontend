@@ -83,6 +83,32 @@ const StepTwo = ({
               />
             </div>
 
+            {/* P Line & C Line */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm mb-2">P Line</label>
+                <input
+                  type="text"
+                  name="releasePLine"
+                  value={releaseData.releasePLine || ""}
+                  onChange={handleReleaseChange}
+                  placeholder="e.g. (P) 2024 OneIsOneEnt"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2">C Line</label>
+                <input
+                  type="text"
+                  name="releaseCLine"
+                  value={releaseData.releaseCLine || ""}
+                  onChange={handleReleaseChange}
+                  placeholder="e.g. (c) 2024 OneIsOneEnt"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
             {/* Language */}
             <div>
               <label className="block text-sm mb-2">Language</label>

@@ -1,10 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
+import { User } from "@/redux/types/auth.type";
 
-export function TwoFactorSecuritySettings() {
-   const [enforcePasswordPolicies, setEnforcePasswordPolicies] = useState(false)
-  const [enableTwoFactor, setEnableTwoFactor] = useState(true)
+interface TwoFactorSecuritySettingsProps {
+  user: User;
+}
+
+export function TwoFactorSecuritySettings({
+  user,
+}: TwoFactorSecuritySettingsProps) {
+  const [enforcePasswordPolicies, setEnforcePasswordPolicies] = useState(false);
+  const [enableTwoFactor, setEnableTwoFactor] = useState(user.isTFAEnabled);
   const [ipWhitelist, setIpWhitelist] = useState("")
 
   return (

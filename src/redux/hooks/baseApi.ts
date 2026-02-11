@@ -16,7 +16,7 @@ const mutex = new Mutex();
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: baseURL,
-  credentials: "include", // Important: sends HttpOnly cookies
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     // Get token from Redux state (in-memory)
     const token = (getState() as AppRootState).auth.token;
@@ -34,14 +34,14 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   // Store the current token before waiting
   const tokenBeforeWait = (api.getState() as AppRootState).auth.token;
-  
+
   // Wait for any ongoing refresh to complete
   await mutex.waitForUnlock();
-  
+
   // Check if token changed while we were waiting (another request refreshed it)
   const tokenAfterWait = (api.getState() as AppRootState).auth.token;
   const tokenWasRefreshed = tokenBeforeWait !== tokenAfterWait;
-  
+
   let result = await rawBaseQuery(args, api, extraOptions);
   const url = typeof args === "string" ? args : args.url;
 
@@ -55,11 +55,11 @@ const baseQueryWithReauth: BaseQueryFn<
       }
       return result;
     }
-    
+
     // Check if mutex is locked (another request is refreshing)
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
-      
+
       try {
         console.log("🔄 Attempting to refresh token...");
         // Try to refresh the token
@@ -109,6 +109,6 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["User"],
+  tagTypes: ["Overview", "PlatformData", "Team", "User"],
   endpoints: () => ({}),
 });

@@ -5,6 +5,45 @@ export type UserRole =
   | "DISTRIBUTOR"
   | "ACCOUNTANT";
 
+export type ClientSetting = {
+  id: string;
+  userId: string;
+  defaultDistributionPlatforms: string[];
+  defaultGenres: string[];
+  distributionTerritories: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type LoginDevice = {
+  id: string;
+  userId: string;
+  browser: string;
+  os: string;
+  deviceType: string;
+  ipAddress: string;
+  userAgent: string;
+  city: string | null;
+  country: string | null;
+  lastLoginAt: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type NotificationSetting = {
+  id: string;
+  userId: string;
+  isNewReleaseAlertsOn: boolean;
+  isEarningAlertsOn: boolean;
+  isPlatformUpdatesOn: boolean;
+  emailNotificationsOn: boolean;
+  smsNotificationsOn: boolean;
+  pushNotificationsOn: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type User = {
   id: string;
   name: string;
@@ -19,6 +58,9 @@ export type User = {
   profilePictureUrl: string | null;
   createdAt: string;
   updatedAt: string;
+  clientSettings?: ClientSetting[];
+  loginDevices?: LoginDevice[];
+  notificationSettings?: NotificationSetting[];
 };
 
 export type LoginRequest = {
@@ -107,3 +149,8 @@ export type AuthMeResponse = ApiResponse<User>;
 //   email: string;
 //   password: string;
 // };
+
+export type ChangePasswordRequest = {
+  password?: string;
+  newPassword?: string;
+};

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -9,102 +8,26 @@ import {
 } from "@/components/ui/table";
 import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
-import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/photo.png";
 
-// Sample Data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Stand on Dat",
-    name: "K Shiday",
-    upc: "UPC: 723277809397",
-    type: "Single",
-    releaseDate: "01/01/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Handle Me",
-    name: "K Shiday",
-    upc: "UPC: 823377819398",
-    type: "Single",
-    releaseDate: "02/15/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Cater 2 You",
-    name: "Auntie House",
-    upc: "UPC: 923477829399",
-    type: "Single",
-    releaseDate: "03/12/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "No Music",
-    name: "K Shiday",
-    upc: "UPC: 673277809111",
-    type: "Single",
-    releaseDate: "04/20/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "OOH YEA",
-    name: "K Shiday",
-    upc: "UPC: 573277809222",
-    type: "Single",
-    releaseDate: "05/09/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-];
+// Interface for Release data from API
+export interface Release {
+  releaseId: string;
+  releaseTitle: string;
+  typeOfRelease: string;
+  releaseDate: string;
+  status: string;
+  artistName: string;
+  createdAt: string;
+}
 
-// UPC Cell Component with Border & Copy Feature
-const UpcCell = ({ upc }: { upc: string }) => {
-  const [copied, setCopied] = useState(false);
+interface TableHereProps {
+  releases: Release[];
+}
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(upc);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy!", err);
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-between border border-gray-700 rounded-md px-3 py-1 w-max cursor-pointer">
-      <span className="text-sm md:text-base text-gray-300">{upc}</span>
-      <button
-        onClick={handleCopy}
-        className="p-1 rounded-md hover:bg-gray-800 transition"
-        title="Copy UPC"
-      >
-        {copied ? (
-          <FiCheck className="text-green-500 w-4 h-4" />
-        ) : (
-          <FiCopy className="text-gray-400 w-4 h-4" />
-        )}
-      </button>
-    </div>
-  );
-};
 
 // Main Table Component
-const TableHere = () => {
+const TableHere = ({ releases }: TableHereProps) => {
   const navigate = useNavigate();
 
   const goToDetails = (id: string) => {
@@ -116,68 +39,79 @@ const TableHere = () => {
       <Table className="w-full min-w-[1000px]">
         {/* Table Header */}
         <TableHeader>
-          <TableRow className="text-[#BDBDBD] text-sm md:text-base">
-            <TableHead className="w-[200px] px-4 py-2">Title</TableHead>
-            <TableHead className="px-30 py-2">UPC</TableHead>
+          <TableRow className="text-[#BDBDBD] text-sm md:text-base hover:bg-transparent">
+            <TableHead className="w-[250px] px-4 py-2">Title</TableHead>
             <TableHead className="px-4 py-2">Type</TableHead>
             <TableHead className="px-4 py-2">Release Date</TableHead>
-            <TableHead className="text-right pr-4 md:pr-8 py-2">
-              Payment Amount (USD)
-            </TableHead>
-            <TableHead className="text-right px-4 py-2">Status</TableHead>
+            <TableHead className="px-4 py-2">Status</TableHead>
+            <TableHead className="text-right px-4 py-2">Action</TableHead>
           </TableRow>
         </TableHeader>
 
         {/* Table Body */}
         <TableBody className="text-white">
-          {productData.map((product) => (
-            <TableRow key={product.id} className="border-b border-gray-800">
-              {/* Title & Artist */}
-              <TableCell className="px-4 py-3 flex items-center gap-3">
-                <img
-                  src={product.image}
-                  alt=""
-                  className="h-6 w-6 md:h-8 md:w-8 rounded"
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm md:text-base font-medium">
-                    {product.assetsName}
-                  </span>
-                  <span className="text-xs md:text-sm text-gray-500">
-                    {product.name}
-                  </span>
-                </div>
-              </TableCell>
-
-              {/* UPC with Border */}
-              <TableCell className="px-30 py-3">
-                <UpcCell upc={product.upc} />
-              </TableCell>
-
-              {/* Type */}
-              <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
-                {product.type}
-              </TableCell>
-
-              {/* Release Date */}
-              <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
-                {product.releaseDate}
-              </TableCell>
-              <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium">
-                {product.amount}
-              </TableCell>
-              {/* Status + Arrow */}
-              <TableCell
-                className="px-4 py-3 text-right text-sm md:text-base font-medium flex items-center justify-end gap-2 cursor-pointer hover:text-blue-500"
-                onClick={() => goToDetails(product.id)}
+          {releases?.length > 0 ? (
+            releases.map((release) => (
+              <TableRow
+                key={release.releaseId}
+                className="border-b border-gray-800 hover:bg-[#1F1F21] cursor-pointer"
+                onClick={() => goToDetails(release.releaseId)}
               >
-                <span className="bg-[#0E261F] text-[#01D449] px-4 py-2 rounded-full text-xs md:text-sm font-medium">
-                  {product.status}
-                </span>
-                <FaChevronRight className="w-4 h-4 text-[#3A5CFF]" />
+                {/* Title & Artist */}
+                <TableCell className="px-4 py-3 flex items-center gap-3">
+                  <img
+                    src={download}
+                    alt=""
+                    className="h-8 w-8 md:h-10 md:w-10 rounded object-cover"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm md:text-base font-medium text-white">
+                      {release.releaseTitle}
+                    </span>
+                    <span className="text-xs md:text-sm text-gray-500">
+                      {release.artistName}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* Type */}
+                <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
+                  {release.typeOfRelease}
+                </TableCell>
+
+                {/* Release Date */}
+                <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
+                  {new Date(release.releaseDate).toLocaleDateString()}
+                </TableCell>
+
+                {/* Status */}
+                <TableCell className="px-4 py-3">
+                  <span
+                    className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-medium ${
+                      release.status === "Draft"
+                        ? "bg-yellow-500/10 text-yellow-500"
+                        : "bg-[#0E261F] text-[#01D449]"
+                    }`}
+                  >
+                    {release.status}
+                  </span>
+                </TableCell>
+
+                {/* Arrow Action */}
+                <TableCell className="px-4 py-3 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <FaChevronRight className="w-4 h-4 text-[#3A5CFF]" />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-10 text-gray-500">
+                No releases found.
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

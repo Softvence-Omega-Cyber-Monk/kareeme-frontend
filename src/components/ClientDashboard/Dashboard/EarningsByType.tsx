@@ -1,15 +1,9 @@
-"use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
-
-const chartData = [
-  { customer: "new", visitors: 70, fill: "#01C142" },
-  { customer: "returning", visitors: 30, fill: "#F97316" },
-];
 
 const chartConfig = {
   visitors: {
@@ -25,6 +19,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+interface CustomizedLabelProps {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}
+
 const renderCustomizedLabel = ({
   cx,
   cy,
@@ -32,7 +35,7 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-}: any) => {
+}: CustomizedLabelProps) => {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -57,7 +60,23 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function EarningsByType() {
+interface EarningsByTypeProps {
+  data?: {
+    free: { earnings: string; views: string; percentage: number };
+    premium: { earnings: string; views: string; percentage: number };
+  };
+}
+
+export default function EarningsByType({ data }: EarningsByTypeProps) {
+  const chartData = data
+    ? Object.entries(data).map(([key, value], index) => ({
+        customer: key,
+        visitors: value.percentage || 0,
+        fill: index === 0 ? "#01C142" : "#F97316", 
+      }))
+    : [];
+  console.log("chartData",data);
+
   return (
     <div className="w-full mx-auto  bg-[#0C2322] border-[#1B2E2E]  rounded-2xl">
       <Card className="border-0 shadow-sm h-full flex flex-col">
@@ -68,7 +87,6 @@ export default function EarningsByType() {
         </CardHeader>
 
         <CardContent className="flex flex-col justify-between">
-          {/* Chart + Legend Section */}
           <div className="flex flex-col items-center">
             <div className="relative w-58 h-58">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -102,53 +120,38 @@ export default function EarningsByType() {
             </div>
             <div className="w-full mx-auto p-4">
               <div className="flex flex-col md:flex-row gap-4 w-full">
-                {/* Free Plan */}
-                <div className="bg-[#17171A] flex flex-col gap-4 p-6 rounded-xl w-full md:w-1/2 border border-gray-700 hover:scale-105 transform transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 rounded-full bg-green-500"></span>
-                      <span className="text-white font-medium text-lg">
-                        Free
-                      </span>
-                    </span>
-                  </div>
+                {data &&
+                  Object.entries(data).map(([key, value], index) => (
+                    <div
+                      key={key}
+                      className="bg-[#17171A] flex flex-col gap-4 p-6 rounded-xl w-full md:w-1/2 border border-gray-700 hover:scale-105 transform transition-all"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <span
+                            className={`w-4 h-4 rounded-full ${
+                              index === 0 ? "bg-green-500" : "bg-orange-500"
+                            }`}
+                          ></span>
+                          <span className="text-white font-medium text-lg capitalize">
+                            {key}
+                          </span>
+                        </span>
+                      </div>
 
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <span className="flex items-center gap-1 text-green-500 font-semibold text-md">
-                      <AiFillDollarCircle className="h-5 w-5" />
-                      $5.33
-                    </span>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <span className="flex items-center gap-1 text-green-500 font-semibold text-md">
+                          <AiFillDollarCircle className="h-5 w-5" />
+                          {value.earnings || "$0.00"}
+                        </span>
 
-                    <span className="flex items-center gap-1 text-blue-500 font-semibold text-md">
-                      <IoEye className="h-5 w-5" />
-                      3k
-                    </span>
-                  </div>
-                </div>
-
-                {/* Premium Plan */}
-                <div className="bg-[#17171A] flex flex-col gap-4 p-6 rounded-xl w-full md:w-1/2 border border-gray-700 hover:scale-105 transform transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 rounded-full bg-green-400"></span>
-                      <span className="text-white font-medium text-lg">
-                        Premium
-                      </span>
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <span className="flex items-center gap-1 text-green-500 font-semibold text-md">
-                      <AiFillDollarCircle className="h-5 w-5" />
-                      $2.00
-                    </span>
-
-                    <span className="flex items-center gap-1 text-blue-500 font-semibold text-md">
-                      <IoEye className="h-5 w-5" />
-                      1k
-                    </span>
-                  </div>
-                </div>
+                        <span className="flex items-center gap-1 text-blue-500 font-semibold text-md">
+                          <IoEye className="h-5 w-5" />
+                          {value.views || "0"}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
               </div>
 
               <button className="mt-6 w-full md:w-full bg-[#233635] text-white rounded-lg py-3 hover:bg-gray-600 transition-all font-medium text-lg cursor-pointer">
@@ -156,8 +159,6 @@ export default function EarningsByType() {
               </button>
             </div>
           </div>
-
-          {/* Metrics Section */}
         </CardContent>
       </Card>
     </div>
