@@ -264,7 +264,7 @@ const TeamTable = () => {
                   : "bg-yellow-500 hover:bg-yellow-600 text-black"
               }`}
             >
-              {isActionLoading ? <ComponentLoader/> : "Confirm"}
+              {isActionLoading ? "Confirming..." : "Confirm"}
             </Button>
           </DialogFooter>
         </DialogContent>
