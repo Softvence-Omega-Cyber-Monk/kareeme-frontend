@@ -12,24 +12,34 @@ import Pagination from "@/components/Reuseable/Pagination";
 const ReleasesTable = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  
   const { data, isLoading } = useGetAllReleasesQuery({
-    limit: 10,
+    limit: 1000, // Increased limit to make client-side filtering effective across more items
     page: page,
   });
   console.log(data);
+
   const filteredData = useMemo(() => {
     if (!data?.data) return [];
 
     return data.data.filter((item: any) => {
       if (!search) return true;
 
+      const searchTerm = search.toLowerCase();
+      // Check name and potentially other relevant fields
       return (
-        item?.name && item.name.toLowerCase().includes(search.toLowerCase())
+        (item?.releaseTitle && item.releaseTitle.toLowerCase().includes(searchTerm)) ||
+        (item?.artistName && item.artistName.toLowerCase().includes(searchTerm)) ||
+        (item?.upc && item.upc.toLowerCase().includes(searchTerm))
       );
     });
   }, [data?.data, search]);
 
-  console.log(filteredData);
+  // Calculate pagination based on filtered data if needed, or just display all
+  // But since the API is paginated, we receive 'limit' items.
+  // To make client-side filtering useful, we increased the limit to 1000 above.
+
+
   return (
     <div className="space-y-9">
       {/* Header Section */}
