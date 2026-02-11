@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Tabs from "./Tabs";
 import Youtube from "./Youtube/Youtube";
 
 const Analytics = ({ platform = "YouTube" }: { platform?: string }) => {
-  const [period, setPeriod] = useState("last_1_year");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const period = searchParams.get("period") || "last_1_year";
+
+  const setPeriod = (newPeriod: string) => {
+    setSearchParams({ period: newPeriod });
+  };
 
   return (
     <div className="space-y-9">
