@@ -62,11 +62,12 @@ const ReleasesTable = () => {
     return result;
   }, [data?.data, search, statusFilter, sortConfig]);
 
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
   const paginatedData = useMemo(() => {
     const startIndex = (page - 1) * itemsPerPage;
     return processedData.slice(startIndex, startIndex + itemsPerPage);
-  }, [processedData, page]);
+  }, [processedData, page, itemsPerPage]);
 
   const totalPages = Math.ceil(processedData.length / itemsPerPage);
 
@@ -98,9 +99,9 @@ const ReleasesTable = () => {
           <div className="w-full sm:w-72 md:w-96 relative">
             <Input
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               className="w-full border h-12 bg-[#171719] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
-              placeholder="Search loads"
+              placeholder="Search releases..."
             />
             <span className="absolute inset-y-0 right-3 flex items-center text-gray-400 cursor-pointer">
               <IoSearch className="w-4 h-4 md:w-5 md:h-5" />
@@ -120,7 +121,7 @@ const ReleasesTable = () => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-[#171719] border-[#696B6F] text-white">
-              <DropdownMenuItem onClick={() => { setStatusFilter("All"); setPage(1); }}>All</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setStatusFilter("All"); setPage(1); }}>All Status</DropdownMenuItem>
               <DropdownMenuItem onClick={() => { setStatusFilter("Approved"); setPage(1); }}>Approved</DropdownMenuItem>
               <DropdownMenuItem onClick={() => { setStatusFilter("Draft"); setPage(1); }}>Draft</DropdownMenuItem>
               <DropdownMenuItem onClick={() => { setStatusFilter("Pending Review"); setPage(1); }}>Pending Review</DropdownMenuItem>
@@ -163,11 +164,34 @@ const ReleasesTable = () => {
           ) : (
             <>
               <TableHere releases={paginatedData} />
-              <Pagination
-                currentPage={page}
-                totalPage={totalPages || 1}
-                onPageChange={(newPage) => setPage(newPage)}
-              />
+              
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 px-2">
+                <div className="flex items-center gap-4 text-sm text-gray-400">
+                  <span>
+                    Showing {processedData.length > 0 ? (page - 1) * itemsPerPage + 1 : 0} to{" "}
+                    {Math.min(page * itemsPerPage, processedData.length)} of {processedData.length} entries
+                  </span>
+                  
+                  <div className="flex items-center gap-2">
+                    <span>Show</span>
+                    <select 
+                      value={itemsPerPage}
+                      onChange={(e) => { setItemsPerPage(Number(e.target.value)); setPage(1); }}
+                      className="bg-[#171719] border border-[#696B6F] rounded px-2 py-1 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      {[10, 20, 50, 100].map(val => (
+                        <option key={val} value={val}>{val}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <Pagination
+                  currentPage={page}
+                  totalPage={totalPages || 1}
+                  onPageChange={(newPage) => setPage(newPage)}
+                />
+              </div>
             </>
           )}
         </div>
