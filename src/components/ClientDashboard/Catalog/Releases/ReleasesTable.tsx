@@ -9,36 +9,74 @@ import TableHere from "./TableHere";
 import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
 import Pagination from "@/components/Reuseable/Pagination";
 
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+
 const ReleasesTable = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string>("All");
   
   const { data, isLoading } = useGetAllReleasesQuery({
-    limit: 1000, // Increased limit to make client-side filtering effective across more items
-    page: page,
+    limit: 1000, 
+    page: 1, // Always fetch first page of large batch for client-side ops
   });
-  console.log(data);
 
-  const filteredData = useMemo(() => {
+  const processedData = useMemo(() => {
     if (!data?.data) return [];
 
-    return data.data.filter((item: any) => {
-      if (!search) return true;
+    let result = [...data.data];
 
+    // 1. Filtering by Search
+    if (search) {
       const searchTerm = search.toLowerCase();
-      // Check name and potentially other relevant fields
-      return (
+      result = result.filter((item: any) => 
         (item?.releaseTitle && item.releaseTitle.toLowerCase().includes(searchTerm)) ||
         (item?.artistName && item.artistName.toLowerCase().includes(searchTerm)) ||
         (item?.upc && item.upc.toLowerCase().includes(searchTerm))
       );
-    });
-  }, [data?.data, search]);
+    }
 
-  // Calculate pagination based on filtered data if needed, or just display all
-  // But since the API is paginated, we receive 'limit' items.
-  // To make client-side filtering useful, we increased the limit to 1000 above.
+    // 2. Filtering by Status
+    if (statusFilter !== "All") {
+      result = result.filter((item: any) => item.status === statusFilter);
+    }
 
+    // 3. Sorting
+    if (sortConfig) {
+      result.sort((a: any, b: any) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
+
+        if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return result;
+  }, [data?.data, search, statusFilter, sortConfig]);
+
+  const itemsPerPage = 10;
+  const paginatedData = useMemo(() => {
+    const startIndex = (page - 1) * itemsPerPage;
+    return processedData.slice(startIndex, startIndex + itemsPerPage);
+  }, [processedData, page]);
+
+  const totalPages = Math.ceil(processedData.length / itemsPerPage);
+
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
 
   return (
     <div className="space-y-9">
@@ -70,24 +108,43 @@ const ReleasesTable = () => {
           </div>
 
           {/* Filter Button */}
-          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
-            <img
-              src={fannel}
-              alt="Filter Icon"
-              className="w-5 h-5 md:w-6 md:h-6"
-            />
-            <span className="text-sm md:text-base font-sans">Filter</span>
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
+                <img
+                  src={fannel}
+                  alt="Filter Icon"
+                  className="w-5 h-5 md:w-6 md:h-6"
+                />
+                <span className="text-sm md:text-base font-sans">{statusFilter === "All" ? "Filter" : statusFilter}</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-[#171719] border-[#696B6F] text-white">
+              <DropdownMenuItem onClick={() => { setStatusFilter("All"); setPage(1); }}>All</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setStatusFilter("Approved"); setPage(1); }}>Approved</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setStatusFilter("Draft"); setPage(1); }}>Draft</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setStatusFilter("Pending Review"); setPage(1); }}>Pending Review</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Sort Button */}
-          <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
-            <img
-              src={short}
-              alt="Sort Icon"
-              className="w-5 h-5 md:w-6 md:h-6"
-            />
-            <span className="text-sm md:text-base font-sans">Sort</span>
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="bg-[#171719] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#1F1F21] transition cursor-pointer">
+                <img
+                  src={short}
+                  alt="Sort Icon"
+                  className="w-5 h-5 md:w-6 md:h-6"
+                />
+                <span className="text-sm md:text-base font-sans">Sort</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-[#171719] border-[#696B6F] text-white">
+              <DropdownMenuItem onClick={() => handleSort("releaseTitle")}>Title {sortConfig?.key === "releaseTitle" && (sortConfig.direction === "asc" ? "↑" : "↓")}</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("releaseDate")}>Release Date {sortConfig?.key === "releaseDate" && (sortConfig.direction === "asc" ? "↑" : "↓")}</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("typeOfRelease")}>Type {sortConfig?.key === "typeOfRelease" && (sortConfig.direction === "asc" ? "↑" : "↓")}</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Export Button */}
           <button className="bg-[#3A5CFF] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer">
@@ -105,10 +162,10 @@ const ReleasesTable = () => {
             </div>
           ) : (
             <>
-              <TableHere releases={filteredData || []} />
+              <TableHere releases={paginatedData} />
               <Pagination
                 currentPage={page}
-                totalPage={data?.metadata?.totalPage || 1}
+                totalPage={totalPages || 1}
                 onPageChange={(newPage) => setPage(newPage)}
               />
             </>
