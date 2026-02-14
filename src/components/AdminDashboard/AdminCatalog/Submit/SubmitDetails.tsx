@@ -1,11 +1,30 @@
-import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
-import audioframe from "@/assets/photo/audioframe.png";
+import { useParams } from "react-router-dom";
+import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+import ComponentError from "@/components/Reuseable/ComponentError";
 import MiniTitle from "@/components/ClientDashboard/Shared/MiniTitle";
+import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 
 const SubmitDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading, error } = useGetSubmissionDetailsQuery(id || "");
+
+  if (isLoading) {
+    return <ComponentLoader />;
+  }
+
+  if (error || !data?.data) {
+    return <ComponentError />;
+  }
+
+  const release = data.data;
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-GB');
+  };
+
   return (
     <div>
-      <div className=" w-full text-white   mx-auto">
+      <div className="w-full text-white mx-auto">
         <div className="flex items-center gap-4 mb-6">
           <img
             src={catalogphoto1}
@@ -16,9 +35,9 @@ const SubmitDetails = () => {
           <div>
             <div>
               <h2 className="text-2xl font-bold">
-                The World is Yours (feat. LeeLee Babii)
+                {release.releaseTitle}
               </h2>
-              <p className="text-gray-400">Gemini Chachi</p>
+              <p className="text-gray-400">{release.primaryArtist}</p>
             </div>
             <div className="mt-6 flex gap-4">
               <a
@@ -34,258 +53,153 @@ const SubmitDetails = () => {
           </div>
         </div>
       </div>
-      {/* PArt-2 */}
+
       <div className="space-y-6">
         <MiniTitle title="General Release Information" />
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
-          <h2 className="text-2xl">General Release Information</h2>{" "}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          <h2 className="text-2xl">General Release Information</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
+                <p className="text-[#E5E5E5]">Release Title:</p>
+                <p className="font-medium">{release.releaseTitle}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
+                <p className="text-[#E5E5E5]">Type of Release:</p>
+                <p className="font-medium">{release.typeOfRelease}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Type: </p>
-                <p className="font-medium">Single</p>
+                <p className="text-[#E5E5E5]">Primary Artist:</p>
+                <p className="font-medium">{release.primaryArtist}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Date: </p>
-                <p className="font-medium">20/11/2024</p>
+                <p className="text-[#E5E5E5]">Release Date:</p>
+                <p className="font-medium">{formatDate(release.releaseDate)}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Distributor: </p>
-                <p className="font-medium">Distrokid</p>
+                <p className="text-[#E5E5E5]">Genre:</p>
+                <p className="font-medium">{release.genre || 'N/A'}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Artist: </p>
-                <p className="font-medium">Gemini Chachi</p>
+                <p className="text-[#E5E5E5]">Language:</p>
+                <p className="font-medium">{release.language || 'N/A'}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Artwork Link: </p>
-                <p className="font-medium underline text-blue-600">
-                  View Artwork
-                </p>
+                <p className="text-[#E5E5E5]">Explicit Content:</p>
+                <p className="font-medium">{release.isExplicitContent ? 'Yes' : 'No'}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">UPC: </p>
-                <p className="font-medium">797587574636</p>
+                <p className="text-[#E5E5E5]">Status:</p>
+                <p className={`font-medium ${
+                  release.status === 'Approved' ? 'text-green-500' :
+                  release.status === 'Declined' ? 'text-red-500' :
+                  'text-yellow-500'
+                }`}>{release.status}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Title: </p>
-                <p className="font-medium">
-                  The World is Yours (feat. LeeLee Babii
-                </p>
+                <p className="text-[#E5E5E5]">Pre-Order Date:</p>
+                <p className="font-medium">{release.preOrderDate ? formatDate(release.preOrderDate) : 'N/A'}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release C Link: </p>
-                <p className="font-medium">(c) 2024 OnelsOneEnt</p>
+                <p className="text-[#E5E5E5]">Dolby Atmos:</p>
+                <p className="font-medium">{release.hasDolbyAtmosVersion ? 'Yes' : 'No'}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release P Link: </p>
-                <p className="font-medium">(P) 2024 OnelsOneEnt</p>
+                <p className="text-[#E5E5E5]">Music Video:</p>
+                <p className="font-medium">{release.hasMusicVideo ? 'Yes' : 'No'}</p>
+              </div>
+              <div className="flex justify-start gap-2">
+                <p className="text-[#E5E5E5]">Submitted At:</p>
+                <p className="font-medium">{formatDate(release.submittedAt)}</p>
               </div>
             </div>
           </div>
         </div>
-        {/* part-2 */}
+
+        {/* Artists Section */}
+        {release.artists && release.artists.length > 0 && (
+          <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
+            <h2 className="text-2xl">Artist Information</h2>
+            {release.artists.map((artist, index) => (
+              <div key={artist.artistId}>
+                {index > 0 && <hr className="my-4 border-[#044A20]" />}
+                <h3 className="text-lg mb-4">{artist.name} - {artist.role}</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div className="space-y-4">
+                    <div className="flex justify-start gap-2">
+                      <p className="text-[#E5E5E5]">Name:</p>
+                      <p className="font-medium">{artist.name}</p>
+                    </div>
+                    <div className="flex justify-start gap-2">
+                      <p className="text-[#E5E5E5]">Role:</p>
+                      <p className="font-medium">{artist.role}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex justify-start gap-2">
+                      <p className="text-[#E5E5E5]">Email:</p>
+                      <p className="font-medium">{artist.email}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Territories Section */}
+        {release.territories && release.territories.length > 0 && (
+          <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
+            <h2 className="text-2xl">Distribution Territories</h2>
+            <div className="flex flex-wrap gap-2">
+              {release.territories.map((territory, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-[#1E2A2F] rounded-lg text-sm"
+                >
+                  {territory}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Submitted By Section */}
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
-          <h2 className="text-2xl">Track Details</h2>{" "}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          <h2 className="text-2xl">Submission Information</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">ISRC: </p>
-                <p className="font-medium">US-SIZ-23-00001</p>
+                <p className="text-[#E5E5E5]">Submitted By:</p>
+                <p className="font-medium">{release.submittedBy.name}</p>
               </div>
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Copyright Holder: </p>
-                <p className="font-medium">OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Language: </p>
-                <p className="font-medium">English</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">TikTok Start Time: </p>
-                <p className="font-medium">0:15</p>
-              </div>
-              <div className=" gap-2  cursor-pointer">
-                {/* <p>
-                  <FaRegCirclePlay className="h-6 w-6 text-blue-700" />
-                </p>
-                <p className="font-medium">Audio File</p> */}
-                <img src={audioframe} alt="" />
+                <p className="text-[#E5E5E5]">Email:</p>
+                <p className="font-medium">{release.submittedBy.email}</p>
               </div>
             </div>
-
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Display Artist: </p>
-                <p className="font-medium"> emini Chachi, LeeLee Babii </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Publishe: </p>
-                <p className="font-medium"> OnelsOne Publishing</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Explicit: </p>
-                <p className="font-medium underline text-blue-600">Yes</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Territory: </p>
-                <p className="font-medium">None</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Mix/Version: </p>
-                <p className="font-medium">BabiiOriginal Mix</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Genre: </p>
-                <p className="font-medium">Pop/ R&B</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Original Release </p>
-                <p className="font-medium"> Date: 20/11/2024</p>
+                <p className="text-[#E5E5E5]">Submission Date:</p>
+                <p className="font-medium">{formatDate(release.submittedAt)}</p>
               </div>
             </div>
           </div>
         </div>
-        {/* part-3 */}
-        <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
-          <h2 className="text-2xl">Artist Metadata </h2>{" "}
-          <h2 className="text-lg mt-2">Artist: Gemini Chachi </h2>{" "}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Type: </p>
-                <p className="font-medium">Single</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Date: </p>
-                <p className="font-medium">20/11/2024</p>
-              </div>
-            </div>
 
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Distributor: </p>
-                <p className="font-medium">Distrokid</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Artist: </p>
-                <p className="font-medium">Gemini Chachi</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Artwork Link: </p>
-                <p className="font-medium underline text-blue-600">
-                  View Artwork
-                </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">UPC: </p>
-                <p className="font-medium">797587574636</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Title: </p>
-                <p className="font-medium">
-                  The World is Yours (feat. LeeLee Babii
-                </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release C Link: </p>
-                <p className="font-medium">(c) 2024 OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release P Link: </p>
-                <p className="font-medium">(P) 2024 OnelsOneEnt</p>
-              </div>
-            </div>
+        {/* Additional Details */}
+        {release.additionalDetails && (
+          <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
+            <h2 className="text-2xl">Additional Details</h2>
+            <p className="text-gray-300">{release.additionalDetails}</p>
           </div>
-          <hr className="text-[#044A20]" />
-          <h2 className="text-lg">Artist: LeeLee Babii</h2>{" "}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Type: </p>
-                <p className="font-medium">Single</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Date: </p>
-                <p className="font-medium">20/11/2024</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Distributor: </p>
-                <p className="font-medium">Distrokid</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Artist: </p>
-                <p className="font-medium">Gemini Chachi</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Artwork Link: </p>
-                <p className="font-medium underline text-blue-600">
-                  View Artwork
-                </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">UPC: </p>
-                <p className="font-medium">797587574636</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Title: </p>
-                <p className="font-medium">
-                  The World is Yours (feat. LeeLee Babii
-                </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release C Link: </p>
-                <p className="font-medium">(c) 2024 OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release P Link: </p>
-                <p className="font-medium">(P) 2024 OnelsOneEnt</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

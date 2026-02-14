@@ -250,7 +250,7 @@ const routes = createBrowserRouter([
       { path: "releases", element: <AdminRealisePage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
       { path: "submit", element: <AdminSubmitPage /> },
-      { path: "submit/view", element: <SubmitDetails /> },
+      { path: "submit/:id", element: <SubmitDetails /> },
       /* team */
       { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
