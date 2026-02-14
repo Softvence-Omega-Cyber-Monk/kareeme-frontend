@@ -1,11 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-
-// import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
@@ -73,6 +70,7 @@ import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
 
 import PrivateRoute from "./PrivateRoute";
+import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -283,7 +281,7 @@ const routes = createBrowserRouter([
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
-      { path: "catalog/submit", element: <SubmitPage /> },
+      { path: "catalog/submit", element: <ClientSubmit /> },
       { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
