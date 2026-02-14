@@ -307,7 +307,6 @@ const routes = createBrowserRouter([
       { path: "settings", element: <SettingsPage /> },
     ],
   },
-
   {
     path: "*",
     element: <NotFound />,
