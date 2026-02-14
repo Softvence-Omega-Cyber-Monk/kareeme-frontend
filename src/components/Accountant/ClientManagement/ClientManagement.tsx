@@ -7,20 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";   
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { useGetClientFinancialsQuery } from "@/redux/features/accountant/accountantApi";
 
 const ClientManagement = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { data, isLoading, error } = useGetClientFinancialsQuery({ page, limit });
 
-  const goToDetails = (id: string) => {
-    navigate(id); // Navigate to client details page
-  };
+  // const goToDetails = (id: string) => {
+  //   navigate(id); // Navigate to client details page
+  // };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -67,7 +67,7 @@ const ClientManagement = () => {
               <TableHead className="px-4 py-4 text-left">
                 Last Payment Date
               </TableHead>
-              <TableHead className="px-4 py-4 text-right">Action</TableHead>
+              {/* <TableHead className="px-4 py-4 text-right">Action</TableHead> */}
             </TableRow>
           </TableHeader>
 
@@ -86,13 +86,13 @@ const ClientManagement = () => {
                   <TableCell className="px-4 py-6">
                     {formatDate(client.lastPaymentDate)}
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     className="text-right px-4 py-6 text-sm md:text-base flex items-center justify-end gap-2 cursor-pointer text-blue-600 hover:text-blue-800"
                     onClick={() => goToDetails(client.clientFinId)}
                   >
                     User Profile
                     <FaChevronRight className="w-4 h-4" />
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))
             ) : (
