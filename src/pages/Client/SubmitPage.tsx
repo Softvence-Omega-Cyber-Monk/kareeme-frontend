@@ -1,9 +1,9 @@
-import Submit from "@/components/ClientDashboard/Catalog/Submit/Submit";
+import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
 
 const SubmitPage = () => {
   return (
     <div>
-      <Submit />
+      <ClientSubmit />
     </div>
   );
 };
