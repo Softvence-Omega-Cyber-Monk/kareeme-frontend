@@ -1,6 +1,9 @@
 import { baseApi } from "@/redux/hooks/baseApi";
 import {
   ApproveSubmissionPayload,
+  ClientActionResponse,
+  ClientsQueryParams,
+  ClientsResponse,
   DashboardResponse,
   DeclineSubmissionPayload,
   SubmissionActionResponse,
@@ -37,6 +40,24 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Submissions"],
     }),
+    getClients: builder.query<ClientsResponse, ClientsQueryParams>({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/distribution/clients",
+        method: "GET",
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ["Clients"],
+    }),
+    deactivateClient: builder.mutation<ClientActionResponse, string>({
+      query: (clientId) => ({
+        url: `/distribution/clients/${clientId}/deactivate`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Clients"],
+    }),
     approveSubmission: builder.mutation<
       SubmissionActionResponse,
       { releaseId: string; payload?: ApproveSubmissionPayload }
@@ -66,7 +87,9 @@ export const {
   useGetDashboardQuery,
   useGetSubmissionsQuery,
   useGetSubmissionDetailsQuery,
+  useGetClientsQuery,
   useApproveSubmissionMutation,
   useDeclineSubmissionMutation,
+  useDeactivateClientMutation,
 } = distributionApi;
 export default distributionApi;

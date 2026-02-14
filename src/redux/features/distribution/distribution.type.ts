@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface RecentActivityItem {
   title: string;
   subtitle: string;
@@ -124,5 +125,52 @@ export interface SubmissionDetailsResponse {
   message: string;
   data: SubmissionDetailsData;
 }
+
+// Clients types
+export interface ClientUser {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+}
+
+export interface ClientItem {
+  clientId: string;
+  userId: string;
+  distributorId: string;
+  user: ClientUser;
+  role: string;
+  phoneNumber: string | null;
+  totalReleases: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ClientsMetadata {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+
+export interface ClientsResponse {
+  success: boolean;
+  message: string;
+  data: ClientItem[];
+  metadata: ClientsMetadata;
+}
+
+export interface ClientsQueryParams {
+  page?: number;
+  limit?: number;
+}
+
+export interface ClientActionResponse {
+  success: boolean;
+  message: string;
+}
+
+
 
 
