@@ -8,52 +8,29 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import flag from "@/assets/icons/flag.svg";
-
-const incomeData = [
-  {
-    id: "10001",
-    source: "August 2024 Royalties",
-    amount: "$350.00",
-    date: "2024-08-31",
-    method: "PayPal",
-    image: flag,
-  },
-  {
-    id: "10002",
-    source: "May 2025 Royalties",
-    amount: "$420.00",
-    date: "2025-05-31",
-    method: "Payoneer",
-    image: flag,
-  },
-  {
-    id: "10003",
-    source: "June 2025 Royalties",
-    amount: "$300.00",
-    date: "2025-06-30",
-    method: "PayPal",
-    image: flag,
-  },
-  {
-    id: "10004",
-    source: "July 2025 Royalties",
-    amount: "$500.00",
-    date: "2025-07-31",
-    method: "Payoneer",
-    image: flag,
-  },
-  {
-    id: "10005",
-    source: "May 2025 Royalties",
-    amount: "$350.00",
-    date: "2025-05-15",
-    method: "PayPal",
-    image: flag,
-  },
-];
+import { useGetPaymentsEarningsQuery } from "@/redux/features/accountant/accountantApi";
 
 export function PaymentHistory() {
+  const { data, isLoading, isError } = useGetPaymentsEarningsQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-white text-lg">Loading payment history...</div>
+      </div>
+    );
+  }
+
+  if (isError || !data?.data) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-red-400 text-lg">Error loading payment history</div>
+      </div>
+    );
+  }
+
+  const paymentHistory = data.data.paymentHistory || [];
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -79,29 +56,37 @@ export function PaymentHistory() {
             </TableHeader>
 
             <TableBody className="text-white">
-              {incomeData.map((item) => (
-                <TableRow
-                  key={item.id}
-                  className="hover:bg-[#1E3A38] transition-colors"
-                >
-                  {/* Date */}
-                  <TableCell className="pr-4 md:pr-8 py-4">
-                    {item.date}
-                  </TableCell>
-                  {/* Client */}
-                  <TableCell className="flex items-center gap-2 pr-4 md:pr-8 py-4">
-                    {item.source}
-                  </TableCell>
-                  {/* Amount */}
-                  <TableCell className="text-right pr-4 md:pr-8 py-4 ">
-                    {item.amount}
-                  </TableCell>
-                  {/* Method */}
-                  <TableCell className="text-right pr-4 md:pr-8 py-4">
-                    {item.method}
+              {paymentHistory.length > 0 ? (
+                paymentHistory.map((item) => (
+                  <TableRow
+                    key={item.id}
+                    className="hover:bg-[#1E3A38] transition-colors"
+                  >
+                    {/* Date */}
+                    <TableCell className="pr-4 md:pr-8 py-4">
+                      {item.date}
+                    </TableCell>
+                    {/* Client */}
+                    <TableCell className="flex items-center gap-2 pr-4 md:pr-8 py-4">
+                      {item.clientName}
+                    </TableCell>
+                    {/* Amount */}
+                    <TableCell className="text-right pr-4 md:pr-8 py-4 ">
+                      {item.amount}
+                    </TableCell>
+                    {/* Method */}
+                    <TableCell className="text-right pr-4 md:pr-8 py-4">
+                      {item.method}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center py-12 text-gray-400">
+                    No payment history available
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
 
             <TableFooter>

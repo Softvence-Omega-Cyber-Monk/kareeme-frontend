@@ -1,11 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-
-// import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
@@ -73,6 +70,7 @@ import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
 
 import PrivateRoute from "./PrivateRoute";
+import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -229,7 +227,6 @@ const routes = createBrowserRouter([
       { path: "statements", element: <StatementsPage /> },
       { path: "profit-loss", element: <ProfitLossPages /> },
       { path: "client-manage", element: <ClientManagementPage /> },
-
       { path: "settings", element: <AccountanSettingsPage /> },
     ],
   },
@@ -251,7 +248,7 @@ const routes = createBrowserRouter([
       { path: "releases", element: <AdminRealisePage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
       { path: "submit", element: <AdminSubmitPage /> },
-      { path: "submit/view", element: <SubmitDetails /> },
+      { path: "submit/:id", element: <SubmitDetails /> },
       /* team */
       { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
@@ -284,8 +281,8 @@ const routes = createBrowserRouter([
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
-      { path: "catalog/submit", element: <SubmitPage /> },
-      { path: "catalog/submit/form", element: <StapeComponent /> },
+      { path: "catalog/submit", element: <ClientSubmit /> },
+      { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },

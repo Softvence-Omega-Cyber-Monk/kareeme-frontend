@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -20,6 +20,7 @@ import {
 
 import incomicon from "@/assets/icons/income1.svg";
 import expressicon from "@/assets/icons/express1.svg";
+import { MonthlyProfitLossData } from "@/redux/features/accountant/accountant.type";
 
 type RevenueData = {
   month: string;
@@ -27,32 +28,26 @@ type RevenueData = {
   expenses: number;
 };
 
-// Sample data
-const yearlyData: RevenueData[] = [
-  { month: "Jan", income: 10000, expenses: 7000 },
-  { month: "Feb", income: 8000, expenses: 6000 },
-  { month: "Mar", income: 4000, expenses: 9000 },
-  { month: "Apr", income: 10000, expenses: 8000 },
-  { month: "May", income: 12000, expenses: 15000 },
-  { month: "Jun", income: 7000, expenses: 12000 },
-  { month: "Jul", income: 15000, expenses: 10000 },
-  { month: "Aug", income: 18000, expenses: 22000 },
-  { month: "Sep", income: 13000, expenses: 17000 },
-  { month: "Oct", income: 20000, expenses: 15000 },
-  { month: "Nov", income: 10000, expenses: 14000 },
-  { month: "Dec", income: 16000, expenses: 18000 },
-];
+interface IcomeExpenssMonthProps {
+  monthlyData: MonthlyProfitLossData[];
+}
 
-const IcomeExpenssMonth: React.FC = () => {
+const IcomeExpenssMonth: React.FC<IcomeExpenssMonthProps> = ({ monthlyData }) => {
   const [timeRange, setTimeRange] = useState<"Jan-Jun" | "Jul-Dec" | "Year">(
     "Year"
   );
-  const [filteredData, setFilteredData] = useState<RevenueData[]>(yearlyData);
+  const [filteredData, setFilteredData] = useState<RevenueData[]>([]);
 
-  // Handle time range change
-  const handleTimeChange = (value: string) => {
-    setTimeRange(value as any);
-    switch (value) {
+  // Convert API data to chart format
+  useEffect(() => {
+    const yearlyData: RevenueData[] = monthlyData.map((item) => ({
+      month: item.month,
+      income: item.income,
+      expenses: item.expense,
+    }));
+    
+    // Set initial data based on current timeRange
+    switch (timeRange) {
       case "Jan-Jun":
         setFilteredData(yearlyData.slice(0, 6));
         break;
@@ -63,6 +58,11 @@ const IcomeExpenssMonth: React.FC = () => {
         setFilteredData(yearlyData);
         break;
     }
+  }, [monthlyData, timeRange]);
+
+  // Handle time range change
+  const handleTimeChange = (value: string) => {
+    setTimeRange(value as "Jan-Jun" | "Jul-Dec" | "Year");
   };
 
   const formatTooltip = (value: number, name: string) => {
@@ -124,68 +124,74 @@ const IcomeExpenssMonth: React.FC = () => {
 
       {/* Chart */}
       <div className="h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={filteredData}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <defs>
-              <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#01D449" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#01D449" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#D31301" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#D31301" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+        {filteredData.length > 0 ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={filteredData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+              <defs>
+                <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#01D449" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#01D449" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#D31301" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#D31301" stopOpacity={0} />
+                </linearGradient>
+              </defs>
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-              vertical={false}
-              stroke="#1f2937"
-            />
-            <XAxis
-              dataKey="month"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: "#969696" }}
-              padding={{ left: 20 }}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: "#969696" }}
-              tickFormatter={(value) => `$${value / 1000}k`}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
-                border: "none",
-              }}
-              formatter={formatTooltip}
-              labelFormatter={(label) => `Month: ${label}`}
-            />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#1f2937"
+              />
+              <XAxis
+                dataKey="month"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#969696" }}
+                padding={{ left: 20 }}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#969696" }}
+                tickFormatter={(value) => `$${value / 1000}k`}
+              />
+              <Tooltip
+                contentStyle={{
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
+                  border: "none",
+                }}
+                formatter={formatTooltip}
+                labelFormatter={(label) => `Month: ${label}`}
+              />
 
-            <Area
-              type="monotone"
-              dataKey="income"
-              stroke="#01D449"
-              fill="url(#colorIncome)"
-              strokeWidth={2}
-              name="Income"
-            />
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stroke="#D31301"
-              fill="url(#colorExpenses)"
-              strokeWidth={2}
-              name="Expenses"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+              <Area
+                type="monotone"
+                dataKey="income"
+                stroke="#01D449"
+                fill="url(#colorIncome)"
+                strokeWidth={2}
+                name="Income"
+              />
+              <Area
+                type="monotone"
+                dataKey="expenses"
+                stroke="#D31301"
+                fill="url(#colorExpenses)"
+                strokeWidth={2}
+                name="Expenses"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-400">
+            No data available
+          </div>
+        )}
       </div>
     </div>
   );

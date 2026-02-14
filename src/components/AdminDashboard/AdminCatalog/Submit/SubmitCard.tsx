@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 export type ReviewStatus = "In Review" | "Declined" | "Approved";
 
 interface ArtistCardProps {
+  releaseId: string;
   name: string;
   type: string;
   releaseType: string;
@@ -13,6 +14,7 @@ interface ArtistCardProps {
 }
 
 const SubmitCard = ({
+  releaseId,
   name,
   type,
   releaseType,
@@ -66,7 +68,7 @@ const SubmitCard = ({
       </div>
 
       {/* Button */}
-      <Link to="/super-admin-dashboard/submit/view">
+      <Link to={`/super-admin-dashboard/submit/${releaseId}`}>
         <button className="w-full mt-4 px-6 py-2 bg-blue-500 rounded-lg hover:bg-blue-400 transition cursor-pointer">
           View Details
         </button>

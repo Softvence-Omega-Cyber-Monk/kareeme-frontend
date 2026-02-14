@@ -1,16 +1,31 @@
 import { useState } from "react";
 import { FiUpload } from "react-icons/fi";
 import StatementTable from "./StatemenmtTable";
+import { useGetYearlyStatementsQuery } from "@/redux/features/accountant/accountantApi";
 
 const StatementComponent = () => {
   const [selectedYear, setSelectedYear] = useState("2025"); // default year
+  const { data, isLoading, error } = useGetYearlyStatementsQuery();
 
-  const yearData = [
-    { year: "2025", amount: "$999.27 USD" },
-    { year: "2024", amount: "$1,249.15 USD" },
-    { year: "2023", amount: "$879.45 USD" },
-    { year: "2022", amount: "$799.99 USD" },
-  ];
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-white text-xl">Loading statements...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-red-500 text-xl">
+          Error loading statements. Please try again.
+        </div>
+      </div>
+    );
+  }
+
+  const yearData = data?.data || [];
 
   return (
     <div className="space-y-9">
@@ -23,24 +38,23 @@ const StatementComponent = () => {
           {yearData.map((item) => (
             <div
               key={item.year}
-              onClick={() => setSelectedYear(item.year)}
+              onClick={() => setSelectedYear(item.year.toString())}
               className={`flex px-3 py-3 justify-center items-center rounded-[12px] 
           border cursor-pointer transition
           ${
-            selectedYear === item.year
+            selectedYear === item.year.toString()
               ? "border-[#2941B5] bg-[#3A5CFF] text-white"
               : "border-[#636E6B] bg-[#0D2B24] text-white"
           }`}
             >
               <div className="text-center">
                 <h2 className="text-xl font-sans">{item.year}</h2>
-                <p className="text-sm">{item.amount}</p>
+                <p className="text-sm">{item.totalAmount}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Upload Button */}
         {/* Upload Button */}
         <div className="w-full md:w-auto">
           <button

@@ -1,6 +1,12 @@
+import { useState } from "react";
 import SubmitCard, { ReviewStatus } from "./SubmitCard";
+import { useGetSubmissionsQuery } from "@/redux/features/distribution/distributionApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+import ComponentError from "@/components/Reuseable/ComponentError";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export interface Artist {
+  releaseId: string;
   name: string;
   type: string;
   releaseType: string;
@@ -10,96 +16,86 @@ export interface Artist {
   reviewStatus: ReviewStatus;
 }
 
-const artists: Artist[] = [
-  {
-    name: "Darlene Robertson",
-    type: "Single",
-    releaseType: "3 Albums, 2 Singles",
-    totalTracks: 25,
-    releaseDate: "2023-11-05",
-    submitDate: "2023-12-01",
-    reviewStatus: "In Review",
-  },
-  {
-    name: "Kristin Watson",
-    type: "Single",
-    releaseType: "2 Albums, 3 Singles",
-    totalTracks: 20,
-    releaseDate: "2023-08-15",
-    submitDate: "2023-09-10",
-    reviewStatus: "Approved",
-  },
-  {
-    name: "Ronald Richards",
-    type: "Single",
-    releaseType: "4 Albums, 1 Single",
-    totalTracks: 30,
-    releaseDate: "2022-05-22",
-    submitDate: "2022-06-01",
-    reviewStatus: "Declined",
-  },
-  {
-    name: "Devon Lane",
-    type: "Single",
-    releaseType: "2 Albums, 2 Singles",
-    totalTracks: 18,
-    releaseDate: "2021-09-10",
-    submitDate: "2021-09-20",
-    reviewStatus: "Approved",
-  },
-  {
-    name: "Marvin McKinney",
-    type: "Single",
-    releaseType: "3 Albums, 2 Singles",
-    totalTracks: 22,
-    releaseDate: "2023-01-05",
-    submitDate: "2023-02-01",
-    reviewStatus: "In Review",
-  },
-  {
-    name: "Kathryn Murphy",
-    type: "Single",
-    releaseType: "3 Albums",
-    totalTracks: 18,
-    releaseDate: "2022-03-18",
-    submitDate: "2022-04-05",
-    reviewStatus: "Declined",
-  },
-  {
-    name: "Savannah Nguyen",
-    type: "Single",
-    releaseType: "2 Albums, 3 Singles",
-    totalTracks: 27,
-    releaseDate: "2023-06-12",
-    submitDate: "2023-07-01",
-    reviewStatus: "Approved",
-  },
-  {
-    name: "Eleanor Pena",
-    type: "Single",
-    releaseType: "4 Singles",
-    totalTracks: 16,
-    releaseDate: "2022-11-22",
-    submitDate: "2022-12-05",
-    reviewStatus: "In Review",
-  },
-  {
-    name: "Guy Hawkins",
-    type: "Single",
-    releaseType: "5 Albums, 1 Single",
-    totalTracks: 32,
-    releaseDate: "2021-07-19",
-    submitDate: "2021-08-01",
-    reviewStatus: "Approved",
-  },
-];
-
 const SubmitGrid = () => {
+  const [page, setPage] = useState(1);
+  const [limit] = useState(9); // 9 items for 3x3 grid
+  
+  const { data, isLoading, error } = useGetSubmissionsQuery({ page, limit });
+
+  if (isLoading) {
+    return <ComponentLoader />;
+  }
+
+  if (error) {
+    return <ComponentError />;
+  }
+
+  const submissions = data?.data || [];
+  const metadata = data?.metadata;
+
+  // Map API data to Artist interface
+  const artists: Artist[] = submissions.map((submission) => ({
+    releaseId: submission.releaseId,
+    name: submission.artist,
+    type: submission.type,
+    releaseType: `${submission.trackCount} Track${submission.trackCount !== 1 ? 's' : ''}`,
+    totalTracks: submission.trackCount,
+    releaseDate: new Date(submission.releaseDate).toISOString().split('T')[0],
+    submitDate: new Date(submission.submittedAt).toISOString().split('T')[0],
+    reviewStatus: submission.status === "Pending Review" ? "In Review" : submission.status as ReviewStatus,
+  }));
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-      {artists.map((artist, index) => (
-        <SubmitCard key={index} {...artist} />
-      ))}
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {artists.length > 0 ? (
+          artists.map((artist, index) => (
+            <SubmitCard key={index} {...artist} />
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12 text-gray-400">
+            No submissions found
+          </div>
+        )}
+      </div>
+
+      {/* Pagination Controls */}
+      {metadata && metadata.totalPage > 1 && (
+        <div className="flex items-center justify-between px-4 py-4">
+          <div className="text-gray-400 text-sm">
+            Showing {((page - 1) * limit) + 1} to {Math.min(page * limit, metadata.total)} of {metadata.total} submissions
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(page - 1)}
+              disabled={page === 1}
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                page === 1
+                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              }`}
+            >
+              <FaChevronLeft className="w-3 h-3" />
+              Previous
+            </button>
+            <div className="text-white text-sm">
+              Page {page} of {metadata.totalPage}
+            </div>
+            <button
+              onClick={() => setPage(page + 1)}
+              disabled={page === metadata.totalPage}
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                page === metadata.totalPage
+                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              }`}
+            >
+              Next
+              <FaChevronRight className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

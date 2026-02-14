@@ -54,7 +54,7 @@ const SubmissionDetails = () => {
       }).unwrap();
 
       toast.success("Submission approved successfully!");
-      navigate("/distributor-dashboard/submissions");
+      // navigate("/distributor-dashboard/submissions");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to approve submission");
     }

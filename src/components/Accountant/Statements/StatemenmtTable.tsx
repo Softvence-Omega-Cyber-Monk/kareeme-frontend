@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import download from "@/assets/icons/download.svg";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 
 interface Product {
@@ -202,13 +202,13 @@ const getStatusClasses = (status: string) => {
 };
 
 const StatementTable = ({ selectedYear }: StatementTableProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const filteredData = productData.filter((p) =>
     p.assetsName.includes(selectedYear)
   );
 
-  const goToDetails = (id: string) => navigate(`/statement/${id}`);
+  // const goToDetails = (id: string) => navigate(`/statement/${id}`);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
@@ -271,8 +271,8 @@ const StatementTable = ({ selectedYear }: StatementTableProps) => {
 
                     {/* Amount */}
                     <TableCell
-                      className="text-right px-4 py-3 text-sm md:text-base flex items-center justify-end gap-2 cursor-pointer text-blue-600 hover:text-blue-800"
-                      onClick={() => goToDetails(product.id)}
+                      className="text-right px-4 py-3 text-sm md:text-base flex items-center justify-end gap-2 text-blue-600"
+                      // onClick={() => goToDetails(product.id)}
                     >
                       {product.amount}
                       <FaChevronRight className="w-4 h-4" />
