@@ -96,7 +96,7 @@ const ClientSubmit = () => {
       {/* Header */}
       <div>
         <p className="text-gray-400 text-sm">Catalog</p>
-        <h1 className="text-3xl font-bold text-white">Submit</h1>
+        <h1 className="text-3xl font-medium text-white">Submit</h1>
       </div>
 
       {/* Stats Cards */}
@@ -120,7 +120,7 @@ const ClientSubmit = () => {
       </div>
 
       {/* Submissions Table */}
-      <div className="bg-[#0B1D21] border-2 border-[#1E90FF] rounded-lg overflow-hidden">
+      <div className="bg-[#0B1D21] border border-[#2F3B40] rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
