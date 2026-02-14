@@ -271,7 +271,7 @@ const StatementTable = ({ selectedYear }: StatementTableProps) => {
 
                     {/* Amount */}
                     <TableCell
-                      className="text-right px-4 py-3 text-sm md:text-base flex items-center justify-end gap-2 text-blue-600 "
+                      className="text-right px-4 py-3 text-sm md:text-base flex items-center justify-end gap-2 text-blue-600"
                       // onClick={() => goToDetails(product.id)}
                     >
                       {product.amount}

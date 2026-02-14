@@ -9,7 +9,7 @@ import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
 import { useGetPaymentsEarningsQuery } from "@/redux/features/accountant/accountantApi";
-
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 // Platform icon mapping
 const platformIcons: Record<string, string> = {
   YouTube: Youtube,
@@ -27,9 +27,7 @@ const EarningsOverview = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <div className="text-white text-lg">Loading earnings overview...</div>
-      </div>
+     <ComponentLoader/>
     );
   }
 

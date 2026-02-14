@@ -4,23 +4,21 @@ import earning from "@/assets/icons/earning.svg";
 import comission from "@/assets/icons/comission.svg";
 import NetEarnings from "@/assets/icons/NetEarnings.svg";
 import { useGetAccountantDashboardQuery } from "@/redux/features/accountant/accountantApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+import ComponentError from "@/components/Reuseable/ComponentError";
 
 const DashboardCard = () => {
   const { data, isLoading, isError } = useGetAccountantDashboardQuery();
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <div className="text-white text-lg">Loading dashboard...</div>
-      </div>
+      <ComponentLoader/>
     );
   }
 
   if (isError || !data?.data) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <div className="text-red-400 text-lg">Error loading dashboard</div>
-      </div>
+     <ComponentError/>
     );
   }
 

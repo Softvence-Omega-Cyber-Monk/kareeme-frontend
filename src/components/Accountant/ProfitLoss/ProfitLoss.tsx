@@ -2,6 +2,8 @@ import IcomeExpenssMonth from "@/components/AdminDashboard/AdminAccounting/Profi
 import { IncomeProfitLossTable } from "@/components/AdminDashboard/AdminAccounting/ProfitLoss/IncomeProfitLossTable";
 import LossSummary from "@/components/AdminDashboard/AdminAccounting/ProfitLoss/LossSummary";
 import ProfitSummary from "@/components/AdminDashboard/AdminAccounting/ProfitLoss/ProfitSummary";
+import ComponentError from "@/components/Reuseable/ComponentError";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 import { useGetProfitLossQuery } from "@/redux/features/accountant/accountantApi";
 
 const ProfitLoss = () => {
@@ -9,19 +11,13 @@ const ProfitLoss = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-white text-xl">Loading profit & loss data...</div>
-      </div>
+     <ComponentLoader/>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-red-500 text-xl">
-          Error loading profit & loss data. Please try again.
-        </div>
-      </div>
+     <ComponentError/>
     );
   }
 
