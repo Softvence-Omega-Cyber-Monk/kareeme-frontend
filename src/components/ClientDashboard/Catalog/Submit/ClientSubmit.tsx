@@ -1,94 +1,51 @@
 import { useState } from "react";
 import { FaCopy } from "react-icons/fa";
-
-interface Submission {
-  id: string;
-  title: string;
-  artist: string;
-  coverImage: string;
-  upc: string;
-  type: string;
-  releaseDate: string;
-  status: "Approved" | "Pending" | "Declined";
-}
-
-// Mock data - replace with API call later
-const mockSubmissions: Submission[] = [
-  {
-    id: "1",
-    title: "Trickin",
-    artist: "K-Shady",
-    coverImage: "/api/placeholder/50/50",
-    upc: "UPC: 723277809397",
-    type: "single",
-    releaseDate: "01/03/25",
-    status: "Approved",
-  },
-  {
-    id: "2",
-    title: "No Music",
-    artist: "K-Shady",
-    coverImage: "/api/placeholder/50/50",
-    upc: "UPC: 723277809397",
-    type: "single",
-    releaseDate: "01/03/25",
-    status: "Approved",
-  },
-  {
-    id: "3",
-    title: "Cater 2 You",
-    artist: "K-Shady",
-    coverImage: "/api/placeholder/50/50",
-    upc: "UPC: 723277809397",
-    type: "single",
-    releaseDate: "01/03/25",
-    status: "Pending",
-  },
-  {
-    id: "4",
-    title: "Handle Me",
-    artist: "K-Shady",
-    coverImage: "/api/placeholder/50/50",
-    upc: "UPC: 723277809397",
-    type: "single",
-    releaseDate: "01/03/25",
-    status: "Approved",
-  },
-  {
-    id: "5",
-    title: "Stand on Dat",
-    artist: "K-Shady",
-    coverImage: "/api/placeholder/50/50",
-    upc: "UPC: 723277809397",
-    type: "single",
-    releaseDate: "01/03/25",
-    status: "Declined",
-  },
-];
+import { useGetSubmissionsQuery } from "@/redux/features/distribution/distributionApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+import ComponentError from "@/components/Reuseable/ComponentError";
+import { useNavigate } from "react-router-dom";
 
 const ClientSubmit = () => {
-  const [submissions] = useState<Submission[]>(mockSubmissions);
+  const navigate = useNavigate();
+  const [page] = useState(1);
+  const [limit] = useState(100); // Get all submissions for stats
+  
+  const { data, isLoading, error } = useGetSubmissionsQuery({ page, limit });
 
-  const totalSubmissions = submissions.length;
+  if (isLoading) {
+    return <ComponentLoader />;
+  }
+
+  if (error || !data?.data) {
+    return <ComponentError />;
+  }
+
+  const submissions = data.data;
+  
+  const totalSubmissions = data.metadata.total;
   const approvedCount = submissions.filter((s) => s.status === "Approved").length;
-  const pendingCount = submissions.filter((s) => s.status === "Pending").length;
+  const pendingCount = submissions.filter((s) => s.status === "Pending Review").length;
   const declinedCount = submissions.filter((s) => s.status === "Declined").length;
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text.replace("UPC: ", ""));
+    navigator.clipboard.writeText(text);
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Approved":
         return "text-green-500";
-      case "Pending":
+      case "Pending Review":
         return "text-yellow-500";
       case "Declined":
         return "text-red-500";
       default:
         return "text-gray-400";
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-GB');
   };
 
   return (
@@ -136,16 +93,14 @@ const ClientSubmit = () => {
             <tbody>
               {submissions.map((submission) => (
                 <tr
-                  key={submission.id}
+                  key={submission.releaseId}
                   className="border-b border-[#1A2F35] hover:bg-[#0D2329] transition-colors"
                 >
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <img
-                        src={submission.coverImage}
-                        alt={submission.title}
-                        className="w-12 h-12 rounded-lg object-cover bg-gray-700"
-                      />
+                      <div className="w-12 h-12 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                        {submission.title.charAt(0)}
+                      </div>
                       <div>
                         <p className="text-white font-medium">{submission.title}</p>
                         <p className="text-gray-400 text-sm">{submission.artist}</p>
@@ -154,25 +109,29 @@ const ClientSubmit = () => {
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-300">{submission.upc}</span>
+                      <span className="text-gray-300">N/A</span>
                       <button
-                        onClick={() => copyToClipboard(submission.upc)}
-                        className="text-gray-400 hover:text-blue-500 transition-colors"
-                        title="Copy UPC"
+                        onClick={() => copyToClipboard("N/A")}
+                        className="text-gray-400 hover:text-blue-500 transition-colors opacity-50 cursor-not-allowed"
+                        title="UPC not available"
+                        disabled
                       >
                         <FaCopy className="w-4 h-4" />
                       </button>
                     </div>
                   </td>
                   <td className="p-4 text-gray-300">{submission.type}</td>
-                  <td className="p-4 text-gray-300">{submission.releaseDate}</td>
+                  <td className="p-4 text-gray-300">{formatDate(submission.releaseDate)}</td>
                   <td className="p-4">
                     <span className={`font-medium ${getStatusColor(submission.status)}`}>
                       {submission.status}
                     </span>
                   </td>
                   <td className="p-4">
-                    <button className="text-blue-500 hover:text-blue-400 transition-colors">
+                    <button 
+                      onClick={() => navigate(`/admin/catalog/submit/${submission.releaseId}`)}
+                      className="text-blue-500 hover:text-blue-400 transition-colors cursor-pointer"
+                    >
                       →
                     </button>
                   </td>

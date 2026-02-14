@@ -1,13 +1,22 @@
-import { useParams } from "react-router-dom";
-import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate, useParams } from "react-router-dom";
+import { 
+  useGetSubmissionDetailsQuery, 
+  useApproveSubmissionMutation, 
+  useDeclineSubmissionMutation 
+} from "@/redux/features/distribution/distributionApi";
 import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 import ComponentError from "@/components/Reuseable/ComponentError";
 import MiniTitle from "@/components/ClientDashboard/Shared/MiniTitle";
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
+import toast from "react-hot-toast";
 
 const SubmitDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { data, isLoading, error } = useGetSubmissionDetailsQuery(id || "");
+  const [approveSubmission, { isLoading: isApproving }] = useApproveSubmissionMutation();
+  const [declineSubmission, { isLoading: isDeclining }] = useDeclineSubmissionMutation();
 
   if (isLoading) {
     return <ComponentLoader />;
@@ -22,34 +31,90 @@ const SubmitDetails = () => {
     return new Date(dateString).toLocaleDateString('en-GB');
   };
 
+  const handleApprove = async () => {
+    const note = window.prompt("Enter approval note (optional):", "Approved for distribution");
+    if (note === null) return; // User cancelled
+
+    try {
+      await approveSubmission({ 
+        releaseId: id!, 
+        payload: { note } 
+      }).unwrap();
+      toast.success("Release approved successfully!");
+      navigate(-1);
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to approve release");
+    }
+  };
+
+  const handleDecline = async () => {
+    const reason = window.prompt("Enter reason for declining:");
+    if (!reason) return; // Must provide a reason
+
+    try {
+      await declineSubmission({ 
+        releaseId: id!, 
+        payload: { reason } 
+      }).unwrap();
+      toast.success("Release declined");
+      navigate(-1);
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to decline release");
+    }
+  };
+
   return (
     <div>
       <div className="w-full text-white mx-auto">
-        <div className="flex items-center gap-4 mb-6">
-          <img
-            src={catalogphoto1}
-            alt="Album Artwork"
-            className="w-32 h-32 rounded-lg"
-          />
-
-          <div>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4">
+            <img
+              src={catalogphoto1}
+              alt="Album Artwork"
+              className="w-32 h-32 rounded-lg"
+            />
             <div>
-              <h2 className="text-2xl font-bold">
-                {release.releaseTitle}
-              </h2>
-              <p className="text-gray-400">{release.primaryArtist}</p>
+              <div>
+                <h2 className="text-2xl font-bold">
+                  {release.releaseTitle}
+                </h2>
+                <p className="text-gray-400">{release.primaryArtist}</p>
+                <div className="mt-2 text-sm">
+                  Status: <span className={`font-medium ${
+                    release.status === 'Approved' ? 'text-green-500' :
+                    release.status === 'Declined' ? 'text-red-500' :
+                    'text-yellow-500'
+                  }`}>{release.status}</span>
+                </div>
+              </div>
             </div>
-            <div className="mt-6 flex gap-4">
-              <a
-                href="#"
-                className="px-6 py-2 bg-green-600 rounded-md text-white hover:bg-green-700"
-              >
-                Export Data
-              </a>
-              <button className="px-6 py-2 bg-gray-600 rounded-md text-white hover:bg-gray-700 cursor-pointer">
-                Edit Metadata
-              </button>
-            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            {release.status === "Pending Review" && (
+              <>
+                <button 
+                  onClick={handleApprove}
+                  disabled={isApproving || isDeclining}
+                  className="px-6 py-2 bg-green-600 rounded-md text-white hover:bg-green-700 cursor-pointer disabled:opacity-50"
+                >
+                  {isApproving ? "Approving..." : "Approve Release"}
+                </button>
+                <button 
+                  onClick={handleDecline}
+                  disabled={isApproving || isDeclining}
+                  className="px-6 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 cursor-pointer disabled:opacity-50"
+                >
+                  {isDeclining ? "Declining..." : "Decline Release"}
+                </button>
+              </>
+            )}
+            <button 
+              className="px-6 py-2 bg-gray-600 rounded-md text-white hover:bg-gray-700 cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </button>
           </div>
         </div>
       </div>

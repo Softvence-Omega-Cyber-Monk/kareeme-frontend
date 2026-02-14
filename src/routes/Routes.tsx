@@ -284,6 +284,7 @@ const routes = createBrowserRouter([
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
       { path: "catalog/submit", element: <SubmitPage /> },
+      { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
