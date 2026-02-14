@@ -42,7 +42,7 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
   const { handleLogout } = useLogout();
 
   return (
-    <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
+    <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
         className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
           }`}
@@ -90,19 +90,19 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
               {isOpen && (
                 <div className="absolute left-0 mt-2 w-full bg-[#10151C] border border-[#3A5CFF]/40 rounded-3xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                   <ul className="py-2 text-sm text-white space-y-1">
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         A
                       </span>
                       <span className="font-medium">Md Arfin Mia</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         S
                       </span>
                       <span className="font-medium">Md Saqzzad Hossain</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         Q
                       </span>
@@ -139,7 +139,7 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
                   ].map((user, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
                      transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
                     >
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
@@ -202,21 +202,23 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
               className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
               <Link to="/admin/settings">
-                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                   <IoMdSettings className="text-white" />
                   <span className="font-medium">Settings</span>
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+              <Link to="/terms-and-conditions">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem></Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+              <Link to="/privacy-policy">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <MdPrivacyTip className="text-white" />
                 <span className="font-medium">Privacy Policy</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem></Link>
 
               <DropdownMenuItem
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
