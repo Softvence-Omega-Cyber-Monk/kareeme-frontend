@@ -9,28 +9,23 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { MonthlyProfitLossData } from "@/redux/features/accountant/accountant.type";
 
-// Full year monthly loss data
-const monthlyData = [
-  { name: "Jan", loss: 240 },
-  { name: "Feb", loss: 200 },
-  { name: "Mar", loss: 150 },
-  { name: "Apr", loss: 300 },
-  { name: "May", loss: 250 },
-  { name: "Jun", loss: 350 },
-  { name: "Jul", loss: 400 },
-  { name: "Aug", loss: 370 },
-  { name: "Sep", loss: 320 },
-  { name: "Oct", loss: 280 },
-  { name: "Nov", loss: 260 },
-  { name: "Dec", loss: 300 },
-];
+interface LossSummaryProps {
+  monthlyData: MonthlyProfitLossData[];
+}
 
 // Format Y-axis to display in k
 const formatYAxis = (tick: number) => `${tick / 1000}k`;
 
-const LossSummary = () => {
+const LossSummary = ({ monthlyData }: LossSummaryProps) => {
   const [hovered, setHovered] = useState(false);
+
+  // Calculate loss from expense (only show when expense > income)
+  const lossData = monthlyData.map((item) => ({
+    name: item.month,
+    loss: item.expense > item.income ? item.expense - item.income : 0,
+  }));
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
@@ -41,7 +36,7 @@ const LossSummary = () => {
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={monthlyData} barGap={20}>
+        <BarChart data={lossData} barGap={20}>
           <Bar
             dataKey="loss"
             barSize={30}

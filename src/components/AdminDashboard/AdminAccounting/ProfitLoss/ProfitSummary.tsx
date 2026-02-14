@@ -9,28 +9,23 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { MonthlyProfitLossData } from "@/redux/features/accountant/accountant.type";
 
-// Full-year monthly profit data
-const fullData = [
-  { name: "Jan", profit: 400 },
-  { name: "Feb", profit: 300 },
-  { name: "Mar", profit: 500 },
-  { name: "Apr", profit: 700 },
-  { name: "May", profit: 600 },
-  { name: "Jun", profit: 800 },
-  { name: "Jul", profit: 900 },
-  { name: "Aug", profit: 750 },
-  { name: "Sep", profit: 650 },
-  { name: "Oct", profit: 850 },
-  { name: "Nov", profit: 950 },
-  { name: "Dec", profit: 1000 },
-];
+interface ProfitSummaryProps {
+  monthlyData: MonthlyProfitLossData[];
+}
 
 // Format Y-axis to show values in k
 const formatYAxis = (tick: number) => `${tick / 1000}k`;
 
-const ProfitSummary = () => {
+const ProfitSummary = ({ monthlyData }: ProfitSummaryProps) => {
   const [hovered, setHovered] = useState(false);
+
+  // Calculate profit from income - expense
+  const profitData = monthlyData.map((item) => ({
+    name: item.month,
+    profit: item.income - item.expense,
+  }));
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
@@ -43,7 +38,7 @@ const ProfitSummary = () => {
 
       {/* Profit Chart */}
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={fullData} barGap={20}>
+        <BarChart data={profitData} barGap={20}>
           <Bar
             dataKey="profit"
             barSize={30}

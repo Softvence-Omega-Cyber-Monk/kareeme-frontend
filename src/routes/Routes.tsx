@@ -229,7 +229,6 @@ const routes = createBrowserRouter([
       { path: "statements", element: <StatementsPage /> },
       { path: "profit-loss", element: <ProfitLossPages /> },
       { path: "client-manage", element: <ClientManagementPage /> },
-
       { path: "settings", element: <AccountanSettingsPage /> },
     ],
   },
