@@ -197,7 +197,7 @@ const routes = createBrowserRouter([
       { index: true, element: <DistributorDashboardPage /> },
       { path: "dashboard", element: <DistributorDashboardPage /> },
       { path: "submissions", element: <DistributorSubmissions /> },
-      { path: "submissions/details", element: <SubmissionDetails /> },
+      { path: "submissions/:id", element: <SubmissionDetails /> },
       { path: "back-catalog", element: <DistributorBackCatalog /> },
       /*  */
       { path: "distribution", element: <DistributionPage /> },
@@ -307,7 +307,6 @@ const routes = createBrowserRouter([
       { path: "settings", element: <SettingsPage /> },
     ],
   },
-
   {
     path: "*",
     element: <NotFound />,

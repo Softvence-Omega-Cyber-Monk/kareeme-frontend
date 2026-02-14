@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Table,
   TableBody,
@@ -18,91 +19,42 @@ import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
 
 import { Button } from "@/components/ui/button";
+import { useGetAccountantDashboardQuery } from "@/redux/features/accountant/accountantApi";
 
-const productData = [
-  {
-    id: "10001",
-    name: "Women Dominated ",
-
-    views: "12,540",
-    adSupported: "$120.00",
-    premium: "$230.00",
-    earning: "$350.00",
-    image: Youtube,
-  },
-  {
-    id: "10002",
-    name: "Active",
-
-    views: "8,940",
-    adSupported: "$90.00",
-    premium: "$260.00",
-    earning: "$350.00",
-    image: sportify,
-  },
-  {
-    id: "10003",
-    name: "Gang About ",
-
-    views: "15,320",
-    adSupported: "$150.00",
-    premium: "$200.00",
-    earning: "$350.00",
-    image: apple,
-  },
-  {
-    id: "10004",
-    name: "Lost It ",
-
-    views: "10,780",
-    adSupported: "$170.00",
-    premium: "$180.00",
-    earning: "$350.00",
-    image: soundClud,
-  },
-  {
-    id: "10005",
-    name: "OOH YEA",
-
-    views: "9,210",
-    adSupported: "$130.00",
-    premium: "$220.00",
-    earning: "$350.00",
-    image: audio,
-  },
-  {
-    id: "10006",
-    name: "Skyline Dreams",
-
-    views: "11,400",
-    adSupported: "$110.00",
-    premium: "$240.00",
-    earning: "$350.00",
-    image: deser,
-  },
-  {
-    id: "10007",
-    name: "Fire Beats (Remix)",
-
-    views: "13,750",
-    adSupported: "$140.00",
-    premium: "$210.00",
-    earning: "$350.00",
-    image: tidal,
-  },
-  {
-    id: "10008",
-    name: "Midnight Flow",
-
-    views: "7,860",
-    adSupported: "$100.00",
-    premium: "$250.00",
-    earning: "$350.00",
-    image: heart,
-  },
-];
+// Platform icon mapping
+const platformIcons: Record<string, string> = {
+  YouTube: Youtube,
+  Spotify: sportify,
+  AppleMusic: apple,
+  SoundCloud: soundClud,
+  Audiomack: audio,
+  Deezer: deser,
+  TIDAL: tidal,
+  iHeartRadio: heart,
+};
 
 export function EarningsBreakdownTable() {
+  const { data, isLoading, isError } = useGetAccountantDashboardQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-white text-lg">Loading earnings breakdown...</div>
+      </div>
+    );
+  }
+
+  if (isError || !data?.data) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-red-400 text-lg">Error loading earnings breakdown</div>
+      </div>
+    );
+  }
+
+  const earningsBreakdown = data.data.earningsBreakdown || [];
+  const pendingPayment = data.data.pendingPaymentAmount || "$0.00";
+
   return (
     <div className="space-y-4 md:space-y-6">
       {/* Header Section */}
@@ -137,30 +89,38 @@ export function EarningsBreakdownTable() {
                 </TableRow>
               </TableHeader>
               <TableBody className="text-white">
-                {productData.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
-                      <img
-                        src={product.image}
-                        alt=""
-                        className="h-5 w-5 md:h-7 md:w-7"
-                      />
-                      <div className="flex flex-col">
-                        <span>{product.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-center px-2 md:px-4 py-3 text-sm md:text-base">
-                      {product.views}
-                    </TableCell>
-                    <TableCell className="text-center px-2 md:px-4 py-3 text-sm md:text-base">
-                      {product.adSupported}
-                    </TableCell>
+                {earningsBreakdown.length > 0 ? (
+                  earningsBreakdown.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
+                        <img
+                          src={platformIcons[item.platform] || Youtube}
+                          alt={item.platform}
+                          className="h-5 w-5 md:h-7 md:w-7"
+                        />
+                        <div className="flex flex-col">
+                          <span>{item.platform}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center px-2 md:px-4 py-3 text-sm md:text-base">
+                        {item.grossEarnings}
+                      </TableCell>
+                      <TableCell className="text-center px-2 md:px-4 py-3 text-sm md:text-base">
+                        {item.commission}
+                      </TableCell>
 
-                    <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base">
-                      {product.earning}
+                      <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base">
+                        {item.netEarnings}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center py-12 text-gray-400">
+                      No earnings data available
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
@@ -173,7 +133,7 @@ export function EarningsBreakdownTable() {
           <div className="space-y-6">
             <h3>Pending Payments</h3>
             <h3>
-              Pending Payment: <span className="text-[#01D449]">$200.00</span>
+              Pending Payment: <span className="text-[#01D449]">{pendingPayment}</span>
             </h3>
           </div>
 

@@ -7,28 +7,33 @@ import light from "../../assets/icons/Frame 1321317601 2.png";
 import people from "../../assets/icons/people.png";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { DashboardData } from "@/redux/features/distribution/distribution.type";
 
-const DistributorDashboardCard = () => {
+interface DistributorDashboardCardProps {
+  data?: DashboardData;
+}
+
+const DistributorDashboardCard = ({ data }: DistributorDashboardCardProps) => {
   const metrics = [
     {
       icon: search,
       label: "Submissions to Review",
-      value: "12",
+      value: data?.submissionsToReview?.toString() || "0",
     },
     {
       icon: light,
       label: "Releases to Distribute",
-      value: "7",
+      value: data?.releasesToDistribute?.toString() || "0",
     },
     {
       icon: people,
       label: "New Clients (Last 30 Days)",
-      value: "3",
+      value: data?.newClients?.toString() || "0",
     },
     {
       icon: calender,
       label: "Live Releases",
-      value: "45",
+      value: data?.liveReleases?.toString() || "0",
     },
   ];
 
