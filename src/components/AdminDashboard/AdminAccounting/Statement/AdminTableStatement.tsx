@@ -10,9 +10,9 @@ import {
 import download from "@/assets/icons/download.svg";
 import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { useGetAccountingStatementQuery } from "@/redux/features/accounting/accountingApi";
 import { useAppSelector } from "@/redux/hooks/redux-hook";
+import Pagination from "@/components/Reuseable/Pagination";
 
 const getStatusClasses = (status: string) => {
   switch (status) {
@@ -32,24 +32,25 @@ const getStatusClasses = (status: string) => {
 const AdminTableStatement = () => {
   const navigate = useNavigate();
   const role = useAppSelector((state) => state.auth.user?.role)
-  const [limit,setLimit]=useState(5)
-  const [page,setPage]=useState(1)
+  const [limit] = useState(10)
+  const [page, setPage] = useState(1)
 
-  const goToDetails = (id: string) => {
-    if(role==="SUPER_ADMIN"){
-      navigate(`/super-admin-dashboard/statement/${id}`);
-    }else{
-      navigate(`/statement/${id}`);
-    }
-  };
-
-  const handleLoadMore = () => {
-    setPage((prev) => prev + 1);
-  };
   const { data: getAccountingStatementData } = useGetAccountingStatementQuery({
     limit: limit,
     page: page,
   })
+
+  const goToDetails = (id: string) => {
+    if (role === "SUPER_ADMIN") {
+      navigate(`/super-admin-dashboard/statement/${id}`);
+    } else {
+      navigate(`/statement/${id}`);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
   return (
     <div className="overflow-x-auto rounded-lg shadow">
@@ -64,12 +65,11 @@ const AdminTableStatement = () => {
 
         <TableBody>
           {getAccountingStatementData?.data && getAccountingStatementData.data.length > 0 ? (
-            getAccountingStatementData.data.slice(0, limit).map((product, index) => (
+            getAccountingStatementData.data.map((product, index) => (
               <TableRow
                 key={product.statementId}
-                className={`${
-                  index % 2 === 0 ? "bg-[#0C2322]" : "bg-[#0C2322]"
-                } transition-colors duration-200`}
+                className={`${index % 2 === 0 ? "bg-[#0C2322]" : "bg-[#0C2322]"
+                  } transition-colors duration-200`}
               >
                 {/* Statement Info */}
                 <TableCell className="px-4 py-3 flex items-center gap-3">
@@ -121,17 +121,13 @@ const AdminTableStatement = () => {
         </TableBody>
       </Table>
 
-      {/* Load More Button */}
-      {visibleCount < (getAccountingStatementData?.data?.length ?? 0) && (
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={handleLoadMore}
-            className="flex items-center gap-2 text-sm md:text-base px-4 py-2  text-blue-600 hover:text-blue-800  cursor-pointer"
-          >
-            Load More
-            <FaArrowRightLong className="w-4 h-4" />
-          </button>
-        </div>
+      {/* Pagination Controls */}
+      {getAccountingStatementData?.metadata && (
+        <Pagination
+          currentPage={page}
+          totalPage={getAccountingStatementData.metadata.totalPage}
+          onPageChange={handlePageChange}
+        />
       )}
     </div>
   );
