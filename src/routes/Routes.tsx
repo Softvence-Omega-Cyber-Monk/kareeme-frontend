@@ -288,8 +288,9 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
-      { path: "split-sheet/:id", element: <SplitSheetDetail /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
 
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },

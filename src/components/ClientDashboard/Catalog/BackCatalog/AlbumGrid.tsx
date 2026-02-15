@@ -20,6 +20,7 @@ import { BackCatalogueData } from "../Submit/data";
 
 // Placeholder image for fetched items if they don't have one
 import placeholderImg from "@/assets/photo/image1.png";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 // Unused mock data removed
 
 const AlbumGrid = () => {
@@ -27,6 +28,7 @@ const AlbumGrid = () => {
   const [filterLabel, setFilterLabel] = useState("all");
   const [filterYear, setFilterYear] = useState("all");
   const [page, setPage] = useState(1);
+   const role = useAppSelector((state) => state.auth.user?.role)
   const limit = 9;
 
   const { data: backCatalogueResponse, isLoading } = useGetAllBackCatalogueQuery({
@@ -172,7 +174,7 @@ const AlbumGrid = () => {
 
           {/* Add Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/add"
+            to={role === "ADMIN" ? "/admin/catalog/back-catalog/add" : "/client-dashboard/catalog/back-catalog/add"}
             className="w-full sm:w-auto"
           >
             <button className="w-full flex justify-center items-center gap-2 px-4 py-2 rounded-[15px] bg-[#3A5CFF] hover:bg-[#002afa] text-white font-medium text-base md:text-lg transition cursor-pointer">
