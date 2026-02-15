@@ -166,7 +166,7 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
-      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
 
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
