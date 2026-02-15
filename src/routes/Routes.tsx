@@ -68,6 +68,8 @@ import Home from "@/components/Home/Home";
 import Unauthorized from "@/pages/Unauthorized";
 import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
 import PrivateRoute from "./PrivateRoute";
 import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
@@ -126,6 +128,14 @@ const routes = createBrowserRouter([
       {
         path: "/unauthorized",
         element: <Unauthorized />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
       },
     ],
   },

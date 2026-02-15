@@ -8,6 +8,8 @@ import {
   User,
   ApiResponse,
   ChangePasswordRequest,
+  ForgotPasswordRequest,
+  ResetPasswordRequest,
 } from "@/redux/types/auth.type";
 
 export const authApi = baseApi.injectEndpoints({
@@ -62,6 +64,20 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
+    forgotPassword: builder.mutation<ApiResponse<void>, ForgotPasswordRequest>({
+      query: (data) => ({
+        url: "/auth/password/forgot",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    resetPassword: builder.mutation<ApiResponse<void>, ResetPasswordRequest>({
+      query: (data) => ({
+        url: "/auth/password/reset",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -73,4 +89,6 @@ export const {
   useUpdateProfileMutation,
   useChangePasswordMutation,
   useLogoutMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApi;
