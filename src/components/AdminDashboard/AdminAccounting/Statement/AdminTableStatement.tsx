@@ -11,84 +11,9 @@ import download from "@/assets/icons/download.svg";
 import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useGetAccountingStatementQuery } from "@/redux/features/accounting/accountingApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
-// Sample data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Statement for January 2025",
-    name: "Gemini Chachi",
-    amount: "$350.00 USD",
-    status: "Paid",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Active",
-    name: "DJ Nova",
-    amount: "$350.00 USD",
-    status: "Payment Required",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Statement for February 2025",
-    name: "Auntie House",
-    amount: "$350.00 USD",
-    status: "Payment Not Required",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "Statement for April 2025",
-    name: "Celia Dawn",
-    amount: "$350.00 USD",
-    status: "Payment Submitted",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "OOH YEA",
-    name: "Auntie House",
-    amount: "$350.00 USD",
-    status: "Paid",
-    image: download,
-  },
-  {
-    id: "10006",
-    assetsName: "Statement for June 2025",
-    name: "Luna Sparks",
-    amount: "$350.00 USD",
-    status: "Payment Required",
-    image: download,
-  },
-  {
-    id: "10007",
-    assetsName: "Statement for July 2025",
-    name: "DJ Blaze",
-    amount: "$350.00 USD",
-    status: "Payment Not Required",
-    image: download,
-  },
-  {
-    id: "10008",
-    assetsName: "Midnight Flow",
-    name: "Gemini Chachi",
-    amount: "$350.00 USD",
-    status: "Payment Submitted",
-    image: download,
-  },
-  {
-    id: "10009",
-    assetsName: "Statement for June 2025",
-    name: "Celia Dawn",
-    amount: "$350.00 USD",
-    status: "Paid",
-    image: download,
-  },
-];
-
-// Status pills with subtle background
 const getStatusClasses = (status: string) => {
   switch (status) {
     case "Paid":
@@ -106,15 +31,25 @@ const getStatusClasses = (status: string) => {
 
 const AdminTableStatement = () => {
   const navigate = useNavigate();
-  const [visibleCount, setVisibleCount] = useState(5); // show 5 rows initially
+  const role = useAppSelector((state) => state.auth.user?.role)
+  const [limit,setLimit]=useState(5)
+  const [page,setPage]=useState(1)
 
   const goToDetails = (id: string) => {
-    navigate(`/statement/${id}`); // Navigate to details page
+    if(role==="SUPER_ADMIN"){
+      navigate(`/super-admin-dashboard/statement/${id}`);
+    }else{
+      navigate(`/statement/${id}`);
+    }
   };
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 5); // Load 5 more items each time
+    setPage((prev) => prev + 1);
   };
+  const { data: getAccountingStatementData } = useGetAccountingStatementQuery({
+    limit: limit,
+    page: page,
+  })
 
   return (
     <div className="overflow-x-auto rounded-lg shadow">
@@ -128,58 +63,66 @@ const AdminTableStatement = () => {
         </TableHeader>
 
         <TableBody>
-          {productData.slice(0, visibleCount).map((product, index) => (
-            <TableRow
-              key={product.id}
-              className={`${
-                index % 2 === 0 ? "bg-[#0C2322]" : "bg-[#0C2322]"
-              } transition-colors duration-200`}
-            >
-              {/* Statement Info */}
-              <TableCell className="px-4 py-3 flex items-center gap-3">
-                <img
-                  src={product.image}
-                  alt=""
-                  className="h-6 w-6 md:h-7 md:w-7"
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm md:text-base font-medium text-white">
-                    {product.assetsName}
-                  </span>
-                  <span className="text-xs md:text-sm text-[#CACACA]">
-                    {product.name}
-                  </span>
-                </div>
-              </TableCell>
+          {getAccountingStatementData?.data && getAccountingStatementData.data.length > 0 ? (
+            getAccountingStatementData.data.slice(0, limit).map((product, index) => (
+              <TableRow
+                key={product.statementId}
+                className={`${
+                  index % 2 === 0 ? "bg-[#0C2322]" : "bg-[#0C2322]"
+                } transition-colors duration-200`}
+              >
+                {/* Statement Info */}
+                <TableCell className="px-4 py-3 flex items-center gap-3">
+                  <img
+                    src={download}
+                    alt=""
+                    className="h-6 w-6 md:h-7 md:w-7"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm md:text-base font-medium text-white">
+                      {product.title}
+                    </span>
+                    <span className="text-xs md:text-sm text-[#CACACA]">
+                      {product.subtitle}
+                    </span>
+                  </div>
+                </TableCell>
 
-              {/* Status Pill */}
-              <TableCell className="text-center">
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${getStatusClasses(
-                    product.status
-                  )}`}
-                >
-                  {product.status}
-                </span>
-              </TableCell>
+                {/* Status Pill */}
+                <TableCell className="text-center">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${getStatusClasses(
+                      product.status
+                    )}`}
+                  >
+                    {product.status}
+                  </span>
+                </TableCell>
 
-              {/* Action */}
-              <TableCell className="text-right px-0 py-3">
-                <button
-                  onClick={() => goToDetails(product.id)}
-                  className="flex items-center justify-end gap-2 text-sm md:text-base text-blue-600 hover:text-blue-800 font-medium w-full pr-4"
-                >
-                  View Statement
-                  <FaChevronRight className="w-4 h-4" />
-                </button>
+                {/* Action */}
+                <TableCell className="text-right px-0 py-3">
+                  <button
+                    onClick={() => goToDetails(product.statementId)}
+                    className="flex items-center justify-end gap-2 text-sm md:text-base text-blue-600 hover:text-blue-800 font-medium w-full pr-4"
+                  >
+                    View Statement
+                    <FaChevronRight className="w-4 h-4" />
+                  </button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={3} className="text-center py-10 text-white text-lg">
+                No data found
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
 
       {/* Load More Button */}
-      {visibleCount < productData.length && (
+      {visibleCount < (getAccountingStatementData?.data?.length ?? 0) && (
         <div className="flex justify-center mt-4">
           <button
             onClick={handleLoadMore}
