@@ -254,6 +254,7 @@ const routes = createBrowserRouter([
       { path: "settings", element: <SettingsPage /> },
     ],
   },
+  // admin
   {
     path: "/admin",
     element: (

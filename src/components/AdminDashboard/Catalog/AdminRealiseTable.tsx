@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   Table,
@@ -12,70 +13,12 @@ import { FaChevronRight } from "react-icons/fa";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/photo.png";
 
-// Sample Data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Stand on Dat",
-    name: "K Shiday",
-    upc: "UPC: 723277809397",
-    type: "Single",
-    releaseDate: "01/01/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Handle Me",
-    name: "K Shiday",
-    upc: "UPC: 823377819398",
-    type: "Single",
-    releaseDate: "02/15/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Cater 2 You",
-    name: "Auntie House",
-    upc: "UPC: 923477829399",
-    type: "Single",
-    releaseDate: "03/12/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "No Music",
-    name: "K Shiday",
-    upc: "UPC: 673277809111",
-    type: "Single",
-    releaseDate: "04/20/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "OOH YEA",
-    name: "K Shiday",
-    upc: "UPC: 573277809222",
-    type: "Single",
-    releaseDate: "05/09/23",
-    amount: "$350.00 USD",
-    status: "Live",
-    image: download,
-  },
-];
-
 // UPC Cell Component with Border & Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     try {
       await navigator.clipboard.writeText(upc);
       setCopied(true);
@@ -90,7 +33,7 @@ const UpcCell = ({ upc }: { upc: string }) => {
       <span className="text-sm md:text-base text-gray-300">{upc}</span>
       <button
         onClick={handleCopy}
-        className="p-1 rounded-md hover:bg-gray-800 transition"
+        className="p-1 rounded-md hover:bg-gray-800 transition ml-2"
         title="Copy UPC"
       >
         {copied ? (
@@ -103,13 +46,45 @@ const UpcCell = ({ upc }: { upc: string }) => {
   );
 };
 
+interface AdminRealiseTableProps {
+  data: any[];
+  isLoading: boolean;
+  isError: boolean;
+}
+
 // Main Table Component
-const AdminRealiseTable = () => {
+const AdminRealiseTable: React.FC<AdminRealiseTableProps> = ({
+  data,
+  isLoading,
+  isError,
+}) => {
   const navigate = useNavigate();
 
   const goToDetails = (id: string) => {
     navigate(`/client-dashboard/catalog/releases/${id}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-500 py-10">
+        Failed to load releases. Please try again.
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="text-center text-gray-400 py-10">No releases found.</div>
+    );
+  }
 
   return (
     <div className="overflow-x-auto">
@@ -127,45 +102,48 @@ const AdminRealiseTable = () => {
 
         {/* Table Body */}
         <TableBody className="text-white">
-          {productData.map((product) => (
-            <TableRow key={product.id} className="border-b border-gray-800">
+          {data.map((product) => (
+            <TableRow
+              key={product._id || product.id}
+              className="border-b border-gray-800 cursor-pointer hover:bg-[#131320]"
+              onClick={() => goToDetails(product._id || product.id)}
+            >
               {/* Title & Artist */}
               <TableCell className="px-4 py-3 flex items-center gap-3">
                 <img
-                  src={product.image}
+                  src={product.image || download}
                   alt=""
-                  className="h-6 w-6 md:h-8 md:w-8 rounded"
+                  className="h-6 w-6 md:h-8 md:w-8 rounded object-cover"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm md:text-base font-medium">
-                    {product.assetsName}
+                    {product.releaseTitle}
                   </span>
                   <span className="text-xs md:text-sm text-gray-500">
-                    {product.name}
+                    {product.albumLevelArtistName}
                   </span>
                 </div>
               </TableCell>
 
               {/* UPC with Border */}
-              <TableCell className="px-30 py-3">
-                <UpcCell upc={product.upc} />
+              <TableCell className="px-10 py-3">
+                <UpcCell upc={product.upc || "N/A"} />
               </TableCell>
 
               {/* Type */}
               <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
-                {product.type}
+                {product.typeOfRelease}
               </TableCell>
 
               {/* Release Date */}
               <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
-                {product.releaseDate}
+                {product.releaseDate
+                  ? new Date(product.releaseDate).toLocaleDateString()
+                  : "N/A"}
               </TableCell>
 
               {/* Status + Arrow */}
-              <TableCell
-                className="px-4 py-3 text-right text-sm md:text-base font-medium flex items-center justify-end gap-2 cursor-pointer hover:text-blue-500"
-                onClick={() => goToDetails(product.id)}
-              >
+              <TableCell className="px-4 py-3 text-right text-sm md:text-base font-medium flex items-center justify-end gap-2">
                 <span className="bg-[#0E261F] text-[#01D449] px-4 py-2 rounded-full text-xs md:text-sm font-medium">
                   {product.status}
                 </span>
