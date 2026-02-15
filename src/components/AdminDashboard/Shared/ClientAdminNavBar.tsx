@@ -14,7 +14,7 @@ import {
 
 import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userIcon from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -22,6 +22,8 @@ import { ChevronDown } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
 import { useLogout } from "@/hooks/useLogout";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -40,7 +42,7 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
   const [isOpendashboard, setIsOpendashboard] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const { handleLogout } = useLogout();
-
+ const user = useAppSelector(selectCurrentUser);
   return (
     <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
@@ -65,11 +67,11 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
               {/* Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-linear-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
               >
                 <span className="flex items-center gap-3">
                   {/* Profile Circle */}
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-linear-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
                     GC
                   </span>
                   <span className="text-sm md:text-base font-medium tracking-wide">
@@ -90,19 +92,19 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
               {isOpen && (
                 <div className="absolute left-0 mt-2 w-full bg-[#10151C] border border-[#3A5CFF]/40 rounded-3xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                   <ul className="py-2 text-sm text-white space-y-1">
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         A
                       </span>
                       <span className="font-medium">Md Arfin Mia</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         S
                       </span>
                       <span className="font-medium">Md Saqzzad Hossain</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         Q
                       </span>
@@ -193,7 +195,7 @@ const ClientAdminNavBar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.profilePictureUrl || userIcon} alt="User" className="w-6 h-6 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
