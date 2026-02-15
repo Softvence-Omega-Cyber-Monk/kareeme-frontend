@@ -5,7 +5,7 @@ import { useGetSubmissionsQuery } from "@/redux/features/distribution/distributi
 import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 import ComponentError from "@/components/Reuseable/ComponentError";
 import { useNavigate } from "react-router-dom";
-
+import albumart from "@/assets/pic7.png"
 const ClientSubmit = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
@@ -100,9 +100,7 @@ const ClientSubmit = () => {
                 >
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold shrink-0">
-                        {submission.title.charAt(0)}
-                      </div>
+                      <img src={albumart} alt="" className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover" />
                       <div className="min-w-0">
                         <p className="text-white font-medium truncate">{submission.title}</p>
                         <p className="text-gray-400 text-xs sm:text-sm truncate">{submission.artist}</p>
