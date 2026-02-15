@@ -14,30 +14,32 @@ import {
 
 import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userlogo from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
 import { useLogout } from "@/hooks/useLogout";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
   notificationCount?: number;
-  userName?: string;
   isSidebarOpen: boolean;
 }
+
 
 const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Hello, Accountant",
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const { handleLogout } = useLogout();
   // const [isOpendashboard, setIsOpendashboard] = useState(false);
+   const user = useAppSelector(selectCurrentUser);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -87,7 +89,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-gray-400">Dashboard</span>
               <span className="text-sm md:text-base font-medium text-white">
-                {userName}
+                {user?.name}
               </span>
             </div>
           </div>
@@ -203,7 +205,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.profilePictureUrl || userlogo} alt="User" className="w-6 h-6 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
