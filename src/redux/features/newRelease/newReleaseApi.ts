@@ -111,6 +111,13 @@ const newReleaseApi = baseApi.injectEndpoints({
                 body: data
             }),
             invalidatesTags: ["Releases"]
+        }),
+        getAllSplitSheets: builder.query({
+            query: () => ({
+                url: "/split-sheets",
+                method: "GET"
+            }),
+            providesTags: ["SplitSheets"]
         })
     })
 })
@@ -129,5 +136,6 @@ export const {
     useUpdateTrackMutation,
     useUpdateSplitSheetMutation,
     useGetAllBackCatalogueQuery,
-    useGetSingleBackCatalogueQuery
+    useGetSingleBackCatalogueQuery,
+    useGetAllSplitSheetsQuery
 } = newReleaseApi;

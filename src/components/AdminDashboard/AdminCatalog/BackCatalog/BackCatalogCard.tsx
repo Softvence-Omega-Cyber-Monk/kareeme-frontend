@@ -1,4 +1,4 @@
-import user from "@/assets/photo/user.svg";
+import userPlaceholder from "@/assets/photo/user.svg";
 
 interface ArtistCardProps {
   name: string;
@@ -9,6 +9,7 @@ interface ArtistCardProps {
   label: string;
   totalTracks: number;
   dateRange: string;
+  imageUrl?: string;
 }
 
 const BackCatalogCard = ({
@@ -20,10 +21,15 @@ const BackCatalogCard = ({
   label,
   totalTracks,
   dateRange,
+  imageUrl,
 }: ArtistCardProps) => (
   <div className="bg-[#0D1F22] p-5 rounded-lg shadow-md text-white border-t-2 border-r border-l border-[#303B40]">
     <div className="flex items-center gap-4">
-      <img src={user} alt="" />
+      <img
+        src={imageUrl || userPlaceholder}
+        alt={name}
+        className="w-12 h-12 rounded-full object-cover"
+      />
       <div>
         <h3 className="text-xl font-semibold">{name}</h3>
         <p className="text-sm italic">{genre}</p>

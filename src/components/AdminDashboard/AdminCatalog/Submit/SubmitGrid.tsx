@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SubmitCard, { ReviewStatus } from "./SubmitCard";
 import { useGetSubmissionsQuery } from "@/redux/features/distribution/distributionApi";
 import ComponentLoader from "@/components/Reuseable/ComponentLoader";
@@ -16,11 +16,45 @@ export interface Artist {
   reviewStatus: ReviewStatus;
 }
 
-const SubmitGrid = () => {
+interface SubmitGridProps {
+  search: string;
+  statusFilter: "All" | "PendingReview" | "Approved" | "Declined";
+}
+
+const SubmitGrid = ({ search, statusFilter }: SubmitGridProps) => {
   const [page, setPage] = useState(1);
   const [limit] = useState(9); // 9 items for 3x3 grid
   
-  const { data, isLoading, error } = useGetSubmissionsQuery({ page, limit });
+  const { data, isLoading, error } = useGetSubmissionsQuery({ 
+    page, 
+    limit,
+    status: statusFilter === "All" ? undefined : (statusFilter as "PendingReview" | "Approved" | "Declined")
+  });
+
+  const metadata = data?.metadata;
+
+  // Map API data and apply client-side search filtering
+  const artists: Artist[] = useMemo(() => {
+    const subs = data?.data || [];
+    const mapped = subs.map((submission) => ({
+      releaseId: submission.releaseId,
+      name: submission.artist,
+      type: submission.type,
+      releaseType: `${submission.trackCount} Track${submission.trackCount !== 1 ? 's' : ''}`,
+      totalTracks: submission.trackCount,
+      releaseDate: new Date(submission.releaseDate).toISOString().split('T')[0],
+      submitDate: new Date(submission.submittedAt).toISOString().split('T')[0],
+      reviewStatus: submission.status === "Pending Review" ? "In Review" : submission.status as ReviewStatus,
+    }));
+
+    if (!search) return mapped;
+
+    const searchTerm = search.toLowerCase();
+    return mapped.filter((artist) => 
+      artist.name?.toLowerCase().includes(searchTerm) ||
+      artist.releaseId?.toLowerCase().includes(searchTerm)
+    );
+  }, [data?.data, search]);
 
   if (isLoading) {
     return <ComponentLoader />;
@@ -29,21 +63,6 @@ const SubmitGrid = () => {
   if (error) {
     return <ComponentError />;
   }
-
-  const submissions = data?.data || [];
-  const metadata = data?.metadata;
-
-  // Map API data to Artist interface
-  const artists: Artist[] = submissions.map((submission) => ({
-    releaseId: submission.releaseId,
-    name: submission.artist,
-    type: submission.type,
-    releaseType: `${submission.trackCount} Track${submission.trackCount !== 1 ? 's' : ''}`,
-    totalTracks: submission.trackCount,
-    releaseDate: new Date(submission.releaseDate).toISOString().split('T')[0],
-    submitDate: new Date(submission.submittedAt).toISOString().split('T')[0],
-    reviewStatus: submission.status === "Pending Review" ? "In Review" : submission.status as ReviewStatus,
-  }));
 
   return (
     <div className="space-y-6">

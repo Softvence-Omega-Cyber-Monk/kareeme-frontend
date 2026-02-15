@@ -58,9 +58,13 @@ const cartSlice = createSlice({
             state.totalQuantity++
             state.totalPrice += existedItem.price
         },
-
+        clearCart(state) {
+            state.items = []
+            state.totalQuantity = 0
+            state.totalPrice = 0
+        }
     }
 })
 export const selectCart = (state: AppRootState) => state.cart
-export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity } = cartSlice.actions
+export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart } = cartSlice.actions
 export default cartSlice.reducer
