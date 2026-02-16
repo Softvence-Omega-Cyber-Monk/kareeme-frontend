@@ -12,12 +12,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import dashboard from "@/assets/icons/dashboard.svg";
+// import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import userlogo from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
 import { useLogout } from "@/hooks/useLogout";
@@ -41,24 +41,24 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
   // const [isOpendashboard, setIsOpendashboard] = useState(false);
    const user = useAppSelector(selectCurrentUser);
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   // const users = [
   //   { initial: "A", name: "Md Arfin Mia" },
@@ -101,14 +101,14 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
 
           <div className="relative" ref={dropdownRef}>
             {/* Dashboard Button */}
-            <Button
+            {/* <Button
               onClick={() => setIsOpen(!isOpen)}
               variant="ghost"
               size="icon"
               className="relative text-white cursor-pointer hover:bg-amber-400 transition-all duration-200"
             >
               <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
-            </Button>
+            </Button> */}
 
             {/* Dropdown Menu */}
             {/* {isOpen && (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiUpload } from "react-icons/fi";
+// import { FiUpload } from "react-icons/fi";
 import StatementTable from "./StatemenmtTable";
 import { useGetYearlyStatementsQuery } from "@/redux/features/accountant/accountantApi";
 
@@ -57,7 +57,7 @@ const StatementComponent = () => {
 
         {/* Upload Button */}
         <div className="w-full md:w-auto">
-          <button
+          {/* <button
             className="w-full md:w-[240px] h-12 flex items-center justify-center gap-2
                rounded-[15px] border border-[rgba(226,232,240,0.30)]
                bg-[#17171A] shadow-sm
@@ -68,7 +68,7 @@ const StatementComponent = () => {
           >
             <FiUpload size={18} />
             Upload Report
-          </button>
+          </button> */}
         </div>
       </div>
 
