@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Select,
   SelectContent,
@@ -6,15 +7,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSelector } from "react-redux";
 
 import YoutubeSection from "./YoutubeSection";
 
 const ClientAdminDashboardHeader = () => {
+  const { user } = useSelector((state: any) => state.auth);
   return (
     <div className=" space-y-9">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-medium"> HELLO, KAREEME</h2>
+          <h2 className="text-2xl font-medium"> HELLO, {user?.name}</h2>
         </div>
         <Select>
           <SelectTrigger className="w-full sm:w-[200px] md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">

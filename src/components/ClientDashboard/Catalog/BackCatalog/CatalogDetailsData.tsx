@@ -1,12 +1,16 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import MiniTitle from "../../Shared/MiniTitle";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGetSingleBackCatalogueQuery } from "@/redux/features/newRelease/newReleaseApi";
-import { FaRegPlayCircle } from "react-icons/fa";
+import { FaRegPlayCircle, FaAngleLeft } from "react-icons/fa";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 import { format } from "date-fns";
+import { exportToExcel } from "@/utils/exportUtils";
 
 const CatalogDetailsData = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const role = useAppSelector((state) => state.auth.user?.role);
   const { data: response, isLoading, isError } = useGetSingleBackCatalogueQuery(id);
 
   if (isLoading) {
@@ -33,8 +37,58 @@ const CatalogDetailsData = () => {
     }
   };
 
+  const handleExport = () => {
+    if (!catalogue) return;
+
+    const exportData = [{
+      "Catalogue Number": catalogue.catalogueNumber,
+      "Release Title": catalogue.releaseTitle || release.releaseTitle,
+      "Release Artist": catalogue.releaseArtist || release.albumLevelArtistName,
+      "Label Name": catalogue.labelName || release.labelName,
+      "Release Type": catalogue.releaseType || release.typeOfRelease,
+      "Release Date": formatDate(catalogue.releaseDate || release.releaseDate),
+      "Distributor": catalogue.distributor,
+      "UPC": catalogue.upc,
+      "C Line": catalogue.releaseCLine,
+      "P Line": catalogue.releasePLine,
+      "ISRC": release.isrc,
+      "Copyright Holder": release.copyrightHolder,
+      "Language": release.language,
+      "Explicit": release.isExplicitContent ? "Yes" : "No",
+      "Genre": release.genre,
+      "Producer Credits": release.producerCredits,
+      "Lyricist Credits": release.lyricistCredits,
+      "Master Splits": release.masterSplits,
+      "Additional Details": release.additionalDetails
+    }];
+
+    exportToExcel(
+      exportData, 
+      `Back_Catalog_${catalogue.releaseTitle || "Export"}_${new Date().toISOString().split('T')[0]}.xlsx`
+    );
+  };
+
   return (
     <div className="space-y-8">
+      {/* Back Button */}
+      <div className="flex justify-start">
+        <button
+          onClick={() => {
+            if (role === "DISTRIBUTOR") {
+              navigate("/distributor-dashboard/catalog/back-catalog");
+            } else if (role === "ADMIN") {
+              navigate("/admin/catalog/back-catalog");
+            } else {
+              navigate("/client-dashboard/catalog/back-catalog");
+            }
+          }}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer"
+        >
+          <FaAngleLeft size={18} />
+          <span>Back To Catalog</span>
+        </button>
+      </div>
+
       {/* Header Section */}
       <div className="w-full text-white mx-auto">
         <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
@@ -50,12 +104,15 @@ const CatalogDetailsData = () => {
             </h2>
             <p className="text-xl text-gray-400 mt-1">{catalogue.releaseArtist}</p>
             <div className="mt-6 flex flex-wrap justify-center sm:justify-start gap-4">
-              <button className="px-6 py-2 bg-green-600 rounded-lg text-white font-medium hover:bg-green-700 transition-colors cursor-pointer">
+              <button 
+                onClick={handleExport}
+                className="px-6 py-2 bg-green-600 rounded-lg text-white font-medium hover:bg-green-700 transition-colors cursor-pointer"
+              >
                 Export Data
               </button>
-              <button className="px-6 py-2 bg-[#1b2b2e] border border-gray-700 rounded-lg text-white font-medium hover:bg-[#25393d] transition-colors cursor-pointer">
+              {/* <button className="px-6 py-2 bg-[#1b2b2e] border border-gray-700 rounded-lg text-white font-medium hover:bg-[#25393d] transition-colors cursor-pointer">
                 Edit Metadata
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

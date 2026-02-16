@@ -161,9 +161,12 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          <p className="text-sm text-[#01D449] mt-4 text-center cursor-pointer">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-[#01D449] mt-4 text-center cursor-pointer block hover:underline"
+          >
             Forget Password
-          </p>
+          </Link>
 
           <p className="text-sm text-gray-400 mt-4 text-center">
             Don't have an account?

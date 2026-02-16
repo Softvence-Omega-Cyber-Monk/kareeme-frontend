@@ -14,13 +14,15 @@ import {
 
 import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userIcon from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import NotificationReuseable from "../Reuseable/NotificationReuseable";
 import { useLogout } from "@/hooks/useLogout";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -32,15 +34,15 @@ export interface NavbarProps {
 const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Hello, Distributor",
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [isOpendashboard, setIsOpendashboard] = useState(false);
   const { handleLogout } = useLogout();
+   const user = useAppSelector(selectCurrentUser);
 
   return (
-    <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
+    <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
         className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
           }`}
@@ -62,7 +64,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-gray-400">Dashboard</span>
               <span className="text-sm md:text-base font-medium text-white">
-                {userName}
+                {user?.name}
               </span>
             </div>
           </div>
@@ -101,7 +103,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                   ].map((user, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
                      transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
                     >
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
@@ -192,7 +194,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.profilePictureUrl ?? userIcon} alt="User" className="w-6 h-6 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -201,18 +203,18 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
               <Link to="/distributor-dashboard/settings">
-                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                   <IoMdSettings className="text-white" />
                   <span className="font-medium">Settings</span>
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <MdPrivacyTip className="text-white" />
                 <span className="font-medium">Privacy Policy</span>
               </DropdownMenuItem>

@@ -47,61 +47,77 @@ const newReleaseApi = baseApi.injectEndpoints({
                 url: "/releases",
                 method: "GET",
                 params: { limit, page }
-            })
+            }),
+            providesTags: ["Releases"]
         }),
         getSingleRelease: builder.query({
             query: (releaseId) => ({
                 url: `/releases/${releaseId}`,
                 method: "GET"
-            })
+            }),
+            providesTags: ["Releases"]
         }),
         createBackCatalogue: builder.mutation({
             query: (data) => ({
                 url: "/back-catalogue",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Releases"]
         }),
         getAllBackCatalogue: builder.query({
             query: ({ limit, page }) => ({
                 url: "/back-catalogue",
                 method: "GET",
                 params: { limit, page }
-            })
+            }),
+            providesTags: ["Releases"]
         }),
         getSingleBackCatalogue: builder.query({
             query: (id) => ({
                 url: `/back-catalogue/${id}`,
                 method: "GET"
-            })
+            }),
+            providesTags: ["Releases"]
         }),
         updateRelease: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/releases/${id}`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Releases"]
         }),
         updateTrack: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/tracks/${id}`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Releases"]
         }),
         updateSplitSheet: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/split-sheets/${id}`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Releases"]
         }),
         updateBackCatalogue: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/back-catalogue/${id}`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Releases"]
+        }),
+        getAllSplitSheets: builder.query({
+            query: () => ({
+                url: "/split-sheets",
+                method: "GET"
+            }),
+            providesTags: ["SplitSheets"]
         })
     })
 })
@@ -120,5 +136,6 @@ export const {
     useUpdateTrackMutation,
     useUpdateSplitSheetMutation,
     useGetAllBackCatalogueQuery,
-    useGetSingleBackCatalogueQuery
+    useGetSingleBackCatalogueQuery,
+    useGetAllSplitSheetsQuery
 } = newReleaseApi;

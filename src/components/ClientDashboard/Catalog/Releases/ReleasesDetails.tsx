@@ -3,6 +3,7 @@ import { Copy, ArrowLeft, Loader2 } from "lucide-react";
 import realesphoto from "@/assets/photo/realesphoto.png";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleReleaseQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 interface Track {
   trackId: string;
@@ -15,6 +16,7 @@ export default function ReleasesDetails() {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetSingleReleaseQuery(id, { skip: !id });
   const [copied, setCopied] = useState<"upc" | "isrc" | null>(null);
+    const role=useAppSelector((state)=>state.auth.user?.role)
 
   const release = data?.data;
 
@@ -38,7 +40,7 @@ export default function ReleasesDetails() {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl text-red-500">Error loading release details</h2>
-        <Link to="/client-dashboard/catalog/releases" className="text-blue-500 hover:underline mt-4 inline-block">
+        <Link to={role==="DISTRIBUTOR"?"/distributor-dashboard/catalog/releases":role==="CLIENT"?"/client-dashboard/catalog/releases":role==="ADMIN"?"/admin/catalog/releases":"/client-dashboard/catalog/releases"} className="text-blue-500 hover:underline mt-4 inline-block">
           Back to Releases
         </Link>
       </div>
@@ -56,7 +58,7 @@ export default function ReleasesDetails() {
     <div className="text-white flex flex-col items-center">
       {/* Back Button */}
       <div className="w-full">
-        <Link to="/client-dashboard/catalog/releases">
+        <Link to={role==="DISTRIBUTOR"?"/distributor-dashboard/catalog/releases":role==="CLIENT"?"/client-dashboard/catalog/releases":role==="ADMIN"?"/admin/catalog/releases":"/client-dashboard/catalog/releases"}>
           <button className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer">
             <ArrowLeft size={18} />
             <span>Back To Releases</span>

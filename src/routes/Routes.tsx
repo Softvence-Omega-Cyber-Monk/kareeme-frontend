@@ -1,11 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-
-// import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
@@ -71,8 +68,11 @@ import Home from "@/components/Home/Home";
 import Unauthorized from "@/pages/Unauthorized";
 import ClientAdminLayout from "@/Layout/ClientAdminLayout";
 import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
 import PrivateRoute from "./PrivateRoute";
+import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -129,6 +129,14 @@ const routes = createBrowserRouter([
         path: "/unauthorized",
         element: <Unauthorized />,
       },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+      },
     ],
   },
 
@@ -168,13 +176,12 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
-      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
 
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
       { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
       /*  */
-
       {
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
@@ -229,7 +236,6 @@ const routes = createBrowserRouter([
       { path: "statements", element: <StatementsPage /> },
       { path: "profit-loss", element: <ProfitLossPages /> },
       { path: "client-manage", element: <ClientManagementPage /> },
-
       { path: "settings", element: <AccountanSettingsPage /> },
     ],
   },
@@ -251,12 +257,13 @@ const routes = createBrowserRouter([
       { path: "releases", element: <AdminRealisePage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
       { path: "submit", element: <AdminSubmitPage /> },
-      { path: "submit/view", element: <SubmitDetails /> },
+      { path: "submit/:id", element: <SubmitDetails /> },
       /* team */
       { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
     ],
   },
+  // admin
   {
     path: "/admin",
     element: (
@@ -284,14 +291,16 @@ const routes = createBrowserRouter([
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
-      { path: "catalog/submit", element: <SubmitPage /> },
-      { path: "catalog/submit/form", element: <StapeComponent /> },
+      { path: "catalog/submit", element: <ClientSubmit /> },
+      { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
-      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
 
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },

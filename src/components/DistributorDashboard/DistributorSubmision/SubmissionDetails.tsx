@@ -3,7 +3,7 @@ import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import { FaAngleLeft } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MdOutlineMessage } from "react-icons/md";
+// import { MdOutlineMessage } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import {
@@ -22,12 +22,14 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 const SubmissionDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isDeclineDialogOpen, setIsDeclineDialogOpen] = useState(false);
   const [declineReason, setDeclineReason] = useState("");
+  const role=useAppSelector((state)=>state.auth.user?.role)
 
   const { data, isLoading, isError } = useGetSubmissionDetailsQuery(id || "");
   const [approveSubmission, { isLoading: isApproving }] =
@@ -54,7 +56,7 @@ const SubmissionDetails = () => {
       }).unwrap();
 
       toast.success("Submission approved successfully!");
-      navigate("/distributor-dashboard/submissions");
+      // navigate("/distributor-dashboard/submissions");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to approve submission");
     }
@@ -74,7 +76,7 @@ const SubmissionDetails = () => {
 
       toast.success("Submission declined");
       setIsDeclineDialogOpen(false);
-      navigate("/distributor-dashboard/submissions");
+      navigate(role==="ADMIN"?"/admin/catalog/submit":"/distributor-dashboard/submissions");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to decline submission");
     }
@@ -102,7 +104,7 @@ const SubmissionDetails = () => {
 
   return (
     <div className="space-y-4">
-      <Link to="/distributor-dashboard/submissions">
+      <Link to={role==="ADMIN"?"/admin/catalog/submit":"/distributor-dashboard/submissions"}>
         <p className="text-sm font-sans cursor-pointer hover:text-[#E5E5E5] flex items-center gap-1">
           <FaAngleLeft />
           Back To Submissions
@@ -123,10 +125,10 @@ const SubmissionDetails = () => {
             </div>
           </div>
           <div>
-            <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
+            {/* <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
               <MdOutlineMessage />
               Message Artist
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
@@ -243,14 +245,18 @@ const SubmissionDetails = () => {
             <RxCrossCircled />
             {isDeclining ? "Declining..." : "Decline"}
           </Button>
-          <Button
-            onClick={handleApprove}
-            disabled={isApproving || isDeclining}
-            className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <FaCheck />
-            {isApproving ? "Approving..." : "Approve"}
-          </Button>
+          {
+            submission.status === "Draft" && (
+              <Button
+                onClick={handleApprove}
+                disabled={isApproving || isDeclining}
+                className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaCheck />
+                {isApproving ? "Approving..." : "Approve"}
+              </Button>
+            )
+         }
         </div>
       </div>
 
