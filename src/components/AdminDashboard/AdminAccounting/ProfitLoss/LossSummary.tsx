@@ -10,6 +10,7 @@ import {
   Legend,
 } from "recharts";
 import { MonthlyProfitLossData } from "@/redux/features/accountant/accountant.type";
+import { useSearchParams } from "react-router-dom";
 
 interface LossSummaryProps {
   monthlyData: MonthlyProfitLossData[];
@@ -20,12 +21,72 @@ const formatYAxis = (tick: number) => `${tick / 1000}k`;
 
 const LossSummary = ({ monthlyData }: LossSummaryProps) => {
   const [hovered, setHovered] = useState(false);
+  const [searchParams] = useSearchParams();
 
-  // Calculate loss from expense (only show when expense > income)
-  const lossData = monthlyData.map((item) => ({
-    name: item.month,
-    loss: item.expense > item.income ? item.expense - item.income : 0,
+  type PeriodType = "last_7_days" | "last_30_days" | "last_6_months" | "yearly" | "this_year";
+  const selectedFilter = (searchParams.get("period") as PeriodType) || "last_6_months";
+
+  const dummy7DaysData = [
+    { name: "Mon", loss: 0 },
+    { name: "Tue", loss: 0 },
+    { name: "Wed", loss: 0 },
+    { name: "Thu", loss: 0 },
+    { name: "Fri", loss: 0 },
+    { name: "Sat", loss: 0 },
+    { name: "Sun", loss: 0 },
+  ];
+
+  const dummy30DaysData = Array.from({ length: 30 }, (_, i) => ({
+    name: (i + 1).toString(),
+    loss: 0,
   }));
+
+  const dummy6MonthsData = [
+    { name: "Jan", loss: 0 },
+    { name: "Feb", loss: 0 },
+    { name: "Mar", loss: 0 },
+    { name: "Apr", loss: 0 },
+    { name: "May", loss: 0 },
+    { name: "Jun", loss: 0 },
+  ];
+
+  const dummyYearlyData = [
+    { name: "2020", loss: 0 },
+    { name: "2021", loss: 0 },
+    { name: "2022", loss: 0 },
+    { name: "2023", loss: 0 },
+    { name: "2024", loss: 0 },
+  ];
+
+  const transformedMonthlyData = monthlyData.length > 0 
+    ? monthlyData.map((item) => ({
+        name: item.month.substring(0, 3),
+        loss: item.expense > item.income ? item.expense - item.income : 0,
+      }))
+    : [
+        { name: "Jan", loss: 0 },
+        { name: "Feb", loss: 0 },
+        { name: "Mar", loss: 0 },
+        { name: "Apr", loss: 0 },
+        { name: "May", loss: 0 },
+        { name: "Jun", loss: 0 },
+        { name: "Jul", loss: 0 },
+        { name: "Aug", loss: 0 },
+        { name: "Sep", loss: 0 },
+        { name: "Oct", loss: 0 },
+        { name: "Nov", loss: 0 },
+        { name: "Dec", loss: 0 },
+      ];
+
+  const barData = {
+    last_7_days: dummy7DaysData,
+    last_30_days: dummy30DaysData,
+    last_6_months: dummy6MonthsData,
+    yearly: dummyYearlyData,
+    this_year: transformedMonthlyData,
+  };
+
+  const currentData = barData[selectedFilter];
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
@@ -36,7 +97,7 @@ const LossSummary = ({ monthlyData }: LossSummaryProps) => {
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={lossData} barGap={20}>
+        <BarChart data={currentData} barGap={20}>
           <Bar
             dataKey="loss"
             barSize={30}
