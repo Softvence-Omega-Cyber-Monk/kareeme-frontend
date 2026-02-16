@@ -3,7 +3,7 @@ import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import { FaAngleLeft } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MdOutlineMessage } from "react-icons/md";
+// import { MdOutlineMessage } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import {
@@ -125,10 +125,10 @@ const SubmissionDetails = () => {
             </div>
           </div>
           <div>
-            <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
+            {/* <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
               <MdOutlineMessage />
               Message Artist
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
@@ -245,14 +245,18 @@ const SubmissionDetails = () => {
             <RxCrossCircled />
             {isDeclining ? "Declining..." : "Decline"}
           </Button>
-          <Button
-            onClick={handleApprove}
-            disabled={isApproving || isDeclining}
-            className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <FaCheck />
-            {isApproving ? "Approving..." : "Approve"}
-          </Button>
+          {
+            submission.status === "Draft" && (
+              <Button
+                onClick={handleApprove}
+                disabled={isApproving || isDeclining}
+                className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaCheck />
+                {isApproving ? "Approving..." : "Approve"}
+              </Button>
+            )
+         }
         </div>
       </div>
 
