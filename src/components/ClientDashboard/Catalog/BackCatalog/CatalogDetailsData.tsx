@@ -1,13 +1,16 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import MiniTitle from "../../Shared/MiniTitle";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGetSingleBackCatalogueQuery } from "@/redux/features/newRelease/newReleaseApi";
-import { FaRegPlayCircle } from "react-icons/fa";
+import { FaRegPlayCircle, FaAngleLeft } from "react-icons/fa";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 import { format } from "date-fns";
 import { exportToExcel } from "@/utils/exportUtils";
 
 const CatalogDetailsData = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const role = useAppSelector((state) => state.auth.user?.role);
   const { data: response, isLoading, isError } = useGetSingleBackCatalogueQuery(id);
 
   if (isLoading) {
@@ -67,6 +70,25 @@ const CatalogDetailsData = () => {
 
   return (
     <div className="space-y-8">
+      {/* Back Button */}
+      <div className="flex justify-start">
+        <button
+          onClick={() => {
+            if (role === "DISTRIBUTOR") {
+              navigate("/distributor-dashboard/catalog/back-catalog");
+            } else if (role === "ADMIN") {
+              navigate("/admin/catalog/back-catalog");
+            } else {
+              navigate("/client-dashboard/catalog/back-catalog");
+            }
+          }}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer"
+        >
+          <FaAngleLeft size={18} />
+          <span>Back To Catalog</span>
+        </button>
+      </div>
+
       {/* Header Section */}
       <div className="w-full text-white mx-auto">
         <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
