@@ -4,7 +4,6 @@ import audioframe2 from "@/assets/photo/audioframe2.svg";
 import tenancy from "@/assets/icons/tenancy.svg";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-
 import Youtube from "@/assets/icons/youtube.png";
 import sportify from "@/assets/icons/sportity.png";
 import apple from "@/assets/icons/apple.png";
@@ -16,6 +15,12 @@ import heart from "@/assets/icons/heart2.png";
 import { Card } from "@/components/ui/card";
 // import { SubmissionDetailsData } from "@/redux/features/distribution/distribution.type";
 import useControlDispatch from "@/contexts/control/hooks/useControlDispatch";
+import useControlData from "@/contexts/control/hooks/useControlData";
+import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+import { useGetSingleReleaseQuery } from "@/redux/features/newRelease/newReleaseApi";
+import ConfirmDistributionSkeleton from "./Loading";
+import DistributionError from "./Error";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 interface PlatformItem {
   name: string;
@@ -79,9 +84,27 @@ const ConfirmDistribution = () => {
   // console.log(data)
 
       const { closeModal } = useControlDispatch()
+      const { releaseId } =  useControlData()
+      const { 
+        data, 
+        isLoading, isError } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
+      const { 
+        data: releaseData, 
+        isLoading: isReleaseLoading, isError: isReleaseError } = useGetSingleReleaseQuery(releaseId ?? skipToken);
+
+        console.log(data)
+        console.log(releaseData)
+
+
+
+      if (isError || isReleaseError) return <DistributionError/> 
+      if (isLoading || isReleaseLoading) return <ConfirmDistributionSkeleton/> 
+
+
+
   return (
     <div>
-      <div className=" w-full text-white   mx-auto">
+      <div className=" w-full text-white   mx-auto marker-class">
         <p className="text-2xl font-sans  gap-1">Confirm Distribution</p>
 
         <div className=" w-full text-white   mx-auto mt-6">

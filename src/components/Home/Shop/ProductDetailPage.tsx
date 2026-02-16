@@ -12,6 +12,7 @@ import img from "@/assets/image44.png";
 import ShippingDialog from "@/components/ShippingDialog";
 import { addToCart } from "@/utils/cartUtils";
 import { useCart } from "@/contexts/CartContext";
+// import { useParams } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -27,6 +28,13 @@ const ProductDetailPage: React.FC = () => {
   const { openCart } = useCart();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState(3); // Default 3 items visible
+  
+
+  // const { id } = useParams();
+
+
+
+  
   const mainProduct: Product = {
     id: 1,
     image: img,

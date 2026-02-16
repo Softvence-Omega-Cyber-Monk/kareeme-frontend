@@ -45,7 +45,7 @@ import CreateNewClient from "@/components/DistributorDashboard/Client/CreateNewC
 import SubmissionDetails from "@/components/DistributorDashboard/DistributorSubmision/SubmissionDetails";
 import DistributionPage from "@/pages/Distributor/DistributionPage";
 import DistributationDetails from "@/components/DistributorDashboard/Distribution/DistributationDetails";
-import ConfirmDistribution from "@/components/DistributorDashboard/Distribution/ConfirmDistribution";
+// import ConfirmDistribution from "@/components/DistributorDashboard/Distribution/ConfirmDistribution";
 import PaymentsEarningsPage from "@/pages/Accountant/PaymentsEarningsPage";
 import ProfitLossPages from "@/pages/Accountant/ProfitLossPages";
 import StatementsPage from "@/pages/Accountant/StatementsPage";
@@ -208,11 +208,11 @@ const routes = createBrowserRouter([
       { path: "back-catalog", element: <DistributorBackCatalog /> },
       /*  */
       { path: "distribution", element: <DistributionPage /> },
-      { path: "distribution/details", element: <DistributationDetails /> },
-      {
-        path: "distribution/confirm-distribution",
-        element: <ConfirmDistribution />,
-      },
+      { path: "distribution/details/:releaseId", element: <DistributationDetails /> },
+      // {
+      //   path: "distribution/confirm-distribution",
+      //   element: <ConfirmDistribution />,
+      // },
 
       { path: "client", element: <ClientsManagementPage /> },
       { path: "client/create", element: <CreateNewClient /> },

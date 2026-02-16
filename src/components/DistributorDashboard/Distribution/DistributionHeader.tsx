@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MiniTitle from "@/components/ClientDashboard/Shared/MiniTitle";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
@@ -11,6 +12,8 @@ import {
 } from "@/components/ui/select";
 import { RiDownloadLine } from "react-icons/ri";
 import { TbBrandDatabricks } from "react-icons/tb";
+import useSearchFilterData from "@/contexts/searchFilter/hooks/useSearchFilterData";
+import useSearchFilterDispatch from "@/contexts/searchFilter/hooks/useSearchFilterDispatch";
 // import { useNavigate } from "react-router-dom";
 
 const DistributionHeader = () => {
@@ -21,8 +24,14 @@ const DistributionHeader = () => {
   //   window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top
   // };
 
+  const { searchText, releaseRange, status } = useSearchFilterData()
+
+  const {     setSearchText,
+              setReleaseRange,
+              setStatus, } = useSearchFilterDispatch()
+
   return (
-    <div className="space-y-8 md:space-y-10">
+    <div className="space-y-8 md:space-y-10 ">
       {/* Title */}
       <MiniTitle
         title="Distribution Management"
@@ -36,7 +45,9 @@ const DistributionHeader = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full lg:w-auto">
           {/* Search Input */}
           <div className="relative w-full sm:w-[200px] md:w-[250px] lg:w-[400px]">
-            <Input
+            <Input 
+              value={searchText}
+              onChange={(e)=>setSearchText(e.target.value)}
               className="w-full h-12 px-4 pr-12 rounded-[15px] border border-[#696B6F] bg-[#171719] 
                        text-sm md:text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
               placeholder="Search"
@@ -49,7 +60,10 @@ const DistributionHeader = () => {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             {/* Release Type */}
-            <Select>
+            <Select value={releaseRange ?? ""}
+                  onValueChange={(value) =>
+                    setReleaseRange(value as any)
+                  }>
               <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
                 <SelectValue
                   placeholder="Release Type"
@@ -93,7 +107,9 @@ const DistributionHeader = () => {
             </Select>
 
             {/* Status */}
-            <Select>
+            <Select 
+              value={status} onValueChange={(value) => setStatus(value as any) }
+              >
               <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
                 <SelectValue
                   placeholder="All Status"
