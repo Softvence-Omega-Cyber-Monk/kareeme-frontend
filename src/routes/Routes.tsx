@@ -297,6 +297,7 @@ const routes = createBrowserRouter([
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
       { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
       { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
