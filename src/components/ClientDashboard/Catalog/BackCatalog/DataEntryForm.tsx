@@ -16,6 +16,7 @@ import {
   useUpdateTrackMutation,
   useUpdateSplitSheetMutation,
 } from "@/redux/features/newRelease/newReleaseApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 type TrackDetail = {
   trackId?: string;
@@ -36,6 +37,7 @@ export default function DataEntryForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tracks, setTracks] = useState([{ id: 1 }]);
+  const role=useAppSelector((state)=>state.auth.user?.role)
   type FormDataType = {
     labelName: string;
     distributorName: string;
@@ -345,7 +347,7 @@ export default function DataEntryForm() {
       toast.success(isEdit ? "Catalogue updated successfully!" : "Back catalog release submitted successfully!", {
         id: toastId,
       });
-      navigate("/client-dashboard/catalog/back-catalog");
+      navigate(role==="ADMIN"?"/admin/catalog/back-catalog":"/client-dashboard/catalog/back-catalog");
     } catch (error: unknown) {
       console.error("Submission failed:", error);
       const errorMessage =
