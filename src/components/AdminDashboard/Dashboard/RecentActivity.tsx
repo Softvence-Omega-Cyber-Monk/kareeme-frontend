@@ -20,9 +20,9 @@ const RecentActivity = ({ data }: RecentActivityProps) => {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Recent Activity</h2>
-        <a href="#" className="text-blue-500 text-sm hover:underline">
+        {/* <a href="#" className="text-blue-500 text-sm hover:underline">
           View All
-        </a>
+        </a> */}
       </div>
 
       {/* Activity List */}

@@ -60,11 +60,11 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
-  const users = [
-    { initial: "A", name: "Md Arfin Mia" },
-    { initial: "S", name: "Md Saqzzad" },
-    { initial: "Q", name: "Md Abdul Quadir" },
-  ];
+  // const users = [
+  //   { initial: "A", name: "Md Arfin Mia" },
+  //   { initial: "S", name: "Md Saqzzad" },
+  //   { initial: "Q", name: "Md Abdul Quadir" },
+  // ];
 
   return (
     <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
@@ -111,7 +111,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
             </Button>
 
             {/* Dropdown Menu */}
-            {isOpen && (
+            {/* {isOpen && (
               <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                 <ul className="py-2 text-sm text-white">
                   {users.map((user, index) => (
@@ -128,7 +128,7 @@ const AccountantDashboardNavbar: React.FC<NavbarProps> = ({
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* <div className="relative">
