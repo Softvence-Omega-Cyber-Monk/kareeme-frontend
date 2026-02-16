@@ -21,6 +21,7 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Submissions"],
     }),
+
     getSubmissions: builder.query<SubmissionsResponse, SubmissionsQueryParams>({
       query: ({ page = 1, limit = 10, status }) => ({
         url: "/distribution/submissions",
@@ -33,6 +34,39 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Submissions"],
     }),
+
+    getMoreSubmissions: builder.query<SubmissionsResponse, SubmissionsQueryParams>({
+      query: ({ page = 1, limit = 10, status }) => ({
+        url: "/distribution/submissions",
+        method: "GET",
+        params: {
+          page,
+          limit,
+          ...(status && { status }),
+        },
+      }),
+      providesTags: ["Submissions"],
+      // ***************************************
+      // ** redux Pessimistic Cache Update    **
+      // ** update getSubmissions Cache data  **
+      // ***************************************
+      async onQueryStarted(params, { dispatch, queryFulfilled }) {
+        try {
+          const { data: newData } = await queryFulfilled;
+          dispatch( distributionApi.util.updateQueryData( "getSubmissions",
+                                                          { page: 1, limit: params.limit, status: params.status },
+                                                          (draft) => {
+                                                                        draft.data.push(...newData.data);
+                                                                        draft.metadata = newData.metadata;
+                                                                      }
+                                                        )
+                  );
+        } catch (err) {
+          console.error(err);
+        }
+      },
+    }),
+
     getSubmissionDetails: builder.query<SubmissionDetailsResponse, string>({
       query: (releaseId) => ({
         url: `/distribution/submissions/${releaseId}`,
@@ -40,6 +74,7 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Submissions"],
     }),
+
     getClients: builder.query<ClientsResponse, ClientsQueryParams>({
       query: ({ page = 1, limit = 10 }) => ({
         url: "/distribution/clients",
@@ -51,6 +86,7 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Clients"],
     }),
+
     deactivateClient: builder.mutation<ClientActionResponse, string>({
       query: (clientId) => ({
         url: `/distribution/clients/${clientId}/deactivate`,
@@ -58,10 +94,8 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Clients"],
     }),
-    approveSubmission: builder.mutation<
-      SubmissionActionResponse,
-      { releaseId: string; payload?: ApproveSubmissionPayload }
-    >({
+
+    approveSubmission: builder.mutation< SubmissionActionResponse, { releaseId: string; payload?: ApproveSubmissionPayload } >({
       query: ({ releaseId, payload }) => ({
         url: `/distribution/submissions/${releaseId}/approve`,
         method: "PATCH",
@@ -69,10 +103,8 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Submissions"],
     }),
-    declineSubmission: builder.mutation<
-      SubmissionActionResponse,
-      { releaseId: string; payload: DeclineSubmissionPayload }
-    >({
+
+    declineSubmission: builder.mutation< SubmissionActionResponse, { releaseId: string; payload: DeclineSubmissionPayload } >({
       query: ({ releaseId, payload }) => ({
         url: `/distribution/submissions/${releaseId}/decline`,
         method: "PATCH",
@@ -86,6 +118,8 @@ const distributionApi = baseApi.injectEndpoints({
 export const {
   useGetDashboardQuery,
   useGetSubmissionsQuery,
+  useGetMoreSubmissionsQuery,
+  useLazyGetMoreSubmissionsQuery, 
   useGetSubmissionDetailsQuery,
   useGetClientsQuery,
   useApproveSubmissionMutation,

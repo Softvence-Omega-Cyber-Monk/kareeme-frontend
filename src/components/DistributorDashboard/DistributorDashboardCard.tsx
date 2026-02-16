@@ -38,7 +38,7 @@ const DistributorDashboardCard = ({ data }: DistributorDashboardCardProps) => {
   ];
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-0 text-white">
+    <div className="w-full px-4 sm:px-6 lg:px-0 text-white ">
       <div>
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 sm:gap-0">
