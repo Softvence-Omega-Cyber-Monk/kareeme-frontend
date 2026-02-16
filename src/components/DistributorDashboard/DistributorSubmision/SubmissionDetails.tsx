@@ -22,12 +22,14 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 const SubmissionDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isDeclineDialogOpen, setIsDeclineDialogOpen] = useState(false);
   const [declineReason, setDeclineReason] = useState("");
+  const role=useAppSelector((state)=>state.auth.user?.role)
 
   const { data, isLoading, isError } = useGetSubmissionDetailsQuery(id || "");
   const [approveSubmission, { isLoading: isApproving }] =
@@ -74,7 +76,7 @@ const SubmissionDetails = () => {
 
       toast.success("Submission declined");
       setIsDeclineDialogOpen(false);
-      navigate("/distributor-dashboard/submissions");
+      navigate(role==="ADMIN"?"/admin/catalog/submit":"/distributor-dashboard/submissions");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to decline submission");
     }
@@ -102,7 +104,7 @@ const SubmissionDetails = () => {
 
   return (
     <div className="space-y-4">
-      <Link to="/distributor-dashboard/submissions">
+      <Link to={role==="ADMIN"?"/admin/catalog/submit":"/distributor-dashboard/submissions"}>
         <p className="text-sm font-sans cursor-pointer hover:text-[#E5E5E5] flex items-center gap-1">
           <FaAngleLeft />
           Back To Submissions
