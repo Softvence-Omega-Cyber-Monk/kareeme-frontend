@@ -305,8 +305,6 @@ const routes = createBrowserRouter([
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
       { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
-      /*  */
-
       {
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
