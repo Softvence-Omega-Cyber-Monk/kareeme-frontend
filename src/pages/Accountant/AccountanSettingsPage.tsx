@@ -2,9 +2,9 @@ import AccountantSettings from "@/components/Accountant/Settings/AccountantSetti
 
 const AccountanSettingsPage = () => {
   return (
-    <div>
+    <>
       <AccountantSettings />
-    </div>
+    </>
   );
 };
 

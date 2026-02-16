@@ -29,7 +29,8 @@ interface ProfitLossSummaryProps {
 }
 
 const ProfitLossSummary = ({ data }: ProfitLossSummaryProps) => {
-  const [_selectedFilter, setSelectedFilter] = useState("Last 6 Months");
+  type FilterType = "last_7_days" | "last_30_days" | "last_6_months" | "yearly" | "this_year";
+  const [selectedFilter, setSelectedFilter] = useState<FilterType>("last_6_months");
   const [hoveredBar, setHoveredBar] = useState<string | null>(null);
 
   // Transform or use empty default
@@ -46,6 +47,23 @@ const ProfitLossSummary = ({ data }: ProfitLossSummaryProps) => {
     { name: "Jun", profit: 0, loss: 0 },
     { name: "Jul", profit: 0, loss: 0 },
   ];
+const dummy7DaysData = [
+  { name: "Mon", profit: 0, loss: 0 },
+  { name: "Tue", profit: 0, loss: 0 },
+  { name: "Wed", profit: 0, loss: 0 },
+  { name: "Thu", profit: 0, loss: 0 },
+  { name: "Fri", profit: 0, loss: 0 },
+  { name: "Sat", profit: 0, loss: 0 },
+  { name: "Sun", profit: 0, loss: 0 },
+];
+  const barData: Record<FilterType, typeof chartData> = {
+    last_7_days: dummy7DaysData,
+    last_30_days: chartData,
+    last_6_months: chartData,
+    yearly: chartData,
+    this_year: chartData,
+  };
+  const currentData = barData  [selectedFilter];
 
   return (
     <div className="w-full h-full p-6 bg-[#0C1D21] rounded-xl shadow-md space-y-6">
@@ -69,7 +87,7 @@ const ProfitLossSummary = ({ data }: ProfitLossSummaryProps) => {
         {/* Filter Dropdown */}
         <div className="w-full sm:w-[250px] md:w-[221px]">
           <Select
-            onValueChange={(value) => setSelectedFilter(value)}
+            onValueChange={(value) => setSelectedFilter(value as FilterType)}
             defaultValue="last_6_months"
           >
             <SelectTrigger className="w-full h-10 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base text-white">
@@ -110,7 +128,7 @@ const ProfitLossSummary = ({ data }: ProfitLossSummaryProps) => {
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={chartData} barGap={20}>
+        <BarChart data={currentData} barGap={20}>
           <Bar
             dataKey="profit"
             barSize={30}

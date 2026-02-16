@@ -73,7 +73,7 @@ const SplitSheetCard: React.FC<SplitSheetCardProps> = ({ split }) => {
             </p>
           </div>
         </div>
-        <Link to={role === "ADMIN" ? `/admin/split-sheet/${split.splitId}` : `/client-dashboard/split-sheet/${split.splitId}`} state={displayData}>
+        <Link to={role === "ADMIN" ? `/admin/catalog/split-sheet/${split.splitId}` : `/client-dashboard/catalog/split-sheet/${split.splitId}`} state={displayData}>
           <div className="mt-4 flex gap-2">
             <button className="text-base flex-1 py-2 bg-[#3A5CFF] text-white rounded-[15px] hover:bg-blue-500 transition cursor-pointer">
               View Split Sheet

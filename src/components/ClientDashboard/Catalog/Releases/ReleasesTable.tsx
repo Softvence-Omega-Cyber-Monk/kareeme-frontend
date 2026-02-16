@@ -8,6 +8,7 @@ import { RiDownloadLine } from "react-icons/ri";
 import TableHere from "./TableHere";
 import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
 import Pagination from "@/components/Reuseable/Pagination";
+import { exportToExcel } from "@/utils/exportUtils";
 
 import { 
   DropdownMenu, 
@@ -79,6 +80,24 @@ const ReleasesTable = () => {
     setSortConfig({ key, direction });
   };
 
+  const handleExport = () => {
+    const exportHeaders = {
+      releaseTitle: "Title",
+      artistName: "Artist",
+      typeOfRelease: "Type",
+      releaseDate: "Release Date",
+      status: "Status",
+      upc: "UPC"
+    };
+
+    const dataToExport = processedData.map((item: any) => ({
+      ...item,
+      releaseDate: new Date(item.releaseDate).toLocaleDateString()
+    }));
+
+    exportToExcel(dataToExport, `Releases_Export_${new Date().toISOString().split('T')[0]}.xlsx`, exportHeaders);
+  };
+
   return (
     <div className="space-y-9">
       {/* Header Section */}
@@ -148,7 +167,11 @@ const ReleasesTable = () => {
           </DropdownMenu>
 
           {/* Export Button */}
-          <button className="bg-[#3A5CFF] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer">
+          <button 
+            onClick={handleExport}
+            disabled={processedData.length === 0}
+            className="bg-[#3A5CFF] flex h-12 px-3 justify-center items-center rounded-[15px] border border-slate-200/30 gap-2 hover:bg-[#2E4AE0] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <RiDownloadLine className="w-5 h-5 md:w-6 md:h-6" />
             <span className="text-sm md:text-base font-sans">Export</span>
           </button>

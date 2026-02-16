@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { FaPlus, FaTrashAlt } from "react-icons/fa";
+import { FaPlus, FaTrashAlt, FaAngleLeft } from "react-icons/fa";
 import { RiFileMusicFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
   useUpdateTrackMutation,
   useUpdateSplitSheetMutation,
 } from "@/redux/features/newRelease/newReleaseApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 type TrackDetail = {
   trackId?: string;
@@ -36,6 +37,7 @@ export default function DataEntryForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tracks, setTracks] = useState([{ id: 1 }]);
+  const role=useAppSelector((state)=>state.auth.user?.role)
   type FormDataType = {
     labelName: string;
     distributorName: string;
@@ -345,7 +347,7 @@ export default function DataEntryForm() {
       toast.success(isEdit ? "Catalogue updated successfully!" : "Back catalog release submitted successfully!", {
         id: toastId,
       });
-      navigate("/client-dashboard/catalog/back-catalog");
+      navigate(role==="ADMIN"?"/admin/catalog/back-catalog":"/client-dashboard/catalog/back-catalog");
     } catch (error: unknown) {
       console.error("Submission failed:", error);
       const errorMessage =
@@ -357,6 +359,17 @@ export default function DataEntryForm() {
 
   return (
     <div className=" text-white  space-y-8">
+      {/* Back Button */}
+      <div className="flex justify-start">
+        <button
+          onClick={() => navigate(role === "ADMIN" ? "/admin/catalog/back-catalog" : "/client-dashboard/catalog/back-catalog")}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition cursor-pointer"
+        >
+          <FaAngleLeft size={18} />
+          <span>Back To Catalog</span>
+        </button>
+      </div>
+
       {/* General Release Information */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 bg-[#0D1F21] rounded-2xl p-6 shadow-lg space-y-6">

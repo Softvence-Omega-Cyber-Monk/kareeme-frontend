@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import download from "@/assets/icons/download.svg";
 // import { useNavigate } from "react-router-dom";
-import { FaChevronRight } from "react-icons/fa";
+// import { FaChevronRight } from "react-icons/fa";
 
 interface Product {
   id: string;
@@ -275,7 +275,7 @@ const StatementTable = ({ selectedYear }: StatementTableProps) => {
                       // onClick={() => goToDetails(product.id)}
                     >
                       {product.amount}
-                      <FaChevronRight className="w-4 h-4" />
+                      {/* <FaChevronRight className="w-4 h-4" /> */}
                     </TableCell>
                   </TableRow>
                 ))

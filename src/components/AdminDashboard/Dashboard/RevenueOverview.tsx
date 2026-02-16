@@ -31,12 +31,18 @@ const RevenueOverview = ({ data }: RevenueOverviewProps) => {
     apiChartData.data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     apiChartData.categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   }
-
+  const DummyWeeklyData = {
+    data: [0, 0, 0, 0, 0, 0, 0],
+    categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  };
+const dummyMonthlyData = {
+  data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+};
   // Revenue dataset
   const chartData: Record<string, { data: number[]; categories: string[] }> = {
-    // For now mapping everything to the API data since we don't have filters in API yet
-    last_7_days: apiChartData,
-    last_30_days: apiChartData,
+    last_7_days: DummyWeeklyData,
+    last_30_days: dummyMonthlyData,
     last_6_months: apiChartData,
     yearly: apiChartData,
     this_year: apiChartData,
@@ -60,7 +66,7 @@ const RevenueOverview = ({ data }: RevenueOverviewProps) => {
       axisTicks: { show: false },
       labels: {
         style: {
-          colors: "#969696", // x-axis text color
+          colors: "#969696", 
         },
       },
     },
@@ -70,9 +76,9 @@ const RevenueOverview = ({ data }: RevenueOverviewProps) => {
       tickAmount: 6,
       labels: {
         style: {
-          colors: "#969696", // y-axis text color
+          colors: "#969696", 
         },
-        formatter: (val) => `${Math.round(val)}`, // plain numbers only
+        formatter: (val) => `${Math.round(val)}`, 
       },
     },
     tooltip: { enabled: true },

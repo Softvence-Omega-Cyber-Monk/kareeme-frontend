@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import download from "@/assets/icons/photo.png";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 // Interface for Release data from API
 export interface Release {
@@ -29,9 +30,17 @@ interface TableHereProps {
 // Main Table Component
 const TableHere = ({ releases }: TableHereProps) => {
   const navigate = useNavigate();
+  const role=useAppSelector((state)=>state.auth.user?.role)
+  
 
   const goToDetails = (id: string) => {
-    navigate(`/client-dashboard/catalog/releases/${id}`);
+    if(role==="DISTRIBUTOR"){
+      navigate(`/distributor-dashboard/catalog/releases/${id}`);
+    } else if(role==="CLIENT"){
+      navigate(`/client-dashboard/catalog/releases/${id}`);
+    } else if(role==="ADMIN"){
+      navigate(`/admin/catalog/releases/${id}`);
+    }
   };
 
   return (

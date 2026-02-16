@@ -154,3 +154,13 @@ export type ChangePasswordRequest = {
   password?: string;
   newPassword?: string;
 };
+
+export type ForgotPasswordRequest = {
+  email: string;
+};
+
+export type ResetPasswordRequest = {
+  otp: string;
+  email: string;
+  newPassword: string;
+};

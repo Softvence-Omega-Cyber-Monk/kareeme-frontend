@@ -154,9 +154,9 @@ export default function EarningsByType({ data }: EarningsByTypeProps) {
                   ))}
               </div>
 
-              <button className="mt-6 w-full md:w-full bg-[#233635] text-white rounded-lg py-3 hover:bg-gray-600 transition-all font-medium text-lg cursor-pointer">
+              {/* <button className="mt-6 w-full md:w-full bg-[#233635] text-white rounded-lg py-3 hover:bg-gray-600 transition-all font-medium text-lg cursor-pointer">
                 View Full Details
-              </button>
+              </button> */}
             </div>
           </div>
         </CardContent>
