@@ -1,5 +1,4 @@
 import { useGetProfitLossQuery } from "@/redux/features/accountant/accountantApi";
-import { useState } from "react";
 import IcomeExpenssMonth from "./IcomeExpenssMonth";
 import { IncomeProfitLossTable } from "./IncomeProfitLossTable";
 import LossSummary from "./LossSummary";
@@ -11,8 +10,6 @@ import ComponentError from "@/components/Reuseable/ComponentError";
 
 const ProfitLoss = () => {
     const { data, isLoading, error } = useGetProfitLossQuery();
-    const [clientFilter, setClientFilter] = useState("all_clients");
-    const [timeFilter, setTimeFilter] = useState("2024");
 
   if (isLoading) {
     return (
@@ -30,12 +27,7 @@ const ProfitLoss = () => {
   const clientData = data?.data.clientData || [];
   return (
     <div className="space-y-6">
-      <ProfitLossHead 
-        clientFilter={clientFilter}
-        setClientFilter={setClientFilter}
-        timeFilter={timeFilter}
-        setTimeFilter={setTimeFilter}
-      />
+      <ProfitLossHead />
     
       <div className="flex flex-col lg:flex-row w-full gap-5">
         <div className="w-full lg:w-1/2">
