@@ -121,34 +121,37 @@ export interface AdminSplitSheet {
   };
 }
 
+export interface DetailedRelease {
+  releaseId: string;
+  userId: string;
+  releaseDate: string;
+  preOrderDate: string | null;
+  releaseTitle: string;
+  typeOfRelease: string;
+  genre: string | null;
+  language: string | null;
+  isExplicitContent: boolean | null;
+  hasExternalRightsHolder: boolean | null;
+  hasDolbyAtmosVersion: boolean | null;
+  hasExtendedMixForDjStores: boolean | null;
+  additionalDetails: string | null;
+  hasArtistOnSpotify: boolean | null;
+  hasMusicVideo: boolean | null;
+  status: string;
+  producerCredits: string;
+  lyricistCredits: string;
+  masterSplits: string;
+  copyrightHolder: string;
+  labelName: string;
+  albumLevelArtistName: string;
+  musicFileLink: string | null;
+  createdAt: string;
+  updatedAt: string;
+  imageUrl?: string;
+}
+
 export interface AdminSplitSheetDetail extends Omit<AdminSplitSheet, "release"> {
-  release: {
-    releaseId: string;
-    userId: string;
-    releaseDate: string;
-    preOrderDate: string;
-    releaseTitle: string;
-    typeOfRelease: string;
-    genre: string;
-    language: string;
-    isExplicitContent: boolean;
-    hasExternalRightsHolder: boolean;
-    hasDolbyAtmosVersion: boolean;
-    hasExtendedMixForDjStores: boolean;
-    additionalDetails: string;
-    hasArtistOnSpotify: boolean;
-    hasMusicVideo: boolean;
-    status: string;
-    producerCredits: string;
-    lyricistCredits: string;
-    masterSplits: string;
-    copyrightHolder: string;
-    labelName: string;
-    albumLevelArtistName: string;
-    musicFileLink: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  release: DetailedRelease;
 }
 
 export interface AdminSingleSplitSheetResponse {
@@ -206,6 +209,16 @@ export interface AdminBackCatalogueResponse {
     total: number;
     totalPage: number;
   };
+}
+
+export interface AdminBackCatalogueDetail extends Omit<AdminBackCatalogueEntry, "release"> {
+  release: DetailedRelease;
+}
+
+export interface AdminSingleBackCatalogueResponse {
+  success: boolean;
+  message: string;
+  data: AdminBackCatalogueDetail;
 }
 
 export interface AdminBackCatalogueQuery {

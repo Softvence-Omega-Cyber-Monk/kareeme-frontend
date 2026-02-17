@@ -206,6 +206,7 @@ const routes = createBrowserRouter([
       { path: "submissions", element: <DistributorSubmissions /> },
       { path: "submissions/:id", element: <SubmissionDetails /> },
       { path: "back-catalog", element: <DistributorBackCatalog /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       /*  */
       { path: "distribution", element: <DistributionPage /> },
       { path: "distribution/details", element: <DistributationDetails /> },
@@ -256,6 +257,7 @@ const routes = createBrowserRouter([
       /* Catalog */
       { path: "releases", element: <AdminRealisePage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "submit", element: <AdminSubmitPage /> },
       { path: "submit/:id", element: <SubmitDetails /> },
       /* team */

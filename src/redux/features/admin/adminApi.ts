@@ -11,6 +11,7 @@ import {
   AdminSplitSheetsQuery,
   AdminSingleSplitSheetResponse,
   AdminBackCatalogueResponse,
+  AdminSingleBackCatalogueResponse,
   AdminBackCatalogueQuery,
   AdminReleasesResponse,
   AdminReleasesQuery,
@@ -85,6 +86,13 @@ const adminApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Releases"],
     }),
+    getSingleAdminBackCatalogue: builder.query<AdminSingleBackCatalogueResponse, string | undefined>({
+      query: (id) => ({
+        url: `/admin/back-catalogue/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Releases"],
+    }),
     getAdminReleases: builder.query<AdminReleasesResponse, AdminReleasesQuery>({
       query: (params) => ({
         url: "/admin/releases",
@@ -106,6 +114,7 @@ export const {
   useGetAdminSplitSheetsQuery,
   useGetSingleAdminSplitSheetQuery,
   useGetAdminBackCatalogueQuery,
+  useGetSingleAdminBackCatalogueQuery,
   useGetAdminReleasesQuery,
 } = adminApi;
 export default adminApi;
