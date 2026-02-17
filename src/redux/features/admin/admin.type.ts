@@ -173,3 +173,42 @@ export interface AdminSplitSheetsQuery {
   page?: number;
   limit?: number;
 }
+
+export interface AdminBackCatalogueEntry {
+  catalogueId: string;
+  releaseId: string;
+  labelName: string;
+  distributor: string;
+  upc: string;
+  catalogueNumber: string;
+  releaseArtist: string;
+  releaseTitle: string;
+  releaseType: string;
+  releaseDate: string;
+  releasePLine: string;
+  releaseCLine: string;
+  createdAt: string;
+  updatedAt: string;
+  release: {
+    releaseId: string;
+    releaseTitle: string;
+    userId: string;
+  };
+}
+
+export interface AdminBackCatalogueResponse {
+  success: boolean;
+  message: string;
+  data: AdminBackCatalogueEntry[];
+  metadata: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
+
+export interface AdminBackCatalogueQuery {
+  page?: number;
+  limit?: number;
+}

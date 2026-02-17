@@ -10,6 +10,8 @@ import {
   AdminSplitSheetsResponse,
   AdminSplitSheetsQuery,
   AdminSingleSplitSheetResponse,
+  AdminBackCatalogueResponse,
+  AdminBackCatalogueQuery,
 } from "./admin.type";
 
 const adminApi = baseApi.injectEndpoints({
@@ -73,6 +75,14 @@ const adminApi = baseApi.injectEndpoints({
       }),
       providesTags: ["SplitSheets"],
     }),
+    getAdminBackCatalogue: builder.query<AdminBackCatalogueResponse, AdminBackCatalogueQuery>({
+      query: (params) => ({
+        url: "/admin/back-catalogue",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["Releases"],
+    }),
   }),
 });
 
@@ -85,5 +95,6 @@ export const {
   useDeleteTeamMemberMutation,
   useGetAdminSplitSheetsQuery,
   useGetSingleAdminSplitSheetQuery,
+  useGetAdminBackCatalogueQuery,
 } = adminApi;
 export default adminApi;
