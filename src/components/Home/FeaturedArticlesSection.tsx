@@ -233,7 +233,7 @@ const FeaturedArticlesSection: React.FC = () => {
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>
             </div>
-          </div>
+          </div>  
         </div>
       </section>
     </div>
