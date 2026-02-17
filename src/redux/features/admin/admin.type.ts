@@ -212,3 +212,31 @@ export interface AdminBackCatalogueQuery {
   page?: number;
   limit?: number;
 }
+
+export interface AdminRelease {
+  releaseId: string;
+  releaseTitle: string;
+  typeOfRelease: string;
+  releaseDate: string;
+  status: string;
+  upc?: string;
+  artistName?: string;
+  createdAt: string;
+}
+
+export interface AdminReleasesResponse {
+  success: boolean;
+  message: string;
+  data: AdminRelease[];
+  metadata: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
+
+export interface AdminReleasesQuery {
+  page?: number;
+  limit?: number;
+}
