@@ -6,8 +6,8 @@ import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
 import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
+import { useParams } from "react-router-dom";
 /* pic */
-
 import Youtube from "@/assets/icons/youtube.png";
 import sportify from "@/assets/icons/sportity.png";
 import apple from "@/assets/icons/apple.png";
@@ -16,6 +16,10 @@ import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
+import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+import { skipToken } from "@reduxjs/toolkit/query";
+import DistributionDetailsLoading from "./Loading";
+import DistributionError from "./Error";
 
 interface PlatformItem {
   name: string;
@@ -76,6 +80,14 @@ const platformPerformance: PlatformItem[] = [
 ];
 
 const DistributationDetails = () => {
+  const { releaseId } = useParams();
+  const { data: submissionDetailResponse , isLoading, isError, refetch } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
+  if(isLoading) return <DistributionDetailsLoading/>
+  if(isError) return <DistributionError onRetry={refetch}/>
+  const data = submissionDetailResponse?.data
+
+  console.log(data)
+
   return (
     <div className="space-y-4">
       <Link to="/distributor-dashboard/distribution">
@@ -94,8 +106,8 @@ const DistributationDetails = () => {
               className="w-[86px] h-[65px] rounded-lg"
             />
             <div className="space-y-3">
-              <h2 className="text-2xl font-bold">Electric Nights</h2>
-              <p className="text-gray-400">Gemini Chachi</p>
+              <h2 className="text-2xl font-bold">{data?.releaseTitle}</h2>
+              <p className="text-gray-400">{data?.primaryArtist}</p>
             </div>
           </div>
           <div>
