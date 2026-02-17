@@ -7,6 +7,9 @@ import {
   TeamQuery,
   UpdateTeamMemberRequest,
   GenericResponse,
+  AdminSplitSheetsResponse,
+  AdminSplitSheetsQuery,
+  AdminSingleSplitSheetResponse,
 } from "./admin.type";
 
 const adminApi = baseApi.injectEndpoints({
@@ -55,6 +58,21 @@ const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Team"],
     }),
+    getAdminSplitSheets: builder.query<AdminSplitSheetsResponse, AdminSplitSheetsQuery>({
+      query: (params) => ({
+        url: "/admin/split-sheets",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["SplitSheets"],
+    }),
+    getSingleAdminSplitSheet: builder.query<AdminSingleSplitSheetResponse, string>({
+      query: (id) => ({
+        url: `/admin/split-sheets/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["SplitSheets"],
+    }),
   }),
 });
 
@@ -65,5 +83,7 @@ export const {
   useUpdateTeamMemberMutation,
   useSuspendTeamMemberMutation,
   useDeleteTeamMemberMutation,
+  useGetAdminSplitSheetsQuery,
+  useGetSingleAdminSplitSheetQuery,
 } = adminApi;
 export default adminApi;

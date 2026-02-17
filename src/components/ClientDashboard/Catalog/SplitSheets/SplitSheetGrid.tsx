@@ -1,22 +1,48 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SplitSheetCard, { SplitSheetAPI } from "./SplitSheetCard";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
 import { useGetAllSplitSheetsQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useGetAdminSplitSheetsQuery } from "@/redux/features/admin/adminApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const SplitSheetGrid = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: response, isLoading, isError } = useGetAllSplitSheetsQuery({});
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  
+  const role = useAppSelector((state) => state.auth.user?.role);
+  const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "DISTRIBUTOR";
 
-  const splitSheets: SplitSheetAPI[] = response?.data || [];
+  const { 
+    data: clientResponse, 
+    isLoading: isLoadingClient, 
+    isError: isErrorClient 
+  } = useGetAllSplitSheetsQuery({}, { skip: isAdmin });
 
-  const filteredSplitSheets = splitSheets.filter((split) => {
+  const { 
+    data: adminResponse, 
+    isLoading: isLoadingAdmin, 
+    isError: isErrorAdmin 
+  } = useGetAdminSplitSheetsQuery({ page, limit }, { skip: !isAdmin });
+
+  const isLoading = isAdmin ? isLoadingAdmin : isLoadingClient;
+  const isError = isAdmin ? isErrorAdmin : isErrorClient;
+  const response = isAdmin ? adminResponse : clientResponse;
+
+  const metadata = isAdmin ? adminResponse?.metadata : null;
+
+  const filteredSplitSheets = useMemo(() => {
+    const sheets: SplitSheetAPI[] = response?.data || [];
     const term = searchTerm.toLowerCase();
-    return (
-      split.songTitle.toLowerCase().includes(term) ||
-      (split.isrc && split.isrc.toLowerCase().includes(term))
-    );
-  });
+    return sheets.filter((split) => {
+      return (
+        split.songTitle.toLowerCase().includes(term) ||
+        (split.isrc && split.isrc.toLowerCase().includes(term))
+      );
+    });
+  }, [response?.data, searchTerm]);
 
   if (isLoading) {
     return (
@@ -34,6 +60,11 @@ const SplitSheetGrid = () => {
     );
   }
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="space-y-10">
       {/* Search Input */}
@@ -50,14 +81,54 @@ const SplitSheetGrid = () => {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredSplitSheets.map((split) => (
-          <SplitSheetCard key={split.splitId} split={split} />
-        ))}
-        {filteredSplitSheets.length === 0 && (
-          <p className="col-span-full text-center text-gray-400">
-            No split sheets found.
-          </p>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredSplitSheets.map((split) => (
+            <SplitSheetCard key={split.splitId} split={split} />
+          ))}
+          {filteredSplitSheets.length === 0 && (
+            <p className="col-span-full text-center text-gray-400">
+              No split sheets found.
+            </p>
+          )}
+        </div>
+
+        {/* Pagination Controls (Admin only) */}
+        {isAdmin && metadata && metadata.totalPage > 1 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-4">
+            <div className="text-gray-400 text-sm order-2 sm:order-1">
+              Showing {((page - 1) * limit) + 1} to {Math.min(page * limit, metadata.total)} of {metadata.total} split sheets
+            </div>
+            <div className="flex items-center gap-4 order-1 sm:order-2">
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page === 1}
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                  page === 1
+                    ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                    : "bg-[#3A5CFF] text-white hover:bg-blue-600"
+                }`}
+              >
+                <FaChevronLeft className="w-3 h-3" />
+                Previous
+              </button>
+              <div className="text-white text-sm font-medium">
+                Page {page} of {metadata.totalPage}
+              </div>
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page === metadata.totalPage}
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                  page === metadata.totalPage
+                    ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                    : "bg-[#3A5CFF] text-white hover:bg-blue-600"
+                }`}
+              >
+                Next
+                <FaChevronRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>
