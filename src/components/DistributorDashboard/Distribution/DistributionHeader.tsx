@@ -108,7 +108,7 @@ const DistributionHeader = () => {
 
             {/* Status */}
             <Select 
-              value={status} onValueChange={(value) => setStatus(value as any) }
+              value={status} onValueChange={(value: "" | "active" | "inactive") => setStatus(value) }
               >
               <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
                 <SelectValue
@@ -118,6 +118,12 @@ const DistributionHeader = () => {
               </SelectTrigger>
               <SelectContent className="border-none bg-[#17171A] text-white rounded-lg shadow-lg">
                 <SelectGroup>
+                  <SelectItem
+                    value=""
+                    className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                  >
+                    All Status
+                  </SelectItem>
                   <SelectItem
                     value="active"
                     className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
