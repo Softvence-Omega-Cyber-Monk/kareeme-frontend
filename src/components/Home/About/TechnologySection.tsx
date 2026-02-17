@@ -151,7 +151,7 @@ const TechnologySection = () => {
           {cardData.map((card, cardIndex) => (
             <div
               key={cardIndex}
-              className={`bg-gradient-to-br from-[#0C1A1F] to-[#0C1A1F] p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-700 ease-out ${
+              className={`bg-linear-to-br from-[#0C1A1F] to-[#0C1A1F] p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500 transition-all duration-700 ease-out ${
                 visibleCards[cardIndex]
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-20"
@@ -175,7 +175,7 @@ const TechnologySection = () => {
                       <img
                         src={item.flag || item.icon}
                         alt={item.country || item.region || item.name}
-                        className="w-5 h-5 sm:w-6 sm:h-6 object-contain flex-shrink-0"
+                        className="w-5 h-5 sm:w-6 sm:h-6 object-contain shrink-0"
                       />
                       <span className="truncate">
                         {item.country || item.region || item.name}
