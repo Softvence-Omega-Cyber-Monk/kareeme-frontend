@@ -1,9 +1,16 @@
 import logo from "@/assets/logo 1.png";
 import img from "@/assets/photo/ss.png";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
 
 import logo1 from "@/assets/kareme/icon/logo2.png";
 import star from "@/assets/kareme/icon/star1.png";
@@ -70,7 +77,7 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
-    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 flex-shrink-0 w-full sm:mt-24">
+    <div className="bg-[#1a1a1a]  rounded-xl overflow-hidden shadow-lg border border-gray-800 w-full sm:mt-24">
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Half - Article Screenshot */}
         <div className="w-full md:w-1/2 bg-gray-900 overflow-hidden relative min-h-[150px] md:min-h-0 cursor-pointer">
@@ -134,32 +141,6 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
 // =================================================================
 
 const FeaturedArticlesSection: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const totalArticles = featuredArticles.length;
-
-  const getCardsPerView = () => {
-    // lg: 2 cards per view (Desktop)
-    if (window.innerWidth >= 1024) return 2;
-
-    return 1;
-  };
-
-  const nextSlide = () => {
-    const cardsPerView = getCardsPerView();
-    const maxIndex = totalArticles - cardsPerView;
-    setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
-  };
-
-  const prevSlide = () => {
-    const cardsPerView = getCardsPerView();
-    const maxIndex = totalArticles - cardsPerView;
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? maxIndex : prevIndex - 1
-    );
-  };
-
-  const translateXValue = currentIndex * (100 / getCardsPerView());
-
   return (
     <div>
       <section className="relative py-16 md:py-24 overflow-hidden ">
@@ -168,11 +149,6 @@ const FeaturedArticlesSection: React.FC = () => {
           // variants={textItemVariants}
           className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8 bg-[#0C1C1F] rounded-3xl w-[250px] md:w-[330px] h-[52px] mx-auto border-t border-[#075D2F]"
         >
-          {/* <img
-            src={logo}
-            alt="Small Logo"
-            className="h-8 w-8 object-contain logo-spin"
-          /> */}
           <Link
             to="/"
             className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 "
@@ -200,53 +176,64 @@ const FeaturedArticlesSection: React.FC = () => {
         <div className="absolute inset-0  z-0 opacity-50"></div>
 
         <div className="relative w-full mx-auto z-10">
-          {/* Articles Wrapper - Carousel Track */}
-          <div className="relative overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{
-                width: `${(totalArticles / getCardsPerView()) * 100}%`,
-                transform: `translateX(-${translateXValue}%)`,
+          {/* Articles Wrapper - Swiper Carousel */}
+          <div className="relative group">
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              spaceBetween={20}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              loop={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
               }}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              breakpoints={{
+                1280: {
+                  slidesPerView: 2,
+                  spaceBetween: 30,
+                  slidesPerGroup: 1,
+                },
+              }}
+              className="featured-articles-swiper"
             >
               {featuredArticles.map((article, index) => (
-                <motion.div
-                  key={article.id}
-                  className="px-4 py-2 flex-shrink-0"
-                  style={{
-                    width: `${100 / totalArticles}%`,
-                  }}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <ArticleCard article={article} />
-                </motion.div>
+                <SwiperSlide key={article.id} className="py-2 px-4">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <ArticleCard article={article} />
+                  </motion.div>
+                </SwiperSlide>
               ))}
+            </Swiper>
+
+            {/* Navigation Arrows */}
+            <div className="absolute inset-y-0 flex mt-20 items-center justify-between w-full pointer-events-none px-4 md:px-8 z-20">
+              {/* Left Arrow */}
+              <button
+                className="swiper-button-prev-custom pointer-events-auto cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -ml-4"
+                aria-label="Previous Article"
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Right Arrow */}
+              <button
+                className="swiper-button-next-custom pointer-events-auto cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -mr-4"
+                aria-label="Next Article"
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
             </div>
-          </div>
-
-          {/* Navigation Arrows */}
-          <div className="absolute inset-y-0 flex mt-20 items-center justify-between w-full pointer-events-none px-4 md:px-8">
-            {/* Left Arrow */}
-            <button
-              onClick={prevSlide}
-              aria-label="Previous Article"
-              className="pointer-events-auto cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -ml-4"
-            >
-              <ChevronLeft className="w-6 h-6 text-white" />
-            </button>
-
-            {/* Right Arrow */}
-            <button
-              onClick={nextSlide}
-              aria-label="Next Article"
-              className="pointer-events-auto  cursor-pointer bg-gray-800/70 hover:bg-gray-700 p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 -mr-4"
-            >
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
-          </div>
+          </div>  
         </div>
       </section>
     </div>
