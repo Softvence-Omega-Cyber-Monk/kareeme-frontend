@@ -16,11 +16,12 @@ import { Card } from "@/components/ui/card";
 // import { SubmissionDetailsData } from "@/redux/features/distribution/distribution.type";
 import useControlDispatch from "@/contexts/control/hooks/useControlDispatch";
 import useControlData from "@/contexts/control/hooks/useControlData";
-import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
-import { useGetSingleReleaseQuery } from "@/redux/features/newRelease/newReleaseApi";
+// import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+// import { useGetSingleReleaseQuery } from "@/redux/features/newRelease/newReleaseApi";
 import ConfirmDistributionSkeleton from "./Loading";
 import DistributionError from "./Error";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { useGetReleaseDetailsQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
 
 interface PlatformItem {
   name: string;
@@ -85,39 +86,47 @@ const ConfirmDistribution = () => {
 
       const { closeModal } = useControlDispatch()
       const { releaseId } =  useControlData()
-      const { 
-        data, 
-        isLoading, isError } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
-      const { 
-        data: releaseData, 
-        isLoading: isReleaseLoading, isError: isReleaseError } = useGetSingleReleaseQuery(releaseId ?? skipToken);
+      // const { 
+      //         data, 
+      //         isLoading, isError } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
+      
+      const { data, 
+              isLoading, 
+              isError     } = useGetReleaseDetailsQuery(releaseId ?? skipToken);
+
+      
+                
+      // const { 
+      //         data: releaseData, 
+      //         isLoading: isReleaseLoading, isError: isReleaseError, error } = useGetSingleReleaseQuery(releaseId ?? skipToken);
 
         console.log(data)
-        console.log(releaseData)
+        // console.log(releaseData)
+        // console.log(error)
+        // console.log(isReleaseError)
 
 
 
-      if (isError || isReleaseError) return <DistributionError/> 
-      if (isLoading || isReleaseLoading) return <ConfirmDistributionSkeleton/> 
+      if (isError ) return <DistributionError/> 
+      if (isLoading 
+        // || isReleaseLoading
+      ) return <ConfirmDistributionSkeleton/> 
 
 
-
+      const release = data?.data;
+      const track = release?.tracks?.[0];
   return (
     <div>
-      <div className=" w-full text-white   mx-auto marker-class">
+      <div className=" w-full text-white mx-auto">
         <p className="text-2xl font-sans  gap-1">Confirm Distribution</p>
-
+        
         <div className=" w-full text-white   mx-auto mt-6">
           <div className=" flex items-center justify-between">
             <div className="flex items-center gap-4 mb-6">
-              <img
-                src={catalogphoto1}
-                alt="Album Artwork"
-                className="w-[86px] h-[65px] rounded-lg"
-              />
+              <img src={catalogphoto1} alt="Album Artwork" className="w-[86px] h-[65px] rounded-lg"/>
               <div className="space-y-3">
-                <h2 className="text-2xl font-bold">Electric Nights</h2>
-                <p className="text-gray-400">Gemini Chachi</p>
+                <h2 className="text-2xl font-bold">{release?.releaseTitle}</h2>
+                <p className="text-gray-400">{release?.primaryArtist}</p>
               </div>
             </div>
           </div>
@@ -131,30 +140,32 @@ const ConfirmDistribution = () => {
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
+                <p className="font-medium">{release?.labelName}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
+                <p className="font-medium">{release?.catalogueNumber}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release Type: </p>
-                <p className="font-medium">Single</p>
+                <p className="font-medium">{release?.typeOfRelease}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release Date: </p>
-                <p className="font-medium">20/11/2024</p>
+                <p className="font-medium">{release?.releaseDate
+                                              ? new Date(release.releaseDate).toLocaleDateString()
+                                              : "N/A"}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Distributor: </p>
-                <p className="font-medium">Distrokid</p>
+                <p className="font-medium">{release?.distributor}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release Artist: </p>
-                <p className="font-medium">Gemini Chachi</p>
+                <p className="font-medium">{release?.primaryArtist}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Artwork Link: </p>
@@ -164,24 +175,23 @@ const ConfirmDistribution = () => {
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">UPC: </p>
-                <p className="font-medium">797587574636</p>
+                <p className="font-medium">{release?.upc}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release Title: </p>
-                <p className="font-medium">
-                  The World is Yours (feat. LeeLee Babii
-                </p>
+                <p className="font-medium">{release?.releaseTitle}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release C Link: </p>
-                <p className="font-medium">(c) 2024 OnelsOneEnt</p>
+                <p className="font-medium">{release?.releaseCLine}
+                </p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Release P Link: </p>
-                <p className="font-medium">(P) 2024 OnelsOneEnt</p>
+                <p className="font-medium">{release?.releasePLine}  </p>
               </div>
             </div>
           </div>
@@ -193,15 +203,15 @@ const ConfirmDistribution = () => {
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">ISRC: </p>
-                <p className="font-medium">US-SIZ-23-00001</p>
+                <p className="font-medium">{track?.isrc} </p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Copyright Holder: </p>
-                <p className="font-medium">OnelsOneEnt</p>
+                <p className="font-medium">{release?.labelName || track?.publisher}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Language: </p>
-                <p className="font-medium">English</p>
+                <p className="font-medium">{track?.language} </p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">TikTok Start Time: </p>
@@ -216,51 +226,53 @@ const ConfirmDistribution = () => {
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Artist: </p>
-                <p className="font-medium"> emini Chachi, LeeLee Babii </p>
+                <p className="font-medium">{release?.primaryArtist} </p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Publishe: </p>
-                <p className="font-medium"> OnelsOne Publishing</p>
+                <p className="font-medium">{track?.publisher}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Explicit: </p>
-                <p className="font-medium underline text-blue-600">Yes</p>
+                <p className="font-medium underline text-blue-600">{track?.explicit ? "Yes" : "No"}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Territory: </p>
-                <p className="font-medium">None</p>
+                <p className="font-medium">{track?.territoryRestrictions} </p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Mix/Version: </p>
-                <p className="font-medium">BabiiOriginal Mix</p>
+                <p className="font-medium">{track?.mix} </p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Genre: </p>
-                <p className="font-medium">Pop/ R&B</p>
+                <p className="font-medium">{track?.genre}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Original Release </p>
-                <p className="font-medium"> Date: 20/11/2024</p>
+                <p className="font-medium">{track?.originalReleaseDate
+                                              ? new Date(track.originalReleaseDate).toLocaleDateString()
+                                              : "N/A"} </p>
               </div>
-            </div>
+            </div>  
           </div>
         </div>
         {/* part-3 */}
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
           <h2 className="text-2xl">Artist Metadata </h2>{" "}
-          <h2 className="text-lg mt-2">Artist: Gemini Chachi </h2>{" "}
+          <h2 className="text-lg mt-2">Artist: { release?.primaryArtist } </h2>{" "}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
+                <p className="font-medium">{release?.labelName}</p>
               </div>
               <div className="flex justify-start gap-2">
                 <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
+                <p className="font-medium">{release?.catalogueNumber}</p>
               </div>
 
               <div className="flex justify-start gap-2">

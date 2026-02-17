@@ -1,6 +1,5 @@
 import type { JSX } from "react"
 import { Card } from "@/components/ui/card";
-
 import Youtube from "@/assets/icons/youtube.png";
 import sportify from "@/assets/icons/sportity.png";
 import apple from "@/assets/icons/apple.png";
@@ -12,15 +11,16 @@ import heart from "@/assets/icons/heart2.png";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FaCalendarAlt, FaCheck, FaUser } from "react-icons/fa";
 import { IoMdMusicalNote } from "react-icons/io";
-import SubmissionItemType from "./Type";
+// import SubmissionItemType from "./Type";
 import { Link } from "react-router-dom";
+import { Release } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributor.type"
 
 interface Props {
-  data: SubmissionItemType;
+  data: Release;
 }
 
 export default function FailedItem({ data }: Props): JSX.Element {
-  console.log(data)
+  // console.log(data)
   return (
     <div className="bg-[#0C1F21] border border-gray-700 rounded-xl p-6 shadow-lg space-y-4 hover:shadow-2xl transition">
           <div className="flex justify-between items-center">

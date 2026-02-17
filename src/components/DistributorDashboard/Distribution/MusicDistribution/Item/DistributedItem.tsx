@@ -10,12 +10,13 @@ import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FaCalendarAlt, FaCheck, FaUser } from "react-icons/fa";
-import { IoMdMusicalNote } from "react-icons/io";
+// import { IoMdMusicalNote } from "react-icons/io";
 import { Link } from "react-router-dom";
-import SubmissionItemType from "./Type";
+// import SubmissionItemType from "./Type";
 import { formatDateToDDMMYYYY } from "@/utils/formatDateToDDMMYYYY";  
+import { Release } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributor.type";
 
-interface Props { data: SubmissionItemType; }
+interface Props { data: Release; }
 
 export default function DistributedItem({ data }: Props): JSX.Element {
   const releaseDate = formatDateToDDMMYYYY(data.releaseDate)
@@ -26,7 +27,7 @@ export default function DistributedItem({ data }: Props): JSX.Element {
               <div className="flex items-center gap-3 cursor-pointer">
                 <Checkbox id={data.releaseId}  />
               </div>
-              <h2 className="text-2xl font-sans">{data.title}</h2>
+              <h2 className="text-2xl font-sans">{data.releaseTitle}</h2>
             </div>
             <p className="text-[#01D449] bg-[#0E3026] px-3 py-1 rounded-lg font-medium w-fit">
               {/* Distributed */}
@@ -40,16 +41,18 @@ export default function DistributedItem({ data }: Props): JSX.Element {
                 <div className="space-y-3">
                   <p className=" flex gap-1">
                     <FaUser className="text-[#01D449]" />
-                    {data.artist}
+                    {data.artistName}
                   </p>
                   <p className=" flex gap-1">
                     <FaCalendarAlt className="text-[#01D449]" />
                     Release Date: {releaseDate}
                   </p>
-                  <p className=" flex gap-1">
+
+                  {/* Temporay turn off implement later  */}
+                  {/* <p className=" flex gap-1">
                     <IoMdMusicalNote className="text-[#01D449]" />
-                    {`${data.trackCount} Tracks`}
-                  </p>
+                    {`${data?.trackCount} Tracks`}
+                  </p> */}
                 </div>
                 <h2 className="text-base font-sans font-semibold">
                   Distribution Status:
