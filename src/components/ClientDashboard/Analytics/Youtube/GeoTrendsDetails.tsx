@@ -66,12 +66,12 @@ export function GeoTrendsDetails({ platform, period }: GeoTrendsDetailsProps) {
 
   return (
     <div className="space-y-4 md:space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 ">
         {/* Left side - Title */}
         <h1 className=" text-lg md:text-2xl font-sans text-white">Geo Trends</h1>
 
         {/* Right side - Search + Filters */}
-        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row lg:justify-end items-stretch gap-4 w-full">
+        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row lg:justify-end items-stretch gap-4 w-fit">
           {/* Limit Filter */}
           <Select onValueChange={(val) => setLimit(Number(val))}>
             <SelectTrigger className="w-full  sm:w-[200px] md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
