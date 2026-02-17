@@ -102,6 +102,11 @@ input[type="number"]::-webkit-outer-spin-button {
   display: none; /* Chrome, Safari */
 }
 
+/* .audio-player {
+  width: 100%;
+  height: 60px;
+} */
+
 .marker-class {
   border: 1px solid red;
 }

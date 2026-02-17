@@ -1,6 +1,6 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
-import audioframe1 from "@/assets/photo/audioframe1.svg";
-import audioframe2 from "@/assets/photo/audioframe2.svg";
+// import audioframe1 from "@/assets/photo/audioframe1.svg";
+// import audioframe2 from "@/assets/photo/audioframe2.svg";
 import tenancy from "@/assets/icons/tenancy.svg";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
@@ -22,6 +22,13 @@ import ConfirmDistributionSkeleton from "./Loading";
 import DistributionError from "./Error";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { useGetReleaseDetailsQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
+import { useApproveSubmissionMutation, useDeclineSubmissionMutation } from "@/redux/features/distribution/distributionApi";
+// import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useMemo } from "react";
+import AudioPlayer from "./AudioPlayer";
+import { createPortal } from "react-dom";
 
 interface PlatformItem {
   name: string;
@@ -84,6 +91,8 @@ const platformPerformance: PlatformItem[] = [
 const ConfirmDistribution = () => {
   // console.log(data)
 
+    const [showDeclineModal, setShowDeclineModal] = useState(false);
+    const [declineReason, setDeclineReason] = useState("");
       const { closeModal } = useControlDispatch()
       const { releaseId } =  useControlData()
       // const { 
@@ -94,17 +103,89 @@ const ConfirmDistribution = () => {
               isLoading, 
               isError     } = useGetReleaseDetailsQuery(releaseId ?? skipToken);
 
+      const [approveSubmission, {
+                                  isLoading: isApproveLoading,
+                                  // isSuccess: isApproveSuccess,
+                                  // isError: isApproveError,
+                                                                }] = useApproveSubmissionMutation();
+              
+      const [declineSubmission, {
+                                  isLoading: isDeclineLoading,
+                                  // isSuccess: isDeclineSuccess,
+                                  // isError: isDeclineError,
+                                                                }] = useDeclineSubmissionMutation();
       
-                
+      
+      const handleApprove = async () => {
+
+        if (!releaseId) return;
+      
+        try {
+      
+          await approveSubmission({releaseId}).unwrap();
+      
+          toast.success("Distribution approved successfully");
+      
+          closeModal();
+      
+        } catch (error) {
+          console.log(error)
+          toast.error("Failed to approve distribution");
+      
+        }
+      
+      };
+                                                                
+
+      const handleDecline = async () => {
+
+        if (!releaseId) return;
+      
+        if (!declineReason.trim()) {
+      
+          toast.error("Decline reason is required");
+      
+          return;
+      
+        }
+      
+        try {
+      
+          await declineSubmission({
+            releaseId,
+            payload: { reason: declineReason },
+          }).unwrap();
+      
+          toast.success("Distribution declined successfully");
+      
+          setDeclineReason("");
+      
+          setShowDeclineModal(false);
+      
+          closeModal();
+      
+        } catch {
+      
+          toast.error("Failed to decline distribution");
+      
+        }
+      
+      };
+      
       // const { 
       //         data: releaseData, 
       //         isLoading: isReleaseLoading, isError: isReleaseError, error } = useGetSingleReleaseQuery(releaseId ?? skipToken);
 
-        console.log(data)
+        // console.log(data)
+
+        // const tracks = data?.data?.tracks
+        // console.log(tracks)
         // console.log(releaseData)
         // console.log(error)
         // console.log(isReleaseError)
+        const release = useMemo(() => data?.data, [data]);
 
+        const tracks = useMemo(() => release?.tracks || [], [release]);
 
 
       if (isError ) return <DistributionError/> 
@@ -113,7 +194,63 @@ const ConfirmDistribution = () => {
       ) return <ConfirmDistributionSkeleton/> 
 
 
-      const release = data?.data;
+      // const release = useMemo(() => data?.data, [data]);
+
+      // const tracks = useMemo(() => release?.tracks || [], [release]);
+
+      const renderDeclineModal = () => {
+
+        if (!showDeclineModal) return null;
+      
+        return createPortal(
+      
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60">
+      
+            <div className="bg-[#0B1D21] p-6 rounded-lg w-[400px] space-y-4 shadow-xl">
+      
+              <h2 className="text-xl font-bold text-white">
+                Decline Reason
+              </h2>
+      
+              <textarea
+                value={declineReason}
+                onChange={(e) => setDeclineReason(e.target.value)}
+                placeholder="Enter decline reason..."
+                className="w-full p-2 rounded bg-[#0F2435] text-white border border-gray-600 outline-none"
+              />
+      
+              <div className="flex justify-end gap-3">
+      
+                <button
+                  onClick={() => setShowDeclineModal(false)}
+                  className="bg-gray-500 px-4 py-2 rounded text-white"
+                >
+                  Cancel
+                </button>
+      
+                <button
+                  onClick={handleDecline}
+                  className="bg-red-500 px-4 py-2 rounded text-white"
+                >
+                  Submit
+                </button>
+      
+              </div>
+      
+            </div>
+      
+          </div>,
+      
+          document.body
+      
+        );
+      
+      };
+      
+
+
+
+      console.log(release)
       const track = release?.tracks?.[0];
   return (
     <div>
@@ -217,9 +354,34 @@ const ConfirmDistribution = () => {
                 <p className="text-[#E5E5E5]">TikTok Start Time: </p>
                 <p className="font-medium">0:15</p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-2 cursor-pointer">
-                <img src={audioframe1} alt="" className="w-full sm:w-auto" />
-                <img src={audioframe2} alt="" className="w-full sm:w-auto" />
+              <div className="flex flex-col sm:flex-row gap-2 cursor-pointer audio-player">
+                {/* <img src={audioframe1} alt="" className="w-full sm:w-auto" />
+                <img src={audioframe2} alt="" className="w-full sm:w-auto" /> */}
+                  {/* {
+                    tracks.map((track)=> 
+                      <div key={track.trackId} className="audio-player w-full">
+                        {
+                            track?.audioFileUrl ? (
+                              <audio
+                                controls
+                                preload="metadata"
+                                className="w-full outline-none"
+                              >
+
+                              <source src={track.audioFileUrl} type="audio/mpeg" />
+
+
+                              Your browser does not support audio.
+                            </audio>
+                          ) : (
+                            <p className="text-gray-400 text-sm">No audio available</p>
+                          )}
+                      </div>
+                    )
+                  } */}
+                {
+                  tracks.map(track => ( <AudioPlayer key={track.trackId} url={track.audioFileUrl} /> ))
+                }
               </div>
             </div>
 
@@ -261,7 +423,7 @@ const ConfirmDistribution = () => {
           </div>
         </div>
         {/* part-3 */}
-        <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
+        <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40] marker">
           <h2 className="text-2xl">Artist Metadata </h2>{" "}
           <h2 className="text-lg mt-2">Artist: { release?.primaryArtist } </h2>{" "}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
@@ -314,7 +476,7 @@ const ConfirmDistribution = () => {
             </div>
           </div>
           <hr className="text-[#044A20]" />
-          <h2 className="text-lg">Artist: LeeLee Babii</h2>{" "}
+          <h2 className="text-lg marker">Artist: LeeLee Babii</h2>{" "}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
             <div className="space-y-4">
               <div className="flex justify-start gap-2">
@@ -410,18 +572,81 @@ const ConfirmDistribution = () => {
 
         <div className="flex flex-col sm:flex-row justify-end gap-3">
           {/* Cancel Button */}
-          <button onClick={closeModal} className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
-            <RxCross2 />
-            Cancel
+          <button onClick={() => setShowDeclineModal(true)}
+                  disabled={isDeclineLoading}
+                className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
+            {
+              isDeclineLoading ? (
+                "Declining..."
+              ) : (
+                <>
+                  <RxCross2 />
+                  Cancel
+                </>
+              )
+            }
           </button>
 
           {/* Distribution Button */}
-          <button className="bg-[#3A5CFF] text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
-            <img src={tenancy} alt="" className="h-5 w-5" />
-            Confirm Distribution
+          <button 
+              onClick={handleApprove}
+              disabled={isApproveLoading}
+              className="bg-[#3A5CFF] text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed">
+            {/* <img src={tenancy} alt="" className="h-5 w-5" /> */}
+            {
+              isApproveLoading ? (
+                "Approving..."
+              ) : (
+                <>
+                  <img src={tenancy} alt="" className="h-5 w-5" />
+                  Confirm Distribution
+                </>
+              )
+            }
           </button>
         </div>
       </div>
+      {/* {showDeclineModal && (
+
+<div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50">
+
+  <div className="bg-[#0B1D21] p-6 rounded-lg w-[400px] space-y-4 shadow-lg">
+
+    <h2 className="text-xl font-bold text-white">
+      Decline Reason
+    </h2>
+
+    <textarea
+      value={declineReason}
+      onChange={(e) => setDeclineReason(e.target.value)}
+      placeholder="Enter decline reason..."
+      className="w-full p-2 rounded bg-[#0F2435] text-white border border-gray-600"
+    />
+
+    <div className="flex justify-end gap-3">
+
+      <button
+        onClick={() => setShowDeclineModal(false)}
+        className="bg-gray-400 px-4 py-2 rounded"
+      >
+        Cancel
+      </button>
+
+      <button
+        onClick={handleDecline}
+        className="bg-red-500 px-4 py-2 rounded text-white"
+      >
+        Submit
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+)} */}
+      {renderDeclineModal()}
     </div>
   );
 };
