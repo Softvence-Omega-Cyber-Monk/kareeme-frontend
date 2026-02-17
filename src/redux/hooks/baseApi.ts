@@ -5,7 +5,7 @@ import { setCredentials, logout } from "@/redux/features/auth/authSlice";
 import { LoginResponse } from "@/redux/types/auth.type";
 import { Mutex } from "async-mutex";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL;
+const baseURL = import.meta.env.VITE_API_BASE_URL || "https://api.oneisoneent.com";
 
 if (!baseURL) {
   throw new Error("VITE_API_BASE_URL is not defined in environment variables");
