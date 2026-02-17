@@ -7,8 +7,13 @@ import {
   Wallet,
   Banknote,
 } from "lucide-react";
+import { User } from "@/redux/types/auth.type";
 
-export default function BillingInformation() {
+interface BillingInformationProps {
+  user: User;
+}
+
+export default function BillingInformation({ user }: BillingInformationProps) {
   const [selected, setSelected] = useState("Bank Account");
 
   const paymentOptions = [
@@ -67,7 +72,7 @@ export default function BillingInformation() {
         <div>
           <label className="text-sm text-gray-400 block mb-1">Legal Name</label>
           <input
-            value="Kareeme Phillip"
+            defaultValue={user.name}
             className="rounded-xl h-12 px-3 w-full bg-[#253438] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

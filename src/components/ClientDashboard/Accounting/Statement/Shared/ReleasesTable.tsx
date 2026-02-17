@@ -11,57 +11,7 @@ import {
 import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/download.svg";
 
-// Sample Data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Stand on Dat",
-    name: "K Shiday",
-    upc: "UPC: 723277809397",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Handle Me",
-    name: "K Shiday",
-    upc: "UPC: 823377819398",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Cater 2 You",
-    name: "Auntie House",
-    upc: "UPC: 923477829399",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "No Music",
-    name: "K Shiday",
-    upc: "UPC: 673277809111",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "OOH YEA",
-    name: "K Shiday",
-    upc: "UPC: 573277809222",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10006",
-    assetsName: "Sky High",
-    name: "Liam Carter",
-    upc: "UPC: 673377809333",
-    amount: "$360.00 USD",
-    image: download,
-  },
-];
+import { ReleaseDetail } from "@/redux/features/accounting/accounting.type";
 
 // UPC Cell Component with Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
@@ -96,7 +46,10 @@ const UpcCell = ({ upc }: { upc: string }) => {
 };
 
 // Main Table
-const ReleasesTable = () => {
+const ReleasesTable = ({ data }: { data: ReleaseDetail[] }) => {
+  if (data.length === 0) {
+    return <div className="text-center">No data available</div>;
+  }
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
       <div className="xl:col-span-4 w-full">
@@ -120,33 +73,33 @@ const ReleasesTable = () => {
 
             {/* Table Body */}
             <TableBody className="text-white">
-              {productData.map((product) => (
-                <TableRow key={product.id}>
+              {data?.map((release, index) => (
+                <TableRow key={index}>
                   {/* Title & Artist */}
                   <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
                     <img
-                      src={product.image}
+                      src={release.image || download}
                       alt=""
                       className="h-5 w-5 md:h-7 md:w-7 rounded"
                     />
                     <div className="flex flex-col">
                       <span className="text-sm md:text-base font-medium">
-                        {product.assetsName}
+                        {release.releaseTitle}
                       </span>
                       <span className="text-xs md:text-sm text-gray-500">
-                        {product.name}
+                        {release.mainArtist}
                       </span>
                     </div>
                   </TableCell>
 
                   {/* UPC with Copy Button */}
                   <TableCell className="text-center px-2 md:px-4 py-3">
-                    <UpcCell upc={product.upc} />
+                    <UpcCell upc={release.upc} />
                   </TableCell>
 
                   {/* Payment Amount */}
                   <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium">
-                    {product.amount}
+                    ${release.amount} USD
                   </TableCell>
                 </TableRow>
               ))}

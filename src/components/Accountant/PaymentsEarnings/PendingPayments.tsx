@@ -8,53 +8,35 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import flag from "@/assets/icons/flag.svg";
 import { useNavigate } from "react-router-dom";
-
-const incomeData = [
-  {
-    id: "10001",
-    source: "August 2024 Royalties",
-    amount: "$350.00",
-    date: "2024-08-31",
-    image: flag,
-  },
-  {
-    id: "10002",
-    source: "May 2025 Royalties",
-    amount: "$420.00",
-    date: "2025-05-31",
-    image: flag,
-  },
-  {
-    id: "10003",
-    source: "June 2025 Royalties",
-    amount: "$300.00",
-    date: "2025-06-30",
-    image: flag,
-  },
-  {
-    id: "10004",
-    source: "July 2025 Royalties",
-    amount: "$500.00",
-    date: "2025-07-31",
-    image: flag,
-  },
-  {
-    id: "10005",
-    source: "May 2025 Royalties",
-    amount: "$350.00",
-    date: "2025-05-15",
-    image: flag,
-  },
-];
+import { useGetPaymentsEarningsQuery } from "@/redux/features/accountant/accountantApi";
 
 export function PendingPayments() {
   const navigate = useNavigate();
+  const { data, isLoading, isError } = useGetPaymentsEarningsQuery();
 
   const handleProceed = (id: string) => {
     navigate(`/proceed-payment/${id}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-white text-lg">Loading pending payments...</div>
+      </div>
+    );
+  }
+
+  if (isError || !data?.data) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="text-red-400 text-lg">Error loading pending payments</div>
+      </div>
+    );
+  }
+
+  const pendingPayments = data.data.pendingPayments || [];
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -79,27 +61,35 @@ export function PendingPayments() {
             </TableHeader>
 
             <TableBody className="text-white">
-              {incomeData.map((item) => (
-                <TableRow
-                  key={item.id}
-                  className="hover:bg-[#1E3A38] transition-colors"
-                >
-                  <TableCell className="flex items-center gap-2 pr-4 md:pr-8 py-4">
-                    {item.source}
-                  </TableCell>
-                  <TableCell className="text-right pr-4 md:pr-8 py-4 text-[#D31301]">
-                    {item.amount}
-                  </TableCell>
-                  <TableCell className="text-right pr-4 md:pr-8 py-4">
-                    <button
-                      onClick={() => handleProceed(item.id)}
-                      className=" text-[#2E4AD9] text-sm  hover:text-[#2E4AD9] transition cursor-pointer"
-                    >
-                      Proceed Payment
-                    </button>
+              {pendingPayments.length > 0 ? (
+                pendingPayments.map((item) => (
+                  <TableRow
+                    key={item.id}
+                    className="hover:bg-[#1E3A38] transition-colors"
+                  >
+                    <TableCell className="flex items-center gap-2 pr-4 md:pr-8 py-4">
+                      {item.source}
+                    </TableCell>
+                    <TableCell className="text-right pr-4 md:pr-8 py-4 text-[#D31301]">
+                      {item.amount}
+                    </TableCell>
+                    <TableCell className="text-right pr-4 md:pr-8 py-4">
+                      <button
+                        onClick={() => handleProceed(item.id)}
+                        className=" text-[#2E4AD9] text-sm  hover:text-[#2E4AD9] transition cursor-pointer"
+                      >
+                        Proceed Payment
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-center py-12 text-gray-400">
+                    No pending payments
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
 
             <TableFooter>

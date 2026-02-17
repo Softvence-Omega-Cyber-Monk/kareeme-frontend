@@ -1,37 +1,35 @@
 import { FaAnglesLeft } from "react-icons/fa6";
-import { FormDataType } from "./MultiStepForm";
+
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { ReleaseData, TrackData, Territory } from "./data";
 
 type StepTwoProps = {
-  formData: FormDataType;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  releaseData: ReleaseData;
+  trackData: TrackData;
+  handleReleaseChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => void;
+  handleTrackChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+  handleTerritoryChange: (territories: Territory[]) => void;
   nextStep: () => void;
   prevStep: () => void;
 };
 
-//   const [formData, setFormData] = useState({
-//     publisher: "",
-//     copyrightHolder: "",
-//     language: "English",
-//     explicit: "No",
-//     producer: "",
-//     lyricist: "",
-//     masterSplits: "",
-//     territory: "",
-//     externalSplits: "No",
-//     territories: "",
-//   });
-
-//   const handleChange = (
-//     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-//   ) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
+const StepTwo = ({
+  releaseData,
+  trackData,
+  handleReleaseChange,
+  handleTrackChange,
+  handleTerritoryChange,
+  nextStep,
+  prevStep,
+}: StepTwoProps) => {
   return (
     <div className="space-y-9">
       <div>
@@ -46,19 +44,30 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
       <div className=" flex items-center justify-center px-4">
         <div className="w-full  text-gray-200">
           <h2 className="text-2xl font-bold mb-6">Release Information</h2>
-
           <form className="space-y-6">
             {/* Publisher */}
-            <div>
-              <label className="block text-sm mb-2">Publisher</label>
-              <input
-                type="text"
-                name="publisher"
-                //value={formData.publisher || ""}
-                onChange={handleChange}
-                placeholder="Enter release title"
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm mb-2">Publisher</label>
+                <input
+                  type="text"
+                  name="trackPublisher"
+                  value={trackData.trackPublisher || ""}
+                  onChange={handleTrackChange}
+                  placeholder="Enter publisher name"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2">Original Release Date</label>
+                <input
+                  type="date"
+                  name="originalReleaseDate"
+                  value={trackData.originalReleaseDate || ""}
+                  onChange={handleTrackChange}
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                />
+              </div>
             </div>
 
             {/* Copyright Holder */}
@@ -67,11 +76,37 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="copyrightHolder"
-                //value={formData.copyrightHolder || ""}
-                onChange={handleChange}
-                placeholder="Enter release title"
+                value={releaseData.copyrightHolder || ""}
+                onChange={handleReleaseChange}
+                placeholder="Enter copyright holder"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+
+            {/* P Line & C Line */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm mb-2">P Line</label>
+                <input
+                  type="text"
+                  name="releasePLine"
+                  value={releaseData.releasePLine || ""}
+                  onChange={handleReleaseChange}
+                  placeholder="e.g. (P) 2024 OneIsOneEnt"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2">C Line</label>
+                <input
+                  type="text"
+                  name="releaseCLine"
+                  value={releaseData.releaseCLine || ""}
+                  onChange={handleReleaseChange}
+                  placeholder="e.g. (c) 2024 OneIsOneEnt"
+                  className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
             </div>
 
             {/* Language */}
@@ -79,9 +114,9 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <label className="block text-sm mb-2">Language</label>
               <select
                 name="language"
-                //value={formData.language || ""}
-                onChange={handleChange}
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={releaseData.language || ""}
+                onChange={handleReleaseChange}
+                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               >
                 <option value="">Select language</option>
                 <option value="English">English</option>
@@ -99,10 +134,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="explicit"
-                    value="Yes"
-                    //checked={formData.explicit === "Yes"}
-                    onChange={handleChange}
+                    name="isExplicitContent"
+                    value="true"
+                    checked={releaseData.isExplicitContent === true}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   Yes
@@ -110,10 +145,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="explicit"
-                    value="No"
-                    //checked={formData.explicit === "No"}
-                    onChange={handleChange}
+                    name="isExplicitContent"
+                    value="false"
+                    checked={releaseData.isExplicitContent === false}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   No
@@ -126,10 +161,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <label className="block text-sm mb-2">Producer Credits</label>
               <input
                 type="text"
-                name="producer"
-                //value={formData.producer || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="producerCredits"
+                value={releaseData.producerCredits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Producer Credits"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -139,10 +174,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <label className="block text-sm mb-2">Lyricist Credits</label>
               <input
                 type="text"
-                name="lyricist"
-                //value={formData.lyricist || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="lyricistCredits"
+                value={releaseData.lyricistCredits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Lyricist Credits"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -153,9 +188,23 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               <input
                 type="text"
                 name="masterSplits"
-                //value={formData.masterSplits || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                value={releaseData.masterSplits || ""}
+                onChange={handleReleaseChange}
+                placeholder="Master Splits"
+                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* Audio File Upload */}
+            <div className="md:col-span-2">
+              <label className="block text-sm mb-2">
+                Upload Audio File (MP3, WAV, FLAC, AAC, M4A - Max 100MB)
+              </label>
+              <input
+                type="file"
+                name="audioFile"
+                accept=".mp3,.wav,.flac,.aac,.m4a"
+                onChange={handleTrackChange}
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -167,10 +216,20 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               </label>
               <input
                 type="text"
-                name="territory"
-                //value={formData.territory || ""}
-                onChange={handleChange}
-                placeholder="Artist or Brand Name"
+                name="territories"
+                value={
+                  releaseData.territories
+                    .map((t) => t.territory)
+                    .join(", ") || ""
+                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const territories = val
+                    .split(",")
+                    .map((t) => ({ territory: t.trim() }));
+                  handleTerritoryChange(territories);
+                }}
+                placeholder="e.g. US, UK, WW"
                 className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -185,10 +244,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="externalSplits"
-                    value="Yes"
-                    //checked={formData.externalSplits === "Yes"}
-                    onChange={handleChange}
+                    name="hasExternalRightsHolder"
+                    value="true"
+                    checked={releaseData.hasExternalRightsHolder === true}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   Yes
@@ -196,10 +255,10 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"
-                    name="externalSplits"
-                    value="No"
-                    //checked={formData.externalSplits === "No"}
-                    onChange={handleChange}
+                    name="hasExternalRightsHolder"
+                    value="false"
+                    checked={releaseData.hasExternalRightsHolder === false}
+                    onChange={handleReleaseChange}
                     className="text-blue-500 focus:ring-0 cursor-pointer"
                   />
                   No
@@ -207,18 +266,6 @@ const StepTwo = ({ handleChange, nextStep, prevStep }: StepTwoProps) => {
               </div>
             </div>
 
-            {/* Territories */}
-            <div>
-              <label className="block text-sm mb-2">Territories</label>
-              <input
-                type="text"
-                name="territories"
-                //   //value={formData.territories || ""}
-                onChange={handleChange}
-                placeholder="Enter territories"
-                className="w-full bg-[#203530] border border-gray-700 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
           </form>
 
           {/* Navigation Buttons */}

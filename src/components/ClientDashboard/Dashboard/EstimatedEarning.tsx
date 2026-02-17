@@ -8,29 +8,46 @@ import {
   Area,
 } from "recharts";
 
+import { EstimatedEarning as APIEstimatedEarning } from "@/redux/features/analytics/analytics.type";
+
 type RevenueData = {
   month: string;
   revenue: number;
   views: number;
 };
 
-// Yearly data (by month)
+// Yearly data (by month) - Default fallback
 const yearlyData: RevenueData[] = [
-  { month: "Jan", revenue: 10000, views: 7000 },
-  { month: "Feb", revenue: 8000, views: 6000 },
-  { month: "Mar", revenue: 4000, views: 9000 },
-  { month: "Apr", revenue: 10000, views: 8000 },
-  { month: "May", revenue: 12000, views: 15000 },
-  { month: "Jun", revenue: 7000, views: 12000 },
-  { month: "Jul", revenue: 15000, views: 10000 },
-  { month: "Aug", revenue: 18000, views: 22000 },
-  { month: "Sep", revenue: 13000, views: 17000 },
-  { month: "Oct", revenue: 20000, views: 15000 },
-  { month: "Nov", revenue: 10000, views: 14000 },
-  { month: "Dec", revenue: 16000, views: 18000 },
+  { month: "Jan", revenue: 0, views: 0 },
+  { month: "Feb", revenue: 0, views: 0 },
+  { month: "Mar", revenue: 0, views: 0 },
+  { month: "Apr", revenue: 0, views: 0 },
+  { month: "May", revenue: 0, views: 0 },
+  { month: "Jun", revenue: 0, views: 0 },
+  { month: "Jul", revenue: 0, views: 0 },
+  { month: "Aug", revenue: 0, views: 0 },
+  { month: "Sep", revenue: 0, views: 0 },
+  { month: "Oct", revenue: 0, views: 0 },
+  { month: "Nov", revenue: 0, views: 0 },
+  { month: "Dec", revenue: 0, views: 0 },
 ];
 
-const EstimatedEarning = () => {
+interface EstimatedEarningProps {
+  data?: APIEstimatedEarning[];
+  totalViews?: string;
+  totalEarnings?: string;
+}
+
+const EstimatedEarning = ({ data, totalViews, totalEarnings }: EstimatedEarningProps) => {
+  // Map API data to chart format if available, otherwise use yearlyData
+  const chartData = data && data.length > 0
+    ? data.map(item => ({
+        month: item.month,
+        revenue: item.earnings,
+        views: item.views
+      }))
+    : yearlyData;
+
   const formatTooltip = (value: number, name: string) => {
     if (name === "revenue") return [`$${value.toLocaleString()}`, "Earnings"];
     if (name === "views") return [value.toLocaleString(), "Views"];
@@ -45,8 +62,8 @@ const EstimatedEarning = () => {
         </div>
         <div className="w-[250px] space-y-2 mb-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-sans">3.8k</h2>
-            <h2 className="text-lg font-sans">$7.50 USD</h2>
+            <h2 className="text-lg font-sans">{totalViews || "0"}</h2>
+            <h2 className="text-lg font-sans">{totalEarnings || "$0.00"}</h2>
           </div>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
@@ -65,7 +82,7 @@ const EstimatedEarning = () => {
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
-            data={yearlyData}
+            data={chartData}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <defs>

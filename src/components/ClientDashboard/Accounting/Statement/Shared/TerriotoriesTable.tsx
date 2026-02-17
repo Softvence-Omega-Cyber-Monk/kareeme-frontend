@@ -11,57 +11,7 @@ import {
 import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/download.svg";
 
-// Sample Data
-const productData = [
-  {
-    id: "10001",
-    assetsName: "Crimson Tide",
-    name: "Liam Carter",
-    upc: "UPC: 112233445566",
-    amount: "$360.00 USD",
-    image: download,
-  },
-  {
-    id: "10002",
-    assetsName: "Midnight Echo",
-    name: "Sophia Lane",
-    upc: "UPC: 223344556677",
-    amount: "$380.00 USD",
-    image: download,
-  },
-  {
-    id: "10003",
-    assetsName: "Golden Horizon",
-    name: "Ethan Brooks",
-    upc: "UPC: 334455667788",
-    amount: "$400.00 USD",
-    image: download,
-  },
-  {
-    id: "10004",
-    assetsName: "Neon Dreams",
-    name: "Olivia Reed",
-    upc: "UPC: 445566778899",
-    amount: "$350.00 USD",
-    image: download,
-  },
-  {
-    id: "10005",
-    assetsName: "Electric Pulse",
-    name: "Noah King",
-    upc: "UPC: 556677889900",
-    amount: "$390.00 USD",
-    image: download,
-  },
-  {
-    id: "10006",
-    assetsName: "Aurora Sky",
-    name: "Ava Mitchell",
-    upc: "UPC: 667788990011",
-    amount: "$410.00 USD",
-    image: download,
-  },
-];
+import { TerritoryDetail } from "@/redux/features/accounting/accounting.type";
 
 // UPC Cell Component with Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
@@ -96,14 +46,17 @@ const UpcCell = ({ upc }: { upc: string }) => {
 };
 
 // Main Table
-const TerriotoriesTable = () => {
+const TerriotoriesTable = ({ data }: { data: TerritoryDetail[] }) => {
+   if (data.length === 0) {
+    return <div className="text-center">No data available</div>;
+  }
   return (
     <div className="overflow-x-auto">
       <Table className="w-full min-w-[1000px]">
         {/* Table Header */}
         <TableHeader>
           <TableRow className="text-[#BDBDBD] text-sm md:text-base">
-            <TableHead className="w-[200px] px-2 md:px-4 py-2">Title</TableHead>
+            <TableHead className="w-[200px] px-2 md:px-4 py-2">Territory</TableHead>
             <TableHead className="text-center px-2 md:px-4 py-2">UPC</TableHead>
             <TableHead className="text-right pr-4 md:pr-8 py-2">
               Amount
@@ -113,33 +66,30 @@ const TerriotoriesTable = () => {
 
         {/* Table Body */}
         <TableBody className="text-white">
-          {productData.map((product) => (
-            <TableRow key={product.id}>
+          {data?.map((territory, index) => (
+            <TableRow key={index}>
               {/* Title & Artist */}
               <TableCell className="px-2 md:px-4 py-3 flex items-center gap-2 md:gap-3">
                 <img
-                  src={product.image}
+                  src={territory.image || download}
                   alt=""
                   className="h-5 w-5 md:h-7 md:w-7 rounded"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm md:text-base font-medium">
-                    {product.assetsName}
-                  </span>
-                  <span className="text-xs md:text-sm text-gray-500">
-                    {product.name}
+                    {territory.territoryName}
                   </span>
                 </div>
               </TableCell>
 
               {/* UPC with Copy Button */}
               <TableCell className="text-center px-2 md:px-4 py-3">
-                <UpcCell upc={product.upc} />
+                <UpcCell upc={territory.upc || "-"} />
               </TableCell>
 
               {/* Payment Amount */}
               <TableCell className="text-right pr-4 md:pr-8 py-3 text-sm md:text-base font-medium">
-                {product.amount}
+                ${territory.amount} USD
               </TableCell>
             </TableRow>
           ))}

@@ -9,124 +9,64 @@ import deser from "../../assets/icons/deezer.png";
 import tidal from "../../assets/icons/tidal.png";
 import heart from "../../assets/icons/heart2.png";
 import Line from "../../assets/photo/Line.png";
+import { DashboardData } from "@/redux/features/distribution/distribution.type";
 
-interface ActivityItem {
-  title: string;
-  subtitle: string;
-  timestamp: string;
+interface DistributorRecentActivityProps {
+  data?: DashboardData;
 }
 
-interface StatusItem {
-  label: string;
-  percentage: number;
-  color: string;
-}
+// Icon mapping for platform performance
+const platformIcons: Record<string, string> = {
+  YouTube: Youtube,
+  Spotify: sportify,
+  "Apple Music": apple,
+  SoundCloud: soundClud,
+  Audiomack: audio,
+  Deezer: deser,
+  TIDAL: tidal,
+  iHeartRadio: heart,
+};
 
-interface PlatformItem {
-  name: string;
-  streams: string;
-  icon: string;
-  iconColor: string;
-}
+export function DistributorRecentActivity({ data }: DistributorRecentActivityProps) {
+  // Calculate distribution status percentages
+  const totalDistributions =
+    (data?.distributionStatus.completed || 0) +
+    (data?.distributionStatus.inProgress || 0) +
+    (data?.distributionStatus.failed || 0);
 
-const recentActivities: ActivityItem[] = [
-  {
-    title: "New EP from Jane Doe",
-    subtitle: "Submission: Pending Review",
-    timestamp: "10 minutes ago",
-  },
-  {
-    title: 'Distribute "Summer Vibes"',
-    subtitle: "Release: Sent to Platforms",
-    timestamp: "1 hour ago",
-  },
-  {
-    title: "New Client: Music Innovations Inc.",
-    subtitle: "Client: Profile Created",
-    timestamp: "3 hours ago",
-  },
-  {
-    title: "Single by The Rhythmatics",
-    subtitle: "Submission: Pending Review",
-    timestamp: "Yesterday at 4:30 PM",
-  },
-  {
-    title: 'Distribute "City Lights"',
-    subtitle: "Release: Sent to Platforms",
-    timestamp: "Yesterday at 2:15 PM",
-  },
-];
+  const distributionStatusItems = [
+    {
+      label: "Completed",
+      percentage:
+        totalDistributions > 0
+          ? Math.round(((data?.distributionStatus.completed || 0) / totalDistributions) * 100)
+          : 0,
+      color: "bg-green-500",
+    },
+    {
+      label: "In progress",
+      percentage:
+        totalDistributions > 0
+          ? Math.round(((data?.distributionStatus.inProgress || 0) / totalDistributions) * 100)
+          : 0,
+      color: "bg-blue-500",
+    },
+    {
+      label: "Failed",
+      percentage:
+        totalDistributions > 0
+          ? Math.round(((data?.distributionStatus.failed || 0) / totalDistributions) * 100)
+          : 0,
+      color: "bg-red-500",
+    },
+  ];
 
-const distributionStatus: StatusItem[] = [
-  {
-    label: "Completed",
-    percentage: 78,
-    color: "bg-green-500",
-  },
-  {
-    label: "In progress",
-    percentage: 15,
-    color: "bg-blue-500",
-  },
-  {
-    label: "Failed",
-    percentage: 7,
-    color: "bg-red-500",
-  },
-];
-
-const platformPerformance: PlatformItem[] = [
-  {
-    name: "YouTube",
-    streams: "2.3M Streams",
-    icon: Youtube,
+  // Enhance platform performance data with icons
+  const platformPerformanceData = (data?.platformPerformance || []).map((platform) => ({
+    ...platform,
+    icon: platformIcons[platform.name] || Youtube,
     iconColor: "#F2F2F21A",
-  },
-  {
-    name: "Spotify",
-    streams: "1.8M Streams",
-    icon: sportify,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "Apple Music",
-    streams: "1.6M Streams",
-    icon: apple,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "SoundCloud",
-    streams: "1.3M Streams",
-    icon: soundClud,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "Audiomack",
-    streams: "900K Streams",
-    icon: audio,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "Deezer",
-    streams: "830K Streams",
-    icon: deser,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "TIDAL",
-    streams: "500K Streams",
-    icon: tidal,
-    iconColor: "#F2F2F21A",
-  },
-  {
-    name: "iHeartRadio",
-    streams: "200K Streams",
-    icon: heart,
-    iconColor: "#F2F2F21A",
-  },
-];
-
-export function DistributorRecentActivity() {
+  }));
   return (
     <div className="">
       {/* Recent Activity + Distribution Status */}
@@ -138,21 +78,27 @@ export function DistributorRecentActivity() {
               Recent Activity
             </h2>
             <div className="space-y-4">
-              {recentActivities.map((activity, index) => (
-                <div key={index} className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h3 className="text-white font-medium text-sm leading-relaxed">
-                      {activity.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm mt-1">
-                      {activity.subtitle}
-                    </p>
+              {data?.recentActivity && data.recentActivity.length > 0 ? (
+                data.recentActivity.map((activity, index) => (
+                  <div key={index} className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h3 className="text-white font-medium text-sm leading-relaxed">
+                        {activity.title}
+                      </h3>
+                      <p className="text-slate-400 text-sm mt-1">
+                        {activity.subtitle}
+                      </p>
+                    </div>
+                    <div className="text-slate-400 text-xs sm:text-sm ml-4 flex-shrink-0">
+                      {activity.timestamp}
+                    </div>
                   </div>
-                  <div className="text-slate-400 text-xs sm:text-sm ml-4 flex-shrink-0">
-                    {activity.timestamp}
-                  </div>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-slate-400 text-sm">No recent activity</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Card>
@@ -164,7 +110,7 @@ export function DistributorRecentActivity() {
               Distribution Status
             </h2>
             <div className="space-y-6">
-              {distributionStatus.map((status, index) => (
+              {distributionStatusItems.map((status, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -203,19 +149,25 @@ export function DistributorRecentActivity() {
             </h2>
             <img src={Line} alt="" className="w-full" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 ">
-              {platformPerformance.map((platform, index) => (
-                <div key={index} className="text-center">
-                  <div
-                    className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
-                  >
-                    <img src={platform.icon} alt="" />
+              {platformPerformanceData && platformPerformanceData.length > 0 ? (
+                platformPerformanceData.map((platform, index) => (
+                  <div key={index} className="text-center">
+                    <div
+                      className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
+                    >
+                      <img src={platform.icon} alt="" />
+                    </div>
+                    <h3 className="text-white font-medium text-sm mb-1">
+                      {platform.name}
+                    </h3>
+                    <p className="text-slate-400 text-xs">{platform.streams}</p>
                   </div>
-                  <h3 className="text-white font-medium text-sm mb-1">
-                    {platform.name}
-                  </h3>
-                  <p className="text-slate-400 text-xs">{platform.streams}</p>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-8">
+                  <p className="text-slate-400 text-sm">No platform performance data available</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Card>

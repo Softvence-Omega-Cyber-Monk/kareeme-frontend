@@ -1,11 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import NotFound from "../pages/NotFound";
-
-// import AdminRoute from "./AdminRoutes";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-
 import AdminDashboardPage from "@/pages/Admin/AdminDashboardPage";
 import AdminLayout from "@/Layout/AdminLayout";
 import ClientLayout from "@/Layout/ClientLayout";
@@ -48,7 +45,7 @@ import CreateNewClient from "@/components/DistributorDashboard/Client/CreateNewC
 import SubmissionDetails from "@/components/DistributorDashboard/DistributorSubmision/SubmissionDetails";
 import DistributionPage from "@/pages/Distributor/DistributionPage";
 import DistributationDetails from "@/components/DistributorDashboard/Distribution/DistributationDetails";
-import ConfirmDistribution from "@/components/DistributorDashboard/Distribution/ConfirmDistribution";
+// import ConfirmDistribution from "@/components/DistributorDashboard/Distribution/ConfirmDistribution";
 import PaymentsEarningsPage from "@/pages/Accountant/PaymentsEarningsPage";
 import ProfitLossPages from "@/pages/Accountant/ProfitLossPages";
 import StatementsPage from "@/pages/Accountant/StatementsPage";
@@ -68,7 +65,14 @@ import ProductDetailPage from "@/components/Home/Shop/ProductDetailPage";
 import PrivacyPolicy from "@/PrivacyPolicy/PrivacyPolicy";
 import TermsConditions from "@/PrivacyPolicy/TermsConditions";
 import Home from "@/components/Home/Home";
+import Unauthorized from "@/pages/Unauthorized";
+import ClientAdminLayout from "@/Layout/ClientAdminLayout";
+import ClientAdminDashboard from "@/pages/ClientAdmin/ClientAdminDashboard";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
+import PrivateRoute from "./PrivateRoute";
+import ClientSubmit from "@/components/ClientDashboard/Catalog/Submit/ClientSubmit";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -92,18 +96,18 @@ const routes = createBrowserRouter([
         element: <Shop></Shop>,
       },
       {
-        path: "/privacy",
+        path: "/privacy-policy",
         element: <PrivacyPolicy></PrivacyPolicy>,
       },
       {
-        path: "/term",
+        path: "/terms-and-conditions",
         element: <TermsConditions></TermsConditions>,
       },
       {
         path: "/cart",
         element: <ProductDetailPage></ProductDetailPage>,
       },
-      
+
       {
         path: "/details/:id",
         element: <ProductDetailPage></ProductDetailPage>,
@@ -121,16 +125,157 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+      },
     ],
   },
 
   /* Client Dashboard */
   {
     path: "/client-dashboard",
-    element: <ClientLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["CLIENT"]}>
+        <ClientLayout />
+      </PrivateRoute>
+    ),
     children: [
       { index: true, element: <ClientDashboardPage /> },
       { path: "dashboard", element: <ClientDashboardPage /> },
+      { path: "analytics", element: <ClientAnalyticsPage /> },
+      /* Analytics*/
+      { path: "analytics/YouTube", element: <AnalyticsYoutubePage /> },
+      { path: "analytics/Spotify", element: <SpotifyPage /> },
+      { path: "analytics/AppleMusic", element: <AppleMusicPage /> },
+      { path: "analytics/SoundCloud", element: <SoundCloudPage /> },
+      { path: "analytics/Audiomack", element: <AudiomackPage /> },
+      { path: "analytics/Deezer", element: <DeezerPage /> },
+      { path: "analytics/TIDAL", element: <TIDALPage /> },
+      { path: "analytics/iHeartRadio", element: <IHeartRadioPage /> },
+      /* Accounting */
+      { path: "accounting/statement", element: <StatementPage /> },
+      { path: "accounting/statement/:id", element: <StatementDetailsPage /> },
+      { path: "accounting/profit-loss", element: <ProfitLossPage /> },
+      /*  Catalog*/
+      { path: "catalog/releases", element: <ReleasesPage /> },
+      { path: "catalog/releases/:id", element: <ReleasesDetails /> },
+      { path: "catalog/submit", element: <SubmitPage /> },
+      { path: "catalog/submit/form", element: <StapeComponent /> },
+
+      { path: "catalog/back-catalog", element: <BackCatalogPage /> },
+      { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
+
+      /* Editorial Support */
+      { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
+      { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
+      /*  */
+      {
+        path: "catalog/editorial-submit/form",
+        element: <EditorialStapeComponent />,
+      },
+
+      /* profile */
+      { path: "catalog/settings", element: <SettingsPage /> },
+    ],
+  },
+
+  /* Distributor Dashboard */
+  {
+    path: "/distributor-dashboard",
+    element: (
+      <PrivateRoute allowedRoles={["DISTRIBUTOR"]}>
+        <DistributorLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <DistributorDashboardPage /> },
+      { path: "dashboard", element: <DistributorDashboardPage /> },
+      { path: "submissions", element: <DistributorSubmissions /> },
+      { path: "submissions/:id", element: <SubmissionDetails /> },
+      { path: "back-catalog", element: <DistributorBackCatalog /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
+      /*  */
+      { path: "distribution", element: <DistributionPage /> },
+      { path: "distribution/details/:releaseId", element: <DistributationDetails /> },
+      // {
+      //   path: "distribution/confirm-distribution",
+      //   element: <ConfirmDistribution />,
+      // },
+
+      { path: "client", element: <ClientsManagementPage /> },
+      { path: "client/create", element: <CreateNewClient /> },
+
+      { path: "settings", element: <DistributorSettingPage /> },
+    ],
+  },
+
+  /* Accountant Dashboard */
+  {
+    path: "/accountant-dashboard",
+    element: (
+      <PrivateRoute allowedRoles={["ACCOUNTANT"]}>
+        <AccountantLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <AccountantDashboardPage /> },
+      { path: "dashboard", element: <AccountantDashboardPage /> },
+      { path: "payments-earnings", element: <PaymentsEarningsPage /> },
+      { path: "statements", element: <StatementsPage /> },
+      { path: "profit-loss", element: <ProfitLossPages /> },
+      { path: "client-manage", element: <ClientManagementPage /> },
+      { path: "settings", element: <AccountanSettingsPage /> },
+    ],
+  },
+
+  /* Super Admin Dashboard */
+  {
+    path: "/super-admin-dashboard",
+    element: (
+      <PrivateRoute allowedRoles={["SUPER_ADMIN"]}>
+        <AdminLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <AdminDashboardPage /> },
+      { path: "dashboard", element: <AdminDashboardPage /> },
+      { path: "statement", element: <AdminStatementPage /> },
+      { path: "profit-loss", element: <AdminProfitLossPage /> },
+      /* Catalog */
+      { path: "releases", element: <AdminRealisePage /> },
+      { path: "back-catalog", element: <AdminBackCatalogPage /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "submit", element: <AdminSubmitPage /> },
+      { path: "submit/:id", element: <SubmitDetails /> },
+      /* team */
+      { path: "team", element: <AdminTeamPage /> },
+      { path: "settings", element: <SettingsPage /> },
+    ],
+  },
+  // admin
+  {
+    path: "/admin",
+    element: (
+      <PrivateRoute allowedRoles={["ADMIN"]}>
+        <ClientAdminLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <ClientAdminDashboard /> },
+      { path: "dashboard", element: <ClientAdminDashboard /> },
       { path: "analytics", element: <ClientAnalyticsPage /> },
       /* Analytics*/
       { path: "analytics/youtube", element: <AnalyticsYoutubePage /> },
@@ -148,95 +293,29 @@ const routes = createBrowserRouter([
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
       { path: "catalog/releases/:id", element: <ReleasesDetails /> },
-      { path: "catalog/submit", element: <SubmitPage /> },
-      { path: "catalog/submit/form", element: <StapeComponent /> },
+      { path: "catalog/submit", element: <ClientSubmit /> },
+      { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 
       { path: "catalog/back-catalog", element: <BackCatalogPage /> },
       { path: "catalog/back-catalog/edit", element: <DataEntryForm /> },
-      { path: "catalog/back-catalog/view", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/view/:id", element: <CatalogDetailsData /> },
+      { path: "catalog/back-catalog/edit/:id", element: <DataEntryForm /> },
+      { path: "catalog/back-catalog/add", element: <DataEntryForm /> },
       { path: "catalog/split-sheets", element: <SplitSheetsPage /> },
-      { path: "split-sheet/:title", element: <SplitSheetDetail /> },
+      { path: "catalog/split-sheet/:id", element: <SplitSheetDetail /> },
 
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
       { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
-      /*  */
-
       {
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
       },
 
       /* profile */
-      { path: "catalog/settings", element: <SettingsPage /> },
-    ],
-  },
-
-  /* Diostributor Dashboard */
-  {
-    path: "/distributor-dashboard",
-    element: <DistributorLayout />,
-    children: [
-      { index: true, element: <DistributorDashboardPage /> },
-      { path: "dashboard", element: <DistributorDashboardPage /> },
-      { path: "submissions", element: <DistributorSubmissions /> },
-      { path: "submissions/details", element: <SubmissionDetails /> },
-      { path: "back-catalog", element: <DistributorBackCatalog /> },
-      /*  */
-      { path: "distribution", element: <DistributionPage /> },
-      { path: "distribution/details", element: <DistributationDetails /> },
-      {
-        path: "distribution/confirm-distribution",
-        element: <ConfirmDistribution />,
-      },
-
-      { path: "client", element: <ClientsManagementPage /> },
-      { path: "client/create", element: <CreateNewClient /> },
-
-      { path: "settings", element: <DistributorSettingPage /> },
-    ],
-  },
-
-  /* Accountant Dashboard */
-  {
-    path: "/accountant-dashboard",
-    element: <AccountantLayout />,
-    children: [
-      { index: true, element: <AccountantDashboardPage /> },
-      { path: "dashboard", element: <AccountantDashboardPage /> },
-      { path: "payments-earnings", element: <PaymentsEarningsPage /> },
-      { path: "statements", element: <StatementsPage /> },
-      { path: "profit-loss", element: <ProfitLossPages /> },
-      { path: "client-manage", element: <ClientManagementPage /> },
-
-      { path: "settings", element: <AccountanSettingsPage /> },
-    ],
-  },
-
-  /* Admin Dashboard */
-  {
-    path: "/admin-dashboard",
-    element: (
-      // <AdminRoute>
-      <AdminLayout />
-      // </AdminRoute>
-    ),
-    children: [
-      { index: true, element: <AdminDashboardPage /> },
-      { path: "dashboard", element: <AdminDashboardPage /> },
-      { path: "statement", element: <AdminStatementPage /> },
-      { path: "profit-loss", element: <AdminProfitLossPage /> },
-      /* Catalog */
-      { path: "releases", element: <AdminRealisePage /> },
-      { path: "back-catalog", element: <AdminBackCatalogPage /> },
-      { path: "submit", element: <AdminSubmitPage /> },
-      { path: "submit/view", element: <SubmitDetails /> },
-      /* team */
-      { path: "team", element: <AdminTeamPage /> },
       { path: "settings", element: <SettingsPage /> },
     ],
   },
-
   {
     path: "*",
     element: <NotFound />,

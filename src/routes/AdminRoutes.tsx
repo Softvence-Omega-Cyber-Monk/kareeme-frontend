@@ -33,7 +33,7 @@ const AdminRoute = ({
     if (!isSuperAdmin) {
       // If not super admin, redirect to appropriate dashboard
       if (isAdmin) {
-        return <Navigate to="/admin-dashboard" replace />;
+        return <Navigate to="/super-admin-dashboard" replace />;
       }
       return <Navigate to={`/${user.role.toLowerCase()}-dashboard`} replace />;
     }
@@ -48,26 +48,3 @@ const AdminRoute = ({
 };
 
 export default AdminRoute;
-
-// // src/routes/AdminRoute.tsx
-// import { Navigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { ReactNode } from "react";
-// import { AppRootState } from "@/redux/store";
-
-// type AdminRouteProps = {
-//   children: ReactNode;
-// };
-
-// const AdminRoute = ({ children }: AdminRouteProps) => {
-//   const user = useSelector((state: AppRootState) => state.auth.user);
-//   console.log("Admin Data:", user);
-
-//   if (!user || user.role !== "admin") {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   return <>{children}</>;
-// };
-
-// export default AdminRoute;

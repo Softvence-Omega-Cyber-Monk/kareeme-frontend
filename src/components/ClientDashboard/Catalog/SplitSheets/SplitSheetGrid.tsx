@@ -1,125 +1,76 @@
-import { useState } from "react";
-import img1 from "@/assets/photo/split1.png";
-import img2 from "@/assets/photo/split2.png";
-import img3 from "@/assets/photo/split3.png";
-import img4 from "@/assets/photo/split4.png";
-import img5 from "@/assets/photo/split5.png";
-import img6 from "@/assets/photo/split6.png";
-import SplitSheetCard from "./SplitSheetCard";
+import { useState, useMemo } from "react";
+import SplitSheetCard, { SplitSheetAPI } from "./SplitSheetCard";
 import { Input } from "@/components/ui/input";
 import { IoSearch } from "react-icons/io5";
-
-export const albumData = [
-  {
-    title: "Echoes of Time",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "123456789",
-    releaseDate: "25 May, 2025",
-    type: "Album",
-    genre: "Ambient Pop",
-    duration: "42:15",
-    producers: ["Eliot Summers", "Luna Waves"],
-    writers: ["Luna Waves", "Ava Mendez"],
-    description:
-      "A dreamy ambient-pop journey exploring the passage of time and the echoes of memory. Features rich synth textures and emotional vocals.",
-    imageUrl: img1,
-  },
-  {
-    title: "Whispers Through the Ages",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "987654321",
-    releaseDate: "12 Jun, 2025",
-    type: "Single",
-    genre: "Electronic Chill",
-    duration: "04:32",
-    producers: ["Eliot Summers"],
-    writers: ["Luna Waves"],
-    description:
-      "A soft, hypnotic single blending downtempo beats with ethereal melodies — an ode to the whispers of time and love.",
-    imageUrl: img2,
-  },
-  {
-    title: "Melodies of the Past",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "192837465",
-    releaseDate: "30 Jul, 2025",
-    type: "EP",
-    genre: "Dreamwave",
-    duration: "24:10",
-    producers: ["Luna Waves", "Noah Quinn"],
-    writers: ["Luna Waves", "Noah Quinn"],
-    description:
-      "An EP filled with nostalgic synth sounds and slow-burning beats that transport listeners to a world of reflection and serenity.",
-    imageUrl: img3,
-  },
-  {
-    title: "Timeless Reverberations",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "564738291",
-    releaseDate: "10 Aug, 2025",
-    type: "Album",
-    genre: "Synthwave",
-    duration: "50:25",
-    producers: ["Eliot Summers", "Luna Waves"],
-    writers: ["Luna Waves", "Ava Mendez"],
-    description:
-      "A sonic exploration of nostalgia and futurism — blending retro synths with modern electronic soundscapes.",
-    imageUrl: img4,
-  },
-  {
-    title: "Rhythms of Remembrance",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "314159265",
-    releaseDate: "01 Sep, 2025",
-    type: "Album",
-    genre: "Lo-fi Beats",
-    duration: "37:42",
-    producers: ["Eliot Summers"],
-    writers: ["Luna Waves"],
-    description:
-      "A mellow lo-fi collection featuring dusty beats, ambient textures, and soulful melodies to relax and reflect to.",
-    imageUrl: img5,
-  },
-  {
-    title: "Songs of Forgotten Moments",
-    artist: "Luna Waves",
-    label: "OnelsOneEnt",
-    upc: "246813579",
-    releaseDate: "18 Oct, 2025",
-    type: "Album",
-    genre: "Indie Electronica",
-    duration: "48:59",
-    producers: ["Luna Waves"],
-    writers: ["Luna Waves", "Ava Mendez"],
-    description:
-      "A poetic and emotional exploration of fleeting memories and lost connections, beautifully captured in lush electronic arrangements.",
-    imageUrl: img6,
-  },
-];
+import { useGetAllSplitSheetsQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useGetAdminSplitSheetsQuery } from "@/redux/features/admin/adminApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const SplitSheetGrid = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  
+  const role = useAppSelector((state) => state.auth.user?.role);
+  const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "DISTRIBUTOR";
 
-  const filteredAlbums = albumData.filter((album) => {
+  const { 
+    data: clientResponse, 
+    isLoading: isLoadingClient, 
+    isError: isErrorClient 
+  } = useGetAllSplitSheetsQuery({}, { skip: isAdmin });
+
+  const { 
+    data: adminResponse, 
+    isLoading: isLoadingAdmin, 
+    isError: isErrorAdmin 
+  } = useGetAdminSplitSheetsQuery({ page, limit }, { skip: !isAdmin });
+
+  const isLoading = isAdmin ? isLoadingAdmin : isLoadingClient;
+  const isError = isAdmin ? isErrorAdmin : isErrorClient;
+  const response = isAdmin ? adminResponse : clientResponse;
+
+  const metadata = isAdmin ? adminResponse?.metadata : null;
+
+  const filteredSplitSheets = useMemo(() => {
+    const sheets: SplitSheetAPI[] = response?.data || [];
     const term = searchTerm.toLowerCase();
+    return sheets.filter((split) => {
+      return (
+        split.songTitle.toLowerCase().includes(term) ||
+        (split.isrc && split.isrc.toLowerCase().includes(term))
+      );
+    });
+  }, [response?.data, searchTerm]);
+
+  if (isLoading) {
     return (
-      album.title.toLowerCase().includes(term) ||
-      album.artist.toLowerCase().includes(term) ||
-      album.label.toLowerCase().includes(term)
+      <div className="flex justify-center items-center h-48">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3A5CFF]"></div>
+      </div>
     );
-  });
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-500 py-10">
+        <p>Failed to load split sheets. Please try again later.</p>
+      </div>
+    );
+  }
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="space-y-10">
       {/* Search Input */}
       <div className="w-full sm:w-72 md:w-96 lg:w-[736px] relative">
         <Input
-          className="w-full border h-12 bg-[#17171A] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[#2563EB] text-sm md:text-base"
+          className="w-full border h-12 bg-[#17171A] border-[#696B6F] rounded-[15px] px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[#2563EB] text-sm md:text-base border-none"
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -129,20 +80,60 @@ const SplitSheetGrid = () => {
         </span>
       </div>
 
-      {/* Album Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredAlbums.map((album, index) => (
-          <SplitSheetCard key={index} {...album} />
-        ))}
-        {filteredAlbums.length === 0 && (
-          <p className="col-span-full text-center text-gray-400">
-            No albums found.
-          </p>
+      {/* Grid */}
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredSplitSheets.map((split) => (
+            <SplitSheetCard key={split.splitId} split={split} />
+          ))}
+          {filteredSplitSheets.length === 0 && (
+            <p className="col-span-full text-center text-gray-400">
+              No split sheets found.
+            </p>
+          )}
+        </div>
+
+        {/* Pagination Controls (Admin only) */}
+        {isAdmin && metadata && metadata.totalPage > 1 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-4">
+            <div className="text-gray-400 text-sm order-2 sm:order-1">
+              Showing {((page - 1) * limit) + 1} to {Math.min(page * limit, metadata.total)} of {metadata.total} split sheets
+            </div>
+            <div className="flex items-center gap-4 order-1 sm:order-2">
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page === 1}
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                  page === 1
+                    ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                    : "bg-[#3A5CFF] text-white hover:bg-blue-600"
+                }`}
+              >
+                <FaChevronLeft className="w-3 h-3" />
+                Previous
+              </button>
+              <div className="text-white text-sm font-medium">
+                Page {page} of {metadata.totalPage}
+              </div>
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page === metadata.totalPage}
+                className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                  page === metadata.totalPage
+                    ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                    : "bg-[#3A5CFF] text-white hover:bg-blue-600"
+                }`}
+              >
+                Next
+                <FaChevronRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default SplitSheetGrid; 
+export default SplitSheetGrid;
 

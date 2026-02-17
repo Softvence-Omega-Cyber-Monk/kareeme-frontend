@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import loginphoto from "@/assets/photo/signup.svg";
+import loginPhoto from "@/assets/photo/signup.svg";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { setCredentials } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks/redux-hook";
@@ -26,24 +27,19 @@ const Login: React.FC = () => {
     }
   }, [location.state]);
 
-  // Check if already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    if (token && user) {
-      const parsedUser = JSON.parse(user);
-      redirectBasedOnRole(parsedUser.role);
-    }
-  }, []);
+  // Already handled by ReduxProviderWrapper and Redux Persist
+  // No need to check localStorage manually for token/user
 
   const redirectBasedOnRole = (role: string) => {
     switch (role) {
       case "CLIENT":
         navigate("/client-dashboard");
         break;
-      case "SUPER_ADMIN":
       case "ADMIN":
-        navigate("/admin-dashboard");
+        navigate("/admin");
+        break;
+      case "SUPER_ADMIN":
+        navigate("/super-admin-dashboard");
         break;
       case "ACCOUNTANT":
         navigate("/accountant-dashboard");
@@ -68,8 +64,7 @@ const Login: React.FC = () => {
         setCredentials({
           user: result.data.user,
           token: result.data.access_token,
-          refreshToken: result.data.refresh_token,
-        })
+        }),
       );
 
       redirectBasedOnRole(result.data.user.role);
@@ -77,8 +72,8 @@ const Login: React.FC = () => {
       console.error("Login failed:", err);
       toast.error(
         err?.data?.message ||
-        err?.error?.data?.message ||
-        "Login failed. Please check your credentials."
+          err?.error?.data?.message ||
+          "Login failed. Please check your credentials.",
       );
     }
   };
@@ -89,7 +84,7 @@ const Login: React.FC = () => {
         {/* Left Side - Image */}
         <div className="hidden md:flex w-1/2 items-center justify-center">
           <img
-            src={loginphoto}
+            src={loginPhoto}
             alt="artist"
             className="h-full w-full object-cover rounded-l-xl"
           />
@@ -104,9 +99,6 @@ const Login: React.FC = () => {
             Start your journey with us! Fill out the details below to get access
             to your dashboard, music distribution, and more.
           </p>
-
-
-
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Email */}
@@ -169,9 +161,12 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          <p className="text-sm text-[#01D449] mt-4 text-center cursor-pointer">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-[#01D449] mt-4 text-center cursor-pointer block hover:underline"
+          >
             Forget Password
-          </p>
+          </Link>
 
           <p className="text-sm text-gray-400 mt-4 text-center">
             Don't have an account?

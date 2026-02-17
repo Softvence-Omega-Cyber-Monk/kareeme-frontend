@@ -14,6 +14,8 @@ import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
 import { Card } from "@/components/ui/card";
+// import { SubmissionDetailsData } from "@/redux/features/distribution/distribution.type";
+import useControlDispatch from "@/contexts/control/hooks/useControlDispatch";
 
 interface PlatformItem {
   name: string;
@@ -74,6 +76,9 @@ const platformPerformance: PlatformItem[] = [
 ];
 
 const ConfirmDistribution = () => {
+  // console.log(data)
+
+      const { closeModal } = useControlDispatch()
   return (
     <div>
       <div className=" w-full text-white   mx-auto">
@@ -370,7 +375,7 @@ const ConfirmDistribution = () => {
 
         <div className="flex flex-col sm:flex-row justify-end gap-3">
           {/* Cancel Button */}
-          <button className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
+          <button onClick={closeModal} className="bg-gray-300 text-black px-5 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer flex justify-center items-center gap-2 w-full sm:w-auto">
             <RxCross2 />
             Cancel
           </button>

@@ -1,10 +1,10 @@
-import AccountSettings from "@/components/AdminDashboard/Settings/AccountSettings";
+import AccountantSettings from "@/components/Accountant/Settings/AccountantSettings";
 
 const AccountanSettingsPage = () => {
   return (
-    <div>
-      <AccountSettings />
-    </div>
+    <>
+      <AccountantSettings />
+    </>
   );
 };
 

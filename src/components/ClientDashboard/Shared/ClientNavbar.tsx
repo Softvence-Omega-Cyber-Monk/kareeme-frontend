@@ -10,8 +10,6 @@ import togglebarIcon from "@/assets/icons/togglebar.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { useAppDispatch } from "@/redux/hooks/redux-hook";
-// import { logOut } from "@/redux/features/auth/authSlice";
-import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { logout } from "@/redux/features/auth/authSlice";
 
@@ -45,12 +43,8 @@ const MerchantDashboardNavbar = ({
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // Clear both cookies and localStorage
-    Cookies.remove("token");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user"); // if applicable
-    localStorage.removeItem("refreshToken"); // if applicable
-
+      // Tokens are now managed securely (HttpOnly cookies + in-memory)
+      // No need to manually clear cookies or localStorage
     dispatch(logout());
     toast.success("Merchant logged out successfully!");
     navigate("/");
@@ -68,7 +62,7 @@ const MerchantDashboardNavbar = ({
     <div className="w-full max-w-[1560px] mx-auto px-4 md:px-8 py-3 bg-white shadow-lg rounded-2xl">
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <Link to="/">
             <img src={logo} alt="Logo" className="w-28 h-auto drop-shadow-md" />
           </Link>

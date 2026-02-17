@@ -17,7 +17,7 @@ const AppleMusiceHeader = () => {
         <ReuseHeader
           platform="Apple Music "
           icon={
-            <img src={AppleMusic} alt="" className="text-[#FF0000] w-8 h-8" />
+            <img src={AppleMusic} alt="" className="text-white w-8 h-8" />
           }
         />
 

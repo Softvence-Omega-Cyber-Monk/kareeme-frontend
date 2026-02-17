@@ -24,16 +24,16 @@ export interface SidebarProps {
 }
 
 const defaultSidebarItems: SidebarItem[] = [
-  { icon: MdGridView, label: "Dashboard", href: "/admin-dashboard/dashboard" },
+  { icon: MdGridView, label: "Dashboard", href: "/super-admin-dashboard/dashboard" },
 
   {
     icon: TbFileDollar,
     label: "Accounting",
     children: [
-      { label: "Statement", href: "/admin-dashboard/statement" },
+      { label: "Statement", href: "/super-admin-dashboard/statement" },
       {
         label: "Profit & Loss",
-        href: "/admin-dashboard/profit-loss",
+        href: "/super-admin-dashboard/profit-loss",
       },
     ],
   },
@@ -41,12 +41,12 @@ const defaultSidebarItems: SidebarItem[] = [
     icon: FaStream,
     label: "Catalog",
     children: [
-      { label: "Releases", href: "/admin-dashboard/releases" },
-      { label: "Submit", href: "/admin-dashboard/submit" },
-      { label: "Back Catalog", href: "/admin-dashboard/back-catalog" },
+      { label: "Releases", href: "/super-admin-dashboard/releases" },
+      { label: "Submit", href: "/super-admin-dashboard/submit" },
+      { label: "Back Catalog", href: "/super-admin-dashboard/back-catalog" },
     ],
   },
-  { icon: HiMiniUserGroup, label: "Team", href: "/admin-dashboard/team" },
+  { icon: HiMiniUserGroup, label: "Team", href: "/super-admin-dashboard/team" },
 ];
 
 const AdminSidebar: React.FC<SidebarProps> = ({
@@ -66,7 +66,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({
       style={{ boxShadow: "3px 4px 42.3px 0px #0000001A" }}
     >
       {/* Logo */}
-      <Link to="/admin-dashboard/dashboard">
+      <Link to="/super-admin-dashboard/dashboard">
         <div className="flex items-center justify-center p-2 sm:p-3 border-b border-[#212C64] mt-1">
           <img
             src={logo}

@@ -3,23 +3,40 @@ import { Card } from "@/components/ui/card";
 import earning from "@/assets/icons/earning.svg";
 import comission from "@/assets/icons/comission.svg";
 import NetEarnings from "@/assets/icons/NetEarnings.svg";
+import { useGetAccountantDashboardQuery } from "@/redux/features/accountant/accountantApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
+import ComponentError from "@/components/Reuseable/ComponentError";
 
 const DashboardCard = () => {
+  const { data, isLoading, isError } = useGetAccountantDashboardQuery();
+
+  if (isLoading) {
+    return (
+      <ComponentLoader/>
+    );
+  }
+
+  if (isError || !data?.data) {
+    return (
+     <ComponentError/>
+    );
+  }
+
   const metrics = [
     {
       icon: earning,
       label: "Total Earnings",
-      value: "5,000",
+      value: data.data.totalEarnings,
     },
     {
       icon: comission,
       label: "Platform Commission (20%) ",
-      value: "1,000",
+      value: data.data.platformCommission,
     },
     {
       icon: NetEarnings,
       label: "Net Earnings",
-      value: "4000",
+      value: data.data.netEarnings,
     },
   ];
 
@@ -59,7 +76,7 @@ const DashboardCard = () => {
                 </span>
               </div>
               <div className="text-5xl font-sans  font-bold text-white">
-                ${metric.value}
+                {metric.value}
               </div>
             </Card>
           ))}

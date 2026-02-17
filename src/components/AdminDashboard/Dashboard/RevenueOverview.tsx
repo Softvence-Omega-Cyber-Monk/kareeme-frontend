@@ -11,57 +11,41 @@ import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 
-const RevenueOverview = () => {
+import { RevenueData } from "@/redux/features/admin/admin.type";
+
+interface RevenueOverviewProps {
+  data?: RevenueData[];
+}
+
+const RevenueOverview = ({ data }: RevenueOverviewProps) => {
   const [selectedFilter, setSelectedFilter] = useState("yearly");
 
+  // Transform API data for chart or use default 0s
+  const apiChartData = {
+    data: data?.map(item => item.value) || [],
+    categories: data?.map(item => item.month) || []
+  };
+
+  // Fallback if empty array
+  if (apiChartData.data.length === 0) {
+    apiChartData.data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    apiChartData.categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  }
+  const DummyWeeklyData = {
+    data: [0, 0, 0, 0, 0, 0, 0],
+    categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  };
+const dummyMonthlyData = {
+  data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+};
   // Revenue dataset
   const chartData: Record<string, { data: number[]; categories: string[] }> = {
-    last_7_days: {
-      data: [12, 18, 14, 22, 17, 25, 30],
-      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    },
-    last_30_days: {
-      data: Array.from(
-        { length: 30 },
-        () => Math.floor(Math.random() * (40 - 10 + 1)) + 10
-      ),
-      categories: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-    },
-    last_6_months: {
-      data: [120, 150, 180, 140, 200, 250],
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    },
-    yearly: {
-      data: [300, 350, 400, 450, 420, 500, 480, 530, 600, 650, 700, 750],
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-    },
-    this_year: {
-      data: [350, 420, 480, 500, 550, 600, 580, 620, 650],
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-      ],
-    },
+    last_7_days: DummyWeeklyData,
+    last_30_days: dummyMonthlyData,
+    last_6_months: apiChartData,
+    yearly: apiChartData,
+    this_year: apiChartData,
   };
 
   const currentData = chartData[selectedFilter];
@@ -82,7 +66,7 @@ const RevenueOverview = () => {
       axisTicks: { show: false },
       labels: {
         style: {
-          colors: "#969696", // x-axis text color
+          colors: "#969696", 
         },
       },
     },
@@ -92,9 +76,9 @@ const RevenueOverview = () => {
       tickAmount: 6,
       labels: {
         style: {
-          colors: "#969696", // y-axis text color
+          colors: "#969696", 
         },
-        formatter: (val) => `${Math.round(val)}`, // plain numbers only
+        formatter: (val) => `${Math.round(val)}`, 
       },
     },
     tooltip: { enabled: true },

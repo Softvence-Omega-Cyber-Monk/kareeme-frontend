@@ -9,15 +9,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import dashboard from "@/assets/icons/dashboard.svg";
+// import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userImage from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useLogout } from "@/hooks/useLogout";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
+import { useAuthMeQuery } from "@/redux/features/auth/authApi";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -29,15 +30,15 @@ export interface NavbarProps {
 const ClientDashboardNavbar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Gemini Chachi",
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const [isOpendashboard, setIsOpendashboard] = useState(false);
-  const { handleLogout } = useLogout();
+  // const [isOpendashboard, setIsOpendashboard] = useState(false);
+  const { handleLogout , isLoading} = useLogout();
+  const user = useAuthMeQuery();
 
   return (
-    <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
+    <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
         className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
           }`}
@@ -59,7 +60,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-gray-400">Dashboard</span>
               <span className="text-sm md:text-base font-medium text-white">
-                HELLO, {userName}
+                HELLO, {user?.data?.data.name}
               </span>
             </div>
           </div>
@@ -70,17 +71,17 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
           {/* Dashboard Icon */}
           <div className="relative">
             {/* Dashboard Icon */}
-            <Button
+            {/* <Button
               onClick={() => setIsOpendashboard(!isOpendashboard)}
               variant="ghost"
               size="icon"
               className="relative text-white cursor-pointer hover:bg-amber-400"
             >
-              <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
-            </Button>
+              <img src={ dashboard} alt="Dashboard" className="w-5 h-5" />
+            </Button> */}
 
             {/* Dropdown */}
-            {isOpendashboard && (
+            {/* {isOpendashboard && (
               <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                 <ul className="py-2 text-sm text-white">
                   {[
@@ -90,7 +91,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                   ].map((user, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 
                      transition-colors cursor-pointer rounded-xl hover:border-[#20396C] border border-transparent"
                     >
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
@@ -101,7 +102,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
           <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
             <DialogTrigger asChild>
@@ -139,7 +140,7 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.data?.data.profilePictureUrl || userImage} alt="User" className="size-8 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -148,28 +149,32 @@ const ClientDashboardNavbar: React.FC<NavbarProps> = ({
               className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
               <Link to="/client-dashboard/catalog/settings">
-                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                   <IoMdSettings className="text-white" />
                   <span className="font-medium">Settings</span>
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+            <Link to="/terms-and-conditions">
+              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
               </DropdownMenuItem>
+            </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
-                <MdPrivacyTip className="text-white" />
-                <span className="font-medium">Privacy Policy</span>
-              </DropdownMenuItem>
+              <Link to="/privacy-policy">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <MdPrivacyTip className="text-white" />
+                  <span className="font-medium">Privacy Policy</span>
+                </DropdownMenuItem>
+              </Link>
 
               <DropdownMenuItem
                 onClick={handleLogout}
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
               >
                 <RiLogoutBoxRLine className="text-red-500" />
-                <span className="font-medium">Sign Out</span>
+                <span className="font-medium">{isLoading ? "Signing out..." : "Sign Out"}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

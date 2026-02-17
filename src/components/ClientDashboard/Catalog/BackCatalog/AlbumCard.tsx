@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -9,6 +10,7 @@ type AlbumCardProps = {
   releaseDate: string;
   type: string;
   imageUrl: string;
+  catalogueId?: string;
 };
 
 const AlbumCard: React.FC<AlbumCardProps> = ({
@@ -19,7 +21,9 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   releaseDate,
   type,
   imageUrl,
+  catalogueId,
 }) => {
+  const role=useAppSelector((state)=>state.auth.user?.role)
   return (
     <div className="bg-[#0C1F21] p-2 rounded-xl overflow-hidden shadow-lg flex flex-col">
       <img
@@ -43,14 +47,14 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
               </p>
             </div>
             <p>
-              Release Date: <span className="text-white">{releaseDate}</span>{" "}
+              Release Date: <span className="text-white">{new Date(releaseDate).toLocaleDateString()}</span>{" "}
             </p>
           </div>
         </div>
         <div className="mt-4 flex gap-4">
           {/* Edit Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/edit"
+            to={role==="DISTRIBUTOR"?`/distributor-dashboard/catalog/back-catalog/edit/${catalogueId}`:role==="CLIENT"?`/client-dashboard/catalog/back-catalog/edit/${catalogueId}`:role==="ADMIN"?`/admin/catalog/back-catalog/edit/${catalogueId}`:`/client-dashboard/catalog/back-catalog/edit/${catalogueId}`}
             className="flex-1"
           >
             <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-gray-700 bg-white/10 text-white hover:bg-white/20 transition-all duration-300 font-medium cursor-pointer">
@@ -60,7 +64,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
 
           {/* View Details Button */}
           <Link
-            to="/client-dashboard/catalog/back-catalog/view"
+            to={role==="DISTRIBUTOR"?`/distributor-dashboard/catalog/back-catalog/view/${catalogueId}`:role==="CLIENT"?`/client-dashboard/catalog/back-catalog/view/${catalogueId}`:role==="ADMIN"?`/admin/catalog/back-catalog/view/${catalogueId}`:`/client-dashboard/catalog/back-catalog/view/${catalogueId}`}
             className="flex-1"
           >
             <button className="w-full h-12 flex justify-center items-center gap-2 rounded-xl border border-[#3A5CFF] bg-[#3A5CFF] text-white hover:bg-[#3350d1] transition-all duration-300 font-medium cursor-pointer">

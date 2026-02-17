@@ -12,16 +12,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import dashboard from "@/assets/icons/dashboard.svg";
+// import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
-import user from "@/assets/icons/user.svg";
+import userIcon from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+// import { ChevronDown } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import NotificationReuseable from "@/components/Reuseable/NotificationReuseable";
 import { useLogout } from "@/hooks/useLogout";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 export interface NavbarProps {
   onMobileMenuToggle: () => void;
@@ -33,16 +35,16 @@ export interface NavbarProps {
 const AdminDashboardNavBar: React.FC<NavbarProps> = ({
   onMobileMenuToggle,
   notificationCount = 12,
-  userName = "Gemini Chachi",
   isSidebarOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpendashboard, setIsOpendashboard] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [isOpendashboard, setIsOpendashboard] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const { handleLogout } = useLogout();
+  const user = useAppSelector(selectCurrentUser);
 
   return (
-    <div className="bg-gradient-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
+    <div className="bg-linear-to-r from-[#052117] via-[#0A1C19] to-[#0F131B] border-b border-[#212C64]">
       <header
         className={`flex items-center justify-between h-16 px-4 md:px-8 mb-2 ${isSidebarOpen ? "max-w-[1400px] mx-auto" : ""
           }`}
@@ -60,16 +62,22 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
           </Button>
 
           {/* Logo + Dashboard text */}
-          <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60 mt-2">
-            <div className="relative">
-              {/* Button */}
+          <div className="flex items-center mt-2">
+            <div className="flex items-center space-x-3 pl-0 md:pl-8 lg:pl-60">
+              <div className="flex flex-col leading-tight">
+                <span className="text-xs text-gray-400">Super Admin Dashboard</span>
+                <span className="text-sm md:text-base font-medium text-white">
+                  {user?.name}
+                </span>
+              </div>
+            </div>
+            {/* <div className="relative">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-gradient-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-between w-full border border-[#3A5CFF]/50 rounded-4xl px-[10px] py-[8px] lg:px-[14px] lg:py-[12px] text-white bg-linear-to-r from-[#1C302B] to-[#10151C] shadow-lg hover:from-[#0F141B] hover:to-[#161625] transition-all duration-300 cursor-pointer"
               >
                 <span className="flex items-center gap-3">
-                  {/* Profile Circle */}
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-linear-to-r from-[#161625] to-[#1E2235] border border-[#3A5CFF] text-white font-semibold text-sm shadow-md">
                     GC
                   </span>
                   <span className="text-sm md:text-base font-medium tracking-wide">
@@ -77,7 +85,6 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                   </span>
                 </span>
 
-                {/* Arrow */}
                 <span
                   className={`ml-2 transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
                     }`}
@@ -86,23 +93,22 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                 </span>
               </button>
 
-              {/* Dropdown */}
               {isOpen && (
                 <div className="absolute left-0 mt-2 w-full bg-[#10151C] border border-[#3A5CFF]/40 rounded-3xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                   <ul className="py-2 text-sm text-white space-y-1">
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         A
                       </span>
                       <span className="font-medium">Md Arfin Mia</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         S
                       </span>
                       <span className="font-medium">Md Saqzzad Hossain</span>
                     </li>
-                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
+                    <li className="flex items-center gap-3 px-4 py-2 hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer rounded-3xl hover:border-[#20396C] hover:border border-b-1 ">
                       <span className="w-8 h-8 rounded-full bg-[#1C2230] flex items-center justify-center text-white font-medium shadow-sm">
                         Q
                       </span>
@@ -111,25 +117,23 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                   </ul>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           <div className="relative">
-            {/* Dashboard Icon */}
-            <Button
+            {/* <Button
               onClick={() => setIsOpendashboard(!isOpendashboard)}
               variant="ghost"
               size="icon"
               className="relative text-white cursor-pointer hover:bg-amber-400"
             >
               <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
-            </Button>
+            </Button> */}
 
-            {/* Dropdown */}
-            {isOpendashboard && (
+            {/* {isOpendashboard && (
               <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                 <ul className="py-2 text-sm text-white">
                   {[
@@ -150,7 +154,7 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Notifications */}
@@ -193,7 +197,7 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
                 size="icon"
                 className="text-white cursor-pointer"
               >
-                <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+                <img src={user?.profilePictureUrl??userIcon} alt="User" className="w-6 h-6 rounded-full" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -201,22 +205,26 @@ const AdminDashboardNavBar: React.FC<NavbarProps> = ({
               align="end"
               className="bg-[#10151C] text-white w-60 shadow-2xl rounded-3xl border border-[#3A5CFF]/40 backdrop-blur-md overflow-hidden animate-fadeIn"
             >
-              <Link to="/admin-dashboard/settings">
+              <Link to="/super-admin-dashboard/settings">
                 <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                   <IoMdSettings className="text-white" />
                   <span className="font-medium">Settings</span>
                 </DropdownMenuItem>
               </Link>
 
+              <Link to="/terms-and-conditions">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <RiFileList3Fill className="text-white" />
                 <span className="font-medium">Terms & Conditions</span>
               </DropdownMenuItem>
+              </Link>
 
+              <Link to="/privacy-policy">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-gradient-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <MdPrivacyTip className="text-white" />
                 <span className="font-medium">Privacy Policy</span>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+                </Link>
 
               <DropdownMenuItem
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"

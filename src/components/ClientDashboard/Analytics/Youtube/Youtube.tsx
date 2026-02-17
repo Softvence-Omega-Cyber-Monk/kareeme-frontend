@@ -1,4 +1,5 @@
-import { FaYoutube } from "react-icons/fa6";
+import { FaYoutube, FaSpotify, FaApple, FaSoundcloud, FaDeezer } from "react-icons/fa6";
+import { SiAudiomack, SiTidal, SiIheartradio } from "react-icons/si";
 import {
   Select,
   SelectContent,
@@ -9,20 +10,59 @@ import {
 } from "@/components/ui/select";
 import ReuseHeader from "../Shared/ReuseHeader";
 
-const Youtube = () => {
+const getPlatformIcon = (platform?: string) => {
+  if (!platform) return null;
+  switch (platform.toLowerCase()) {
+    case "youtube": return <FaYoutube className="text-[#FF0000] w-10 h-6" />;
+    case "spotify": return <FaSpotify className="text-[#1DB954] w-10 h-6" />;
+    case "applemusic": return <FaApple className="text-white w-10 h-6" />;
+    case "soundcloud": return <FaSoundcloud className="text-[#FF5500] w-10 h-6" />;
+    case "audiomack": return <SiAudiomack className="text-[#FFA200] w-10 h-6" />;
+    case "deezer": return <FaDeezer className="text-[#00C7FF] w-10 h-6" />;
+    case "tidal": return <SiTidal className="text-[#000000] w-10 h-6 bg-white rounded-sm" />;
+    case "iheart radio":
+    case "iheartradio": return <SiIheartradio className="text-[#C6002B] w-10 h-6" />;
+    default: return null;
+  }
+};
+
+interface YoutubeProps {
+  platform?: string;
+  period: string;
+  setPeriod: (period: string) => void;
+}
+
+const Youtube = ({ 
+  platform = "YouTube", 
+  period, 
+  setPeriod 
+}: YoutubeProps) => {
+  const getPeriodLabel = (val: string) => {
+    switch (val) {
+      case "last_7_days": return "Last 7 Days";
+      case "last_30_days": return "Last 30 Days";
+      case "last_6_months": return "Last 6 Months";
+      case "last_1_year": return "Last 1 Year";
+      case "this_year": return "This Year";
+      default: return "Select Period";
+    }
+  };
+
   return (
     <div className="space-y-9">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         {/* Reusable Header */}
         <ReuseHeader
-          platform="YouTube"
-          icon={<FaYoutube className="text-[#FF0000] w-10 h-6" />}
+          platform={platform}
+          icon={getPlatformIcon(platform)}
         />
 
         {/* Filter Dropdown (kept separate) */}
-        <Select>
+        <Select value={period} onValueChange={setPeriod}>
           <SelectTrigger className="w-full sm:w-full md:w-[240px] h-12 rounded-[15px] border border-[rgba(226,232,240,0.30)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
-            <SelectValue placeholder="Last 1 Year" className="text-gray-300" />
+            <SelectValue placeholder="Last 1 Year" className="text-gray-300">
+              {getPeriodLabel(period)}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="border-none bg-[#17171A] text-white font-sans shadow-lg rounded-lg">
             <SelectGroup>

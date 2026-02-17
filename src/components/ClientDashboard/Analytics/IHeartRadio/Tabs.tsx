@@ -37,21 +37,21 @@ const Tabs = () => {
         {activeTab === "Assets" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <TopAssetsDetails />
+              <TopAssetsDetails platform="IHeartRadio" period=""/>
             </div>
           </div>
         )}
         {activeTab === "Claims" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <TopClaimsDetails />
+              <TopClaimsDetails platform="IHeartRadio" period=""/>
             </div>
           </div>
         )}
         {activeTab === "Geo Trends" && (
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
             <div className="xl:col-span-4 w-full">
-              <GeoTrendsDetails />
+              <GeoTrendsDetails platform="IHeartRadio" period="" />
             </div>
           </div>
         )}

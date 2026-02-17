@@ -20,10 +20,10 @@ const DeezerOverView = () => {
       {/* 3rd part */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-2 w-full">
-          <TopAssets />
+          <TopAssets data={[]} />
         </div>
         <div className="w-full xl:col-span-2">
-          <TopClaims />
+          <TopClaims data={[]} />
         </div>
       </div>
     </div>

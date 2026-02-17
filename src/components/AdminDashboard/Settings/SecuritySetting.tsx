@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaDesktop, FaMobileAlt } from "react-icons/fa";
+import { User } from "@/redux/types/auth.type";
+import { useChangePasswordMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
 
-const PasswordManagement = () => {
+interface PasswordManagementProps {
+  user: User;
+}
+
+const PasswordManagement = ({ user }: PasswordManagementProps) => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showRetypeNewPassword, setShowRetypeNewPassword] = useState(false);
@@ -13,6 +20,8 @@ const PasswordManagement = () => {
     retypeNewPassword: "",
   });
 
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -20,9 +29,42 @@ const PasswordManagement = () => {
     }));
   };
 
+  const handlePasswordChange = async () => {
+    if (!formData.currentPassword || !formData.newPassword) {
+      toast.error("Please fill in all password fields.");
+      return;
+    }
+
+    if (formData.newPassword !== formData.retypeNewPassword) {
+      toast.error("New passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await changePassword({
+        password: formData.currentPassword,
+        newPassword: formData.newPassword,
+      }).unwrap();
+
+      if (response.success) {
+        toast.success("Password changed successfully!");
+        setFormData({
+          currentPassword: "",
+          newPassword: "",
+          retypeNewPassword: "",
+        });
+      }
+    } catch (err) {
+      console.error("Failed to change password", err);
+      const errorData = err as { data?: { message?: string } };
+      toast.error(
+        errorData.data?.message || "Failed to change password. Please try again."
+      );
+    }
+  };
+
   return (
-    <div>
-      {" "}
+    <div className="space-y-6">
       <div className="bg-[#0D1D22] p-8 rounded-xl shadow-md">
         <h2 className="text-2xl font-semibold mb-6 text-white">
           Security Settings
@@ -126,9 +168,59 @@ const PasswordManagement = () => {
             </div>
           </div>
         </div>
-        <button className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 flex-shrink-0">
-          Update Password
+        <button
+          onClick={handlePasswordChange}
+          disabled={isLoading}
+          className=" text-lg flex justify-center items-center gap-[10px] w-full sm:w-[206px] h-[52px] px-4 py-[10px] rounded-[12px] bg-[#3A5CFF] text-white hover:bg-blue-500 cursor-pointer mt-4 shrink-0 disabled:bg-gray-500"
+        >
+          {isLoading ? "Updating..." : "Update Password"}
         </button>
+      </div>
+
+      {/* Login Devices */}
+      <div className="bg-[#0D1D22] p-8 rounded-xl shadow-md">
+        <h3 className="text-xl font-semibold mb-6 text-white">Login Devices</h3>
+        <div className="space-y-4">
+          {user.loginDevices?.map((device) => (
+            <div
+              key={device.id}
+              className="flex items-center justify-between p-4 bg-[#1B2B33] rounded-xl"
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-[#253438] rounded-lg text-[#10B981]">
+                  {device.deviceType === "desktop" ? (
+                    <FaDesktop className="h-6 w-6" />
+                  ) : (
+                    <FaMobileAlt className="h-6 w-6" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-white font-medium">
+                    {device.browser} on {device.os}
+                  </p>
+                  <p className="text-gray-400 text-sm">
+                    {device.ipAddress} • {device.city || "Unknown City"},{" "}
+                    {device.country || "Unknown Country"}
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                {device.isActive ? (
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Active Now
+                  </span>
+                ) : (
+                  <p className="text-gray-400 text-sm italic">
+                    Last login: {new Date(device.lastLoginAt).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+          {(!user.loginDevices || user.loginDevices.length === 0) && (
+            <p className="text-gray-400 italic">No recent login devices found.</p>
+          )}
+        </div>
       </div>
     </div>
   );

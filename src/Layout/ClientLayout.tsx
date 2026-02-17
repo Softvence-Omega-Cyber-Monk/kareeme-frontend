@@ -1,14 +1,22 @@
 import ClientDashboardNavbar from "@/components/ClientDashboard/Shared/ClientDashboardNavbar";
 import ClientSidebar from "@/components/ClientDashboard/Shared/ClientSidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { DashboardToaster } from "@/components/ui/Toaster";
 
 const ClientLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   const shouldHideNavbar =
     pathname === "/client-dashboard/catalog/submit/form" ||
@@ -81,7 +89,8 @@ const ClientLayout = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gradient-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
+    <div className="flex h-screen overflow-hidden bg-linear-to-r from-[#052318] via-[#0A1C19] to-[#0F131B]">
+      <DashboardToaster />
       {/* Sidebar - Fixed on Desktop */}
       {!shouldHideSidebar() && (
         <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-30  bg-[#052218]">
@@ -118,6 +127,7 @@ const ClientLayout = () => {
 
         {/* Scrollable Page Content */}
         <main
+          ref={mainRef}
           className={`flex-1 overflow-y-auto mt-16 text-white ${
             isSidebarOpen ? "pt-4 md:pt-10" : "p-4 md:p-10"
           }`}
