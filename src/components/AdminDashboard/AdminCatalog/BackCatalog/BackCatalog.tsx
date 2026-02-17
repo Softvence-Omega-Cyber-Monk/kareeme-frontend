@@ -8,8 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useGetAllBackCatalogueQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useGetAdminBackCatalogueQuery } from "@/redux/features/admin/adminApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { AdminBackCatalogueEntry } from "@/redux/features/admin/admin.type";
 import BackCatalogGrid from "./BackCatalogGrid";
 import Pagination from "@/components/Reuseable/Pagination";
 
@@ -33,12 +36,45 @@ const BackCatalog = () => {
   const [page, setPage] = useState<number>(1);
   const [limit] = useState<number>(10);
 
-  const { data: response, isLoading, isError } = useGetAllBackCatalogueQuery({
+  const role = useAppSelector((state) => state.auth.user?.role);
+  const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "DISTRIBUTOR";
+
+  const { data: clientResponse, isLoading: isLoadingClient, isError: isErrorClient } = useGetAllBackCatalogueQuery({
     limit,
     page,
-  });
+  }, { skip: isAdmin });
 
-  const backCatalogData: BackCatalogEntry[] = response?.data || [];
+  const { data: adminResponse, isLoading: isLoadingAdmin, isError: isErrorAdmin } = useGetAdminBackCatalogueQuery({
+    limit,
+    page,
+  }, { skip: !isAdmin });
+
+  const response = isAdmin ? adminResponse : clientResponse;
+  const isLoading = isAdmin ? isLoadingAdmin : isLoadingClient;
+  const isError = isAdmin ? isErrorAdmin : isErrorClient;
+
+  const backCatalogData: BackCatalogEntry[] = useMemo(() => {
+    if (!response?.data) return [];
+    
+    if (isAdmin) {
+      // Map AdminBackCatalogueEntry to BackCatalogEntry
+      return (response.data as AdminBackCatalogueEntry[]).map((apiItem) => ({
+        id: apiItem.catalogueId,
+        releaseTitle: apiItem.releaseTitle,
+        albumLevelArtistName: apiItem.releaseArtist,
+        typeOfRelease: apiItem.releaseType,
+        genre: "N/A", // Genre not in admin summary
+        distributorName: apiItem.distributor,
+        labelName: apiItem.labelName,
+        trackCount: 0, // TrackCount not in admin summary
+        releaseDate: apiItem.releaseDate,
+        image: undefined, // Image not in admin summary
+      }));
+    }
+    
+    return response.data;
+  }, [response, isAdmin]);
+
   const totalItems = response?.metadata?.total || 0;
   const totalPages = response?.metadata?.totalPage || 1;
 

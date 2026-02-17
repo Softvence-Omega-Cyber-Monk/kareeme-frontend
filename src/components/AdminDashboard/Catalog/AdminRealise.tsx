@@ -8,10 +8,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState, useMemo } from "react";
+import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useGetAdminReleasesQuery } from "@/redux/features/admin/adminApi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+import { AdminRelease } from "@/redux/features/admin/admin.type";
 import AdminRealiseTable from "./AdminRealiseTable";
 import ReuseCatalog from "./ReuseCatalog";
-import { useState } from "react";
-import { useGetAllReleasesQuery } from "@/redux/features/newRelease/newReleaseApi";
 import Pagination from "@/components/Reuseable/Pagination";
 
 interface Release {
@@ -32,12 +35,43 @@ const AdminRealise = () => {
   const [page, setPage] = useState<number>(1);
   const [limit] = useState<number>(10);
 
-  const { data: response, isLoading, isError } = useGetAllReleasesQuery({
+  const role = useAppSelector((state) => state.auth.user?.role);
+  const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "DISTRIBUTOR";
+
+  const { data: clientResponse, isLoading: isLoadingClient, isError: isErrorClient } = useGetAllReleasesQuery({
     limit,
     page,
-  });
+  }, { skip: isAdmin });
 
-  const releases: Release[] = response?.data || [];
+  const { data: adminResponse, isLoading: isLoadingAdmin, isError: isErrorAdmin } = useGetAdminReleasesQuery({
+    limit,
+    page,
+  }, { skip: !isAdmin });
+
+  const response = isAdmin ? adminResponse : clientResponse;
+  const isLoading = isAdmin ? isLoadingAdmin : isLoadingClient;
+  const isError = isAdmin ? isErrorAdmin : isErrorClient;
+
+  const releases: Release[] = useMemo(() => {
+    if (!response?.data) return [];
+    
+    if (isAdmin) {
+      // Map AdminRelease to Release interface if necessary
+      return (response.data as AdminRelease[]).map((apiItem) => ({
+        id: apiItem.releaseId,
+        releaseTitle: apiItem.releaseTitle,
+        albumLevelArtistName: apiItem.artistName || "N/A",
+        upc: apiItem.upc,
+        typeOfRelease: apiItem.typeOfRelease,
+        releaseDate: apiItem.releaseDate,
+        status: apiItem.status,
+        image: undefined, // Image not in admin release summary
+      }));
+    }
+    
+    return response.data;
+  }, [response, isAdmin]);
+
   const totalItems = response?.metadata?.total || 0;
   const totalPages = response?.metadata?.totalPage || 1;
 
