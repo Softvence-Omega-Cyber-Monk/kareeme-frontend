@@ -60,9 +60,9 @@ const DistributionHeader = () => {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             {/* Release Type */}
-            <Select value={releaseRange ?? ""}
+            <Select value={releaseRange ?? "all"}
                   onValueChange={(value) =>
-                    setReleaseRange(value as any)
+                    setReleaseRange(value === "all" ? null : value as any)
                   }>
               <SelectTrigger className="w-full sm:w-48 md:w-56 lg:w-52 h-12 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[#17171A] shadow-sm hover:border-[#1C1D28] focus:ring-1 focus:ring-blue-500 cursor-pointer text-sm md:text-base">
                 <SelectValue
@@ -72,6 +72,12 @@ const DistributionHeader = () => {
               </SelectTrigger>
               <SelectContent className="border-none bg-[#17171A] text-white rounded-lg shadow-lg">
                 <SelectGroup>
+                  <SelectItem
+                    value="all"
+                    className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
+                  >
+                    All Time
+                  </SelectItem>
                   <SelectItem
                     value="last_7_days"
                     className="hover:bg-[#131320] p-3 border-b border-[#2C2C3A] cursor-pointer"
