@@ -36,6 +36,7 @@ import AdminProfitLossPage from "@/pages/Admin/AdminProfitLossPage";
 import DataEntryForm from "@/components/ClientDashboard/Catalog/BackCatalog/DataEntryForm";
 import CatalogDetailsData from "@/components/ClientDashboard/Catalog/BackCatalog/CatalogDetailsData";
 import AdminRealisePage from "@/pages/Admin/AdminRealisePage";
+import AdminRealiseDetailsPage from "@/pages/Admin/AdminRealiseDetailsPage";
 import AdminBackCatalogPage from "@/pages/Admin/AdminBackCatalogPage";
 import AdminSubmitPage from "@/pages/Admin/AdminSubmitPage";
 import AdminTeamPage from "@/pages/Admin/AdminTeamPage";
@@ -256,6 +257,7 @@ const routes = createBrowserRouter([
       { path: "profit-loss", element: <AdminProfitLossPage /> },
       /* Catalog */
       { path: "releases", element: <AdminRealisePage /> },
+      { path: "releases/:id", element: <AdminRealiseDetailsPage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
       { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "submit", element: <AdminSubmitPage /> },
@@ -292,7 +294,7 @@ const routes = createBrowserRouter([
       { path: "accounting/profit-loss", element: <ProfitLossPage /> },
       /*  Catalog*/
       { path: "catalog/releases", element: <ReleasesPage /> },
-      { path: "catalog/releases/:id", element: <ReleasesDetails /> },
+      { path: "catalog/releases/:id", element: <AdminRealiseDetailsPage /> },
       { path: "catalog/submit", element: <ClientSubmit /> },
       { path: "catalog/submit/:id", element:<SubmissionDetails /> },
 

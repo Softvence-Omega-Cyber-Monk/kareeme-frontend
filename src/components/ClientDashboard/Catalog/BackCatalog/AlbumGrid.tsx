@@ -58,6 +58,9 @@ const AlbumGrid = () => {
       let matchesYear = true;
 
       switch (filterYear) {
+        case "all":
+          matchesYear = true;
+          break;
         case "last_7_days":
           matchesYear = !!(item.releaseDate &&
             new Date(item.releaseDate) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
@@ -153,6 +156,9 @@ const AlbumGrid = () => {
             </SelectTrigger>
             <SelectContent className="bg-[#17171A] text-white rounded-lg border-none ">
               <SelectGroup>
+                <SelectItem className="cursor-pointer" value="all">
+                  All
+                </SelectItem>
                 <SelectItem className="cursor-pointer" value="last_7_days">
                   Last 7 Days
                 </SelectItem>
