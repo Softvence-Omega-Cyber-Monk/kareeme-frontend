@@ -169,8 +169,15 @@ export interface ClientsQueryParams {
 export interface ClientActionResponse {
   success: boolean;
   message: string;
+}// Create Client types
+export interface CreateClientPayload {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
 }
 
-
-
-
+export interface CreateClientResponse {
+  success: boolean;
+  message: string;
+}

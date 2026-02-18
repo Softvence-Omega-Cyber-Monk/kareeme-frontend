@@ -1,128 +1,72 @@
-import { useState } from "react";
 import DistributorBackCatalogCard from "./DistributorBackCatalogCard";
-import { FaArrowRightLong } from "react-icons/fa6";
 
-const artists = [
-  {
-    name: "Darlene Robertson",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Kristin Watson",
-    genre: "Pop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Ronald Richards",
-    genre: "Rock Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Devon Lane",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Marvin McKinney",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Kathryn Murphy",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Savannah Nguyen",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Eleanor Pena",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-  {
-    name: "Guy Hawkins",
-    genre: "Hip Hop Artist",
-    totalRelease: 5,
-    releaseType: "3 Albums, 2 Single",
-    distributor: "XYZ Distribution",
-    label: "ABC Records",
-    totalTracks: 25,
-    dateRange: "2018-2025",
-  },
-];
+interface BackCatalogEntry {
+  catalogueId: string;
+  releaseTitle: string;
+  releaseArtist: string;
+  releaseType: string;
+  distributor: string;
+  labelName: string;
+  releaseDate: string;
+}
 
-const ITEMS_PER_LOAD = 6; // How many items to show at a time
+interface DistributorBackCatalogGridProps {
+  data: BackCatalogEntry[];
+  isLoading: boolean;
+  isError: boolean;
+}
 
-const DistributorBackCatalogGrid = () => {
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
+const DistributorBackCatalogGrid: React.FC<DistributorBackCatalogGridProps> = ({
+  data,
+  isLoading,
+  isError,
+}) => {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
-  };
+  if (isError) {
+    return (
+      <div className="text-center text-red-500 py-10">
+        Failed to load back catalog. Please try again.
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="text-center text-gray-400 py-10">
+        No back catalog entries found.
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {artists.slice(0, visibleCount).map((artist, index) => (
-          <DistributorBackCatalogCard key={index} {...artist} />
+        {data.map((item) => (
+          <DistributorBackCatalogCard
+            key={item.catalogueId}
+            id={item.catalogueId}
+            name={item.releaseTitle}
+            genre="N/A"
+            totalRelease={1}
+            releaseType={item.releaseType}
+            distributor={item.distributor}
+            label={item.labelName}
+            totalTracks={0}
+            dateRange={
+              item.releaseDate
+                ? new Date(item.releaseDate).toLocaleDateString()
+                : "N/A"
+            }
+          />
         ))}
       </div>
-
-      {visibleCount < artists.length && (
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={handleLoadMore}
-            className="flex items-center gap-2 text-sm md:text-base px-4 py-2  text-blue-600 hover:text-blue-800  cursor-pointer"
-          >
-            Load More
-            <FaArrowRightLong className="w-4 h-4" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };

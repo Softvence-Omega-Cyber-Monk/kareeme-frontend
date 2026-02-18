@@ -5,6 +5,8 @@ import {
   ClientsQueryParams,
   ClientsResponse,
   DashboardResponse,
+  CreateClientPayload,
+  CreateClientResponse,
   DeclineSubmissionPayload,
   SubmissionActionResponse,
   SubmissionDetailsResponse,
@@ -95,6 +97,14 @@ const distributionApi = baseApi.injectEndpoints({
       invalidatesTags: ["Clients"],
     }),
 
+    activateClient: builder.mutation<ClientActionResponse, string>({
+      query: (clientId) => ({
+        url: `/distribution/clients/${clientId}/activate`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Clients"],
+    }),
+
     approveSubmission: builder.mutation< SubmissionActionResponse, { releaseId: string; payload?: ApproveSubmissionPayload } >({
       query: ({ releaseId, payload }) => ({
         url: `/distribution/submissions/${releaseId}/approve`,
@@ -112,6 +122,15 @@ const distributionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Submissions"],
     }),
+
+    createClient: builder.mutation<CreateClientResponse, CreateClientPayload>({
+      query: (payload) => ({
+        url: "/distribution/clients",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["Clients"],
+    }),
   }),
 });
 
@@ -119,11 +138,13 @@ export const {
   useGetDashboardQuery,
   useGetSubmissionsQuery,
   useGetMoreSubmissionsQuery,
-  useLazyGetMoreSubmissionsQuery, 
+  useLazyGetMoreSubmissionsQuery,
   useGetSubmissionDetailsQuery,
   useGetClientsQuery,
   useApproveSubmissionMutation,
   useDeclineSubmissionMutation,
   useDeactivateClientMutation,
+  useActivateClientMutation,
+  useCreateClientMutation,
 } = distributionApi;
 export default distributionApi;
