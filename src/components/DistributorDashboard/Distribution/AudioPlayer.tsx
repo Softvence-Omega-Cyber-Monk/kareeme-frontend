@@ -9,44 +9,43 @@ export default function AudioPlayer({ url, title = "Audio Title", }: { url: stri
   const [isPlaying, setIsPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
-
-  // Toggle play/pause (sync audio & video)
-  const togglePlay = () => {
-    const audio = audioRef.current;
-    const video = videoRef.current;
-    if (!audio || !video) return;
-
-    if (audio.paused) {
-      audio.play();
-      video.play();
-    } else {
-      audio.pause();
-      video.pause();
-    }
-  };
-
-  // Sync state with audio element
+  const [isReady, setIsReady] = useState(false);
   useEffect(() => {
     const audio = audioRef.current;
-    const video = videoRef.current;
-    if (!audio || !video) return;
+    if (!audio) return;
 
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
     const onTime = () => setCurrent(audio.currentTime);
-    const onLoad = () => setDuration(audio.duration);
+    const onLoad = () => {
+        if (!isNaN(audio.duration)) {
+            setDuration(audio.duration);
+            setIsReady(true);
+        }
+    };
+    // If playback stalls or waiting for data
+    const onWaiting = () => setIsReady(false);
+    const onCanPlay = () => setIsReady(true);
 
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     audio.addEventListener("timeupdate", onTime);
     audio.addEventListener("loadedmetadata", onLoad);
+    audio.addEventListener("waiting", onWaiting);
+    audio.addEventListener("canplay", onCanPlay);
 
-    // Sync video automatically when audio plays/pauses
-    const handleVideoPlay = () => video.play();
-    const handleVideoPause = () => video.pause();
+    // Sync video automatically when audio plays/pauses (best effort)
+    const handleVideoPlay = () => {
+        if (videoRef.current) videoRef.current.play().catch(() => {});
+    };
+    const handleVideoPause = () => {
+        if (videoRef.current) videoRef.current.pause();
+    };
+    
     audio.addEventListener("play", handleVideoPlay);
     audio.addEventListener("pause", handleVideoPause);
 
+    // Initial check for cached metadata
     if (audio.readyState >= 1) onLoad();
 
     return () => {
@@ -54,10 +53,44 @@ export default function AudioPlayer({ url, title = "Audio Title", }: { url: stri
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("timeupdate", onTime);
       audio.removeEventListener("loadedmetadata", onLoad);
+      audio.removeEventListener("waiting", onWaiting);
+      audio.removeEventListener("canplay", onCanPlay);
       audio.removeEventListener("play", handleVideoPlay);
       audio.removeEventListener("pause", handleVideoPause);
     };
   }, []);
+
+  // If no URL is provided, show a graceful message
+  if (!url) {
+    return (
+      <div className="relative w-fit px-10 h-[42px] flex items-center justify-center bg-transparent rounded-lg border border-red-400">
+        <span className="text-xs text-red-400 font-medium">No Audio Available or correpted file</span>
+      </div>
+    );
+  }
+
+  // Toggle play/pause (sync audio & video)
+  const togglePlay = async () => {
+    if (!isReady) return; // Prevent interaction if not ready
+
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    try {
+      if (audio.paused) {
+        await audio.play();
+        if (videoRef.current) videoRef.current.play().catch(() => {});
+      } else {
+        audio.pause();
+        if (videoRef.current) videoRef.current.pause();
+      }
+    } catch (err) {
+      console.error("Playback failed", err);
+    }
+  };
+
+  // Sync state with audio element
+
 
   // Calculate progress percentage
   const percent = duration ? current / duration : 0;
@@ -72,6 +105,7 @@ export default function AudioPlayer({ url, title = "Audio Title", }: { url: stri
 
   // Handle seek via click on progress bar
   const handleSeek = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!isReady) return;
     const audio = audioRef.current;
     if (!audio || !duration) return;
 
@@ -93,7 +127,7 @@ export default function AudioPlayer({ url, title = "Audio Title", }: { url: stri
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-30  "
+        className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-30 object-[70%_center]"
         autoPlay={false} // will play only when audio plays
       />
 
@@ -117,10 +151,15 @@ export default function AudioPlayer({ url, title = "Audio Title", }: { url: stri
           width="198" height="42" rx="8" fill="transparent" />
         {/* Stroke Border */}
 
-        <rect onClick={togglePlay} style={{ cursor: "pointer" }} x="0.5" y="0.5" width="197" height="41" rx="7.5" stroke="#C6C6C6" strokeOpacity="0.5" />
+        <rect onClick={togglePlay} style={{ cursor: isReady ? "pointer" : "default" }} x="0.5" y="0.5" width="197" height="41" rx="7.5" stroke="#C6C6C6" strokeOpacity="0.5" />
         {/* Play/Pause Button */}
-        <g onClick={togglePlay} style={{ cursor: "pointer" }}>
-          {isPlaying ? (
+        <g onClick={togglePlay} style={{ cursor: isReady ? "pointer" : "default", opacity: isReady ? 1 : 0.5 }}>
+          {!isReady ? (
+             // Loading State
+             <circle cx="24" cy="24" r="6" stroke="#3A5CFF" strokeWidth="2" fill="none" strokeDasharray="10 10">
+                <animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="1s" repeatCount="indefinite"/>
+             </circle>
+          ) : isPlaying ? (
             <g>
               {/* Circle */}
               <path

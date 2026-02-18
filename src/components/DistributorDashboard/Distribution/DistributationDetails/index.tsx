@@ -1,5 +1,7 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
-import { FaAngleLeft, FaUserCircle, FaPlay, FaPause } from "react-icons/fa";
+import { FaAngleLeft, FaUserCircle, 
+    // FaPlay, FaPause 
+  } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,9 @@ import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, 
+    // useRef 
+  } from "react";
 import { toast } from "sonner";
 import { skipToken } from "@reduxjs/toolkit/query";
 
@@ -20,6 +24,7 @@ import soundClud from "@/assets/icons/soundCloud.png";
 import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
+// import AudioPlayer from "../AudioPlayer";
 import heart from "@/assets/icons/heart2.png";
 
 import {
@@ -44,6 +49,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { MdOutlineFileDownload } from "react-icons/md";
+import AudioPlayer from "../AudioPlayer";
 
 interface PlatformItem {
   name: string;
@@ -104,21 +110,21 @@ const platformPerformance: PlatformItem[] = [
 ];
 
 const TrackItem = ({ track }: { track: TrackItemData }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
+  // const togglePlay = () => {
+  //   if (!audioRef.current) return;
+  //   if (isPlaying) {
+  //     audioRef.current.pause();
+  //   } else {
+  //     audioRef.current.play();
+  //   }
+  //   setIsPlaying(!isPlaying);
+  // };
 
   return (
-    <div className="mb-6 border-b border-gray-800 pb-6 last:border-0 last:pb-0">
+    <div className="mb-6 border-b border-gray-800 pb-6 last:border-0 last:pb-0 ">
       <div className="flex items-center justify-between mb-3">
         <div className="flex justify-start items-center gap-3">
           <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
@@ -133,22 +139,24 @@ const TrackItem = ({ track }: { track: TrackItemData }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {track.audioFileUrl && (
-            <>
-              <audio
-                ref={audioRef}
-                src={track.audioFileUrl}
-                onEnded={() => setIsPlaying(false)}
-              />
-              <button
-                onClick={togglePlay}
-                className="w-10 h-10 rounded-full bg-[#3A5CFF] flex items-center justify-center text-white hover:bg-[#2f4de0] transition cursor-pointer"
-              >
-                {isPlaying ? <FaPause /> : <FaPlay className="pl-0.5" />}
-              </button>
-            </>
-          )}
-          <img src={audioframe} alt="" className="h-10 opacity-50" />
+          {track.audioFileUrl && <AudioPlayer url={track.audioFileUrl} title=""/>
+          // (
+          //   <>
+          //     <audio
+          //       ref={audioRef}
+          //       src={track.audioFileUrl}
+          //       onEnded={() => setIsPlaying(false)}
+          //     />
+          //     <button
+          //       onClick={togglePlay}
+          //       className="w-10 h-10 rounded-full bg-[#3A5CFF] flex items-center justify-center text-white hover:bg-[#2f4de0] transition cursor-pointer"
+          //     >
+          //       {isPlaying ? <FaPause /> : <FaPlay className="pl-0.5" />}
+          //     </button>
+          //   </>
+          // )
+          }
+          {/* <img src={audioframe} alt="" className="h-10 opacity-50" /> */}
         </div>
       </div>
 
