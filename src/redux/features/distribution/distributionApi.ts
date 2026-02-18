@@ -97,6 +97,14 @@ const distributionApi = baseApi.injectEndpoints({
       invalidatesTags: ["Clients"],
     }),
 
+    activateClient: builder.mutation<ClientActionResponse, string>({
+      query: (clientId) => ({
+        url: `/distribution/clients/${clientId}/activate`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Clients"],
+    }),
+
     approveSubmission: builder.mutation< SubmissionActionResponse, { releaseId: string; payload?: ApproveSubmissionPayload } >({
       query: ({ releaseId, payload }) => ({
         url: `/distribution/submissions/${releaseId}/approve`,
@@ -136,6 +144,7 @@ export const {
   useApproveSubmissionMutation,
   useDeclineSubmissionMutation,
   useDeactivateClientMutation,
+  useActivateClientMutation,
   useCreateClientMutation,
 } = distributionApi;
 export default distributionApi;
