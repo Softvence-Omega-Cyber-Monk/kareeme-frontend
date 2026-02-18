@@ -3,7 +3,7 @@ import { FaAngleLeft, FaUserCircle, FaPlay, FaPause } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
+// import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
 import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
@@ -268,10 +268,10 @@ const DistributationDetails = () => {
             </div>
           </div>
           <div>
-            <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
+            {/* <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
               <MdOutlineMessage />
               Message Artist
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
