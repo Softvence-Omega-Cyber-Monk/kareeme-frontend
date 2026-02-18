@@ -101,7 +101,7 @@ const distributionApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: payload,
       }),
-      invalidatesTags: ["Submissions"],
+      invalidatesTags: ["Submissions", "Tracks"],
     }),
 
     declineSubmission: builder.mutation< SubmissionActionResponse, { releaseId: string; payload: DeclineSubmissionPayload } >({
@@ -110,7 +110,7 @@ const distributionApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: payload,
       }),
-      invalidatesTags: ["Submissions"],
+      invalidatesTags: ["Submissions", "Tracks"],
     }),
   }),
 });

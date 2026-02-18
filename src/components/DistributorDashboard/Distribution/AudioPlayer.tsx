@@ -2,13 +2,7 @@
 import { useRef, useState, useEffect, JSX } from "react";
 import musicPlayerBackground from "@/assets/video/music_player_background.mp4";
 
-export default function AudioPlayer({
-  url,
-  title = "Audio Title",
-}: {
-  url: string;
-  title?: string;
-}): JSX.Element {
+export default function AudioPlayer({ url, title = "Audio Title", }: { url: string; title?: string; }): JSX.Element {
   const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -99,7 +93,7 @@ export default function AudioPlayer({
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-30  "
         autoPlay={false} // will play only when audio plays
       />
 
