@@ -23,6 +23,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useAppSelector } from "@/redux/hooks/redux-hook";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const SubmissionDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -84,9 +85,7 @@ const SubmissionDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-white text-lg">Loading submission details...</div>
-      </div>
+      <ComponentLoader/>
     );
   }
 

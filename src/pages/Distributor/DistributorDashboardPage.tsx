@@ -3,17 +3,14 @@ import DistributorDashboardCard from "@/components/DistributorDashboard/Distribu
 import { DistributorRecentActivity } from "@/components/DistributorDashboard/DistributorRecentActivity";
 import { useGetDashboardQuery } from "@/redux/features/distribution/distributionApi";
 import { Card } from "@/components/ui/card";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const DistributorDashboardPage = () => {
   const { data, isLoading, isError, error, refetch } = useGetDashboardQuery();
 
   if (isLoading) {
     return (
-      <div className="w-full px-4 sm:px-6 lg:px-0">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-white text-lg">Loading dashboard...</div>
-        </div>
-      </div>
+     <ComponentLoader/>
     );
   }
 

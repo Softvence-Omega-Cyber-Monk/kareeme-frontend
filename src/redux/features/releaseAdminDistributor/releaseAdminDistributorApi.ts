@@ -35,7 +35,10 @@ const releaseAdminDistributorApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetReleasesQuery,
-               useGetReleaseDetailsQuery } = releaseAdminDistributorApi;
+export const { 
+  useGetReleasesQuery,
+  useLazyGetReleasesQuery,
+  useGetReleaseDetailsQuery 
+} = releaseAdminDistributorApi;
 
 export default releaseAdminDistributorApi;

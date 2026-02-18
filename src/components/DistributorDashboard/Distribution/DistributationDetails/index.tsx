@@ -1,12 +1,17 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
-import { FaAngleLeft, FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaAngleLeft, FaUserCircle, FaPlay, FaPause } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
 // import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
+import { useState, useRef } from "react";
+import { toast } from "sonner";
+import { skipToken } from "@reduxjs/toolkit/query";
+
 /* pic */
 import Youtube from "@/assets/icons/youtube.png";
 import sportify from "@/assets/icons/sportity.png";
@@ -81,6 +86,73 @@ const platformPerformance: PlatformItem[] = [
   },
 ];
 
+const TrackItem = ({ track }: { track: TrackItemData }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <div className="mb-6 border-b border-gray-800 pb-6 last:border-0 last:pb-0">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex justify-start items-center gap-3">
+          <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
+            Track - {track.trackNumber}
+          </span>
+
+          <div>
+            <p className="text-lg font-sans">
+              {track.title || "Untitled Track"}
+            </p>
+            <p className="text-gray-400 text-sm ">ISRC: {track.isrc || "N/A"}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          {track.audioFileUrl && (
+            <>
+              <audio
+                ref={audioRef}
+                src={track.audioFileUrl}
+                onEnded={() => setIsPlaying(false)}
+              />
+              <button
+                onClick={togglePlay}
+                className="w-10 h-10 rounded-full bg-[#3A5CFF] flex items-center justify-center text-white hover:bg-[#2f4de0] transition cursor-pointer"
+              >
+                {isPlaying ? <FaPause /> : <FaPlay className="pl-0.5" />}
+              </button>
+            </>
+          )}
+          <img src={audioframe} alt="" className="h-10 opacity-50" />
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        {track.artists?.map((artist: TrackArtist, idx: number) => (
+          <div key={idx} className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+            <p className="text-sm text-gray-400">{artist.role}</p>
+            <p className="font-medium">{artist.name}</p>
+            {/* Split percentage not available in current JSON structure, but could be added if available */}
+          </div>
+        ))}
+        {(!track.artists || track.artists.length === 0) && (
+          <div className="bg-[#0F171D] rounded-lg p-4 text-center text-gray-500 italic">
+            No artists listed for this track
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const DistributationDetails = () => {
   const { releaseId } = useParams();
   const { data: submissionDetailResponse , isLoading, isError, refetch } = useGetReleaseDetailsQuery(releaseId ?? skipToken);
@@ -90,40 +162,58 @@ const DistributationDetails = () => {
   if(isError) return <DistributionError onRetry={refetch}/>
   const data = submissionDetailResponse?.data
 
-  console.log(data)
+    try {
+      await declineSubmission({
+        releaseId,
+        payload: { reason: declineReason },
+      }).unwrap();
+
+      toast.success("Release declined");
+      setIsDeclineDialogOpen(false);
+      refetch();
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Failed to decline release");
+    }
+  };
 
   return (
     <div className="space-y-4">
       <Link to="/distributor-dashboard/distribution">
         <p className="text-sm font-sans cursor-pointer hover:text-[#E5E5E5] flex items-center gap-1">
           <FaAngleLeft />
-          Back To Submissions
+          Back To Distribution
         </p>
       </Link>
 
-      <div className=" w-full text-white   mx-auto mt-6">
+      <div className=" w-full text-white mx-auto mt-6">
         <div className=" flex items-center justify-between">
           <div className="flex items-center gap-4 mb-6">
             <img
-              src={catalogphoto1}
+              src={data?.artworkFile || catalogphoto1 || audioframe}
               alt="Album Artwork"
-              className="w-[86px] h-[65px] rounded-lg"
+              className="w-[86px] h-[65px] rounded-lg object-cover"
             />
             <div className="space-y-3">
-              <h2 className="text-2xl font-bold">{data?.releaseTitle}</h2>
-              <p className="text-gray-400">{data?.primaryArtist}</p>
+              <h2 className="text-2xl font-bold">
+                {data?.releaseTitle || "Untitled"}
+              </h2>
+              <p className="text-gray-400">
+                {data?.primaryArtist || "Unknown Artist"}
+              </p>
             </div>
           </div>
           <div>
-            <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
+            {/* <Button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 p-2 cursor-pointer mt-6">
               <MdOutlineMessage />
               Message Artist
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
-      {/* PArt-2 */}
+
       <div className="space-y-6">
+        {/* Release Details Section */}
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
           <h2 className="text-2xl">Release Distribution Details</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
@@ -223,8 +313,9 @@ const DistributationDetails = () => {
 
           </div>
         </div>
-        {/* part-2 */}
-        <div className=" p-8 rounded-2xl bg-[#0B1D21] space-y-6 border border-[#2F3B40]">
+
+        {/* Split Sheet (if applicable) */}
+        <div className="p-8 rounded-2xl bg-[#0B1D21] space-y-6 border border-[#2F3B40]">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl">Split Sheet Information</h2>
             <Button className="bg-[#01D449] hover:bg-[#026322] text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-200 cursor-pointer">
@@ -233,9 +324,9 @@ const DistributationDetails = () => {
             </Button>
           </div>
           <div className=" bg-[#0D1A25] border border-[#2E3A42] p-4 rounded-2xl">
-            <div className=" flex justify-between items-center">
-              <h3>Split Sheet Code</h3>
-              <h3>Generated Date</h3>
+            <div className=" flex justify-between items-center text-gray-400 text-sm mb-2">
+              <p>Split Sheet Details</p>
+              <p>Contributors: {data?.contributors?.length || 0}</p>
             </div>
             <div className=" flex justify-between items-center">
               <h3>SS-123456</h3>
@@ -273,6 +364,13 @@ const DistributationDetails = () => {
 
 
               </div>
+            ) : (
+              <p className="text-gray-500 italic text-center py-2">
+                No contributors listed.
+              </p>
+            )}
+          </div>
+        </div>
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
@@ -305,8 +403,7 @@ const DistributationDetails = () => {
                     <p className="text-lg font-sans">Electric Nights</p>
                     <p className="text-gray-400 text-sm ">ISRC: USRC17607839</p>
                   </div>
-                </div>
-                <img src={audioframe} alt="" />
+                ))}
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
@@ -393,57 +490,118 @@ const DistributationDetails = () => {
                 </div>
               </Card>
             </div>
-          </div>
+          </Card>
+        </div>
 
-          {/* Distribution Notes */}
-          <div className="bg-[#0F2529] rounded-xl p-6 shadow-lg mt-8">
-            <h2 className="text-2xl font-sans mb-6">Distribution Notes</h2>
+        {/* Distribution Notes */}
+        <div className="bg-[#0B1D21] rounded-xl p-6 shadow-lg border border-[#2F3B40]">
+          <h2 className="text-2xl font-sans mb-6">Distribution Notes</h2>
 
-            {/* Note */}
+          {data?.additionalDetails && (
             <div className="bg-[#171719] rounded-lg p-4 mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <FaUserCircle className="text-3xl text-gray-300" />
                 <div>
-                  <p className="font-semibold">Gemini Chachi</p>
-                  <p className="text-sm text-gray-400">Artist</p>
+                  <p className="font-semibold">{data.submittedBy?.name}</p>
+                  <p className="text-sm text-gray-400">Review Note</p>
                 </div>
               </div>
               <p className="text-gray-300 text-sm mb-3">
-                Lorem ipsum dolor sit amet consectetur. Bibendum vitae quisque
-                eu lectus lacus volutpat. Tempor cursus non tristique aliquam
-                feugiat nunc.
+                {data.additionalDetails}
               </p>
-              <p className="text-xs text-gray-500">March 15, 2024 at 2:30 PM</p>
             </div>
+          )}
 
-            {/* Input */}
-            <textarea
-              placeholder="Write your message..."
-              className="w-full h-[194px] px-4 py-3 rounded-[15px] border border-[rgba(226,232,240,0.54)] 
-  bg-[rgba(24,39,107,0.30)] text-white placeholder-gray-300 
-  text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500 
-  resize-none shadow-sm backdrop-blur-sm transition-all duration-200"
-            />
+          <textarea
+            placeholder="Write your message..."
+            className="w-full h-[194px] px-4 py-3 rounded-[15px] border border-[rgba(226,232,240,0.54)]
+            bg-[rgba(24,39,107,0.30)] text-white placeholder-gray-300
+            text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500
+            resize-none shadow-sm backdrop-blur-sm transition-all duration-200"
+          />
 
-            <div className="flex justify-end">
-              <button className="flex w-[228px] h-[48px] px-3 justify-center items-center gap-2 rounded-[15px] border border-[#E2E8F04D] bg-[#3A5CFF] text-white hover:bg-[#2f4de0] transition cursor-pointer">
-                Add Note
-              </button>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-4 mt-8">
-            <button className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition flex items-center justify-start gap-2 cursor-pointer">
-              <RxCrossCircled />
-              Decline
-            </button>
-            <button className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer">
-              Accept
+          <div className="flex justify-end">
+            <button className="flex w-[228px] h-[48px] px-3 justify-center items-center gap-2 rounded-[15px] border border-[#E2E8F04D] bg-[#3A5CFF] text-white hover:bg-[#2f4de0] transition cursor-pointer">
+              Add Note
             </button>
           </div>
         </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-4 mt-8 pb-10">
+          <Button
+            variant="outline"
+            className="border-gray-600 text-white hover:bg-gray-800"
+            onClick={() => navigate(-1)}
+          >
+            Go Back
+          </Button>
+
+          {data?.status === "Draft" || data?.status === "Pending" || data?.status === "Pending Review" ? (
+            <>
+              <Button
+                onClick={() => setIsDeclineDialogOpen(true)}
+                disabled={isApproving || isDeclining}
+                className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition flex items-center justify-start gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <RxCrossCircled />
+                {isDeclining ? "Declining..." : "Decline"}
+              </Button>
+              <Button
+                onClick={handleApprove}
+                disabled={isApproving || isDeclining}
+                className="bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaCheck />
+                {isApproving ? "Approving..." : "Accept"}
+              </Button>
+            </>
+          ) : (
+            <div className="text-gray-400 italic self-center">
+              Action already taken: {data?.status}
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Decline Dialog */}
+      <Dialog open={isDeclineDialogOpen} onOpenChange={setIsDeclineDialogOpen}>
+        <DialogContent className="bg-[#0B1D21] border border-[#2F3B40] text-white">
+          <DialogHeader>
+            <DialogTitle>Decline Release</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Please provide a reason for declining this distribution request.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Textarea
+              placeholder="Enter reason for declining..."
+              value={declineReason}
+              onChange={(e) => setDeclineReason(e.target.value)}
+              className="min-h-[120px] bg-[#17171A] border-[#696B6F] text-white"
+            />
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsDeclineDialogOpen(false);
+                setDeclineReason("");
+              }}
+              className="border-[#696B6F] text-white hover:bg-[#2a3441]"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDecline}
+              disabled={!declineReason.trim() || isDeclining}
+              className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isDeclining ? "Declining..." : "Confirm Decline"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -69,7 +69,7 @@ const DiostributorSidebar: React.FC<SidebarProps> = ({
       style={{ boxShadow: "3px 4px 42.3px 0px #0000001A" }}
     >
       {/* Logo */}
-      <Link to="/client-dashboard/dashboard">
+      <Link to="/distributor-dashboard/dashboard">
         <div className="flex items-center justify-center p-2 sm:p-3 border-b border-[#212C64] mt-1">
           <img
             src={logo}
