@@ -3,8 +3,8 @@ import { FaAngleLeft, FaUserCircle, FaPlay, FaPause } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-// import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
-import audioframe from "@/assets/photo/audioframe.png";
+import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
+// import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
@@ -21,29 +21,12 @@ import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
-
-import {
-  useGetSubmissionDetailsQuery,
-  useApproveSubmissionMutation,
-  useDeclineSubmissionMutation,
-} from "@/redux/features/distribution/distributionApi";
-import {
-  TrackItemData,
-  ContributorItem,
-  TrackArtist
-} from "@/redux/features/distribution/distribution.type";
+// import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+import { useGetReleaseDetailsQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
+import { skipToken } from "@reduxjs/toolkit/query";
 import DistributionDetailsLoading from "./Loading";
 import DistributionError from "./Error";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { MdOutlineFileDownload } from "react-icons/md";
+import AudioPlayer from "../AudioPlayer";
 
 interface PlatformItem {
   name: string;
@@ -172,60 +155,12 @@ const TrackItem = ({ track }: { track: TrackItemData }) => {
 
 const DistributationDetails = () => {
   const { releaseId } = useParams();
-  const navigate = useNavigate();
+  const { data: submissionDetailResponse , isLoading, isError, refetch } = useGetReleaseDetailsQuery(releaseId ?? skipToken);
 
-  const [isDeclineDialogOpen, setIsDeclineDialogOpen] = useState(false);
-  const [declineReason, setDeclineReason] = useState("");
 
-  const {
-    data: submissionDetailResponse,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
-
-  const [approveSubmission, { isLoading: isApproving }] =
-    useApproveSubmissionMutation();
-  const [declineSubmission, { isLoading: isDeclining }] =
-    useDeclineSubmissionMutation();
-
-  if (isLoading) return <DistributionDetailsLoading />;
-  if (isError) return <DistributionError onRetry={refetch} />;
-
-  const data = submissionDetailResponse?.data;
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return "N/A";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const handleApprove = async () => {
-    if (!releaseId) return;
-
-    try {
-      await approveSubmission({
-        releaseId,
-        payload: { note: "Approved for distribution" },
-      }).unwrap();
-
-      toast.success("Release approved successfully!");
-      refetch();
-    } catch (err: unknown) {
-      const error = err as { data?: { message?: string } };
-      toast.error(error?.data?.message || "Failed to approve release");
-    }
-  };
-
-  const handleDecline = async () => {
-    if (!releaseId || !declineReason.trim()) {
-      toast.error("Please provide a reason for declining");
-      return;
-    }
+  if(isLoading) return <DistributionDetailsLoading/>
+  if(isError) return <DistributionError onRetry={refetch}/>
+  const data = submissionDetailResponse?.data
 
     try {
       await declineSubmission({
@@ -281,75 +216,101 @@ const DistributationDetails = () => {
         {/* Release Details Section */}
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
           <h2 className="text-2xl">Release Distribution Details</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          
             <div className="space-y-4">
-              <div className="flex justify-start gap-2">
+              {/* Label Name */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Label Name:</p>
+                <p className="font-medium">
+                  {data?.labelName ?? "N/A"}
+                </p>
+              </div>
+
+
+              {/* Catalogue Number */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Catalogue Number:</p>
+                <p className="font-medium">
+                  {data?.catalogueNumber ?? "N/A"}
+                </p>
+              </div>
+
+
+              {/* Release Type */}
+              <div className="flex gap-2">
                 <p className="text-[#E5E5E5]">Release Type:</p>
-                <p className="font-medium">{data?.typeOfRelease || "N/A"}</p>
+                <p className="font-medium">
+                  {data?.typeOfRelease}
+                </p>
               </div>
-              <div className="flex justify-start gap-2">
+
+
+              {/* Release Date */}
+              <div className="flex gap-2">
                 <p className="text-[#E5E5E5]">Release Date:</p>
-                <p className="font-medium">{formatDate(data?.releaseDate)}</p>
+                <p className="font-medium">
+                  {new Date(data?.releaseDate ?? "").toLocaleDateString()}
+                </p>
               </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Genre:</p>
-                <p className="font-medium">{data?.genre || "N/A"}</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Language:</p>
-                <p className="font-medium">{data?.language || "N/A"}</p>
-              </div>
+
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Primary Artist:</p>
-                <p className="font-medium">{data?.primaryArtist || "N/A"}</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Explicit Content:</p>
+              {/* Distributor */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Distributor:</p>
                 <p className="font-medium">
-                  {data?.isExplicitContent ? "Yes" : "No"}
+                  {data?.distributor ?? "N/A"}
                 </p>
               </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Music Video:</p>
+
+
+              {/* Release Artist */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Artist:</p>
                 <p className="font-medium">
-                  {data?.hasMusicVideo ? "Yes" : "No"}
+                  {data?.primaryArtist}
                 </p>
               </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Dolby Atmos:</p>
+
+
+              {/* UPC */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">UPC:</p>
                 <p className="font-medium">
-                  {data?.hasDolbyAtmosVersion ? "Yes" : "No"}
+                  {data?.upc ?? "N/A"}
+                </p>
+              </div>
+
+            </div>
+
+            <div className="space-y-4">
+              {/* Release Title */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Title:</p>
+                <p className="font-medium">
+                  {data?.releaseTitle}
+                </p>
+              </div>
+
+              {/* C Line */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release C Line:</p>
+                <p className="font-medium">
+                  {data?.releaseCLine ?? "N/A"}
+                </p>
+              </div>
+
+              {/* P Line */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release P Line:</p>
+                <p className="font-medium">
+                  {data?.releasePLine ?? "N/A"}
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Submitted By:</p>
-                <p className="font-medium">{data?.submittedBy?.name || "N/A"}</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Submitted At:</p>
-                <p className="font-medium">{formatDate(data?.submittedAt)}</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Status:</p>
-                <p
-                  className={`font-medium ${
-                    data?.status === "Approved"
-                      ? "text-green-500"
-                      : data?.status === "Declined"
-                      ? "text-red-500"
-                      : "text-amber-500"
-                  }`}
-                >
-                  {data?.status || "Draft"}
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -367,19 +328,41 @@ const DistributationDetails = () => {
               <p>Split Sheet Details</p>
               <p>Contributors: {data?.contributors?.length || 0}</p>
             </div>
-            {data?.contributors && data.contributors.length > 0 ? (
-              <div className="space-y-2">
-                {data.contributors.map((c: ContributorItem, i: number) => (
-                  <div
-                    key={i}
-                    className="flex justify-between items-center text-white"
-                  >
-                    <span>{c.name}</span>
-                    <span className="text-green-400 font-medium">
-                      {c.share}%
-                    </span>
+            <div className=" flex justify-between items-center">
+              <h3>SS-123456</h3>
+              <h3>August 20, 2024</h3>
+            </div>
+          </div>
+        </div>
+        {/* part-3 */}
+        {/* <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
+          <h2 className="text-2xl font-sans">Track & Contributor Details </h2>
+
+
+          <hr className="text-[#044A20]" />
+        </div> */}
+        <div className="  ">
+          {/* Track & Contributor Details */}
+          <div className="bg-[#0B1D21] rounded-xl p-6 shadow-lg">
+            <h2 className="text-xl font-semibold mb-6">
+              Track & Contributor Details
+            </h2>
+
+            {/* Track 1 */}
+            {/* <div className="mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex justify-start items-center gap-3">
+                  <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
+                    Track - 1
+                  </span>
+
+                  <div>
+                    <p className="text-lg font-sans">Midnight Dreams</p>
+                    <p className="text-gray-400 text-sm ">ISRC: USRC17607839</p>
                   </div>
-                ))}
+                </div>
+
+
               </div>
             ) : (
               <p className="text-gray-500 italic text-center py-2">
@@ -389,48 +372,123 @@ const DistributationDetails = () => {
           </div>
         </div>
 
-        {/* Track & Contributor Details */}
-        <div className="bg-[#0B1D21] rounded-xl p-6 shadow-lg border border-[#2F3B40]">
-          <h2 className="text-xl font-semibold mb-6">
-            Track & Contributor Details
-          </h2>
-          {data?.tracks && data.tracks.length > 0 ? (
-            data.tracks.map((track: TrackItemData) => (
-              <TrackItem key={track.trackId} track={track} />
-            ))
-          ) : (
-            <div className="text-center py-10 text-gray-500 italic">
-              No tracks found for this release.
-            </div>
-          )}
-        </div>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+                  <p className="text-sm text-gray-400">Songwriter</p>
+                  <p className="font-medium">Sarah Johnson</p>
+                  <p className="text-green-400 text-sm">60%</p>
+                </div>
+                <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+                  <p className="text-sm text-gray-400">Producer</p>
+                  <p className="font-medium">Alex Rivera</p>
+                  <p className="text-green-400 text-sm">30%</p>
+                </div>
+                <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+                  <p className="text-sm text-gray-400">Featured Artist</p>
+                  <p className="font-medium">Mike Thompson</p>
+                  <p className="text-green-400 text-sm">10%</p>
+                </div>
+              </div>
+            </div> */}
 
-        {/* Platform Performance Section */}
-        <div className="mt-8">
-          <Card className="bg-[#0B1D21] border border-[#2F3B40]">
-            <div className="p-6 space-y-8">
-              <h2 className="text-xl font-semibold text-white mb-6">
-                Distribution Platforms:
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 ">
-                {platformPerformance.map((platform, index) => (
-                  <div key={index} className="text-center">
-                    <div
-                      className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
-                    >
-                      <img
-                        src={platform.icon}
-                        alt={platform.name}
-                        className="w-6 h-6 grayscale hover:grayscale-0 transition-all duration-300"
-                      />
-                    </div>
-                    <h3 className="text-white font-medium text-sm mb-1">
-                      {platform.name}
-                    </h3>
-                    <p className="text-slate-400 text-xs">{platform.streams}</p>
+            {/* Track 2 */}
+            {/* <div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex justify-start items-center gap-3">
+                  <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
+                    Track - 2
+                  </span>
+
+                  <div>
+                    <p className="text-lg font-sans">Electric Nights</p>
+                    <p className="text-gray-400 text-sm ">ISRC: USRC17607839</p>
                   </div>
                 ))}
               </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+                  <p className="text-sm text-gray-400">Songwriter</p>
+                  <p className="font-medium">Sarah Johnson</p>
+                  <p className="text-green-400 text-sm">60%</p>
+                </div>
+                <div className="bg-[#0F171D] rounded-lg p-4 space-y-4">
+                  <p className="text-sm text-gray-400">Producer</p>
+                  <p className="font-medium">Alex Rivera</p>
+                  <p className="text-green-400 text-sm">40%</p>
+                </div>
+              </div>
+            </div> */}
+
+
+
+
+
+
+
+
+            {data?.tracks?.map((track, ) => (
+                <div key={track.trackId} className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex justify-start items-center gap-3">
+                      <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
+                        Track - {track.trackNumber}
+                      </span>
+                      <div>
+                        <p className="text-lg font-sans">{track.title}</p>
+                        <p className="text-gray-400 text-sm">ISRC: {track.isrc}</p>
+                      </div>
+                    </div>
+                    <AudioPlayer key={track.trackId} url={track.audioFileUrl} title={""} />
+                  </div>
+
+                  <div className={`grid md:grid-cols-${track.artists.length} gap-4`}>
+                    {track.artists.map((artist) => (
+                      <div
+                        key={artist.name + artist.role}
+                        className="bg-[#0F171D] rounded-lg p-4 space-y-4"
+                      >
+                        <p className="text-sm text-gray-400">{artist.type}</p>
+                        <p className="font-medium">{artist.name}</p>
+                        <p className="text-green-400 text-sm">{artist.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+
+
+
+          </div>
+
+          {/* Image part */}
+          <div>
+            {/* Platform Performance Section */}
+            <div className="mt-[40px] bg-[#0D2223]">
+              <Card className="border border-[#c6c6c630]">
+                <div className="p-6 space-y-8">
+                  <h2 className="text-xl font-semibold text-white mb-6">
+                    Distribution Platforms:
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 ">
+                    {platformPerformance.map((platform, index) => (
+                      <div key={index} className="text-center">
+                        <div
+                          className={`w-12 h-12 ${platform.iconColor} rounded-full flex items-center justify-center mx-auto mb-3`}
+                        >
+                          <img src={platform.icon} alt="" />
+                        </div>
+                        <h3 className="text-white font-medium text-sm mb-1">
+                          {platform.name}
+                        </h3>
+                        <p className="text-slate-400 text-xs">
+                          {platform.streams}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
             </div>
           </Card>
         </div>

@@ -1,241 +1,241 @@
-export type ReleaseStatus = "Draft" | "Approved" | "Declined";
+  export type ReleaseStatus = "Draft" | "Approved" | "Declined";
+
+  export type ReleaseType =
+    | "Single"
+    | "EP"
+    | "Album"
+    | "Select release type"
+    | string; // fallback if backend sends new values
 
-export type ReleaseType =
-  | "Single"
-  | "EP"
-  | "Album"
-  | "Select release type"
-  | string; // fallback if backend sends new values
+  export interface Release {
+    releaseId: string;
+    releaseTitle: string;
+    typeOfRelease: ReleaseType;
+    releaseDate: string; // ISO date (YYYY-MM-DD)
+    status: ReleaseStatus;
+
+    artistName?: string; // optional (not always present)
+    upc?: string;        // optional (not always present)
+
+    createdAt: string;   // ISO datetime
+  }
+
+  export interface ReleasesMetadata {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }
+
+  export interface ReleasesResponse {
+    success: boolean;
+    message: string;
+    data: Release[];
+    metadata: ReleasesMetadata;
+  }
+
+  export interface ReleaseDetailResponse {
+    success: boolean;
+    message: string;
+    data: ReleaseDetails;
+  }
+
+  export interface ReleaseDetails {
+    releaseId: string;
+
+    releaseTitle: string;
+    typeOfRelease: string;
+    primaryArtist: string;
+
+    releaseDate: string;
+    preOrderDate: string | null;
+
+    genre: string | null;
+    language: string | null;
+
+    isExplicitContent: boolean | null;
+    hasExternalRightsHolder: boolean | null;
+    hasDolbyAtmosVersion: boolean | null;
+    hasExtendedMixForDjStores: boolean | null;
+    hasArtistOnSpotify: boolean | null;
+    hasMusicVideo: boolean | null;
+
+    additionalDetails: string | null;
 
-export interface Release {
-  releaseId: string;
-  releaseTitle: string;
-  typeOfRelease: ReleaseType;
-  releaseDate: string; // ISO date (YYYY-MM-DD)
-  status: ReleaseStatus;
+    status: string;
 
-  artistName?: string; // optional (not always present)
-  upc?: string;        // optional (not always present)
+    labelName: string;
+    distributor: string;
 
-  createdAt: string;   // ISO datetime
-}
+    upc: string;
+    catalogueNumber: string;
 
-export interface ReleasesMetadata {
-  page: number;
-  limit: number;
-  total: number;
-  totalPage: number;
-}
+    releasePLine: string;
+    releaseCLine: string;
 
-export interface ReleasesResponse {
-  success: boolean;
-  message: string;
-  data: Release[];
-  metadata: ReleasesMetadata;
-}
+    tracks: Track[];
 
-export interface ReleaseDetailResponse {
-  success: boolean;
-  message: string;
-  data: ReleaseDetails;
-}
+    artists: ReleaseArtistInfo[];
 
-export interface ReleaseDetails {
-  releaseId: string;
+    contributors: Contributor[];
 
-  releaseTitle: string;
-  typeOfRelease: string;
-  primaryArtist: string;
+    territories: string[];
 
-  releaseDate: string;
-  preOrderDate: string | null;
+    submittedBy: SubmittedBy;
 
-  genre: string | null;
-  language: string | null;
+    submittedAt: string;
+  }
 
-  isExplicitContent: boolean | null;
-  hasExternalRightsHolder: boolean | null;
-  hasDolbyAtmosVersion: boolean | null;
-  hasExtendedMixForDjStores: boolean | null;
-  hasArtistOnSpotify: boolean | null;
-  hasMusicVideo: boolean | null;
+  export interface ReleaseArtistInfo {
+    artistId: string;
+    name: string;
+    role: string;
+    email?: string;
+  }
 
-  additionalDetails: string | null;
+  export interface ReleaseArtist {
+    releaseId: string;
+    artistId: string;
+    role: string;
+    artist: Artist;
+  }
 
-  status: string;
+  export interface ReleaseTerritory {
+    releaseId: string;
+    territory: string;
+  }
 
-  labelName: string;
-  distributor: string;
+  export interface Track {
+    trackId: string;
+    trackNumber: number;
+    title: string;
+    isrc: string;
+    genre: string;
+    mix: string;
+    language: string;
+    explicit: boolean;
+    publisher: string;
+    originalReleaseDate: string;
+    territoryRestrictions: string;
+    audioFileUrl: string;
+    artists: TrackArtistInfo[];
+  }
 
-  upc: string;
-  catalogueNumber: string;
+  export interface TrackArtistInfo {
+    name: string;
+    type: string;
+    role: string;
+  }
 
-  releasePLine: string;
-  releaseCLine: string;
 
-  tracks: Track[];
+  export interface TrackArtist {
+    trackArtistId: string;
+    trackId: string;
 
-  artists: unknown[];
+    artistId: string | null;
 
-  contributors: Contributor[];
+    clientName: string;
+    nameOnTrack: string;
 
-  territories: unknown[];
+    artistType: string;
+    songwriterRole: string;
 
-  submittedBy: SubmittedBy;
+    realName: string;
 
-  submittedAt: string;
-}
+    masterSplit: string;
 
+    spotifyId: string | null;
+    appleId: string | null;
 
-export interface ReleaseArtist {
-  releaseId: string;
-  artistId: string;
-  role: string;
-  artist: Artist;
-}
+    createdAt: string;
+    updatedAt: string;
 
-export interface ReleaseTerritory {
-  releaseId: string;
-  territory: string;
-}
+    artist: Artist | null;
+  }
 
-export interface Track {
-  trackId: string;
+  export interface Artist {
+    artistId: string;
+    userId: string;
 
-  trackNumber: number;
+    name: string;
+    email: string;
+    phone: string;
 
-  title: string;
+    stageName: string;
 
-  isrc: string;
+    bio: string | null;
+    imageUrl: string | null;
 
-  genre: string;
+    spotifyId: string | null;
+    appleId: string | null;
 
-  mix: string;
+    createdAt: string;
+    updatedAt: string;
+  }
 
-  language: string;
+  export interface SplitSheetAgreement {
+    splitId: string;
+    releaseId: string;
 
-  explicit: boolean;
+    songTitle: string;
+    isrc: string;
 
-  publisher: string;
+    releaseDate: string;
 
-  originalReleaseDate: string;
+    recordLabelId: string | null;
 
-  territoryRestrictions: string;
+    createdAt: string;
+    updatedAt: string;
 
-  audioFileUrl: string;
+    contributors: Contributor[];
 
-  artists: unknown[];
-}
+    recordLabel: unknown | null;
+  }
 
+  export interface Contributor {
+    contributorId: string;
+    splitId: string;
 
-export interface TrackArtist {
-  trackArtistId: string;
-  trackId: string;
+    fullName: string | null;
+    contribution: string | null;
 
-  artistId: string | null;
+    email: string | null;
+    phone: string;
 
-  clientName: string;
-  nameOnTrack: string;
+    address: string;
 
-  artistType: string;
-  songwriterRole: string;
+    publisher: string | null;
+    affiliation: string;
 
-  realName: string;
+    ipiCaeNumber: string;
 
-  masterSplit: string;
+    percentageSplit: string;
 
-  spotifyId: string | null;
-  appleId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  }
 
-  createdAt: string;
-  updatedAt: string;
+  export interface SubmittedBy {
+    id: string;
+    name: string;
+    email: string;
+  }
 
-  artist: Artist | null;
-}
+  export interface BackCatalogue {
+    catalogueId: string;
+    releaseId: string;
 
-export interface Artist {
-  artistId: string;
-  userId: string;
+    labelName: string | null;
+    distributor: string | null;
+    upc: string | null;
+    catalogueNumber: string | null;
+    releaseArtist: string | null;
+    releaseTitle: string | null;
+    releaseType: string | null;
+    releaseDate: string | null;
+    releasePLine: string | null;
+    releaseCLine: string | null;
 
-  name: string;
-  email: string;
-  phone: string;
-
-  stageName: string;
-
-  bio: string | null;
-  imageUrl: string | null;
-
-  spotifyId: string | null;
-  appleId: string | null;
-
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface SplitSheetAgreement {
-  splitId: string;
-  releaseId: string;
-
-  songTitle: string;
-  isrc: string;
-
-  releaseDate: string;
-
-  recordLabelId: string | null;
-
-  createdAt: string;
-  updatedAt: string;
-
-  contributors: Contributor[];
-
-  recordLabel: unknown | null;
-}
-
-export interface Contributor {
-  contributorId: string;
-  splitId: string;
-
-  fullName: string | null;
-  contribution: string | null;
-
-  email: string | null;
-  phone: string;
-
-  address: string;
-
-  publisher: string | null;
-  affiliation: string;
-
-  ipiCaeNumber: string;
-
-  percentageSplit: string;
-
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface SubmittedBy {
-  id: string;
-  name: string;
-  email: string;
-}
-
-export interface BackCatalogue {
-  catalogueId: string;
-  releaseId: string;
-
-  labelName: string | null;
-  distributor: string | null;
-  upc: string | null;
-  catalogueNumber: string | null;
-  releaseArtist: string | null;
-  releaseTitle: string | null;
-  releaseType: string | null;
-  releaseDate: string | null;
-  releasePLine: string | null;
-  releaseCLine: string | null;
-
-  createdAt: string;
-  updatedAt: string;
-}
+    createdAt: string;
+    updatedAt: string;
+  }

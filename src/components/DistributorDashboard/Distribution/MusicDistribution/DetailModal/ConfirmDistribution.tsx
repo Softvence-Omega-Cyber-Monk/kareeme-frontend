@@ -1,6 +1,8 @@
 import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 // import audioframe1 from "@/assets/photo/audioframe1.svg";
 // import audioframe2 from "@/assets/photo/audioframe2.svg";
+// import videoPlayerBackground from "@/assets/photo/music_player_background.mp4"
+
 import tenancy from "@/assets/icons/tenancy.svg";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
@@ -27,7 +29,7 @@ import { useApproveSubmissionMutation, useDeclineSubmissionMutation } from "@/re
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useMemo } from "react";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "../../AudioPlayer";
 import { createPortal } from "react-dom";
 
 interface PlatformItem {
@@ -155,13 +157,9 @@ const ConfirmDistribution = () => {
             releaseId,
             payload: { reason: declineReason },
           }).unwrap();
-      
           toast.success("Distribution declined successfully");
-      
           setDeclineReason("");
-      
           setShowDeclineModal(false);
-      
           closeModal();
       
         } catch {
@@ -176,27 +174,14 @@ const ConfirmDistribution = () => {
       //         data: releaseData, 
       //         isLoading: isReleaseLoading, isError: isReleaseError, error } = useGetSingleReleaseQuery(releaseId ?? skipToken);
 
-        // console.log(data)
 
-        // const tracks = data?.data?.tracks
-        // console.log(tracks)
-        // console.log(releaseData)
-        // console.log(error)
-        // console.log(isReleaseError)
         const release = useMemo(() => data?.data, [data]);
-
         const tracks = useMemo(() => release?.tracks || [], [release]);
-
 
       if (isError ) return <DistributionError/> 
       if (isLoading 
         // || isReleaseLoading
       ) return <ConfirmDistributionSkeleton/> 
-
-
-      // const release = useMemo(() => data?.data, [data]);
-
-      // const tracks = useMemo(() => release?.tracks || [], [release]);
 
       const renderDeclineModal = () => {
 
@@ -246,12 +231,11 @@ const ConfirmDistribution = () => {
         );
       
       };
-      
-
-
-
+    
       console.log(release)
       const track = release?.tracks?.[0];
+
+      console.log(tracks)
   return (
     <div>
       <div className=" w-full text-white mx-auto">
@@ -357,31 +341,8 @@ const ConfirmDistribution = () => {
               <div className="flex flex-col sm:flex-row gap-2 cursor-pointer audio-player">
                 {/* <img src={audioframe1} alt="" className="w-full sm:w-auto" />
                 <img src={audioframe2} alt="" className="w-full sm:w-auto" /> */}
-                  {/* {
-                    tracks.map((track)=> 
-                      <div key={track.trackId} className="audio-player w-full">
-                        {
-                            track?.audioFileUrl ? (
-                              <audio
-                                controls
-                                preload="metadata"
-                                className="w-full outline-none"
-                              >
 
-                              <source src={track.audioFileUrl} type="audio/mpeg" />
-
-
-                              Your browser does not support audio.
-                            </audio>
-                          ) : (
-                            <p className="text-gray-400 text-sm">No audio available</p>
-                          )}
-                      </div>
-                    )
-                  } */}
-                {
-                  tracks.map(track => ( <AudioPlayer key={track.trackId} url={track.audioFileUrl} /> ))
-                }
+                { tracks.map(track => ( <AudioPlayer key={track.trackId} url={track.audioFileUrl} title=""/> )) }
               </div>
             </div>
 
@@ -606,46 +567,6 @@ const ConfirmDistribution = () => {
           </button>
         </div>
       </div>
-      {/* {showDeclineModal && (
-
-<div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50">
-
-  <div className="bg-[#0B1D21] p-6 rounded-lg w-[400px] space-y-4 shadow-lg">
-
-    <h2 className="text-xl font-bold text-white">
-      Decline Reason
-    </h2>
-
-    <textarea
-      value={declineReason}
-      onChange={(e) => setDeclineReason(e.target.value)}
-      placeholder="Enter decline reason..."
-      className="w-full p-2 rounded bg-[#0F2435] text-white border border-gray-600"
-    />
-
-    <div className="flex justify-end gap-3">
-
-      <button
-        onClick={() => setShowDeclineModal(false)}
-        className="bg-gray-400 px-4 py-2 rounded"
-      >
-        Cancel
-      </button>
-
-      <button
-        onClick={handleDecline}
-        className="bg-red-500 px-4 py-2 rounded text-white"
-      >
-        Submit
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-)} */}
       {renderDeclineModal()}
     </div>
   );
