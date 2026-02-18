@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RiDownloadLine } from "react-icons/ri";
-import { TbBrandDatabricks } from "react-icons/tb";
+// import { TbBrandDatabricks } from "react-icons/tb";
 import useSearchFilterData from "@/contexts/searchFilter/hooks/useSearchFilterData";
 import useSearchFilterDispatch from "@/contexts/searchFilter/hooks/useSearchFilterDispatch";
 import { useLazyGetReleasesQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
@@ -244,7 +244,7 @@ const DistributionHeader = () => {
         {/* Right: Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center xl:items-end gap-4 w-full lg:w-auto">
           {/* Distribution Button */}
-          <button
+          {/* <button
             // onClick={() =>
             //   navigate(
             //     "/distributor-dashboard/distribution/confirm-distribution"
@@ -257,7 +257,7 @@ const DistributionHeader = () => {
             <span className="text-sm md:text-base font-sans font-medium">
               Bulk Distribution
             </span>
-          </button>
+          </button> */}
 
           {/* Export Button */}
           <button 
