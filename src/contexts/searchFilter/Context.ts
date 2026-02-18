@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { createContext } from 'react';
 export interface ContextType {
                                      data: {
@@ -12,7 +12,7 @@ export interface ContextType {
                                                                 | null;
                                 
                                                       status:
-                                                                | ""
+                                                                | "all"
                                                                 | "active"
                                                                 | "inactive";
                                            };
@@ -27,7 +27,7 @@ export interface ContextType {
                                                                         | "this_year"
                                                                         | null            ) => void;
                                                    setStatus: ( value:
-                                                                        | ""
+                                                                        | "all"
                                                                         | "active"
                                                                         | "inactive"      ) => void;
                                 

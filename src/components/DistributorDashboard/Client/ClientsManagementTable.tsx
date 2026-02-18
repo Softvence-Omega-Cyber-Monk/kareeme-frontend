@@ -7,13 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import download from "@/assets/icons/photo.png";
 import {
   useGetClientsQuery,
   useDeactivateClientMutation,
+  useActivateClientMutation,
 } from "@/redux/features/distribution/distributionApi";
-import { useState } from "react";
+import TableSkeleton, { ColumnConfig } from "@/components/Reuseable/TableSkeleton";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
@@ -26,48 +28,104 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
-const ClientsManagementTable = () => {
-  const navigate = useNavigate();
+interface ClientsManagementTableProps {
+  searchQuery: string;
+  roleFilter: string;
+}
+
+function StatusBadge({ isActive }: { isActive: boolean }) {
+  return (
+    <div
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+        isActive
+          ? "bg-green-500/10 text-green-400 border-green-500/20"
+          : "bg-red-500/10 text-red-400 border-red-500/20"
+      }`}
+    >
+      {isActive ? "Active" : "Inactive"}
+    </div>
+  );
+}
+
+const clientTableColumns: ColumnConfig[] = [
+  { header: "Title", type: "avatar-text", width: "250px" },
+  { header: "Contact", type: "text" },
+  { header: "Role", type: "text" },
+  { header: "Status", type: "badge" },
+  { header: "Release", type: "text", align: "center" },
+  { header: "Action", type: "action", align: "center" },
+];
+
+const ClientsManagementTable = ({
+  searchQuery,
+  roleFilter,
+}: ClientsManagementTableProps) => {
+  // const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
-  const [isDeactivateDialogOpen, setIsDeactivateDialogOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState<{
     id: string;
     name: string;
+    isActive: boolean;
   } | null>(null);
 
   const { data, isLoading, isError } = useGetClientsQuery({ page, limit });
   const [deactivateClient, { isLoading: isDeactivating }] =
     useDeactivateClientMutation();
+  const [activateClient, { isLoading: isActivating }] =
+    useActivateClientMutation();
 
-  const goToDetails = (id: string) => {
-    navigate(`/distributor-dashboard/clients/${id}`);
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
+    
+    return data.data.filter((client: any) => {
+      const matchesSearch = 
+        client.user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        client.user.email.toLowerCase().includes(searchQuery.toLowerCase());
+        
+      const matchesRole = roleFilter === "all" || client.role === roleFilter;
+      
+      return matchesSearch && matchesRole;
+    });
+  }, [data?.data, searchQuery, roleFilter]);
+
+  // const goToDetails = (id: string) => {
+  //   navigate(`/distributor-dashboard/clients/${id}`);
+  // };
+
+  const handleToggleActiveClick = (
+    clientId: string,
+    clientName: string,
+    isActive: boolean
+  ) => {
+    setSelectedClient({ id: clientId, name: clientName, isActive });
+    setIsConfirmDialogOpen(true);
   };
 
-  const handleDeactivateClick = (clientId: string, clientName: string) => {
-    setSelectedClient({ id: clientId, name: clientName });
-    setIsDeactivateDialogOpen(true);
-  };
-
-  const handleDeactivateConfirm = async () => {
+  const handleConfirmAction = async () => {
     if (!selectedClient) return;
 
     try {
-      await deactivateClient(selectedClient.id).unwrap();
-      toast.success(`Client ${selectedClient.name} deactivated successfully`);
-      setIsDeactivateDialogOpen(false);
+      if (selectedClient.isActive) {
+        await deactivateClient(selectedClient.id).unwrap();
+        toast.success(`Client ${selectedClient.name} deactivated successfully`);
+      } else {
+        await activateClient(selectedClient.id).unwrap();
+        toast.success(`Client ${selectedClient.name} activated successfully`);
+      }
+      setIsConfirmDialogOpen(false);
       setSelectedClient(null);
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to deactivate client");
+      toast.error(
+        error?.data?.message ||
+          `Failed to ${selectedClient.isActive ? "deactivate" : "activate"} client`
+      );
     }
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-white text-lg">Loading clients...</div>
-      </div>
-    );
+    return <TableSkeleton columns={clientTableColumns} />;
   }
 
   if (isError) {
@@ -84,19 +142,20 @@ const ClientsManagementTable = () => {
         <Table className="w-full min-w-[1000px]">
           {/* Table Header */}
           <TableHeader>
-            <TableRow className="text-[#BDBDBD] text-sm md:text-base">
+            <TableRow className="text-[#BDBDBD] text-sm md:text-base border-b border-gray-800">
               <TableHead className="w-[250px] px-4 py-2">Title</TableHead>
               <TableHead className="px-4 py-2">Contact</TableHead>
               <TableHead className="px-4 py-2">Role</TableHead>
-              <TableHead className="px-4 py-2">Release</TableHead>
+              <TableHead className="px-4 py-2">Status</TableHead>
+              <TableHead className="px-4 py-2 text-center">Release</TableHead>
               <TableHead className="text-center px-4 py-2">Action</TableHead>
             </TableRow>
           </TableHeader>
 
           {/* Table Body */}
           <TableBody className="text-white">
-            {data?.data && data.data.length > 0 ? (
-              data.data.map((client) => (
+            {filteredData.length > 0 ? (
+              filteredData.map((client: any) => (
                 <TableRow
                   key={client.clientId}
                   className="border-b border-gray-800 hover:bg-[#0E141B]"
@@ -133,36 +192,51 @@ const ClientsManagementTable = () => {
                     {client.role}
                   </TableCell>
 
+                  {/* Status */}
+                  <TableCell className="px-4 py-3">
+                    <StatusBadge isActive={client.isActive} />
+                  </TableCell>
+
                   {/* Release */}
-                  <TableCell className="px-4 py-3 text-sm md:text-base text-gray-400">
+                  <TableCell className="px-4 py-3 text-center text-sm md:text-base text-gray-400">
                     {client.totalReleases}
                   </TableCell>
 
                   {/* Actions */}
-                  <TableCell className="px-4 py-3 text-center flex items-center justify-center">
-                    {/* Edit Button */}
-                    <button
-                      className="flex items-center gap-1 px-3 py-1 text-[#3A5CFF] text-sm md:text-base hover:text-[#2f4de0] transition"
-                      onClick={() => goToDetails(client.clientId)}
-                    >
-                      Edit
-                    </button>
+                  <TableCell className="px-4 py-3 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      {/* Edit Button */}
+                        {/* <button
+                          className="px-3 py-1 text-[#3A5CFF] text-sm md:text-base hover:text-[#2f4de0] transition"
+                          onClick={() => goToDetails(client.clientId)}
+                        >
+                          Edit
+                        </button> */}
 
-                    {/* Deactivate Button */}
-                    <button
-                      className="flex items-center gap-1 px-3 py-1 text-red-700 text-sm md:text-base hover:text-red-600 transition"
-                      onClick={() =>
-                        handleDeactivateClick(client.clientId, client.user.name)
-                      }
-                    >
-                      Deactivate
-                    </button>
+                      {/* Toggle Active Button */}
+                      <button
+                        className={`px-3 py-1 text-sm md:text-base transition ${
+                          client.isActive
+                            ? "text-red-500 hover:text-red-400 cursor-pointer"
+                            : "text-green-500 hover:text-green-400"
+                        }`}
+                        onClick={() =>
+                          handleToggleActiveClick(
+                            client.clientId,
+                            client.user.name,
+                            client.isActive
+                          )
+                        }
+                      >
+                        {client.isActive ? "Deactivate" : "Activate"}
+                      </button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-12 text-gray-400">
+                <TableCell colSpan={6} className="text-center py-12 text-gray-400">
                   No clients found
                 </TableCell>
               </TableRow>
@@ -196,16 +270,16 @@ const ClientsManagementTable = () => {
         </div>
       )}
 
-      {/* Deactivate Confirmation Dialog */}
-      <Dialog
-        open={isDeactivateDialogOpen}
-        onOpenChange={setIsDeactivateDialogOpen}
-      >
+      {/* Confirmation Dialog */}
+      <Dialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
         <DialogContent className="bg-[#0B1D21] border border-[#2F3B40] text-white">
           <DialogHeader>
-            <DialogTitle>Deactivate Client</DialogTitle>
+            <DialogTitle>
+              {selectedClient?.isActive ? "Deactivate" : "Activate"} Client
+            </DialogTitle>
             <DialogDescription className="text-gray-400">
-              Are you sure you want to deactivate{" "}
+              Are you sure you want to{" "}
+              {selectedClient?.isActive ? "deactivate" : "activate"}{" "}
               <span className="font-semibold text-white">
                 {selectedClient?.name}
               </span>
@@ -216,7 +290,7 @@ const ClientsManagementTable = () => {
             <Button
               variant="outline"
               onClick={() => {
-                setIsDeactivateDialogOpen(false);
+                setIsConfirmDialogOpen(false);
                 setSelectedClient(null);
               }}
               className="border-[#696B6F] text-white hover:bg-[#2a3441]"
@@ -224,11 +298,19 @@ const ClientsManagementTable = () => {
               Cancel
             </Button>
             <Button
-              onClick={handleDeactivateConfirm}
-              disabled={isDeactivating}
-              className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleConfirmAction}
+              disabled={isDeactivating || isActivating}
+              className={`${
+                selectedClient?.isActive
+                  ? "bg-red-600 hover:bg-red-700"
+                  : "bg-green-600 hover:bg-green-700"
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
-              {isDeactivating ? "Deactivating..." : "Deactivate Client"}
+              {isDeactivating || isActivating
+                ? "Processing..."
+                : selectedClient?.isActive
+                ? "Deactivate Client"
+                : "Activate Client"}
             </Button>
           </DialogFooter>
         </DialogContent>

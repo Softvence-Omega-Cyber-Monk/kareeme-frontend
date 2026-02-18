@@ -15,6 +15,7 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { useGetSubmissionsQuery } from "@/redux/features/distribution/distributionApi";
 import { useState, useMemo } from "react";
 import { SubmissionsQueryParams } from "@/redux/features/distribution/distribution.type";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 function StatusBadge({ status }: { status: string }) {
   const getStatusStyles = (status: string) => {
@@ -92,11 +93,7 @@ export function DistributorSubmissionTable() {
 
   if (isLoading) {
     return (
-      <div className="w-full mt-[48px]">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-white text-lg">Loading submissions...</div>
-        </div>
-      </div>
+      <ComponentLoader/>
     );
   }
 

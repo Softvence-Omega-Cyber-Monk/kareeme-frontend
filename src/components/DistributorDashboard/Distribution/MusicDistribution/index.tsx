@@ -1,111 +1,131 @@
-import { useState, useRef } from "react";
-import type { JSX } from "react";
-// import cancel from "@/assets/icons/cancel.svg";
-// import ConfirmDistribution from "../ConfirmDistribution";
-import { useGetSubmissionsQuery, useLazyGetMoreSubmissionsQuery } from "@/redux/features/distribution/distributionApi";
+import { useState, useRef, useMemo } from "react";
+import { useGetReleasesQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
 import MusicDistributionError from "./Error";
 import MusicDistributionLoadingSkeleton from "./Loading";
 import PendingItem from "./Item/PendingItem";
 import DistributedItem from "./Item/DistributedItem";
 import FailedItem from "./Item/FailedItem";
-import SubmissionItemType from "./Item/Type";
 import useControlData from "@/contexts/control/hooks/useControlData";
+import useSearchFilterData from "@/contexts/searchFilter/hooks/useSearchFilterData";
 import DetailModal from "./DetailModal";
-// import useSearchFilterData from "@/contexts/searchFilter/hooks/useSearchFilterData";
+import type { JSX } from "react";
+import type { Release, ReleasesMetadata } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributor.type"
 
-
-export default function MusicDistribution(): JSX.Element{
-  // const { data: { isSubmissionsModalOpen } } = useControl()
-  const { isOpen: isConfirmDistributionModalOpen } = useControlData()
-  // const { closeModal } = useControlDispatch()
-
+export default function MusicDistribution(): JSX.Element {
+  const { isOpen: isConfirmDistributionModalOpen } = useControlData();
+  const { searchText, releaseRange, status } = useSearchFilterData();
   const containerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [status]= useState(null)
 
-  // const { searchText, releaseRange, 
-  //           // status 
-  //         } = useSearchFilterData()
-  const { data, isLoading, isError } = useGetSubmissionsQuery({ page: 1, limit: 10,
-                                                          ...(status ? { status } : {}), });
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError, isFetching } = useGetReleasesQuery({
+    page,
+    limit: 10,
+  });
 
-  const [getMoreSubmissions, {  isLoading: isMoreDataLoading, 
-                                  isError: isMoreDataError  }] = useLazyGetMoreSubmissionsQuery();
-  
-  const metaData = data?.metadata
-  // console.log(isDetailModalOpen)
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
 
+    return data.data.filter((item: Release) => {
+      // 1. Search text filter
+      const matchesSearch = searchText
+        ? item.releaseTitle?.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.artistName?.toLowerCase().includes(searchText.toLowerCase())
+        : true;
+
+      // 2. Status filter
+      let matchesStatus = true;
+      if (status && status !== "all") {
+        if (status === "active") {
+          matchesStatus = item.status === "Approved";
+        } else if (status === "inactive") {
+          matchesStatus = item.status === "Draft" || item.status === "Declined";
+        }
+      }
+
+      // 3. Date range filter
+      let matchesDate = true;
+      if (releaseRange) {
+        const itemDate = new Date(item.createdAt);
+        const now = new Date();
+        const diffInMs = now.getTime() - itemDate.getTime();
+        const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+        switch (releaseRange) {
+          case "last_7_days":
+            matchesDate = diffInDays <= 7;
+            break;
+          case "last_30_days":
+            matchesDate = diffInDays <= 30;
+            break;
+          case "last_6_months":
+            matchesDate = diffInDays <= 180;
+            break;
+          case "last_1_year":
+            matchesDate = diffInDays <= 365;
+            break;
+          case "this_year":
+            matchesDate = itemDate.getFullYear() === now.getFullYear();
+            break;
+          default:
+            matchesDate = true;
+        }
+      }
+
+      return matchesSearch && matchesStatus && matchesDate;
+    });
+  }, [data?.data, searchText, status, releaseRange]);
+
+  const metaData: ReleasesMetadata | undefined = data?.metadata;
   const handleLoadMore = () => {
-    if (data?.metadata) {
-      getMoreSubmissions({ page: data?.metadata?.page || 0 + 1 , limit: 10 });
+    if (!metaData) return;
+    if (metaData?.page < metaData?.totalPage) {
+      setPage((prev) => prev + 1);
     }
   };
 
-if(isError) return <MusicDistributionError/>
+  if (isError) return <MusicDistributionError />;
 
   return (
     <div>
-      <div ref={containerRef} className="text-white space-y-6"  >
-         {
-            Array.isArray(data?.data) && data?.data?.length > 0 && 
-              data?.data?.map((item, index) => {
-              switch (item.status) {
-                case "Approved":
-                  return <DistributedItem key={index} data={item as SubmissionItemType} />;
+      <div ref={containerRef} className="text-white space-y-6">
+        {filteredData.length > 0 ? (
+          filteredData.map((item: Release) => {
+            switch (item.status) {
+              case "Approved":
+                return <DistributedItem key={item.releaseId} data={item} />;
 
-                case "Pending Review":
-                  return <PendingItem key={index} data={item as SubmissionItemType} />;
+              case "Draft":
+                return <PendingItem key={item.releaseId} data={item} />;
 
-                case "Declined":
-                  return <FailedItem key={index} data={item as SubmissionItemType} />;
+              case "Declined":
+                return <FailedItem key={item.releaseId} data={item} />;
 
-                default:
-                  return null;
-              }
-            })
-          }
-        { (isLoading || isMoreDataLoading) && <MusicDistributionLoadingSkeleton/> }
-        { isMoreDataError && <MusicDistributionError/>}
-        {
-          // (submissions?.metadata.page < submissions?.metadata?.totalPage)
-          metaData && (metaData.page < metaData.totalPage)
-            && <div className="mx-auto w-fit">
-                  <button onClick={handleLoadMore} className=" text-blue-500 hover:underline cursor-pointer text-center font-medium">
-                      Load More → 
-                  </button>
+              default:
+                return null;
+            }
+          })
+        ) : !isLoading && !isFetching ? (
+          <div className="text-center py-10 text-gray-400">
+            No releases found matching your criteria.
           </div>
-        }
-        
+        ) : null}
+        {(isLoading || isFetching) && <MusicDistributionLoadingSkeleton />}
+        {isError && <MusicDistributionError />}
+        {metaData && metaData.page < metaData.totalPage && (
+          <div className="mx-auto w-fit">
+            <button
+              onClick={handleLoadMore}
+              className=" text-blue-500 hover:underline cursor-pointer text-center font-medium"
+            >
+              Load More →
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ConfirmDistribution modal */}
-      {
-        // openDetails 
-      
-        isConfirmDistributionModalOpen  && <DetailModal/>
-        
-      //   && (
-      //     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px] bg-opacity-50 flex justify-center items-start overflow-auto py-10">
-      //       <div className="bg-[#0B1D21] rounded-2xl w-full max-w-6xl p-6 relative">
-      //         {/* <button
-      //           onClick={() => setOpenDetails(false)}
-      //           className="absolute top-4 right-4 text-white text-xl font-bold cursor-pointer"
-      //         >
-      //           ✕
-      //         </button> */}
-      //         <img
-      //           src={cancel}
-      //           alt=""
-      //           onClick={closeModal}
-      //           className="absolute top-4 right-4 text-white text-xl font-bold cursor-pointer"
-      //         />
-      //         <ConfirmDistribution />
-      //       </div>
-      //     </div>
-      // )
-      
-      }
+      {isConfirmDistributionModalOpen && <DetailModal />}
     </div>
   );
-};
+}
 
