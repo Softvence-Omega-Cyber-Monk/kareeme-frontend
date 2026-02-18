@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/hooks/baseApi";
-import { ReleasesResponse, ReleaseDetailResponse } from "./releaseAdminDistributor.type";
+import { ReleasesResponse, ReleaseDetailResponse, AdminReleaseDetailResponse } from "./releaseAdminDistributor.type";
 
 const releaseAdminDistributorApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,6 +25,13 @@ const releaseAdminDistributorApi = baseApi.injectEndpoints({
       },
     
     }),
+    getAdminReleaseById: builder.query<AdminReleaseDetailResponse, string>({
+      query: (id) => ({
+        url: `/admin/releases/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Releases"],
+    }),
     getReleaseDetails: builder.query<ReleaseDetailResponse, string>({
       query: (releaseId) => ({
         url: `/distribution/submissions/${releaseId}`,
@@ -35,7 +42,11 @@ const releaseAdminDistributorApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetReleasesQuery,
-               useGetReleaseDetailsQuery } = releaseAdminDistributorApi;
+export const { 
+  useGetReleasesQuery,
+  useLazyGetReleasesQuery,
+  useGetReleaseDetailsQuery,
+  useGetAdminReleaseByIdQuery
+} = releaseAdminDistributorApi;
 
 export default releaseAdminDistributorApi;

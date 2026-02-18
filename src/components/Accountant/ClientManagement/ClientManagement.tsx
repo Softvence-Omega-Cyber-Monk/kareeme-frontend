@@ -10,6 +10,7 @@ import {
 // import { useNavigate } from "react-router-dom";   
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { useGetClientFinancialsQuery } from "@/redux/features/accountant/accountantApi";
+import TableSkeleton, { ColumnConfig } from "@/components/Reuseable/TableSkeleton";
 
 const ClientManagement = () => {
   const [page, setPage] = useState(1);
@@ -31,11 +32,17 @@ const ClientManagement = () => {
     });
   };
 
+  const columnConfig: ColumnConfig[] = [
+    { header: "Client Name", type: "text" },
+    { header: "Email", type: "text" },
+    { header: "Total Earning", type: "text" },
+    { header: "Pending Payment", type: "text" },
+    { header: "Last Payment Date", type: "text" },
+  ];
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-white text-xl">Loading client data...</div>
-      </div>
+      <TableSkeleton columns={columnConfig}/>
     );
   }
 

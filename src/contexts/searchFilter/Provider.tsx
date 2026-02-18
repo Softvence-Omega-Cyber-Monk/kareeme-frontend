@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useState } from 'react';
 import type { JSX, ReactNode } from 'react';
 import Context from './Context';
@@ -16,12 +16,12 @@ export default function Provider({ children }: ProviderProps): JSX.Element {
                                                     | "last_1_year"
                                                     | "this_year"
                                                     | null >(null);
-  const [status, setStatus] = useState<"" | "active" | "inactive">("");
+  const [status, setStatus] = useState<"all" | "active" | "inactive">("all");
 
   function resetFilters(): void  {
                                   setSearchText("");
                                   setReleaseRange(null);
-                                  setStatus("");
+                                  setStatus("all");
                                  }
 
   const contextValue: ContextType = {

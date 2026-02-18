@@ -1,6 +1,8 @@
 import user from "@/assets/photo/user.svg";
+import { Link } from "react-router-dom";
 
 interface ArtistCardProps {
+  id: string;
   name: string;
   genre: string;
   totalRelease: number;
@@ -12,6 +14,7 @@ interface ArtistCardProps {
 }
 
 const DistributorBackCatalogCard = ({
+  id,
   name,
   genre,
   totalRelease,
@@ -55,9 +58,12 @@ const DistributorBackCatalogCard = ({
         <p className="text-base">{dateRange}</p>
       </div>
     </div>
-    <button className="w-full mt-4 px-6 py-2 text-base bg-blue-500 rounded-lg hover:bg-blue-400 transition cursor-pointer">
+    <Link
+      to={`view/${id}`}
+      className="block w-full text-center mt-4 px-6 py-2 text-base bg-blue-500 rounded-lg hover:bg-blue-400 transition cursor-pointer"
+    >
       View Details
-    </button>
+    </Link>
   </div>
 );
 

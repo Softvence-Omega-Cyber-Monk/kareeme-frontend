@@ -16,6 +16,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import TableSkeleton, { ColumnConfig } from "@/components/Reuseable/TableSkeleton";
 
 const ReleasesTable = () => {
   const [page, setPage] = useState(1);
@@ -97,6 +98,14 @@ const ReleasesTable = () => {
 
     exportToExcel(dataToExport, `Releases_Export_${new Date().toISOString().split('T')[0]}.xlsx`, exportHeaders);
   };
+
+  const releasesTableColumns: ColumnConfig[] = [
+    { header: "Title", type: "avatar-text", width: "250px" },
+    { header: "Type", type: "text" },
+    { header: "Release Date", type: "text" },
+    { header: "Status", type: "badge" },
+    { header: "Action", type: "text", align: "right" },
+  ];
 
   return (
     <div className="space-y-9">
@@ -181,9 +190,7 @@ const ReleasesTable = () => {
       <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-4  gap-5">
         <div className="xl:col-span-4 w-full">
           {isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3A5CFF]"></div>
-            </div>
+            <TableSkeleton columns={releasesTableColumns} />
           ) : (
             <>
               <TableHere releases={paginatedData} />

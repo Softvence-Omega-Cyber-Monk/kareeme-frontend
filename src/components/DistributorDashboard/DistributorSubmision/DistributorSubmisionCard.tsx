@@ -10,22 +10,22 @@ const DistributorSubmisionCard = () => {
     {
       icon: total,
       label: "Total Submissions",
-      value: "247",
+      value: "2",
     },
     {
       icon: pending,
       label: "Pending Review",
-      value: "34",
+      value: "0",
     },
     {
       icon: approved,
       label: "Approved",
-      value: "189",
+      value: "2",
     },
     {
       icon: decline,
       label: "Declined",
-      value: "24",
+      value: "0",
     },
   ];
 

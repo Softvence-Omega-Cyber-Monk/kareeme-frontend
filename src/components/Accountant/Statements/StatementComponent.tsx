@@ -2,6 +2,7 @@ import { useState } from "react";
 // import { FiUpload } from "react-icons/fi";
 import StatementTable from "./StatemenmtTable";
 import { useGetYearlyStatementsQuery } from "@/redux/features/accountant/accountantApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const StatementComponent = () => {
   const [selectedYear, setSelectedYear] = useState("2025"); // default year
@@ -9,9 +10,7 @@ const StatementComponent = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-white text-xl">Loading statements...</div>
-      </div>
+     <ComponentLoader/>
     );
   }
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface RecentActivityItem {
   title: string;
   subtitle: string;
@@ -76,11 +76,6 @@ export interface DeclineSubmissionPayload {
   reason: string;
 }
 
-export interface SubmissionActionResponse {
-  success: boolean;
-  message: string;
-}
-
 // Submission details types
 export interface SubmissionDetailsArtist {
   artistId: string;
@@ -93,6 +88,35 @@ export interface SubmissionDetailsSubmittedBy {
   id: string;
   name: string;
   email: string;
+}
+
+export interface TrackArtist {
+  artistId: string;
+  name: string;
+  role: string;
+}
+
+export interface TrackItemData {
+  trackId: string;
+  trackNumber: number;
+  title: string;
+  isrc: string;
+  genre: string;
+  mix: string;
+  language: string;
+  explicit: boolean;
+  publisher: string;
+  originalReleaseDate: string;
+  territoryRestrictions: string;
+  audioFileUrl: string;
+  artists: TrackArtist[];
+}
+
+export interface ContributorItem {
+  id: string;
+  name: string;
+  role: string;
+  share: number;
 }
 
 export interface SubmissionDetailsData {
@@ -112,9 +136,10 @@ export interface SubmissionDetailsData {
   hasMusicVideo: boolean;
   additionalDetails: string | null;
   status: string;
-  tracks: any[]; // Can be typed more specifically if needed
+  artworkFile?: string; // Added if it exists in response
+  tracks: TrackItemData[];
   artists: SubmissionDetailsArtist[];
-  contributors: any[]; // Can be typed more specifically if needed
+  contributors: ContributorItem[];
   territories: string[];
   submittedBy: SubmissionDetailsSubmittedBy;
   submittedAt: string;
@@ -169,8 +194,20 @@ export interface ClientsQueryParams {
 export interface ClientActionResponse {
   success: boolean;
   message: string;
+}// Create Client types
+export interface CreateClientPayload {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
 }
 
+export interface CreateClientResponse {
+  success: boolean;
+  message: string;
+}
 
-
-
+export interface SubmissionActionResponse {
+  success: boolean;
+  message: string;
+}

@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import dashboard from "@/assets/icons/dashboard.svg";
+// import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import userIcon from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
@@ -37,7 +37,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const [isOpendashboard, setIsOpendashboard] = useState(false);
+  // const [isOpendashboard, setIsOpendashboard] = useState(false);
   const { handleLogout } = useLogout();
    const user = useAppSelector(selectCurrentUser);
 
@@ -81,8 +81,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
             <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
           </Button> */}
 
-          <div className="relative">
-            {/* Dashboard Icon */}
+          {/* <div className="relative">
             <Button
               onClick={() => setIsOpendashboard(!isOpendashboard)}
               variant="ghost"
@@ -92,7 +91,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
             </Button>
 
-            {/* Dropdown */}
+           
             {isOpendashboard && (
               <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                 <ul className="py-2 text-sm text-white">
@@ -115,7 +114,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                 </ul>
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Notification Icon with Badge */}
           <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
@@ -209,16 +208,18 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
-                <RiFileList3Fill className="text-white" />
-                <span className="font-medium">Terms & Conditions</span>
-              </DropdownMenuItem>
-
+              <Link to="/terms-and-conditions">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <RiFileList3Fill className="text-white" />
+                  <span className="font-medium">Terms & Conditions</span>
+                </DropdownMenuItem>
+              </Link>
+             <Link to="/privacy-policy">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <MdPrivacyTip className="text-white" />
                 <span className="font-medium">Privacy Policy</span>
               </DropdownMenuItem>
-
+             </Link>
               <DropdownMenuItem
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
                 onClick={handleLogout}
