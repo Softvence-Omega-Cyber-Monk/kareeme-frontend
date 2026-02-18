@@ -41,6 +41,7 @@ const BackCatalogGrid: React.FC<BackCatalogGridProps> = ({
       {data.map((item, index) => (
         <BackCatalogCard
           key={item._id || item.id || index}
+          id={item.id || item._id || ""}
           name={item.releaseTitle}
           genre={item.genre || "N/A"}
           totalRelease={1} // Each card represents one release in back catalog usually

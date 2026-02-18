@@ -2,6 +2,7 @@ import catalogphoto1 from "@/assets/photo/catalogphoto1.png";
 import MiniTitle from "../../Shared/MiniTitle";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetSingleBackCatalogueQuery } from "@/redux/features/newRelease/newReleaseApi";
+import { useGetSingleAdminBackCatalogueQuery } from "@/redux/features/admin/adminApi";
 import { FaRegPlayCircle, FaAngleLeft } from "react-icons/fa";
 import { useAppSelector } from "@/redux/hooks/redux-hook";
 import { format } from "date-fns";
@@ -11,7 +12,23 @@ const CatalogDetailsData = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const role = useAppSelector((state) => state.auth.user?.role);
-  const { data: response, isLoading, isError } = useGetSingleBackCatalogueQuery(id);
+  const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "DISTRIBUTOR";
+
+  const { 
+    data: clientResponse, 
+    isLoading: isLoadingClient, 
+    isError: isErrorClient 
+  } = useGetSingleBackCatalogueQuery(id, { skip: isAdmin });
+
+  const { 
+    data: adminResponse, 
+    isLoading: isLoadingAdmin, 
+    isError: isErrorAdmin 
+  } = useGetSingleAdminBackCatalogueQuery(id, { skip: !isAdmin });
+
+  const response = isAdmin ? adminResponse : clientResponse;
+  const isLoading = isAdmin ? isLoadingAdmin : isLoadingClient;
+  const isError = isAdmin ? isErrorAdmin : isErrorClient;
 
   if (isLoading) {
     return <div className="text-white text-center p-10">Loading...</div>;
@@ -75,9 +92,11 @@ const CatalogDetailsData = () => {
         <button
           onClick={() => {
             if (role === "DISTRIBUTOR") {
-              navigate("/distributor-dashboard/catalog/back-catalog");
+              navigate("/distributor-dashboard/back-catalog");
             } else if (role === "ADMIN") {
               navigate("/admin/catalog/back-catalog");
+            } else if (role === "SUPER_ADMIN") {
+              navigate("/super-admin-dashboard/back-catalog");
             } else {
               navigate("/client-dashboard/catalog/back-catalog");
             }

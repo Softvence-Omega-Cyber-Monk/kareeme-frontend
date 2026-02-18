@@ -7,6 +7,14 @@ import {
   TeamQuery,
   UpdateTeamMemberRequest,
   GenericResponse,
+  AdminSplitSheetsResponse,
+  AdminSplitSheetsQuery,
+  AdminSingleSplitSheetResponse,
+  AdminBackCatalogueResponse,
+  AdminSingleBackCatalogueResponse,
+  AdminBackCatalogueQuery,
+  AdminReleasesResponse,
+  AdminReleasesQuery,
 } from "./admin.type";
 
 const adminApi = baseApi.injectEndpoints({
@@ -55,6 +63,44 @@ const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Team"],
     }),
+    getAdminSplitSheets: builder.query<AdminSplitSheetsResponse, AdminSplitSheetsQuery>({
+      query: (params) => ({
+        url: "/admin/split-sheets",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["SplitSheets"],
+    }),
+    getSingleAdminSplitSheet: builder.query<AdminSingleSplitSheetResponse, string>({
+      query: (id) => ({
+        url: `/admin/split-sheets/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["SplitSheets"],
+    }),
+    getAdminBackCatalogue: builder.query<AdminBackCatalogueResponse, AdminBackCatalogueQuery>({
+      query: (params) => ({
+        url: "/admin/back-catalogue",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["Releases"],
+    }),
+    getSingleAdminBackCatalogue: builder.query<AdminSingleBackCatalogueResponse, string | undefined>({
+      query: (id) => ({
+        url: `/admin/back-catalogue/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Releases"],
+    }),
+    getAdminReleases: builder.query<AdminReleasesResponse, AdminReleasesQuery>({
+      query: (params) => ({
+        url: "/admin/releases",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["Releases"],
+    }),
   }),
 });
 
@@ -65,5 +111,10 @@ export const {
   useUpdateTeamMemberMutation,
   useSuspendTeamMemberMutation,
   useDeleteTeamMemberMutation,
+  useGetAdminSplitSheetsQuery,
+  useGetSingleAdminSplitSheetQuery,
+  useGetAdminBackCatalogueQuery,
+  useGetSingleAdminBackCatalogueQuery,
+  useGetAdminReleasesQuery,
 } = adminApi;
 export default adminApi;

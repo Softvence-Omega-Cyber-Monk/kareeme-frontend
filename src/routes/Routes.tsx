@@ -206,6 +206,7 @@ const routes = createBrowserRouter([
       { path: "submissions", element: <DistributorSubmissions /> },
       { path: "submissions/:id", element: <SubmissionDetails /> },
       { path: "back-catalog", element: <DistributorBackCatalog /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       /*  */
       { path: "distribution", element: <DistributionPage /> },
       { path: "distribution/details/:releaseId", element: <DistributationDetails /> },
@@ -256,6 +257,7 @@ const routes = createBrowserRouter([
       /* Catalog */
       { path: "releases", element: <AdminRealisePage /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
+      { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "submit", element: <AdminSubmitPage /> },
       { path: "submit/:id", element: <SubmitDetails /> },
       /* team */
@@ -305,8 +307,6 @@ const routes = createBrowserRouter([
       /* Editorial Support */
       { path: "catalog/editorial-submit", element: <EditorialSupportPage /> },
       { path: "editorial-submit/:title", element: <EditorialPitchForm /> },
-      /*  */
-
       {
         path: "catalog/editorial-submit/form",
         element: <EditorialStapeComponent />,
