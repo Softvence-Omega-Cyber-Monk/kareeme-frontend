@@ -209,16 +209,18 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
-                <RiFileList3Fill className="text-white" />
-                <span className="font-medium">Terms & Conditions</span>
-              </DropdownMenuItem>
-
+              <Link to="/terms-and-conditions">
+                <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
+                  <RiFileList3Fill className="text-white" />
+                  <span className="font-medium">Terms & Conditions</span>
+                </DropdownMenuItem>
+              </Link>
+             <Link to="/privacy-policy">
               <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-linear-to-r hover:from-[#3A5CFF]/30 hover:to-[#3A5CFF]/10 transition-colors cursor-pointer">
                 <MdPrivacyTip className="text-white" />
                 <span className="font-medium">Privacy Policy</span>
               </DropdownMenuItem>
-
+             </Link>
               <DropdownMenuItem
                 className="flex items-center gap-3 px-4 py-2 rounded-3xl hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
                 onClick={handleLogout}
