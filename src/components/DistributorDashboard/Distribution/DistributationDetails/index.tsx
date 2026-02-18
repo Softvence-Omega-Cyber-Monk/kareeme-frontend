@@ -3,7 +3,7 @@ import { FaAngleLeft, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MdOutlineFileDownload, MdOutlineMessage } from "react-icons/md";
-import audioframe from "@/assets/photo/audioframe.png";
+// import audioframe from "@/assets/photo/audioframe.png";
 import { RxCrossCircled } from "react-icons/rx";
 import { Card } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
@@ -16,10 +16,12 @@ import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
-import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+// import { useGetSubmissionDetailsQuery } from "@/redux/features/distribution/distributionApi";
+import { useGetReleaseDetailsQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
 import { skipToken } from "@reduxjs/toolkit/query";
 import DistributionDetailsLoading from "./Loading";
 import DistributionError from "./Error";
+import AudioPlayer from "../AudioPlayer";
 
 interface PlatformItem {
   name: string;
@@ -81,7 +83,9 @@ const platformPerformance: PlatformItem[] = [
 
 const DistributationDetails = () => {
   const { releaseId } = useParams();
-  const { data: submissionDetailResponse , isLoading, isError, refetch } = useGetSubmissionDetailsQuery(releaseId ?? skipToken);
+  const { data: submissionDetailResponse , isLoading, isError, refetch } = useGetReleaseDetailsQuery(releaseId ?? skipToken);
+
+
   if(isLoading) return <DistributionDetailsLoading/>
   if(isError) return <DistributionError onRetry={refetch}/>
   const data = submissionDetailResponse?.data
@@ -123,62 +127,100 @@ const DistributationDetails = () => {
         <div className="gap-8 p-8 rounded-2xl bg-[#0B1D21] space-y-3 border border-[#2F3B40]">
           <h2 className="text-2xl">Release Distribution Details</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          
             <div className="space-y-4">
-              <div className="flex justify-start gap-2">
+              {/* Label Name */}
+              <div className="flex gap-2">
                 <p className="text-[#E5E5E5]">Label Name:</p>
-                <p className="font-medium">OnelsOneEnt</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Catalogue Number: </p>
-                <p className="font-medium">ONELS-OOI</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Type: </p>
-                <p className="font-medium">Single</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Date: </p>
-                <p className="font-medium">20/11/2024</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Distributor: </p>
-                <p className="font-medium">Distrokid</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Artist: </p>
-                <p className="font-medium">Gemini Chachi</p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Artwork Link: </p>
-                <p className="font-medium underline text-blue-600">
-                  View Artwork
-                </p>
-              </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">UPC: </p>
-                <p className="font-medium">797587574636</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release Title: </p>
                 <p className="font-medium">
-                  The World is Yours (feat. LeeLee Babii
+                  {data?.labelName ?? "N/A"}
                 </p>
               </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release C Link: </p>
-                <p className="font-medium">(c) 2024 OnelsOneEnt</p>
+
+
+              {/* Catalogue Number */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Catalogue Number:</p>
+                <p className="font-medium">
+                  {data?.catalogueNumber ?? "N/A"}
+                </p>
               </div>
-              <div className="flex justify-start gap-2">
-                <p className="text-[#E5E5E5]">Release P Link: </p>
-                <p className="font-medium">(P) 2024 OnelsOneEnt</p>
+
+
+              {/* Release Type */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Type:</p>
+                <p className="font-medium">
+                  {data?.typeOfRelease}
+                </p>
+              </div>
+
+
+              {/* Release Date */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Date:</p>
+                <p className="font-medium">
+                  {new Date(data?.releaseDate ?? "").toLocaleDateString()}
+                </p>
+              </div>
+
+            </div>
+
+            <div className="space-y-4">
+              {/* Distributor */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Distributor:</p>
+                <p className="font-medium">
+                  {data?.distributor ?? "N/A"}
+                </p>
+              </div>
+
+
+              {/* Release Artist */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Artist:</p>
+                <p className="font-medium">
+                  {data?.primaryArtist}
+                </p>
+              </div>
+
+
+              {/* UPC */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">UPC:</p>
+                <p className="font-medium">
+                  {data?.upc ?? "N/A"}
+                </p>
+              </div>
+
+            </div>
+
+            <div className="space-y-4">
+              {/* Release Title */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release Title:</p>
+                <p className="font-medium">
+                  {data?.releaseTitle}
+                </p>
+              </div>
+
+              {/* C Line */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release C Line:</p>
+                <p className="font-medium">
+                  {data?.releaseCLine ?? "N/A"}
+                </p>
+              </div>
+
+              {/* P Line */}
+              <div className="flex gap-2">
+                <p className="text-[#E5E5E5]">Release P Line:</p>
+                <p className="font-medium">
+                  {data?.releasePLine ?? "N/A"}
+                </p>
               </div>
             </div>
+
           </div>
         </div>
         {/* part-2 */}
@@ -216,7 +258,7 @@ const DistributationDetails = () => {
             </h2>
 
             {/* Track 1 */}
-            <div className="mb-6">
+            {/* <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex justify-start items-center gap-3">
                   <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
@@ -228,7 +270,8 @@ const DistributationDetails = () => {
                     <p className="text-gray-400 text-sm ">ISRC: USRC17607839</p>
                   </div>
                 </div>
-                <img src={audioframe} alt="" />
+
+
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
@@ -248,10 +291,10 @@ const DistributationDetails = () => {
                   <p className="text-green-400 text-sm">10%</p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Track 2 */}
-            <div>
+            {/* <div>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex justify-start items-center gap-3">
                   <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
@@ -277,7 +320,48 @@ const DistributationDetails = () => {
                   <p className="text-green-400 text-sm">40%</p>
                 </div>
               </div>
-            </div>
+            </div> */}
+
+
+
+
+
+
+
+
+            {data?.tracks?.map((track, ) => (
+                <div key={track.trackId} className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex justify-start items-center gap-3">
+                      <span className="bg-[#122939] text-white px-4 py-2 rounded-lg text-sm">
+                        Track - {track.trackNumber}
+                      </span>
+                      <div>
+                        <p className="text-lg font-sans">{track.title}</p>
+                        <p className="text-gray-400 text-sm">ISRC: {track.isrc}</p>
+                      </div>
+                    </div>
+                    <AudioPlayer key={track.trackId} url={track.audioFileUrl} title={""} />
+                  </div>
+
+                  <div className={`grid md:grid-cols-${track.artists.length} gap-4`}>
+                    {track.artists.map((artist) => (
+                      <div
+                        key={artist.name + artist.role}
+                        className="bg-[#0F171D] rounded-lg p-4 space-y-4"
+                      >
+                        <p className="text-sm text-gray-400">{artist.type}</p>
+                        <p className="font-medium">{artist.name}</p>
+                        <p className="text-green-400 text-sm">{artist.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+
+
+
           </div>
 
           {/* Image part */}
