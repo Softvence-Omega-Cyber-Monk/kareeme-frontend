@@ -13,7 +13,7 @@ import {
   useGetClientsQuery,
   useDeactivateClientMutation,
 } from "@/redux/features/distribution/distributionApi";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
@@ -26,7 +26,15 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
-const ClientsManagementTable = () => {
+interface ClientsManagementTableProps {
+  searchQuery: string;
+  roleFilter: string;
+}
+
+const ClientsManagementTable = ({
+  searchQuery,
+  roleFilter,
+}: ClientsManagementTableProps) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
@@ -39,6 +47,20 @@ const ClientsManagementTable = () => {
   const { data, isLoading, isError } = useGetClientsQuery({ page, limit });
   const [deactivateClient, { isLoading: isDeactivating }] =
     useDeactivateClientMutation();
+
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
+    
+    return data.data.filter((client: any) => {
+      const matchesSearch = 
+        client.user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        client.user.email.toLowerCase().includes(searchQuery.toLowerCase());
+        
+      const matchesRole = roleFilter === "all" || client.role === roleFilter;
+      
+      return matchesSearch && matchesRole;
+    });
+  }, [data?.data, searchQuery, roleFilter]);
 
   const goToDetails = (id: string) => {
     navigate(`/distributor-dashboard/clients/${id}`);
@@ -84,7 +106,7 @@ const ClientsManagementTable = () => {
         <Table className="w-full min-w-[1000px]">
           {/* Table Header */}
           <TableHeader>
-            <TableRow className="text-[#BDBDBD] text-sm md:text-base">
+            <TableRow className="text-[#BDBDBD] text-sm md:text-base border-b border-gray-800">
               <TableHead className="w-[250px] px-4 py-2">Title</TableHead>
               <TableHead className="px-4 py-2">Contact</TableHead>
               <TableHead className="px-4 py-2">Role</TableHead>
@@ -95,8 +117,8 @@ const ClientsManagementTable = () => {
 
           {/* Table Body */}
           <TableBody className="text-white">
-            {data?.data && data.data.length > 0 ? (
-              data.data.map((client) => (
+            {filteredData.length > 0 ? (
+              filteredData.map((client: any) => (
                 <TableRow
                   key={client.clientId}
                   className="border-b border-gray-800 hover:bg-[#0E141B]"
