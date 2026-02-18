@@ -256,6 +256,7 @@ const routes = createBrowserRouter([
       { path: "profit-loss", element: <AdminProfitLossPage /> },
       /* Catalog */
       { path: "releases", element: <AdminRealisePage /> },
+      // { path: "releases/:id", element: <AdminRealiseDetails /> },
       { path: "back-catalog", element: <AdminBackCatalogPage /> },
       { path: "back-catalog/view/:id", element: <CatalogDetailsData /> },
       { path: "submit", element: <AdminSubmitPage /> },
