@@ -207,9 +207,9 @@ export default function FailedItem({ data }: Props): JSX.Element {
             <button className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
               View Analytics
             </button>
-            <button className="w-full sm:w-auto bg-red-500 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer">
-              Fix Error
-            </button>
+              {/* <button className="w-full sm:w-auto bg-red-500 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer">
+                Fix Error
+              </button> */}
             <Link to={`/distributor-dashboard/distribution/details/${data.releaseId}`} className="w-full sm:w-auto bg-gray-700 px-5 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer">
               View Details
             </Link>
