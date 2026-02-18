@@ -12,6 +12,17 @@ import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import download from "@/assets/icons/photo.png";
+import TableSkeleton, { ColumnConfig } from "@/components/Reuseable/TableSkeleton";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
+ const releasesTableColumns: ColumnConfig[] = [
+    { header: "Title", type: "avatar-text", width: "250px" },
+    { header: "UPC", type: "text" },
+    { header: "Type", type: "text" },
+    { header: "Release Date", type: "text" },
+    { header: "Status", type: "badge" },
+    { header: "Action", type: "text", align: "right" },
+  ];
+
 
 // UPC Cell Component with Border & Copy Feature
 const UpcCell = ({ upc }: { upc: string }) => {
@@ -59,16 +70,15 @@ const AdminRealiseTable: React.FC<AdminRealiseTableProps> = ({
   isError,
 }) => {
   const navigate = useNavigate();
+  const role=useAppSelector((state)=>state.auth.user?.role)
 
   const goToDetails = (id: string) => {
-    navigate(`/client-dashboard/catalog/releases/${id}`);
+    navigate(role==="ADMIN"?`/admin/catalog/releases/${id}`:role==="SUPER_ADMIN"?`/super-admin-dashboard/releases/${id}`:`/client-dashboard/catalog/releases/${id}`);
   };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
+      <TableSkeleton columns={releasesTableColumns}/>
     );
   }
 
@@ -106,7 +116,6 @@ const AdminRealiseTable: React.FC<AdminRealiseTableProps> = ({
             <TableRow
               key={product._id || product.id}
               className="border-b border-gray-800 cursor-pointer hover:bg-[#131320]"
-              onClick={() => goToDetails(product._id || product.id)}
             >
               {/* Title & Artist */}
               <TableCell className="px-4 py-3 flex items-center gap-3">
@@ -144,7 +153,7 @@ const AdminRealiseTable: React.FC<AdminRealiseTableProps> = ({
 
               {/* Status + Arrow */}
               <TableCell className="px-4 py-3 text-right text-sm md:text-base font-medium flex items-center justify-end gap-2">
-                <span className="bg-[#0E261F] text-[#01D449] px-4 py-2 rounded-full text-xs md:text-sm font-medium">
+                <span onClick={() => goToDetails(product._id || product.id)} className="bg-[#0E261F] text-[#01D449] px-4 py-2 rounded-full text-xs md:text-sm font-medium">
                   {product.status}
                 </span>
                 <FaChevronRight className="w-4 h-4 text-[#3A5CFF]" />
