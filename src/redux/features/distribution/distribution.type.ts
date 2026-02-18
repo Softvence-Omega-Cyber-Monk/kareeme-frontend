@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface RecentActivityItem {
   title: string;
   subtitle: string;
@@ -203,6 +203,11 @@ export interface CreateClientPayload {
 }
 
 export interface CreateClientResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface SubmissionActionResponse {
   success: boolean;
   message: string;
 }
