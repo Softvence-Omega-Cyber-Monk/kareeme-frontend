@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useState } from 'react';
 import type { JSX, ReactNode } from 'react';
 import Context from './Context';
