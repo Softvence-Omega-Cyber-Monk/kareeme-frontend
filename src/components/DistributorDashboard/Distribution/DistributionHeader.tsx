@@ -14,6 +14,10 @@ import { RiDownloadLine } from "react-icons/ri";
 import { TbBrandDatabricks } from "react-icons/tb";
 import useSearchFilterData from "@/contexts/searchFilter/hooks/useSearchFilterData";
 import useSearchFilterDispatch from "@/contexts/searchFilter/hooks/useSearchFilterDispatch";
+import { useLazyGetReleasesQuery } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributorApi";
+import { exportToExcel } from "@/utils/exportUtils";
+import { toast } from "sonner";
+import { Release } from "@/redux/features/releaseAdminDistributor/releaseAdminDistributor.type";
 // import { useNavigate } from "react-router-dom";
 
 const DistributionHeader = () => {
@@ -24,11 +28,100 @@ const DistributionHeader = () => {
   //   window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top
   // };
 
-  const { searchText, releaseRange, status } = useSearchFilterData()
+  const { searchText, releaseRange, status } = useSearchFilterData();
 
-  const {     setSearchText,
-              setReleaseRange,
-              setStatus, } = useSearchFilterDispatch()
+  const { setSearchText, setReleaseRange, setStatus } =
+    useSearchFilterDispatch();
+
+  const [triggerGetReleases, { isFetching: isExporting }] = useLazyGetReleasesQuery();
+
+  const handleExport = async () => {
+    try {
+      // Fetch data for export (using a high limit to get all relevant records if possible)
+      const response = await triggerGetReleases({ page: 1, limit: 1000 }).unwrap();
+      
+      if (!response?.data || response.data.length === 0) {
+        toast.error("No data available to export");
+        return;
+      }
+
+      // Filter data based on current UI filters
+      const filteredData = response.data.filter((item: Release) => {
+        // 1. Search text filter
+        const matchesSearch = searchText
+          ? item.releaseTitle?.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.artistName?.toLowerCase().includes(searchText.toLowerCase())
+          : true;
+
+        // 2. Status filter
+        let matchesStatus = true;
+        if (status && status !== "all") {
+          if (status === "active") {
+            matchesStatus = item.status === "Approved";
+          } else if (status === "inactive") {
+            matchesStatus = item.status === "Draft" || item.status === "Declined";
+          }
+        }
+
+        // 3. Date range filter
+        let matchesDate = true;
+        if (releaseRange) {
+          const itemDate = new Date(item.createdAt);
+          const now = new Date();
+          const diffInMs = now.getTime() - itemDate.getTime();
+          const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+          switch (releaseRange) {
+            case "last_7_days":
+              matchesDate = diffInDays <= 7;
+              break;
+            case "last_30_days":
+              matchesDate = diffInDays <= 30;
+              break;
+            case "last_6_months":
+              matchesDate = diffInDays <= 180;
+              break;
+            case "last_1_year":
+              matchesDate = diffInDays <= 365;
+              break;
+            case "this_year":
+              matchesDate = itemDate.getFullYear() === now.getFullYear();
+              break;
+            default:
+              matchesDate = true;
+          }
+        }
+
+        return matchesSearch && matchesStatus && matchesDate;
+      });
+
+      if (filteredData.length === 0) {
+        toast.error("No data matches the current filters");
+        return;
+      }
+
+      // Map data for export
+      const dataToExport = filteredData.map((item: Release) => ({
+        "Release Title": item.releaseTitle,
+        "Artist Name": item.artistName || "N/A",
+        "Type": item.typeOfRelease,
+        "Release Date": item.releaseDate ? new Date(item.releaseDate).toLocaleDateString() : "N/A",
+        "Status": item.status,
+        "UPC": item.upc || "N/A",
+        "Created At": new Date(item.createdAt).toLocaleDateString(),
+      }));
+
+      exportToExcel(
+        dataToExport as any, 
+        `Distribution_List_${new Date().toISOString().split('T')[0]}.xlsx`
+      );
+      
+      toast.success("Excel file generated successfully");
+    } catch (error) {
+      console.error("Export failed:", error);
+      toast.error("Failed to export data. Please try again.");
+    }
+  };
 
   return (
     <div className="space-y-8 md:space-y-10 ">
@@ -167,11 +260,15 @@ const DistributionHeader = () => {
           </button>
 
           {/* Export Button */}
-          <button className="flex w-full sm:w-[150px] h-12 px-3 items-center gap-2 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[rgba(255,255,255,0.1)] justify-center cursor-pointer hover:bg-[rgba(255,255,255,0.2)] transition">
+          <button 
+            onClick={handleExport}
+            disabled={isExporting}
+            className="flex w-full sm:w-[150px] h-12 px-3 items-center gap-2 rounded-[15px] border border-[rgba(226,232,240,0.3)] bg-[rgba(255,255,255,0.1)] justify-center cursor-pointer hover:bg-[rgba(255,255,255,0.2)] transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <span className="text-sm md:text-base font-sans font-medium">
-              Export Data
+              {isExporting ? "Exporting..." : "Export Data"}
             </span>
-            <RiDownloadLine className="h-5 md:h-6" />
+            <RiDownloadLine className={`h-5 md:h-6 ${isExporting ? "animate-bounce" : ""}`} />
           </button>
         </div>
       </div>
