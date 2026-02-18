@@ -239,3 +239,66 @@
     createdAt: string;
     updatedAt: string;
   }
+
+  export interface AdminReleaseDetailResponse {
+    success: boolean;
+    message: string;
+    data: AdminReleaseDetails;
+  }
+
+  export interface AdminReleaseDetails {
+    releaseId: string;
+    userId: string;
+    releaseDate: string;
+    preOrderDate: string | null;
+    releaseTitle: string;
+    typeOfRelease: string;
+    genre: string;
+    language: string;
+    isExplicitContent: boolean;
+    hasExternalRightsHolder: boolean;
+    hasDolbyAtmosVersion: boolean;
+    hasExtendedMixForDjStores: boolean;
+    additionalDetails: string;
+    hasArtistOnSpotify: boolean;
+    hasMusicVideo: boolean;
+    status: string;
+    producerCredits: string;
+    lyricistCredits: string;
+    masterSplits: string;
+    copyrightHolder: string;
+    labelName: string;
+    albumLevelArtistName: string;
+    musicFileLink: string;
+    createdAt: string;
+    updatedAt: string;
+    releaseArtists: ReleaseArtist[];
+    releaseTerritories: ReleaseTerritory[];
+    tracks: AdminTrack[];
+    splitSheetAgreements: SplitSheetAgreement[];
+    backCatalogue: BackCatalogue[];
+  }
+
+  export interface AdminTrack {
+    trackId: string;
+    releaseId: string;
+    trackNumber: number;
+    trackTitle: string;
+    trackGenre: string;
+    trackMix: string;
+    explicitContent: boolean;
+    trackLanguage: string;
+    trackPublisher: string;
+    originalReleaseDate: string;
+    trackIsrc: string;
+    territoryRestrictions: string;
+    audioFileUrl: string;
+    audioFileId: string | null;
+    createdAt: string;
+    updatedAt: string;
+    trackArtists: {
+      artistId: string;
+      role: string;
+      artist: Artist;
+    }[];
+  }
