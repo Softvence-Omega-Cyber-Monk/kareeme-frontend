@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import dashboard from "@/assets/icons/dashboard.svg";
+// import dashboard from "@/assets/icons/dashboard.svg";
 import notification from "@/assets/icons/notification.svg";
 import userIcon from "@/assets/icons/user.svg";
 import { MdPrivacyTip } from "react-icons/md";
@@ -37,7 +37,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
   isSidebarOpen,
 }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const [isOpendashboard, setIsOpendashboard] = useState(false);
+  // const [isOpendashboard, setIsOpendashboard] = useState(false);
   const { handleLogout } = useLogout();
    const user = useAppSelector(selectCurrentUser);
 
@@ -81,8 +81,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
             <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
           </Button> */}
 
-          <div className="relative">
-            {/* Dashboard Icon */}
+          {/* <div className="relative">
             <Button
               onClick={() => setIsOpendashboard(!isOpendashboard)}
               variant="ghost"
@@ -92,7 +91,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
               <img src={dashboard} alt="Dashboard" className="w-5 h-5" />
             </Button>
 
-            {/* Dropdown */}
+           
             {isOpendashboard && (
               <div className="absolute right-0 mt-2 min-w-[220px] bg-[#10151C] border border-[#3A5CFF]/40 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden animate-fadeIn z-50">
                 <ul className="py-2 text-sm text-white">
@@ -115,7 +114,7 @@ const DistributorDashboardNavbar: React.FC<NavbarProps> = ({
                 </ul>
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Notification Icon with Badge */}
           <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
