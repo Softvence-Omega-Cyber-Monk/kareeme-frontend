@@ -8,10 +8,10 @@ import {
   CreateClientPayload,
   CreateClientResponse,
   DeclineSubmissionPayload,
-  SubmissionActionResponse,
   SubmissionDetailsResponse,
   SubmissionsQueryParams,
   SubmissionsResponse,
+  SubmissionActionResponse,
 } from "./distribution.type";
 
 const distributionApi = baseApi.injectEndpoints({

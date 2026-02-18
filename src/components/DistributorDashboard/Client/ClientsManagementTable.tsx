@@ -14,6 +14,7 @@ import {
   useDeactivateClientMutation,
   useActivateClientMutation,
 } from "@/redux/features/distribution/distributionApi";
+import TableSkeleton, { ColumnConfig } from "@/components/Reuseable/TableSkeleton";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -45,6 +46,15 @@ function StatusBadge({ isActive }: { isActive: boolean }) {
     </div>
   );
 }
+
+const clientTableColumns: ColumnConfig[] = [
+  { header: "Title", type: "avatar-text", width: "250px" },
+  { header: "Contact", type: "text" },
+  { header: "Role", type: "text" },
+  { header: "Status", type: "badge" },
+  { header: "Release", type: "text", align: "center" },
+  { header: "Action", type: "action", align: "center" },
+];
 
 const ClientsManagementTable = ({
   searchQuery,
@@ -115,11 +125,7 @@ const ClientsManagementTable = ({
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-white text-lg">Loading clients...</div>
-      </div>
-    );
+    return <TableSkeleton columns={clientTableColumns} />;
   }
 
   if (isError) {

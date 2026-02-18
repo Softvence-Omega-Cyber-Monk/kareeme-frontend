@@ -8,7 +8,7 @@ import audio from "@/assets/icons/audio.png";
 import deser from "@/assets/icons/deezer.png";
 import tidal from "@/assets/icons/tidal.png";
 import heart from "@/assets/icons/heart2.png";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { FaCalendarAlt, FaCheck, FaUser } from "react-icons/fa";
 // import { IoMdMusicalNote } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ export default function DistributedItem({ data }: Props): JSX.Element {
           <div className="flex justify-between items-center">
             <div className="flex justify-start gap-2">
               <div className="flex items-center gap-3 cursor-pointer">
-                <Checkbox id={data.releaseId}  />
+                {/* <Checkbox id={data.releaseId}  /> */}
               </div>
               <h2 className="text-2xl font-sans">{data.releaseTitle}</h2>
             </div>

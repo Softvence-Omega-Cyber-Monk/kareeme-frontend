@@ -30,9 +30,9 @@ export default function FailedItem({ data }: Props): JSX.Element {
               </div>
               <h2 className="text-2xl font-sans">Electric Nights</h2>
             </div>
-            <p className="text-[#D31301] bg-[#231D1F] px-3 py-1 rounded-lg font-medium w-fit">
+            {/* <p className="text-[#D31301] bg-[#231D1F] px-3 py-1 rounded-lg font-medium w-fit">
               Failed
-            </p>
+            </p> */}
           </div>
           <div>
             {/* Platforms */}
@@ -207,9 +207,9 @@ export default function FailedItem({ data }: Props): JSX.Element {
             <button className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer">
               View Analytics
             </button>
-            <button className="w-full sm:w-auto bg-red-500 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer">
-              Fix Error
-            </button>
+              {/* <button className="w-full sm:w-auto bg-red-500 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer">
+                Fix Error
+              </button> */}
             <Link to={`/distributor-dashboard/distribution/details/${data.releaseId}`} className="w-full sm:w-auto bg-gray-700 px-5 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer">
               View Details
             </Link>
