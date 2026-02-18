@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import download from "@/assets/icons/photo.png";
 import {
   useGetClientsQuery,
@@ -50,7 +50,7 @@ const ClientsManagementTable = ({
   searchQuery,
   roleFilter,
 }: ClientsManagementTableProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
@@ -80,9 +80,9 @@ const ClientsManagementTable = ({
     });
   }, [data?.data, searchQuery, roleFilter]);
 
-  const goToDetails = (id: string) => {
-    navigate(`/distributor-dashboard/clients/${id}`);
-  };
+  // const goToDetails = (id: string) => {
+  //   navigate(`/distributor-dashboard/clients/${id}`);
+  // };
 
   const handleToggleActiveClick = (
     clientId: string,
@@ -200,18 +200,18 @@ const ClientsManagementTable = ({
                   <TableCell className="px-4 py-3 text-center">
                     <div className="flex items-center justify-center gap-2">
                       {/* Edit Button */}
-                      <button
-                        className="px-3 py-1 text-[#3A5CFF] text-sm md:text-base hover:text-[#2f4de0] transition"
-                        onClick={() => goToDetails(client.clientId)}
-                      >
-                        Edit
-                      </button>
+                        {/* <button
+                          className="px-3 py-1 text-[#3A5CFF] text-sm md:text-base hover:text-[#2f4de0] transition"
+                          onClick={() => goToDetails(client.clientId)}
+                        >
+                          Edit
+                        </button> */}
 
                       {/* Toggle Active Button */}
                       <button
                         className={`px-3 py-1 text-sm md:text-base transition ${
                           client.isActive
-                            ? "text-red-500 hover:text-red-400"
+                            ? "text-red-500 hover:text-red-400 cursor-pointer"
                             : "text-green-500 hover:text-green-400"
                         }`}
                         onClick={() =>
