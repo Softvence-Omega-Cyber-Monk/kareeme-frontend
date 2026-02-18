@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 // import { useNavigate } from "react-router-dom";
 import download from "@/assets/icons/photo.png";
 import {
@@ -45,6 +46,58 @@ function StatusBadge({ isActive }: { isActive: boolean }) {
     </div>
   );
 }
+
+const ClientTableSkeleton = () => {
+  return (
+    <div className="space-y-4">
+      <div className="overflow-x-auto">
+        <Table className="w-full min-w-[1000px]">
+          <TableHeader>
+            <TableRow className="text-[#BDBDBD] text-sm md:text-base border-b border-gray-800">
+              <TableHead className="w-[250px] px-4 py-2">Title</TableHead>
+              <TableHead className="px-4 py-2">Contact</TableHead>
+              <TableHead className="px-4 py-2">Role</TableHead>
+              <TableHead className="px-4 py-2">Status</TableHead>
+              <TableHead className="px-4 py-2 text-center">Release</TableHead>
+              <TableHead className="text-center px-4 py-2">Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {[...Array(5)].map((_, i) => (
+              <TableRow key={i} className="border-b border-gray-800">
+                <TableCell className="px-4 py-3 flex items-center gap-3">
+                  <Skeleton className="h-8 w-8 rounded-full bg-gray-800" />
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="h-4 w-32 bg-gray-800" />
+                    <Skeleton className="h-3 w-20 bg-gray-800" />
+                  </div>
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="h-4 w-40 bg-gray-800" />
+                    <Skeleton className="h-3 w-24 bg-gray-800" />
+                  </div>
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <Skeleton className="h-4 w-20 bg-gray-800" />
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <Skeleton className="h-6 w-16 rounded-full bg-gray-800" />
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <Skeleton className="h-4 w-8 mx-auto bg-gray-800" />
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <Skeleton className="h-8 w-24 mx-auto bg-gray-800" />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+};
 
 const ClientsManagementTable = ({
   searchQuery,
@@ -115,11 +168,7 @@ const ClientsManagementTable = ({
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-white text-lg">Loading clients...</div>
-      </div>
-    );
+    return <ClientTableSkeleton />;
   }
 
   if (isError) {

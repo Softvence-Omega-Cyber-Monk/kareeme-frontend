@@ -2,6 +2,7 @@ import { useState } from "react";
 import BackCatalog from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/BackCatalog";
 import DistributorBackCatalogGrid from "@/components/DistributorDashboard/DistributorDashboardBackCatalog/DistributorBackCatalogGrid";
 import { useGetAdminBackCatalogueQuery } from "@/redux/features/admin/adminApi";
+import ComponentLoader from "@/components/Reuseable/ComponentLoader";
 
 const DistributorBackCatalog = () => {
   const [search, setSearch] = useState("");
@@ -23,7 +24,9 @@ const DistributorBackCatalog = () => {
     const matchesFilter = filter && filter !== "all" ? item.releaseType === filter : true;
     return matchesSearch && matchesFilter;
   });
-
+if(isLoading){
+  return <ComponentLoader/>
+}
   return (
     <div className="space-y-10">
       <BackCatalog 
