@@ -6,6 +6,7 @@ import { useGetAllSplitSheetsQuery } from "@/redux/features/newRelease/newReleas
 import { useGetAdminSplitSheetsQuery } from "@/redux/features/admin/adminApi";
 import { useAppSelector } from "@/redux/hooks/redux-hook";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import CardSkeleton from "@/components/Reuseable/CardSkeleton";
 
 const SplitSheetGrid = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,11 +46,7 @@ const SplitSheetGrid = () => {
   }, [response?.data, searchTerm]);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-48">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3A5CFF]"></div>
-      </div>
-    );
+    return <CardSkeleton count={limit} />;
   }
 
   if (isError) {
