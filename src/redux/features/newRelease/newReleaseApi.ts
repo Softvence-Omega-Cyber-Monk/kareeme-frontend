@@ -50,6 +50,38 @@ const newReleaseApi = baseApi.injectEndpoints({
             }),
             providesTags: ["Releases"]
         }),
+        getMoreReleases: builder.query ({
+            query: ({ page = 1, limit = 10 }) => ({
+              url: "/releases",
+              method: "GET",
+              params: { page, limit },
+            }),
+            providesTags: ["Releases"],
+          
+            // ***************************************
+            // ** redux Pessimistic Cache Update    **
+            // ** update getAllReleases Cache data  **
+            // ***************************************
+            async onQueryStarted(params, { dispatch, queryFulfilled }) {
+              try {
+                const { data: newData } = await queryFulfilled;
+          
+                dispatch(
+                    newReleaseApi.util.updateQueryData(
+                    "getAllReleases",
+                    { page: 1, limit: params.limit }, // always update first page cache
+                    (draft) => {
+                      draft.data.push(...newData.data);
+                      draft.metadata = newData.metadata;
+                    }
+                  )
+                );
+          
+              } catch (err) {
+                console.error(err);
+              }
+            },
+          }),
         getSingleRelease: builder.query({
             query: (releaseId) => ({
                 url: `/releases/${releaseId}`,
@@ -129,6 +161,7 @@ export const {
     useCreateSplitSheetMutation,
     useUploadTrackAudioMutation,
     useGetAllReleasesQuery,
+    useLazyGetMoreReleasesQuery,
     useGetSingleReleaseQuery,
     useCreateBackCatalogueMutation,
     useUpdateBackCatalogueMutation,
