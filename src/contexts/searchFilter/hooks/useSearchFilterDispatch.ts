@@ -9,7 +9,7 @@ type ReleaseRange =
                     | null;
 
 type Status =
-              | ""
+              | "all"
               | "active"
               | "inactive";
 
