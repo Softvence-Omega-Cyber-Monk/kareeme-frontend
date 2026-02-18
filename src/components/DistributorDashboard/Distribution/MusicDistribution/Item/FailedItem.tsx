@@ -30,9 +30,9 @@ export default function FailedItem({ data }: Props): JSX.Element {
               </div>
               <h2 className="text-2xl font-sans">Electric Nights</h2>
             </div>
-            <p className="text-[#D31301] bg-[#231D1F] px-3 py-1 rounded-lg font-medium w-fit">
+            {/* <p className="text-[#D31301] bg-[#231D1F] px-3 py-1 rounded-lg font-medium w-fit">
               Failed
-            </p>
+            </p> */}
           </div>
           <div>
             {/* Platforms */}
