@@ -93,7 +93,7 @@ const ClientSidebar: React.FC<SidebarProps> = ({
             className="w-6 h-11 md:w-16 rounded-full"
           />
           <p className="text-[#F2F2F2] font-montserrat text-[20px] font-semibold leading-[120%] ml-2">
-            LABEL BRIDGE
+            OnelsOneEnt
           </p>
         </div>
       </Link>
